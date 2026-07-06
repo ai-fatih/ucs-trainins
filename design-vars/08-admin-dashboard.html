@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админ-панель — rkeeper Training</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .stat-card { text-align:center; padding:20px; }
+    .stat-value { font-size:32px; font-weight:700; color:var(--primary); }
+    .stat-label { font-size:13px; color:var(--gray-500); margin-top:4px; }
+    .stat-trend { font-size:12px; margin-top:4px; }
+    .stat-trend.up { color:var(--success); }
+    .stat-trend.down { color:var(--danger); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-logo">rkeeper <span>Training</span> <span class="badge badge-warning" style="font-size:11px;">Admin</span></div>
+      <div class="header-nav">
+        <a href="08-admin-dashboard.html" class="active">Дашборд</a>
+        <a href="08-admin-schedule.html">Расписание</a>
+        <a href="03-services/services.html">Услуги</a>
+        <a href="05-my-bookings.html">Записи</a>
+      </div>
+      <div class="header-user">
+        <span style="font-size:14px;color:var(--gray-600);">Администратор</span>
+        <div class="avatar" style="background:var(--warning-light);color:var(--warning);">А</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-title">Дашборд отдела консультации</div>
+    <div class="section-subtitle">Оперативная статистика за сегодня, 3 июля 2026</div>
+
+    <div class="grid-4">
+      <div class="card stat-card">
+        <div class="stat-value">12</div>
+        <div class="stat-label">Консультаций сегодня</div>
+        <div class="stat-trend up">↑ 2 с прошлой недели</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value">3</div>
+        <div class="stat-label">Специалиста онлайн</div>
+        <div class="stat-trend" style="color:var(--success);">◉ Все доступны</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value">4.85</div>
+        <div class="stat-label">Средняя оценка</div>
+        <div class="stat-trend up">↑ За месяц: 4.72</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value">45</div>
+        <div class="stat-label">Записей на неделе</div>
+        <div class="stat-trend up">↑ 8.3% к прошлой</div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:24px;">
+      <div class="card">
+        <div class="card-header"><h3>Загрузка специалистов</h3></div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div>
+            <div class="flex justify-between mb-8">
+              <span style="font-size:14px;">Иван Петров</span>
+              <span style="font-size:14px;font-weight:600;">80%</span>
+            </div>
+            <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden;">
+              <div style="height:100%;width:80%;background:var(--success);border-radius:4px;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-8">
+              <span style="font-size:14px;">Мария Соколова</span>
+              <span style="font-size:14px;font-weight:600;">95%</span>
+            </div>
+            <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden;">
+              <div style="height:100%;width:95%;background:var(--warning);border-radius:4px;"></div>
+            </div>
+            <div style="font-size:12px;color:var(--warning);margin-top:4px;">⚠ Высокая загрузка</div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-8">
+              <span style="font-size:14px;">Алексей Кузнецов</span>
+              <span style="font-size:14px;font-weight:600;">45%</span>
+            </div>
+            <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden;">
+              <div style="height:100%;width:45%;background:var(--gray-400);border-radius:4px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h3>Статусы записей</h3></div>
+        <div class="flex flex-col gap-12">
+          <div class="flex justify-between">
+            <span>✅ Завершено</span>
+            <span class="font-bold" style="color:var(--success);">38</span>
+          </div>
+          <div class="flex justify-between">
+            <span>🔄 Предстоит</span>
+            <span class="font-bold" style="color:var(--info);">12</span>
+          </div>
+          <div class="flex justify-between">
+            <span>❌ Отменено</span>
+            <span class="font-bold">5</span>
+          </div>
+          <div class="flex justify-between">
+            <span>⚠ No-show</span>
+            <span class="font-bold" style="color:var(--danger);">2</span>
+          </div>
+          <div class="flex justify-between">
+            <span>⏳ В листе ожидания</span>
+            <span class="font-bold">3</span>
+          </div>
+          <hr style="border:none;border-top:1px solid var(--gray-200);margin:8px 0;">
+          <div class="flex justify-between">
+            <span><strong>Итого за месяц</strong></span>
+            <span class="font-bold">57</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:24px;">
+      <div class="card-header">
+        <h3>Последние отзывы</h3>
+        <button class="btn btn-ghost btn-sm" onclick="alert('Экспорт отчёта')">📥 Экспорт</button>
+      </div>
+      <div class="flex flex-col gap-12">
+        <div class="flex items-center justify-between" style="border-bottom:1px solid var(--gray-100);padding-bottom:12px;">
+          <div>
+            <span class="stars">★★★★★</span>
+            <span style="font-size:13px;">«Очень помогли с настройкой, спасибо!»</span>
+          </div>
+          <span style="font-size:12px;color:var(--gray-500);">— Иван П., 03.07</span>
+        </div>
+        <div class="flex items-center justify-between" style="border-bottom:1px solid var(--gray-100);padding-bottom:12px;">
+          <div>
+            <span class="stars">★★★★☆</span>
+            <span style="font-size:13px;">«В целом всё хорошо, но хотелось бы больше практики»</span>
+          </div>
+          <span style="font-size:12px;color:var(--gray-500);">— ООО Ресторанъ, 01.07</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="stars">★★★★★</span>
+            <span style="font-size:13px;">«Лучший тренинг по rkeeper, где я был!»</span>
+          </div>
+          <span style="font-size:12px;color:var(--gray-500);">— Алексей К., 28.06</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

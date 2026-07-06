@@ -1,0 +1,19 @@
+name: Cleanup Stale Bookings
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Every day at 02:00 UTC
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    name: Cancel unconfirmed bookings older than 24h
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call cleanup API
+        run: |
+          curl -X POST "${{ secrets.APP_URL }}/api/cleanup" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ secrets.API_SECRET }}" \
+            --fail

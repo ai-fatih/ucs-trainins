@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Уведомления — rkeeper Training</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-logo">rkeeper <span>Training</span></div>
+      <div class="header-nav">
+        <a href="03-services/services.html">Услуги</a>
+        <a href="05-my-bookings.html">Мои записи</a>
+        <a href="04-chat.html">Чат</a>
+        <a href="02-profile/individual.html">Профиль</a>
+      </div>
+      <div class="header-user">
+        <span style="font-size:14px;color:var(--gray-600);">Иван Петров</span>
+        <div class="avatar">ИП</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-title">Настройки уведомлений</div>
+    <div class="section-subtitle">Управляйте каналами и событиями для оповещений</div>
+
+    <div class="grid-2">
+      <div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-header"><h3>Каналы связи</h3></div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">Email</div>
+                <div style="font-size:13px;color:var(--gray-500);">ivan@example.ru</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">Telegram</div>
+                <div style="font-size:13px;color:var(--gray-500);">Не подключён</div>
+              </div>
+              <button class="btn btn-secondary btn-sm">Подключить</button>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">SMS</div>
+                <div style="font-size:13px;color:var(--gray-500);">+7 (999) 123-45-67</div>
+              </div>
+              <label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>Управление данными</h3></div>
+          <div class="flex flex-col gap-12">
+            <button class="btn btn-secondary btn-sm" style="justify-content:flex-start;" onclick="alert('Демо: экспорт данных')">📥 Скачать мои данные (JSON)</button>
+            <button class="btn btn-danger btn-sm" style="justify-content:flex-start;" onclick="if(confirm('Удалить аккаунт? Это действие необратимо.'))alert('Аккаунт будет удалён в течение 30 дней')">🗑 Удалить аккаунт</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-header"><h3>События</h3></div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">Запись подтверждена</div>
+                <div style="font-size:13px;color:var(--gray-500);">При успешном создании записи</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">Напоминание: за 24 часа</div>
+                <div style="font-size:13px;color:var(--gray-500);">За день до консультации</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">Напоминание: за 1 час</div>
+                <div style="font-size:13px;color:var(--gray-500);">За час до консультации</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">Отмена/перенос</div>
+                <div style="font-size:13px;color:var(--gray-500);">При изменении статуса записи</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">Запрос оценки</div>
+                <div style="font-size:13px;color:var(--gray-500);">После завершения услуги</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">Новое сообщение в чате</div>
+                <div style="font-size:13px;color:var(--gray-500);">При получении сообщения от специалиста</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">Маркетинговые рассылки</div>
+                <div style="font-size:13px;color:var(--gray-500);">Новые тренинги, акции (38-ФЗ)</div>
+              </div>
+              <label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label>
+            </div>
+          </div>
+          <div style="margin-top:16px;">
+            <button class="btn btn-primary" onclick="alert('Настройки сохранены')">Сохранить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

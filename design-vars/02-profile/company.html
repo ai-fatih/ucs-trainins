@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профиль компании — rkeeper Training</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-logo">rkeeper <span>Training</span></div>
+      <div class="header-nav">
+        <a href="../03-services/services.html">Услуги</a>
+        <a href="../05-my-bookings.html">Мои записи</a>
+        <a href="../04-chat.html">Чат</a>
+        <a href="company.html" class="active">Профиль</a>
+      </div>
+      <div class="header-user">
+        <span style="font-size:14px;color:var(--gray-600);">ООО «Ресторанъ»</span>
+        <div class="avatar">Р</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card" style="margin-bottom:24px;">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-16">
+          <div class="avatar" style="width:56px;height:56px;font-size:22px;">Р</div>
+          <div>
+            <h2 style="font-size:20px;font-weight:700;">ООО «Ресторанъ»</h2>
+            <p style="font-size:14px;color:var(--gray-500);">ИНН: 7701234567 • Сеть ресторанов (15 точек)</p>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div class="badge badge-success">✓ Договор активен</div>
+          <p style="font-size:12px;color:var(--gray-500);margin-top:4px;">Действителен до 31.12.2026</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:240px 1fr;gap:24px;">
+      <div>
+        <div class="card" style="padding:12px 0;">
+          <div class="sidebar-section">Навигация</div>
+          <div class="sidebar-item active">📋 Реквизиты компании</div>
+          <div class="sidebar-item">👥 Сотрудники</div>
+          <div class="sidebar-item">📄 Договоры</div>
+          <div class="sidebar-item">📊 Статистика</div>
+          <div class="sidebar-item" style="margin-top:16px;">⚙️ Настройки</div>
+          <div class="sidebar-item" style="color:var(--danger);">🚪 Выйти</div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-header">
+            <h3>Сотрудники компании</h3>
+            <span style="font-size:13px;color:var(--gray-500);">Синхронизировано: сегодня 10:23</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <thead><tr style="border-bottom:1px solid var(--gray-200);">
+              <th style="text-align:left;padding:10px 8px;color:var(--gray-500);font-weight:500;">Сотрудник</th>
+              <th style="text-align:left;padding:10px 8px;color:var(--gray-500);font-weight:500;">Должность</th>
+              <th style="text-align:left;padding:10px 8px;color:var(--gray-500);font-weight:500;">Email</th>
+              <th style="text-align:left;padding:10px 8px;color:var(--gray-500);font-weight:500;">Записей</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--gray-100);">
+                <td style="padding:12px 8px;"><strong>Анна Смирнова</strong></td>
+                <td style="padding:12px 8px;color:var(--gray-600);">Управляющая</td>
+                <td style="padding:12px 8px;color:var(--gray-600);">a.smirnova@restoran.ru</td>
+                <td style="padding:12px 8px;"><span class="badge badge-info">4</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--gray-100);">
+                <td style="padding:12px 8px;"><strong>Павел Иванов</strong></td>
+                <td style="padding:12px 8px;color:var(--gray-600);">Шеф-повар</td>
+                <td style="padding:12px 8px;color:var(--gray-600);">p.ivanov@restoran.ru</td>
+                <td style="padding:12px 8px;"><span class="badge badge-info">2</span></td>
+              </tr>
+              <tr>
+                <td style="padding:12px 8px;"><strong>Елена Козлова</strong></td>
+                <td style="padding:12px 8px;color:var(--gray-600);">Бухгалтер</td>
+                <td style="padding:12px 8px;color:var(--gray-600);">e.kozlova@restoran.ru</td>
+                <td style="padding:12px 8px;"><span class="badge badge-gray">0</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="margin-top:16px;">
+            <a href="../03-services/booking.html" class="btn btn-primary">Записать сотрудника</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Последние записи</h3>
+            <a href="../05-my-bookings.html" style="font-size:13px;">Все записи →</a>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">15.06.2026</div>
+              <div class="timeline-title">Консультация: настройка отчётов</div>
+              <div style="font-size:13px;color:var(--gray-500);">Специалист: Иван Петров • Анна Смирнова</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">01.06.2026</div>
+              <div class="timeline-title">Тренинг: Базовый курс rkeeper</div>
+              <div style="font-size:13px;color:var(--gray-500);">Специалист: Мария Соколова • Павел Иванов</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

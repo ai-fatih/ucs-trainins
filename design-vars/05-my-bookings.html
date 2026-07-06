@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мои записи — rkeeper Training</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-logo">rkeeper <span>Training</span></div>
+      <div class="header-nav">
+        <a href="03-services/services.html">Услуги</a>
+        <a href="05-my-bookings.html" class="active">Мои записи</a>
+        <a href="04-chat.html">Чат</a>
+        <a href="02-profile/individual.html">Профиль</a>
+      </div>
+      <div class="header-user">
+        <span style="font-size:14px;color:var(--gray-600);">Иван Петров</span>
+        <div class="avatar">ИП</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="flex items-center justify-between mb-24">
+      <div>
+        <div class="section-title">Мои записи</div>
+        <div class="section-subtitle" style="margin-bottom:0;">Всего записей: 7 • Предстоящих: 1</div>
+      </div>
+      <a href="03-services/services.html" class="btn btn-primary">+ Новая запись</a>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active">Все</button>
+      <button class="tab">Предстоящие</button>
+      <button class="tab">Завершённые</button>
+      <button class="tab">Отменённые</button>
+    </div>
+
+    <!-- Upcoming -->
+    <div class="booking-card" style="border:2px solid var(--primary);background:var(--primary-light);">
+      <div class="booking-date">
+        <div class="booking-day">03</div>
+        <div class="booking-month">Июл</div>
+        <div class="booking-time">10:00</div>
+      </div>
+      <div style="flex:1;">
+        <div style="font-weight:600;">Консультация по rkeeper</div>
+        <div style="font-size:13px;color:var(--gray-500);">Специалист: Иван Петров • 30 мин</div>
+        <div style="font-size:13px;color:var(--gray-500);">Тема: Настройка отчётов по себестоимости</div>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge badge-info">Предстоит</span>
+        <div style="margin-top:8px;display:flex;gap:4px;">
+          <button class="btn btn-secondary btn-sm" onclick="window.location='04-chat.html'">Чат</button>
+          <button class="btn btn-ghost btn-sm" style="color:var(--danger);" onclick="if(confirm('Отменить запись?'))alert('Запись отменена. Уведомление отправлено.');">Отменить</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Waitlist indicator -->
+    <div style="background:var(--warning-light);border:1px solid #f59e0b;border-radius:var(--radius-md);padding:12px 16px;margin-bottom:12px;font-size:13px;">
+      ⏳ Вы в листе ожидания к специалисту <strong>Мария Соколова</strong> с 28 июня.
+      <a href="#" onclick="alert('Вы покинули лист ожидания')">Отписаться</a>
+    </div>
+
+    <!-- Past bookings -->
+    <div class="booking-card">
+      <div class="booking-date">
+        <div class="booking-day">05</div>
+        <div class="booking-month">Июн</div>
+        <div class="booking-time">14:00</div>
+      </div>
+      <div style="flex:1;">
+        <div style="font-weight:600;">Тренинг: Базовый курс rkeeper</div>
+        <div style="font-size:13px;color:var(--gray-500);">Специалист: Мария Соколова • 2 часа</div>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge badge-success">Завершено</span>
+        <div style="margin-top:8px;">
+          <a href="06-review.html" class="btn btn-ghost btn-sm">⭐ Оценить</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="booking-card">
+      <div class="booking-date">
+        <div class="booking-day">15</div>
+        <div class="booking-month">Май</div>
+        <div class="booking-time">11:00</div>
+      </div>
+      <div style="flex:1;">
+        <div style="font-weight:600;">Консультация: интеграция с 1С</div>
+        <div style="font-size:13px;color:var(--gray-500);">Специалист: Алексей Кузнецов • 1 час</div>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge badge-success">Завершено</span>
+        <div style="margin-top:4px;display:flex;gap:4px;align-items:center;justify-content:flex-end;">
+          <span class="stars" style="font-size:13px;">★★★★★</span>
+          <span style="font-size:12px;color:var(--gray-500);">5.0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="booking-card">
+      <div class="booking-date">
+        <div class="booking-day">20</div>
+        <div class="booking-month">Апр</div>
+        <div class="booking-time">09:00</div>
+      </div>
+      <div style="flex:1;">
+        <div style="font-weight:600;">Консультация по rkeeper</div>
+        <div style="font-size:13px;color:var(--gray-500);">Специалист: Иван Петров • 30 мин</div>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge badge-danger">Отменено</span>
+        <div style="margin-top:4px;font-size:12px;color:var(--gray-500);">По инициативе клиента</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:24px;">
+      <button class="btn btn-ghost">Загрузить ещё →</button>
+    </div>
+  </div>
+</body>
+</html>

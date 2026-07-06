@@ -1,0 +1,26 @@
+{
+  "2026-07-03": [
+    { "id": "s1", "specialistId": "1", "date": "2026-07-03", "time": "09:00", "isAvailable": true },
+    { "id": "s2", "specialistId": "1", "date": "2026-07-03", "time": "10:00", "isAvailable": true },
+    { "id": "s3", "specialistId": "1", "date": "2026-07-03", "time": "11:00", "isAvailable": false },
+    { "id": "s4", "specialistId": "1", "date": "2026-07-03", "time": "13:00", "isAvailable": true },
+    { "id": "s5", "specialistId": "1", "date": "2026-07-03", "time": "14:00", "isAvailable": true },
+    { "id": "s6", "specialistId": "1", "date": "2026-07-03", "time": "15:00", "isAvailable": true },
+    { "id": "s7", "specialistId": "1", "date": "2026-07-03", "time": "16:00", "isAvailable": false },
+    { "id": "s8", "specialistId": "2", "date": "2026-07-03", "time": "09:00", "isAvailable": true },
+    { "id": "s9", "specialistId": "2", "date": "2026-07-03", "time": "10:00", "isAvailable": false },
+    { "id": "s10", "specialistId": "2", "date": "2026-07-03", "time": "11:00", "isAvailable": true },
+    { "id": "s11", "specialistId": "2", "date": "2026-07-03", "time": "14:00", "isAvailable": true },
+    { "id": "s12", "specialistId": "3", "date": "2026-07-03", "time": "10:00", "isAvailable": true },
+    { "id": "s13", "specialistId": "3", "date": "2026-07-03", "time": "11:00", "isAvailable": true },
+    { "id": "s14", "specialistId": "3", "date": "2026-07-03", "time": "12:00", "isAvailable": false },
+    { "id": "s15", "specialistId": "3", "date": "2026-07-03", "time": "15:00", "isAvailable": true }
+  ],
+  "2026-07-04": [
+    { "id": "s16", "specialistId": "1", "date": "2026-07-04", "time": "09:00", "isAvailable": true },
+    { "id": "s17", "specialistId": "1", "date": "2026-07-04", "time": "10:00", "isAvailable": true },
+    { "id": "s18", "specialistId": "1", "date": "2026-07-04", "time": "13:00", "isAvailable": false },
+    { "id": "s19", "specialistId": "1", "date": "2026-07-04", "time": "14:00", "isAvailable": true },
+    { "id": "s20", "specialistId": "1", "date": "2026-07-04", "time": "16:00", "isAvailable": false }
+  ]
+}

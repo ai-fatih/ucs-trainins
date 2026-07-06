@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Расписание — rkeeper Training</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .schedule-table { width:100%; border-collapse:collapse; font-size:14px; }
+    .schedule-table th { text-align:left; padding:8px; color:var(--gray-500); font-weight:500; border-bottom:1px solid var(--gray-200); }
+    .schedule-table td { padding:8px; border-bottom:1px solid var(--gray-100); vertical-align:top; }
+    .schedule-slot {
+      display:inline-block;
+      padding:4px 8px;
+      border-radius:4px;
+      font-size:12px;
+      margin:2px;
+      cursor:pointer;
+    }
+    .schedule-slot.available { background:var(--success-light); color:var(--success); }
+    .schedule-slot.booked { background:var(--primary-light); color:var(--primary); }
+    .schedule-slot.blocked { background:var(--gray-100); color:var(--gray-400); cursor:not-allowed; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-logo">rkeeper <span>Training</span> <span class="badge badge-warning" style="font-size:11px;">Admin</span></div>
+      <div class="header-nav">
+        <a href="08-admin-dashboard.html">Дашборд</a>
+        <a href="08-admin-schedule.html" class="active">Расписание</a>
+        <a href="03-services/services.html">Услуги</a>
+        <a href="05-my-bookings.html">Записи</a>
+      </div>
+      <div class="header-user">
+        <span style="font-size:14px;color:var(--gray-600);">Администратор</span>
+        <div class="avatar" style="background:var(--warning-light);color:var(--warning);">А</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="flex items-center justify-between mb-24">
+      <div>
+        <div class="section-title">Управление расписанием</div>
+        <div class="section-subtitle" style="margin-bottom:0;">Настройка рабочих часов, слотов и перерывов специалистов</div>
+      </div>
+      <div class="flex gap-12">
+        <select class="form-select" style="width:auto;">
+          <option>Эта неделя</option>
+          <option>Следующая неделя</option>
+        </select>
+        <button class="btn btn-primary">+ Создать слоты</button>
+      </div>
+    </div>
+
+    <!-- Specialists tabs -->
+    <div class="tabs">
+      <button class="tab" onclick="switchSpec(1)">Все</button>
+      <button class="tab active" onclick="switchSpec(2)">Иван Петров</button>
+      <button class="tab" onclick="switchSpec(3)">Мария Соколова</button>
+      <button class="tab" onclick="switchSpec(4)">Алексей Кузнецов</button>
+    </div>
+
+    <!-- Calendar header -->
+    <div class="card" style="margin-bottom:24px;">
+      <div class="calendar-header">
+        <button class="btn btn-ghost btn-sm">←</button>
+        <span style="font-weight:600;">3 — 9 июля 2026</span>
+        <button class="btn btn-ghost btn-sm">→</button>
+      </div>
+    </div>
+
+    <div class="card" style="padding:16px;">
+      <!-- Specialist info -->
+      <div class="flex items-center justify-between mb-16">
+        <div class="flex items-center gap-12">
+          <div class="avatar" style="width:40px;height:40px;font-size:16px;">ИП</div>
+          <div>
+            <div style="font-weight:600;">Иван Петров</div>
+            <div style="font-size:13px;color:var(--gray-500);">Ведущий специалист</div>
+          </div>
+        </div>
+        <div class="flex gap-8">
+          <button class="btn btn-secondary btn-sm">✏️ Редактировать профиль</button>
+          <button class="btn btn-secondary btn-sm">📅 Добавить перерыв</button>
+          <button class="btn btn-secondary btn-sm">🏖 Блокировать день</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:100px 1fr;gap:8px;">
+        <div style="font-weight:500;color:var(--gray-600);padding:8px;">Рабочие часы</div>
+        <div style="padding:8px;">
+          <span style="font-size:14px;">Пн-Пт: 09:00 — 18:00</span>
+          <button class="btn btn-ghost btn-sm" style="margin-left:8px;">Изменить</button>
+        </div>
+
+        <!-- Monday -->
+        <div style="font-size:13px;font-weight:500;padding:8px;color:var(--gray-600);">Пн, 3 июл</div>
+        <div style="padding:4px 8px;">
+          <span class="schedule-slot booked" onclick="alert('Запись: Анна Смирнова, 10:00')">10:00</span>
+          <span class="schedule-slot booked" onclick="alert('Запись: ООО Ресторанъ, 11:00')">11:00</span>
+          <span class="schedule-slot blocked">12:00-13:00 (Обед)</span>
+          <span class="schedule-slot available" onclick="alert('Слот откроется для записи')">13:00</span>
+          <span class="schedule-slot available" onclick="alert('Слот откроется для записи')">14:00</span>
+          <span class="schedule-slot available" onclick="alert('Слот откроется для записи')">15:00</span>
+          <span class="schedule-slot booked" onclick="alert('Запись: Иван Петров (VIP), 16:00')">16:00</span>
+        </div>
+
+        <!-- Tuesday -->
+        <div style="font-size:13px;font-weight:500;padding:8px;color:var(--gray-600);">Вт, 4 июл</div>
+        <div style="padding:4px 8px;">
+          <span class="schedule-slot available">09:00</span>
+          <span class="schedule-slot available">10:00</span>
+          <span class="schedule-slot blocked">11:00-12:00 (Обед)</span>
+          <span class="schedule-slot available">12:00</span>
+          <span class="schedule-slot booked" onclick="alert('Запись: Павел Иванов')">13:00</span>
+          <span class="schedule-slot available">14:00</span>
+          <span class="schedule-slot available">15:00</span>
+          <span class="schedule-slot booked">16:00</span>
+        </div>
+
+        <!-- Wednesday -->
+        <div style="font-size:13px;font-weight:500;padding:8px;color:var(--gray-600);">Ср, 5 июл</div>
+        <div style="padding:4px 8px;">
+          <span class="schedule-slot available">09:00</span>
+          <span class="schedule-slot available">10:00</span>
+          <span class="schedule-slot available">11:00</span>
+          <span class="schedule-slot available">12:00</span>
+          <span class="schedule-slot available">13:00</span>
+          <span class="schedule-slot available">14:00</span>
+          <span class="schedule-slot available">15:00</span>
+          <span class="schedule-slot available">16:00</span>
+        </div>
+
+        <!-- Thursday -->
+        <div style="font-size:13px;font-weight:500;padding:8px;color:var(--gray-600);">Чт, 6 июл</div>
+        <div style="padding:4px 8px;background:var(--warning-light);border-radius:var(--radius-sm);">
+          <span style="font-size:13px;display:flex;align-items:center;gap:8px;">
+            🏖 <strong>Отпуск</strong>
+            <button class="btn btn-ghost btn-sm" style="color:var(--danger);">Отменить</button>
+          </span>
+        </div>
+
+        <!-- Friday -->
+        <div style="font-size:13px;font-weight:500;padding:8px;color:var(--gray-600);">Пт, 7 июл</div>
+        <div style="padding:4px 8px;">
+          <span class="schedule-slot available">09:00</span>
+          <span class="schedule-slot available">10:00</span>
+          <span class="schedule-slot available">11:00</span>
+          <span class="schedule-slot blocked">12:00-14:00 (Обучение)</span>
+          <span class="schedule-slot available">14:00</span>
+          <span class="schedule-slot available">15:00</span>
+          <span class="schedule-slot available">16:00</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;font-size:13px;color:var(--gray-500);margin-top:16px;">
+      <span><span class="schedule-slot available" style="cursor:default;">&nbsp;&nbsp;&nbsp;</span> Свободно</span>
+      <span><span class="schedule-slot booked" style="cursor:default;">&nbsp;&nbsp;&nbsp;</span> Занято</span>
+      <span><span class="schedule-slot blocked" style="cursor:default;">&nbsp;&nbsp;&nbsp;</span> Заблокировано</span>
+    </div>
+  </div>
+
+  <script>
+    function switchSpec(id) {
+      document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

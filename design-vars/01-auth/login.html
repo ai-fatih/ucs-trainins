@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход — rkeeper Training</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-50);
+      padding: 16px;
+    }
+    .auth-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 40px 32px 32px;
+      max-width: 420px;
+      width: 100%;
+    }
+    .auth-logo { text-align: center; margin-bottom: 32px; }
+    .auth-logo h1 { font-size: 22px; font-weight: 700; color: var(--primary); }
+    .auth-logo p { font-size: 14px; color: var(--gray-500); margin-top: 4px; }
+    .auth-tabs { display: flex; margin-bottom: 24px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; }
+    .auth-tab {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      background: white;
+      color: var(--gray-500);
+      border: none;
+      transition: 0.15s;
+    }
+    .auth-tab.active { background: var(--primary); color: white; }
+    .auth-tab:not(.active):hover { background: var(--gray-50); }
+    .auth-footer { text-align: center; margin-top: 24px; font-size: 14px; color: var(--gray-500); }
+    .benefits { background: var(--primary-light); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px; font-size: 13px; color: var(--gray-700); }
+    .benefits strong { color: var(--primary); }
+  </style>
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <h1>rkeeper Training</h1>
+        <p>Консультации и обучение</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('company')">Компания</button>
+        <button class="auth-tab" onclick="switchTab('individual')">Физлицо</button>
+      </div>
+
+      <!-- Company login -->
+      <div id="company-form">
+        <div class="benefits">
+          <strong>✓ Активный договор?</strong> Консультации бесплатно в рамках поддержки.<br>
+          <strong>✓ Доступ для всех сотрудников</strong> компании по одному договору.
+        </div>
+        <div class="form-group">
+          <label class="form-label">Номер договора</label>
+          <input class="form-input" type="text" placeholder="Например: Д-2024-0042" value="Д-2025-0891">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Код доступа</label>
+          <input class="form-input" type="password" placeholder="Код из ITSM" value="••••••">
+        </div>
+        <div class="form-group">
+          <div class="flex items-center gap-8">
+            <input type="checkbox" id="remember" checked>
+            <label for="remember" style="font-size:14px;color:var(--gray-600);">Запомнить компанию</label>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-lg" style="width:100%;" onclick="alert('Демо: переход в профиль компании');window.location='../02-profile/company.html'">Войти как компания</button>
+        <div class="auth-footer">
+          Нет договора? <a href="register.html">Зарегистрироваться как физлицо</a>
+        </div>
+      </div>
+
+      <!-- Individual login -->
+      <div id="individual-form" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" placeholder="your@email.ru">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Пароль</label>
+          <input class="form-input" type="password" placeholder="••••••••">
+          <div style="text-align:right;margin-top:4px;"><a href="#" style="font-size:13px;">Забыли пароль?</a></div>
+        </div>
+        <button class="btn btn-primary btn-lg" style="width:100%;" onclick="alert('Демо: переход в личный кабинет');window.location='../02-profile/individual.html'">Войти</button>
+        <div class="auth-footer">
+          Нет аккаунта? <a href="register.html">Зарегистрироваться</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('company-form').style.display = tab === 'company' ? 'block' : 'none';
+      document.getElementById('individual-form').style.display = tab === 'individual' ? 'block' : 'none';
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

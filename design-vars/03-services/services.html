@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Услуги — rkeeper Training</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-logo">rkeeper <span>Training</span></div>
+      <div class="header-nav">
+        <a href="services.html" class="active">Услуги</a>
+        <a href="../05-my-bookings.html">Мои записи</a>
+        <a href="../04-chat.html">Чат</a>
+        <a href="../02-profile/individual.html">Профиль</a>
+      </div>
+      <div class="header-user">
+        <span style="font-size:14px;color:var(--gray-600);">Иван Петров</span>
+        <div class="avatar">ИП</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-title">Консультации и обучение rkeeper</div>
+    <div class="section-subtitle">Выберите тип услуги. Бесплатно при активном договоре поддержки.</div>
+
+    <!-- Categories -->
+    <div class="tabs">
+      <button class="tab active">Все услуги</button>
+      <button class="tab">Консультации</button>
+      <button class="tab">Тренинги</button>
+      <button class="tab">Настройка</button>
+    </div>
+
+    <div class="grid-3">
+      <div class="card service-card" onclick="window.location='specialists.html?service=1'">
+        <div class="service-icon" style="background:var(--primary-light);">💬</div>
+        <div class="service-name">Консультация по rkeeper</div>
+        <div class="service-desc">Решение вопросов по работе с системой: кассы, склад, отчёты</div>
+        <div class="service-meta">
+          <span>🕐 30 мин</span>
+          <span class="badge badge-success">Бесплатно*</span>
+        </div>
+      </div>
+
+      <div class="card service-card" onclick="window.location='specialists.html?service=2'">
+        <div class="service-icon" style="background:#fef3c7;">📚</div>
+        <div class="service-name">Базовый курс rkeeper</div>
+        <div class="service-desc">Обучение основам: открытие смены, приём заказов, закрытие</div>
+        <div class="service-meta">
+          <span>🕐 2 часа</span>
+          <span class="badge badge-warning">3 000 ₽</span>
+        </div>
+      </div>
+
+      <div class="card service-card" onclick="window.location='specialists.html?service=3'">
+        <div class="service-icon" style="background:#d1fae5;">⚙️</div>
+        <div class="service-name">Настройка отчётов</div>
+        <div class="service-desc">Кастомизация отчётов под ваш бизнес: товарооборот, себестоимость</div>
+        <div class="service-meta">
+          <span>🕐 1 час</span>
+          <span class="badge badge-success">Бесплатно*</span>
+        </div>
+      </div>
+
+      <div class="card service-card" onclick="window.location='specialists.html?service=4'">
+        <div class="service-icon" style="background:#dbeafe;">🔗</div>
+        <div class="service-name">Интеграция с 1С</div>
+        <div class="service-desc">Настройка обмена данными между rkeeper и 1С: Бухгалтерия</div>
+        <div class="service-meta">
+          <span>🕐 1.5 часа</span>
+          <span class="badge badge-warning">5 000 ₽</span>
+        </div>
+      </div>
+
+      <div class="card service-card" onclick="window.location='specialists.html?service=5'">
+        <div class="service-icon" style="background:#fce7f3;">👥</div>
+        <div class="service-name">Групповой тренинг</div>
+        <div class="service-desc">Курс для команды: до 10 человек, практические кейсы</div>
+        <div class="service-meta">
+          <span>🕐 4 часа</span>
+          <span class="badge badge-warning">15 000 ₽</span>
+        </div>
+      </div>
+
+      <div class="card service-card" onclick="window.location='specialists.html?service=6'">
+        <div class="service-icon" style="background:#e0e7ff;">🏗️</div>
+        <div class="service-name">Аудит системы</div>
+        <div class="service-desc">Проверка настроек, выявление ошибок, рекомендации</div>
+        <div class="service-meta">
+          <span>🕐 2 часа</span>
+          <span class="badge badge-success">Бесплатно*</span>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:var(--gray-500);margin-top:24px;">
+      * Бесплатно для клиентов с активным договором пользовательской поддержки.
+    </p>
+  </div>
+</body>
+</html>

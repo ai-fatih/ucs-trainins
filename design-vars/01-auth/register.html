@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация — rkeeper Training</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .auth-page { min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--gray-50); padding:16px; }
+    .auth-card { background:white; border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); padding:40px 32px 32px; max-width:480px; width:100%; }
+    .auth-logo { text-align:center; margin-bottom:24px; }
+    .auth-logo h1 { font-size:22px; font-weight:700; color:var(--primary); }
+    .auth-logo p { font-size:14px; color:var(--gray-500); }
+  </style>
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <h1>Регистрация</h1>
+        <p>Создайте аккаунт для записи на консультации и тренинги</p>
+      </div>
+
+      <div class="steps">
+        <div class="step active"><span class="step-number">1</span> Данные</div>
+        <div class="step-line"></div>
+        <div class="step"><span class="step-number">2</span> Подтверждение</div>
+        <div class="step-line"></div>
+        <div class="step"><span class="step-number">3</span> Готово</div>
+      </div>
+
+      <div class="grid-2" style="gap:16px;">
+        <div class="form-group">
+          <label class="form-label">Имя</label>
+          <input class="form-input" placeholder="Иван" value="Иван">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Фамилия</label>
+          <input class="form-input" placeholder="Петров" value="Петров">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email <span style="color:var(--danger);">*</span></label>
+        <input class="form-input" type="email" placeholder="ivan@example.ru" value="ivan@example.ru">
+        <div class="form-hint">На этот email придёт письмо с подтверждением</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Телефон <span style="color:var(--danger);">*</span></label>
+        <input class="form-input" type="tel" placeholder="+7 (999) 123-45-67" value="+7 (999) 123-45-67">
+        <div class="form-hint">Для идентификации в чате (требование 149-ФЗ)</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Пароль <span style="color:var(--danger);">*</span></label>
+        <input class="form-input" type="password" placeholder="Минимум 8 символов">
+        <div class="form-hint">Минимум 8 символов: буквы + цифры</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Подтверждение пароля</label>
+        <input class="form-input" type="password" placeholder="Повторите пароль">
+      </div>
+
+      <div class="form-group" style="background:var(--gray-50);padding:16px;border-radius:var(--radius-md);">
+        <div class="checkbox-group">
+          <input type="checkbox" id="consent" checked>
+          <label for="consent" style="font-size:13px;color:var(--gray-600);">
+            Даю согласие на обработку персональных данных в соответствии с
+            <a href="#">Политикой конфиденциальности</a> и принимаю условия
+            <a href="#">Пользовательского соглашения</a> <span style="color:var(--danger);">*</span>
+          </label>
+        </div>
+        <div class="checkbox-group" style="margin-top:12px;">
+          <input type="checkbox" id="newsletter">
+          <label for="newsletter" style="font-size:13px;color:var(--gray-500);">
+            Согласен получать информацию о новых тренингах и акциях
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-lg" style="width:100%;" onclick="alert('Демо: отправлено письмо подтверждения');this.textContent='✓ Письмо отправлено';this.disabled=true;">
+        Зарегистрироваться
+      </button>
+
+      <div style="text-align:center;margin-top:20px;font-size:14px;color:var(--gray-500);">
+        Уже есть аккаунт? <a href="login.html">Войти</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

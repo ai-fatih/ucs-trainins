@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чат — rkeeper Training</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-logo">rkeeper <span>Training</span></div>
+      <div class="header-nav">
+        <a href="03-services/services.html">Услуги</a>
+        <a href="05-my-bookings.html">Мои записи</a>
+        <a href="04-chat.html" class="active">Чат</a>
+        <a href="02-profile/individual.html">Профиль</a>
+      </div>
+      <div class="header-user">
+        <span style="font-size:14px;color:var(--gray-600);">Иван Петров</span>
+        <div class="avatar">ИП</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-title">Чат с отделом консультации</div>
+    <div class="section-subtitle">Диалог привязан к записи от 3 июля 2026</div>
+
+    <div style="display:grid;grid-template-columns:300px 1fr;gap:0;border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;">
+      <!-- Chat list -->
+      <div style="background:white;border-right:1px solid var(--gray-200);">
+        <div style="padding:16px;border-bottom:1px solid var(--gray-200);">
+          <input class="form-input" placeholder="Поиск чата..." style="font-size:13px;">
+        </div>
+        <div class="sidebar-section" style="padding:12px 16px 6px;">Активные</div>
+        <div style="padding:12px 16px;background:var(--primary-light);cursor:pointer;border-left:3px solid var(--primary);">
+          <div class="flex items-center justify-between">
+            <strong style="font-size:14px;">Иван Петров</strong>
+            <span style="font-size:11px;color:var(--gray-500);">10:32</span>
+          </div>
+          <div style="font-size:13px;color:var(--gray-500);margin-top:2px;">
+            Да, мы можем настроить отчёт по себестоимости...
+          </div>
+          <div><span class="badge badge-primary" style="background:var(--primary);color:white;font-size:11px;padding:1px 6px;margin-top:4px;">Консультация 03.07</span></div>
+        </div>
+        <div style="padding:12px 16px;cursor:pointer;border-left:3px solid transparent;">
+          <div class="flex items-center justify-between">
+            <strong style="font-size:14px;">Мария Соколова</strong>
+            <span style="font-size:11px;color:var(--gray-500);">2 дня</span>
+          </div>
+          <div style="font-size:13px;color:var(--gray-500);margin-top:2px;">
+            Спасибо за участие в тренинге! Ждём вашу оценку...
+          </div>
+          <div><span class="badge badge-gray" style="font-size:11px;padding:1px 6px;margin-top:4px;">Тренинг 03.06</span></div>
+        </div>
+      </div>
+
+      <!-- Chat window -->
+      <div class="chat-window" style="border:none;border-radius:0;">
+        <div class="chat-header">
+          <div class="avatar" style="width:36px;height:36px;font-size:14px;">ИП</div>
+          <div>
+            <div style="font-weight:600;font-size:14px;">Иван Петров</div>
+            <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--success);">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--success);display:inline-block;"></span> Онлайн
+            </div>
+          </div>
+          <div style="margin-left:auto;display:flex;gap:8px;">
+            <button class="btn btn-ghost btn-sm">📞</button>
+            <button class="btn btn-ghost btn-sm">📁</button>
+          </div>
+        </div>
+        <div class="chat-messages">
+          <div class="chat-message received">
+            Здравствуйте! Чем могу помочь?
+          </div>
+          <div class="chat-message sent">
+            Добрый день! У нас проблема с отчётом по себестоимости — не сходится с фактическими данными.
+          </div>
+          <div class="chat-message received">
+            Понял. Можете скинуть скриншот настроек отчёта и пример расхождения?
+          </div>
+          <div class="chat-message sent">
+            Да, прикладываю.
+          </div>
+          <div class="chat-message received" style="background:var(--gray-100);border:1px dashed var(--gray-300);text-align:center;color:var(--gray-500);">
+            📄 screenshot_2026-07-03.png (2.3 MB)
+          </div>
+          <div class="chat-message received">
+            Вижу проблему. В настройках указан неверный тип калькуляции. Нужно переключить на "Полный учёт". Давайте я настрою на консультации?
+          </div>
+          <div class="chat-message sent">
+            Да, отлично! Буду ждать.
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" placeholder="Напишите сообщение..." value="Спасибо за помощь!">
+          <button class="btn btn-primary">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

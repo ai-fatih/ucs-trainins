@@ -1,0 +1,8 @@
+[
+  { "id": "b1", "serviceId": "1", "serviceName": "Консультация по rkeeper", "specialistId": "1", "specialistName": "Иван Петров", "employeeId": "e1", "employeeName": "Анна Смирнова", "date": "2026-07-03", "time": "10:00", "durationMinutes": 30, "status": "scheduled", "topic": "Настройка отчётов по себестоимости", "isFree": true },
+  { "id": "b2", "serviceId": "2", "serviceName": "Базовый курс rkeeper", "specialistId": "2", "specialistName": "Мария Соколова", "date": "2026-06-05", "time": "14:00", "durationMinutes": 120, "status": "completed", "rating": 5, "reviewText": "Очень помогли с настройкой, спасибо!", "isFree": false },
+  { "id": "b3", "serviceId": "4", "serviceName": "Интеграция с 1С", "specialistId": "3", "specialistName": "Алексей Кузнецов", "date": "2026-05-15", "time": "11:00", "durationMinutes": 90, "status": "completed", "rating": 5, "reviewText": "Лучший тренинг по rkeeper!", "isFree": false },
+  { "id": "b4", "serviceId": "1", "serviceName": "Консультация по rkeeper", "specialistId": "1", "specialistName": "Иван Петров", "date": "2026-04-20", "time": "09:00", "durationMinutes": 30, "status": "cancelled", "isFree": true },
+  { "id": "b5", "serviceId": "3", "serviceName": "Настройка отчётов", "specialistId": "1", "specialistName": "Иван Петров", "date": "2026-06-20", "time": "11:00", "durationMinutes": 60, "status": "completed", "rating": 5, "isFree": true },
+  { "id": "b6", "serviceId": "5", "serviceName": "Групповой тренинг", "specialistId": "2", "specialistName": "Мария Соколова", "date": "2026-06-28", "time": "10:00", "durationMinutes": 240, "status": "completed", "rating": 4, "reviewText": "В целом всё хорошо, но хотелось бы больше практики", "isFree": false }
+]

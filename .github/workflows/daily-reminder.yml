@@ -1,0 +1,19 @@
+name: Daily Reminder
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Every day at 06:00 UTC (09:00 MSK)
+  workflow_dispatch:      # Allow manual trigger
+
+jobs:
+  remind:
+    name: Send reminders for upcoming consultations
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call reminders API
+        run: |
+          curl -X POST "${{ secrets.APP_URL }}/api/reminders" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ secrets.API_SECRET }}" \
+            --fail

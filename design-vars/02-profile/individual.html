@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профиль — rkeeper Training</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-logo">rkeeper <span>Training</span></div>
+      <div class="header-nav">
+        <a href="../03-services/services.html">Услуги</a>
+        <a href="../05-my-bookings.html">Мои записи</a>
+        <a href="../04-chat.html">Чат</a>
+        <a href="individual.html" class="active">Профиль</a>
+      </div>
+      <div class="header-user">
+        <span style="font-size:14px;color:var(--gray-600);">Иван Петров</span>
+        <div class="avatar">ИП</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="grid-2" style="grid-template-columns:1fr 2fr;">
+      <div>
+        <div class="card" style="text-align:center;">
+          <div class="avatar" style="width:72px;height:72px;font-size:28px;margin:0 auto 12px;">ИП</div>
+          <h3 style="font-size:18px;">Иван Петров</h3>
+          <p style="font-size:13px;color:var(--gray-500);">ivan@example.ru</p>
+          <p style="font-size:13px;color:var(--gray-500);">+7 (999) 123-45-67</p>
+          <hr style="margin:16px 0;border:none;border-top:1px solid var(--gray-200);">
+          <div style="font-size:13px;color:var(--gray-600);text-align:left;">
+            <div class="flex justify-between mb-8"><span>Зарегистрирован:</span><strong>01.03.2026</strong></div>
+            <div class="flex justify-between mb-8"><span>Всего записей:</span><strong>7</strong></div>
+            <div class="flex justify-between"><span>Средняя оценка:</span><strong>4.8</strong></div>
+          </div>
+          <hr style="margin:16px 0;border:none;border-top:1px solid var(--gray-200);">
+          <a href="../07-notifications.html" class="btn btn-secondary btn-sm" style="width:100%;">Настройки уведомлений</a>
+          <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:8px;color:var(--danger);">Удалить аккаунт</button>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-header"><h3>Личные данные</h3><button class="btn btn-ghost btn-sm">Редактировать</button></div>
+          <div class="grid-2" style="gap:12px;">
+            <div><span class="text-sm text-gray">Имя</span><div class="font-bold">Иван</div></div>
+            <div><span class="text-sm text-gray">Фамилия</span><div class="font-bold">Петров</div></div>
+            <div><span class="text-sm text-gray">Email</span><div class="font-bold">ivan@example.ru</div></div>
+            <div><span class="text-sm text-gray">Телефон</span><div class="font-bold">+7 (999) 123-45-67</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>Мои данные</h3></div>
+          <p style="font-size:13px;color:var(--gray-500);margin-bottom:16px;">Управление персональными данными в соответствии с 152-ФЗ</p>
+          <div class="flex gap-12" style="flex-wrap:wrap;">
+            <button class="btn btn-secondary btn-sm" onclick="alert('Демо: экспорт данных в JSON')">📥 Экспортировать мои данные</button>
+            <button class="btn btn-secondary btn-sm" onclick="alert('Демо: исправление данных')">✏️ Исправить данные</button>
+            <button class="btn btn-danger btn-sm" onclick="if(confirm('Это действие удалит все ваши данные. Продолжить?'))alert('Аккаунт будет удалён в течение 30 дней')">🗑 Удалить аккаунт</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <div class="card-header">
+            <h3>История консультаций</h3>
+            <a href="../05-my-bookings.html" class="text-sm">Все записи →</a>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">20.06.2026</div>
+              <div class="timeline-title">Консультация: настройка отчётов</div>
+              <div class="text-sm text-gray">Специалист: Иван Петров • ⭐ 5.0</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">05.06.2026</div>
+              <div class="timeline-title">Тренинг: Базовый курс rkeeper</div>
+              <div class="text-sm text-gray">Специалист: Мария Соколова • ⭐ 4.8</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">15.05.2026</div>
+              <div class="timeline-title">Консультация: интеграция с 1С</div>
+              <div class="text-sm text-gray">Специалист: Алексей Кузнецов • ⭐ 5.0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

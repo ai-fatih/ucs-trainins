@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Запись — rkeeper Training</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .time-slots { display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:8px; margin-top:12px; }
+    .time-slot {
+      padding:10px 8px;
+      text-align:center;
+      border:1px solid var(--gray-200);
+      border-radius:var(--radius-md);
+      font-size:14px;
+      cursor:pointer;
+      transition:0.15s;
+    }
+    .time-slot:hover { border-color:var(--primary); background:var(--primary-light); }
+    .time-slot.selected { border-color:var(--primary); background:var(--primary); color:white; }
+    .time-slot.booked { background:var(--gray-100); color:var(--gray-300); cursor:not-allowed; border-color:var(--gray-100); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-logo">rkeeper <span>Training</span></div>
+      <div class="header-nav">
+        <a href="services.html">Услуги</a>
+        <a href="../05-my-bookings.html">Мои записи</a>
+        <a href="../04-chat.html">Чат</a>
+        <a href="../02-profile/individual.html">Профиль</a>
+      </div>
+      <div class="header-user">
+        <span style="font-size:14px;color:var(--gray-600);">Иван Петров</span>
+        <div class="avatar">ИП</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="steps">
+      <div class="step completed"><span class="step-number">✓</span> Услуга</div>
+      <div class="step-line"></div>
+      <div class="step completed"><span class="step-number">✓</span> Специалист</div>
+      <div class="step-line"></div>
+      <div class="step active"><span class="step-number">3</span> Дата и время</div>
+      <div class="step-line"></div>
+      <div class="step"><span class="step-number">4</span> Подтверждение</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+      <!-- Left: Calendar & Time -->
+      <div>
+        <div class="card">
+          <div class="calendar-header">
+            <button class="btn btn-ghost btn-sm">←</button>
+            <span style="font-weight:600;">Июль 2026</span>
+            <button class="btn btn-ghost btn-sm">→</button>
+          </div>
+          <div class="calendar-grid">
+            <div class="calendar-weekday">Пн</div>
+            <div class="calendar-weekday">Вт</div>
+            <div class="calendar-weekday">Ср</div>
+            <div class="calendar-weekday">Чт</div>
+            <div class="calendar-weekday">Пт</div>
+            <div class="calendar-weekday">Сб</div>
+            <div class="calendar-weekday">Вс</div>
+            <div class="calendar-day disabled">29</div>
+            <div class="calendar-day disabled">30</div>
+            <div class="calendar-day available">1</div>
+            <div class="calendar-day available">2</div>
+            <div class="calendar-day today selected">3</div>
+            <div class="calendar-day available">4</div>
+            <div class="calendar-day disabled">5</div>
+            <div class="calendar-day available">6</div>
+            <div class="calendar-day available">7</div>
+            <div class="calendar-day available">8</div>
+            <div class="calendar-day available">9</div>
+            <div class="calendar-day available">10</div>
+            <div class="calendar-day available">11</div>
+            <div class="calendar-day disabled">12</div>
+          </div>
+          <p style="font-size:12px;color:var(--gray-500);margin-top:12px;">
+            <span style="background:var(--success-light);display:inline-block;width:12px;height:12px;border-radius:2px;"></span> — свободно
+            <span style="background:var(--gray-100);display:inline-block;width:12px;height:12px;border-radius:2px;margin-left:12px;"></span> — занято
+          </p>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <div class="card-header"><h3>Доступное время — 3 июля 2026</h3></div>
+          <div class="time-slots">
+            <div class="time-slot">09:00</div>
+            <div class="time-slot booked">09:30</div>
+            <div class="time-slot selected">10:00</div>
+            <div class="time-slot">10:30</div>
+            <div class="time-slot">11:00</div>
+            <div class="time-slot booked">11:30</div>
+            <div class="time-slot">12:00</div>
+            <div class="time-slot">12:30</div>
+            <div class="time-slot booked">13:00</div>
+            <div class="time-slot">13:30</div>
+            <div class="time-slot">14:00</div>
+            <div class="time-slot">14:30</div>
+            <div class="time-slot">15:00</div>
+            <div class="time-slot">15:30</div>
+            <div class="time-slot booked">16:00</div>
+            <div class="time-slot">16:30</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Summary & Confirmation -->
+      <div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-header"><h3>Детали записи</h3></div>
+
+          <!-- Only for company users -->
+          <div class="form-group" style="background:var(--primary-light);padding:12px;border-radius:var(--radius-md);margin-bottom:16px;">
+            <label class="form-label">Сотрудник компании (для записи)</label>
+            <select class="form-select">
+              <option>— Выберите сотрудника —</option>
+              <option selected>Анна Смирнова — Управляющая</option>
+              <option>Павел Иванов — Шеф-повар</option>
+              <option>Елена Козлова — Бухгалтер</option>
+            </select>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div><span class="text-sm text-gray">Услуга</span><div class="font-bold">Консультация по rkeeper</div></div>
+            <div><span class="text-sm text-gray">Длительность</span><div class="font-bold">30 мин</div></div>
+            <div><span class="text-sm text-gray">Специалист</span><div class="font-bold">Иван Петров</div></div>
+            <div><span class="text-sm text-gray">Дата</span><div class="font-bold">3 июля 2026</div></div>
+            <div><span class="text-sm text-gray">Время</span><div class="font-bold">10:00 — 10:30</div></div>
+            <div><span class="text-sm text-gray">Стоимость</span><div class="font-bold" style="color:var(--success);">Бесплатно (договор активен)</div></div>
+          </div>
+
+          <div class="form-group" style="margin-top:16px;">
+            <label class="form-label">Описание вопроса (необязательно)</label>
+            <textarea class="form-input" rows="3" placeholder="Опишите, что хотите обсудить — специалист подготовится">Нужна помощь с настройкой отчётов по себестоимости блюд.</textarea>
+          </div>
+        </div>
+
+        <div class="card" style="border-color:var(--primary);">
+          <div class="flex items-center gap-12 mb-16">
+            <input type="checkbox" id="agree" checked>
+            <label for="agree" style="font-size:13px;color:var(--gray-600);">
+              Я согласен с условиями <a href="#">Пользовательского соглашения</a>
+            </label>
+          </div>
+          <div class="flex gap-12">
+            <button class="btn btn-secondary" onclick="history.back()">Назад</button>
+            <button class="btn btn-primary btn-lg" style="flex:1;" onclick="alert('✓ Запись создана! Уведомление отправлено на email.');window.location='../05-my-bookings.html'">Подтвердить запись</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "chat1",
+    "specialistName": "Иван Петров",
+    "specialistAvatar": "ИП",
+    "lastMessage": "Да, мы можем настроить отчёт по себестоимости...",
+    "lastMessageTime": "10:32",
+    "isOnline": true,
+    "bookingRef": "b1",
+    "bookingRefLabel": "Консультация 03.07",
+    "messages": [
+      { "id": "m1", "chatRoomId": "chat1", "senderId": "spec1", "senderName": "Иван Петров", "content": "Здравствуйте! Чем могу помочь?", "type": "text", "createdAt": "2026-07-03T09:45:00", "isSent": false },
+      { "id": "m2", "chatRoomId": "chat1", "senderId": "user1", "senderName": "Вы", "content": "Добрый день! У нас проблема с отчётом по себестоимости — не сходится с фактическими данными.", "type": "text", "createdAt": "2026-07-03T09:46:00", "isSent": true },
+      { "id": "m3", "chatRoomId": "chat1", "senderId": "spec1", "senderName": "Иван Петров", "content": "Понял. Можете скинуть скриншот настроек отчёта и пример расхождения?", "type": "text", "createdAt": "2026-07-03T09:47:00", "isSent": false },
+      { "id": "m4", "chatRoomId": "chat1", "senderId": "user1", "senderName": "Вы", "content": "Да, прикладываю.", "type": "text", "createdAt": "2026-07-03T09:48:00", "isSent": true },
+      { "id": "m5", "chatRoomId": "chat1", "senderId": "user1", "senderName": "Вы", "content": "screenshot_2026-07-03.png", "type": "file", "fileName": "screenshot_2026-07-03.png", "fileUrl": "#", "createdAt": "2026-07-03T09:48:30", "isSent": true },
+      { "id": "m6", "chatRoomId": "chat1", "senderId": "spec1", "senderName": "Иван Петров", "content": "Вижу проблему. В настройках указан неверный тип калькуляции. Нужно переключить на \"Полный учёт\". Давайте я настрою на консультации?", "type": "text", "createdAt": "2026-07-03T09:50:00", "isSent": false },
+      { "id": "m7", "chatRoomId": "chat1", "senderId": "user1", "senderName": "Вы", "content": "Да, отлично! Буду ждать.", "type": "text", "createdAt": "2026-07-03T09:51:00", "isSent": true }
+    ]
+  },
+  {
+    "id": "chat2",
+    "specialistName": "Мария Соколова",
+    "specialistAvatar": "МС",
+    "lastMessage": "Спасибо за участие в тренинге! Ждём вашу оценку...",
+    "lastMessageTime": "2 дня",
+    "isOnline": false,
+    "bookingRef": "b2",
+    "bookingRefLabel": "Тренинг 03.06",
+    "messages": [
+      { "id": "m8", "chatRoomId": "chat2", "senderId": "spec2", "senderName": "Мария Соколова", "content": "Спасибо за участие в тренинге! Ждём вашу оценку...", "type": "text", "createdAt": "2026-06-05T16:00:00", "isSent": false }
+    ]
+  }
+]

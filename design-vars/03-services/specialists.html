@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Специалисты — rkeeper Training</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-logo">rkeeper <span>Training</span></div>
+      <div class="header-nav">
+        <a href="services.html">Услуги</a>
+        <a href="../05-my-bookings.html">Мои записи</a>
+        <a href="../04-chat.html">Чат</a>
+        <a href="../02-profile/individual.html">Профиль</a>
+      </div>
+      <div class="header-user">
+        <span style="font-size:14px;color:var(--gray-600);">Иван Петров</span>
+        <div class="avatar">ИП</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <a href="services.html" style="font-size:14px;color:var(--gray-500);margin-bottom:16px;display:block;">← Назад к услугам</a>
+    <div class="section-title">Выберите специалиста</div>
+    <div class="section-subtitle">Консультация по rkeeper • 30 мин • Бесплатно</div>
+
+    <div class="grid-3">
+      <div class="card specialist-card" onclick="window.location='booking.html?specialist=1'">
+        <div class="specialist-avatar">ИП</div>
+        <div class="specialist-name">Иван Петров</div>
+        <div class="specialist-role">Ведущий специалист</div>
+        <div class="rating"><span class="stars">★★★★★</span><span class="rating-value">4.9 (32 отзыва)</span></div>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;">
+          <span class="badge badge-gray">Кассы</span>
+          <span class="badge badge-gray">Отчёты</span>
+          <span class="badge badge-gray">Интеграция</span>
+        </div>
+        <button class="btn btn-primary btn-sm" style="width:100%;margin-top:16px;">Выбрать</button>
+      </div>
+
+      <div class="card specialist-card" onclick="window.location='booking.html?specialist=2'">
+        <div class="specialist-avatar" style="background:#fef3c7;color:#d97706;">МС</div>
+        <div class="specialist-name">Мария Соколова</div>
+        <div class="specialist-role">Специалист по обучению</div>
+        <div class="rating"><span class="stars">★★★★★</span><span class="rating-value">4.8 (24 отзыва)</span></div>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;">
+          <span class="badge badge-gray">Тренинги</span>
+          <span class="badge badge-gray">Базовый курс</span>
+          <span class="badge badge-gray">Персонал</span>
+        </div>
+        <button class="btn btn-primary btn-sm" style="width:100%;margin-top:16px;">Выбрать</button>
+      </div>
+
+      <div class="card specialist-card" onclick="window.location='booking.html?specialist=3'">
+        <div class="specialist-avatar" style="background:#d1fae5;color:#059669;">АК</div>
+        <div class="specialist-name">Алексей Кузнецов</div>
+        <div class="specialist-role">Технический специалист</div>
+        <div class="rating"><span class="stars">★★★★☆</span><span class="rating-value">4.7 (18 отзывов)</span></div>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;">
+          <span class="badge badge-gray">1С</span>
+          <span class="badge badge-gray">API</span>
+          <span class="badge badge-gray">Сервер</span>
+        </div>
+        <button class="btn btn-primary btn-sm" style="width:100%;margin-top:16px;">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

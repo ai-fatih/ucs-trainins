@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оценить — rkeeper Training</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .star-input { display:flex; gap:4px; justify-content:center; }
+    .star-input button {
+      font-size:36px;
+      background:none;
+      border:none;
+      cursor:pointer;
+      color:var(--gray-300);
+      transition:0.15s;
+    }
+    .star-input button:hover,
+    .star-input button.active { color:#f59e0b; }
+  </style>
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card" style="max-width:500px;">
+      <div style="text-align:center;margin-bottom:24px;">
+        <div style="font-size:48px;margin-bottom:8px;">🎉</div>
+        <h2 style="font-size:20px;">Консультация завершена!</h2>
+        <p style="font-size:14px;color:var(--gray-500);">Как прошла консультация с Иваном Петровым?</p>
+      </div>
+
+      <div class="card" style="border:1px solid var(--gray-200);margin-bottom:24px;text-align:center;">
+        <div class="section-subtitle" style="margin-bottom:8px;">Оцените качество консультации</div>
+        <div class="star-input">
+          <button class="active" onclick="rate(this,1)">★</button>
+          <button class="active" onclick="rate(this,2)">★</button>
+          <button class="active" onclick="rate(this,3)">★</button>
+          <button class="active" onclick="rate(this,4)">★</button>
+          <button onclick="rate(this,5)">★</button>
+        </div>
+        <div style="margin-top:8px;font-size:14px;color:var(--gray-600);font-weight:500;">Отлично! Спасибо!</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Комментарий (необязательно)</label>
+        <textarea class="form-input" rows="4" placeholder="Расскажите подробнее о вашем опыте...">Быстро и профессионально помогли решить проблему. Рекомендую!</textarea>
+        <div class="form-hint">Ваш отзыв поможет другим клиентам выбрать специалиста</div>
+      </div>
+
+      <div style="display:flex;gap:16px;">
+        <button class="btn btn-secondary" style="flex:1;" onclick="alert('Пропустить');window.location='05-my-bookings.html'">Пропустить</button>
+        <button class="btn btn-primary btn-lg" style="flex:2;" onclick="alert('✓ Спасибо за оценку!');window.location='05-my-bookings.html'">Отправить</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    function rate(el, val) {
+      document.querySelectorAll('.star-input button').forEach((b,i) => {
+        b.classList.toggle('active', i < val);
+      });
+      const msgs = ['Ужасно','Плохо','Нормально','Хорошо','Отлично!'];
+      el.closest('.card').querySelector('div:last-child').textContent = msgs[val-1];
+    }
+  </script>
+</body>
+</html>

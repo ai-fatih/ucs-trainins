@@ -1,0 +1,8 @@
+[
+  { "id": "1", "name": "Консультация по rkeeper", "description": "Решение вопросов по работе с системой: кассы, склад, отчёты", "type": "consultation", "durationMinutes": 30, "priceRub": null, "isFree": true, "category": "consultations", "icon": "💬", "iconBg": "#e8effa" },
+  { "id": "2", "name": "Базовый курс rkeeper", "description": "Обучение основам: открытие смены, приём заказов, закрытие", "type": "training", "durationMinutes": 120, "priceRub": 3000, "isFree": false, "category": "trainings", "icon": "📚", "iconBg": "#fef3c7" },
+  { "id": "3", "name": "Настройка отчётов", "description": "Кастомизация отчётов под ваш бизнес: товарооборот, себестоимость", "type": "setup", "durationMinutes": 60, "priceRub": null, "isFree": true, "category": "consultations", "icon": "⚙️", "iconBg": "#d1fae5" },
+  { "id": "4", "name": "Интеграция с 1С", "description": "Настройка обмена данными между rkeeper и 1С: Бухгалтерия", "type": "setup", "durationMinutes": 90, "priceRub": 5000, "isFree": false, "category": "setup", "icon": "🔗", "iconBg": "#dbeafe" },
+  { "id": "5", "name": "Групповой тренинг", "description": "Курс для команды: до 10 человек, практические кейсы", "type": "training", "durationMinutes": 240, "priceRub": 15000, "isFree": false, "category": "trainings", "icon": "👥", "iconBg": "#fce7f3" },
+  { "id": "6", "name": "Аудит системы", "description": "Проверка настроек, выявление ошибок, рекомендации", "type": "consultation", "durationMinutes": 120, "priceRub": null, "isFree": true, "category": "consultations", "icon": "🏗️", "iconBg": "#e0e7ff" }
+]

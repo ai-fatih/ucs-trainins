@@ -1,0 +1,5 @@
+[
+  { "id": "1", "name": "Иван Петров", "role": "Ведущий специалист", "rating": 4.9, "reviewCount": 32, "tags": ["Кассы", "Отчёты", "Интеграция"], "avatar": "ИП", "avatarBg": "#e8effa", "avatarColor": "#1a56db" },
+  { "id": "2", "name": "Мария Соколова", "role": "Специалист по обучению", "rating": 4.8, "reviewCount": 24, "tags": ["Тренинги", "Базовый курс", "Персонал"], "avatar": "МС", "avatarBg": "#fef3c7", "avatarColor": "#d97706" },
+  { "id": "3", "name": "Алексей Кузнецов", "role": "Технический специалист", "rating": 4.7, "reviewCount": 18, "tags": ["1С", "API", "Сервер"], "avatar": "АК", "avatarBg": "#d1fae5", "avatarColor": "#059669" }
+]
