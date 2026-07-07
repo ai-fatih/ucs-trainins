@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { Stars } from '@/components/ui/Stars';
 import type { Specialist } from '@/types';
 
-export default function SpecialistsPage() {
+function SpecialistsPageContent() {
   const [specialists, setSpecialists] = useState<Specialist[]>([]);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -45,5 +45,13 @@ export default function SpecialistsPage() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function SpecialistsPage() {
+  return (
+    <Suspense>
+      <SpecialistsPageContent />
+    </Suspense>
   );
 }

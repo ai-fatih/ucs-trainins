@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useAuthStore } from '@/stores/auth';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
 import toast from 'react-hot-toast';
 
 export default function ProfilePage() {

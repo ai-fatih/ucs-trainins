@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { api } from '@/lib/api';
@@ -29,7 +29,7 @@ function StepIndicator({ step }: { step: number }) {
   );
 }
 
-export default function BookingPage() {
+function BookingPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const store = useBookingStore();
@@ -252,5 +252,13 @@ export default function BookingPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function BookingPage() {
+  return (
+    <Suspense>
+      <BookingPageContent />
+    </Suspense>
   );
 }
