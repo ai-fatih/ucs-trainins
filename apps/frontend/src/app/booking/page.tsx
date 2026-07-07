@@ -7,11 +7,11 @@ import { useBookingStore } from '@/stores/booking';
 import { useNotificationStore } from '@/stores/notifications';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { Input, Textarea } from '@/components/ui/Input';
-import type { Service, Specialist, Slot } from '@/types';
+import { Textarea } from '@/components/ui/Input';
+import type { Service, Slot } from '@/types';
 
 function StepIndicator({ step }: { step: number }) {
-  const steps = ['Услуга', 'Специалист', 'Дата и время', 'Подтверждение'];
+  const steps = ['Услуга', 'Дата и время', 'Подтверждение'];
   return (
     <div className="flex justify-center items-center gap-2 mb-8 text-sm">
       {steps.map((label, i) => (
@@ -22,7 +22,7 @@ function StepIndicator({ step }: { step: number }) {
             </span>
             <span className={`hidden sm:inline text-xs ${i === step ? 'text-[#1a56db] font-semibold' : i < step ? 'text-[#059669]' : 'text-[#9ca3af]'}`}>{label}</span>
           </div>
-          {i < 3 && <div className="w-6 h-px bg-[#e5e7eb]" />}
+          {i < 2 && <div className="w-6 h-px bg-[#e5e7eb]" />}
         </React.Fragment>
       ))}
     </div>
@@ -35,32 +35,22 @@ function BookingPageContent() {
   const store = useBookingStore();
   const addNotification = useNotificationStore((s) => s.addNotification);
   const [services, setServices] = useState<Service[]>([]);
-  const [specialists, setSpecialists] = useState<Specialist[]>([]);
   const [slots, setSlots] = useState<Slot[]>([]);
   const [selectedDate, setSelectedDate] = useState('2026-07-03');
 
   useEffect(() => {
     api.services.list().then(setServices);
-    api.specialists.list().then(setSpecialists);
     const sid = searchParams.get('serviceId');
-    const spid = searchParams.get('specialistId');
     if (sid && services.length) {
       const s = services.find((sv) => sv.id === sid);
       if (s) store.selectService(s);
     }
-    if (spid && specialists.length) {
-      const sp = specialists.find((s) => s.id === spid);
-      if (sp) store.selectSpecialist(sp);
-    }
     api.slots.getByDate(selectedDate).then(setSlots);
-  }, [searchParams, selectedDate, services.length, specialists.length]);
-
-  const filteredSlots = store.selectedSpecialist ? slots.filter((s) => s.specialistId === store.selectedSpecialist!.id) : slots;
+  }, [searchParams, selectedDate, services.length]);
 
   const handleConfirm = async () => {
     await api.bookings.create({
       serviceName: store.selectedService?.name || '',
-      specialistName: store.selectedSpecialist?.name || '',
       date: selectedDate,
       time: store.selectedSlot?.time || '',
       durationMinutes: store.selectedService?.durationMinutes || 30,
@@ -70,7 +60,7 @@ function BookingPageContent() {
     addNotification({
       id: `n${Date.now()}`,
       title: '✓ Запись создана',
-      body: `${store.selectedService?.name} с ${store.selectedSpecialist?.name} на ${selectedDate} в ${store.selectedSlot?.time}`,
+      body: `${store.selectedService?.name} на ${selectedDate} в ${store.selectedSlot?.time}`,
       type: 'booking',
       read: false,
       createdAt: new Date().toISOString(),
@@ -98,7 +88,7 @@ function BookingPageContent() {
                     <div className="w-10 h-10 rounded-md flex items-center justify-center text-xl" style={{ background: s.iconBg }}>{s.icon}</div>
                     <div className="flex-1">
                       <div className="font-semibold text-sm">{s.name}</div>
-                      <div className="text-xs text-[#6b7280]">{s.durationMinutes} мин {s.isFree ? '• Бесплатно' : `• ${s.priceRub} ₽`}</div>
+                      <div className="text-xs text-[#6b7280]">{s.durationMinutes > 0 ? `${s.durationMinutes} мин` : 'Видео'} {s.isFree ? '• Бесплатно' : `• ${s.priceRub} ₽`}</div>
                     </div>
                   </div>
                 </Card>
@@ -106,25 +96,8 @@ function BookingPageContent() {
             </div>
           )}
 
-          {/* Step 1: Specialist */}
+          {/* Step 1: Date & Time */}
           {store.step === 1 && (
-            <div className="space-y-3">
-              {specialists.map((sp) => (
-                <Card key={sp.id} hoverable onClick={() => { store.selectSpecialist(sp); toast.success(`Выбран: ${sp.name}`); }}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: sp.avatarBg, color: sp.avatarColor }}>{sp.avatar}</div>
-                    <div className="flex-1">
-                      <div className="font-semibold text-sm">{sp.name}</div>
-                      <div className="text-xs text-[#6b7280]">{sp.role} • ★ {sp.rating}</div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          )}
-
-          {/* Step 2: Date & Time */}
-          {store.step === 2 && (
             <div>
               <div className="flex items-center justify-between mb-4">
                 <Button variant="ghost" size="sm">←</Button>
@@ -158,8 +131,8 @@ function BookingPageContent() {
               <Card>
                 <h3 className="text-sm font-semibold mb-3">Доступное время — {selectedDate}</h3>
                 <div className="grid grid-cols-4 gap-2">
-                  {filteredSlots.length === 0 && <p className="text-sm text-[#6b7280] col-span-4">Нет доступных слотов</p>}
-                  {filteredSlots.map((slot) => (
+                  {slots.length === 0 && <p className="text-sm text-[#6b7280] col-span-4">Нет доступных слотов</p>}
+                  {slots.map((slot) => (
                     <button
                       key={slot.id}
                       disabled={!slot.isAvailable}
@@ -177,8 +150,8 @@ function BookingPageContent() {
             </div>
           )}
 
-          {/* Step 3: Confirmation */}
-          {store.step === 3 && (
+          {/* Step 2: Confirmation */}
+          {store.step === 2 && (
             <Card>
               <h3 className="font-semibold mb-4">Детали записи</h3>
 
@@ -196,11 +169,10 @@ function BookingPageContent() {
 
               <div className="grid grid-cols-2 gap-3 text-sm mb-4">
                 <div><span className="text-[#6b7280]">Услуга</span><div className="font-semibold">{store.selectedService?.name}</div></div>
-                <div><span className="text-[#6b7280]">Длительность</span><div className="font-semibold">{store.selectedService?.durationMinutes} мин</div></div>
-                <div><span className="text-[#6b7280]">Специалист</span><div className="font-semibold">{store.selectedSpecialist?.name}</div></div>
+                <div><span className="text-[#6b7280]">Длительность</span><div className="font-semibold">{store.selectedService?.durationMinutes > 0 ? `${store.selectedService?.durationMinutes} мин` : 'Видео'}</div></div>
                 <div><span className="text-[#6b7280]">Дата</span><div className="font-semibold">{selectedDate}</div></div>
                 <div><span className="text-[#6b7280]">Время</span><div className="font-semibold">{store.selectedSlot?.time}</div></div>
-                <div><span className="text-[#6b7280]">Стоимость</span><div className="font-semibold text-[#059669]">{store.selectedService?.isFree ? 'Бесплатно (договор активен)' : `${store.selectedService?.priceRub} ₽`}</div></div>
+                <div className="col-span-2"><span className="text-[#6b7280]">Стоимость</span><div className="font-semibold text-[#059669]">{store.selectedService?.isFree ? 'Бесплатно (договор активен)' : `${store.selectedService?.priceRub} ₽`}</div></div>
               </div>
 
               <Textarea
@@ -220,7 +192,6 @@ function BookingPageContent() {
             <h3 className="font-semibold mb-3">Выбранное</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between"><span className="text-[#6b7280]">Услуга:</span><span className="font-medium">{store.selectedService?.name || '—'}</span></div>
-              <div className="flex justify-between"><span className="text-[#6b7280]">Специалист:</span><span className="font-medium">{store.selectedSpecialist?.name || '—'}</span></div>
               <div className="flex justify-between"><span className="text-[#6b7280]">Дата:</span><span className="font-medium">{store.selectedSlot ? `${selectedDate} ${store.selectedSlot.time}` : '—'}</span></div>
               <div className="flex justify-between"><span className="text-[#6b7280]">Стоимость:</span><span className="font-medium text-[#059669]">{store.selectedService?.isFree ? 'Бесплатно' : `${store.selectedService?.priceRub} ₽`}</span></div>
             </div>
@@ -229,14 +200,13 @@ function BookingPageContent() {
 
             <div className="flex gap-3">
               {store.step > 0 && <Button variant="secondary" onClick={() => store.setStep(store.step - 1)}>Назад</Button>}
-              {store.step < 3 ? (
+              {store.step < 2 ? (
                 <Button
                   variant="primary"
                   className="flex-1"
                   disabled={
                     (store.step === 0 && !store.selectedService) ||
-                    (store.step === 1 && !store.selectedSpecialist) ||
-                    (store.step === 2 && !store.selectedSlot)
+                    (store.step === 1 && !store.selectedSlot)
                   }
                   onClick={() => store.setStep(store.step + 1)}
                 >

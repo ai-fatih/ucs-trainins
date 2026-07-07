@@ -2,6 +2,15 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card } from '@/components/ui/Card';
+import howItWorksData from '@/data/how-it-works.json';
+import serviceCategoriesData from '@/data/service-categories.json';
+
+const categoryMeta: Record<string, { icon: string; badge: string; badgeVariant: string }> = {
+  consultations: { icon: '💬', badge: '30 мин', badgeVariant: 'bg-[#d1fae5] text-[#059669]' },
+  trainings: { icon: '📚', badge: 'от 2 часов', badgeVariant: 'bg-[#fef3c7] text-[#d97706]' },
+  setup: { icon: '⚙️', badge: 'Бесплатно*', badgeVariant: 'bg-[#d1fae5] text-[#059669]' },
+  video: { icon: '🎥', badge: 'Бесплатно', badgeVariant: 'bg-[#ede9fe] text-[#7c3aed]' },
+};
 
 export default function HomePage() {
   return (
@@ -23,19 +32,18 @@ export default function HomePage() {
 
       <section className="max-w-[1200px] mx-auto px-4 py-12">
         <h2 className="text-2xl font-bold text-center mb-8">Наши услуги</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { icon: '💬', title: 'Консультации', desc: 'Решение вопросов по кассам, складу, отчётам', badge: '30 мин', badgeVariant: 'bg-[#d1fae5] text-[#059669]' },
-            { icon: '📚', title: 'Тренинги', desc: 'Обучение сотрудников, базовые и продвинутые курсы', badge: 'от 2 часов', badgeVariant: 'bg-[#fef3c7] text-[#d97706]' },
-            { icon: '⚙️', title: 'Настройка и аудит', desc: 'Проверка системы, кастомизация отчётов, интеграция', badge: 'Бесплатно*', badgeVariant: 'bg-[#d1fae5] text-[#059669]' },
-          ].map((item) => (
-            <Card key={item.title} hoverable className="text-center" onClick={() => window.location.href = '/services'}>
-              <div className="text-4xl mb-4">{item.icon}</div>
-              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-              <p className="text-sm text-[#6b7280] mb-4">{item.desc}</p>
-              <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${item.badgeVariant}`}>{item.badge}</span>
-            </Card>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {serviceCategoriesData.map((cat) => {
+            const meta = categoryMeta[cat.id] || { icon: '📋', badge: '', badgeVariant: '' };
+            return (
+              <Card key={cat.id} hoverable className="text-center" onClick={() => window.location.href = '/services'}>
+                <div className="text-4xl mb-4">{meta.icon}</div>
+                <h3 className="text-lg font-semibold mb-2">{cat.label}</h3>
+                <p className="text-sm text-[#6b7280] mb-4">{cat.description}</p>
+                {meta.badge && <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${meta.badgeVariant}`}>{meta.badge}</span>}
+              </Card>
+            );
+          })}
         </div>
       </section>
 
@@ -43,16 +51,11 @@ export default function HomePage() {
         <div className="max-w-[1200px] mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold mb-4">Как это работает</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-8">
-            {[
-              { n: '1', title: 'Выберите услугу', desc: 'Консультация, тренинг или настройка' },
-              { n: '2', title: 'Выберите специалиста', desc: 'Посмотрите рейтинг и отзывы' },
-              { n: '3', title: 'Выберите удобное время', desc: 'Свободные слоты в реальном времени' },
-              { n: '4', title: 'Получите помощь', desc: 'Чат, консультация, материалы' },
-            ].map((step) => (
-              <div key={step.n}>
-                <div className="w-12 h-12 bg-[#e8effa] text-[#1a56db] rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">{step.n}</div>
+            {howItWorksData.map((step) => (
+              <div key={step.id}>
+                <div className="w-12 h-12 bg-[#e8effa] text-[#1a56db] rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">{step.icon}</div>
                 <h3 className="font-semibold mb-2">{step.title}</h3>
-                <p className="text-sm text-[#6b7280]">{step.desc}</p>
+                <p className="text-sm text-[#6b7280]">{step.description}</p>
               </div>
             ))}
           </div>

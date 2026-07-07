@@ -1,6 +1,6 @@
 export type UserType = 'company' | 'individual';
 export type BookingStatus = 'scheduled' | 'in_progress' | 'completed' | 'cancelled' | 'no_show' | 'rescheduled';
-export type ServiceType = 'consultation' | 'training' | 'setup';
+export type ServiceType = 'consultation' | 'training' | 'setup' | 'video';
 export type NotificationChannel = 'email' | 'telegram' | 'sms' | 'in_app';
 export type UserRole = 'user' | 'company_admin' | 'specialist' | 'admin';
 
@@ -70,8 +70,8 @@ export interface Booking {
   id: string;
   serviceId: string;
   serviceName: string;
-  specialistId: string;
-  specialistName: string;
+  specialistId?: string;
+  specialistName?: string;
   employeeId?: string;
   employeeName?: string;
   date: string;
