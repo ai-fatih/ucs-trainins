@@ -1,7 +1,11 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
 import { Card } from '@/components/ui/Card';
+import { Avatar } from '@/components/ui/Avatar';
+import { api } from '@/lib/api';
+import type { Specialist } from '@/types';
 import {
   MessageCircle, GraduationCap, Video, Database, ArrowRight,
 } from 'lucide-react';
@@ -23,24 +27,12 @@ function calcExperience(startDate: string): string {
   return years > 0 ? `${years}+ лет` : 'Менее года';
 }
 
-interface TeamMember {
-  name: string;
-  role: string;
-  startDate?: string;
-  initials: string;
-  bg: string;
-  color: string;
-}
-
-const team: TeamMember[] = [
-  { name: 'Амир', role: 'Руководитель отдела', initials: 'АМ', bg: '#e8effa', color: '#1a56db' },
-  { name: 'Елена', role: 'Менеджер отдела', startDate: '2017-09-01', initials: 'ЕЛ', bg: '#ccfbf1', color: '#0d9488' },
-  { name: 'Владислав', role: 'Менеджер отдела', startDate: '2025-04-10', initials: 'ВЛ', bg: '#fef3c7', color: '#d97706' },
-  { name: 'Дмитрий', role: 'Менеджер отдела', startDate: '2025-10-01', initials: 'ДМ', bg: '#d1fae5', color: '#059669' },
-  { name: 'Елизавета', role: 'Менеджер отдела', startDate: '2026-02-01', initials: 'ЕЛ', bg: '#ede9fe', color: '#7c3aed' },
-];
-
 export default function HomePage() {
+  const { data: specialists = [] } = useQuery<Specialist[]>({
+    queryKey: ['specialists'],
+    queryFn: api.specialists.list,
+  });
+
   return (
     <div>
       {/* Hero */}
@@ -85,19 +77,21 @@ export default function HomePage() {
             Профессионалы, которые помогут вам с любым вопросом по rkeeper
           </p>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-            {team.map((member) => (
-              <div key={member.name} className="text-center">
-                <div
-                  className="w-20 h-20 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 shadow-sm"
-                  style={{ backgroundColor: member.bg, color: member.color }}
-                >
-                  {member.initials}
-                </div>
-                <h3 className="font-semibold text-base">{member.name}</h3>
-                <p className="text-sm text-[#6b7280] mb-1">{member.role}</p>
-                {member.startDate && (
+            {specialists.map((spec) => (
+              <div key={spec.id} className="text-center">
+                <Avatar
+                  src={spec.avatarUrl}
+                  name={spec.name}
+                  size="lg"
+                  bg={spec.avatarBg}
+                  color={spec.avatarColor}
+                  className="mx-auto mb-4"
+                />
+                <h3 className="font-semibold text-base">{spec.name}</h3>
+                <p className="text-sm text-[#6b7280] mb-1">{spec.role}</p>
+                {spec.startDate && (
                   <p className="text-xs font-semibold text-[#0d9488]">
-                    {calcExperience(member.startDate)} в UCS
+                    {calcExperience(spec.startDate)} в UCS
                   </p>
                 )}
               </div>

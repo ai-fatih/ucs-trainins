@@ -1,7 +1,7 @@
 [
-  { "id": "1", "name": "Амир", "role": "Руководитель отдела", "rating": 5.0, "reviewCount": 0, "tags": ["rkeeper", "Управление"], "avatar": "АМ", "avatarBg": "#e8effa", "avatarColor": "#1a56db" },
-  { "id": "2", "name": "Елена", "role": "Менеджер отдела", "rating": 5.0, "reviewCount": 0, "tags": ["Консультации", "Кассы", "Отчёты"], "avatar": "ЕЛ", "avatarBg": "#ccfbf1", "avatarColor": "#0d9488" },
-  { "id": "3", "name": "Владислав", "role": "Менеджер отдела", "rating": 5.0, "reviewCount": 0, "tags": ["Справочники", "Номенклатура"], "avatar": "ВЛ", "avatarBg": "#fef3c7", "avatarColor": "#d97706" },
-  { "id": "4", "name": "Дмитрий", "role": "Менеджер отдела", "rating": 5.0, "reviewCount": 0, "tags": ["Обучение", "Тренинги"], "avatar": "ДМ", "avatarBg": "#d1fae5", "avatarColor": "#059669" },
-  { "id": "5", "name": "Елизавета", "role": "Менеджер отдела", "rating": 5.0, "reviewCount": 0, "tags": ["Видео", "Материалы"], "avatar": "ЕЛ", "avatarBg": "#ede9fe", "avatarColor": "#7c3aed" }
+  { "id": "1", "name": "Амир", "role": "Руководитель отдела", "rating": 5.0, "reviewCount": 0, "tags": ["rkeeper", "Управление"], "avatar": "АМ", "avatarBg": "#e8effa", "avatarColor": "#1a56db", "avatarUrl": "/avatars/amir.png", "startDate": "2018-06-01" },
+  { "id": "2", "name": "Елена", "role": "Менеджер отдела", "rating": 5.0, "reviewCount": 0, "tags": ["Консультации", "Кассы", "Отчёты"], "avatar": "ЕЛ", "avatarBg": "#ccfbf1", "avatarColor": "#0d9488", "avatarUrl": "/avatars/elena.png", "startDate": "2017-09-01" },
+  { "id": "3", "name": "Владислав", "role": "Менеджер отдела", "rating": 5.0, "reviewCount": 0, "tags": ["Справочники", "Номенклатура"], "avatar": "ВЛ", "avatarBg": "#fef3c7", "avatarColor": "#d97706", "avatarUrl": "/avatars/vladislav.png", "startDate": "2025-04-10" },
+  { "id": "4", "name": "Дмитрий", "role": "Менеджер отдела", "rating": 5.0, "reviewCount": 0, "tags": ["Обучение", "Тренинги"], "avatar": "ДМ", "avatarBg": "#d1fae5", "avatarColor": "#059669", "avatarUrl": "/avatars/dmitriy.png", "startDate": "2025-10-01" },
+  { "id": "5", "name": "Елизавета", "role": "Менеджер отдела", "rating": 5.0, "reviewCount": 0, "tags": ["Видео", "Материалы"], "avatar": "ЕЛ", "avatarBg": "#ede9fe", "avatarColor": "#7c3aed", "avatarUrl": "/avatars/elizaveta.png", "startDate": "2026-02-01" }
 ]

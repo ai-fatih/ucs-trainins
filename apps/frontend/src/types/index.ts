@@ -56,6 +56,8 @@ export interface Specialist {
   avatar: string;
   avatarBg: string;
   avatarColor: string;
+  avatarUrl?: string;
+  startDate?: string;
 }
 
 export interface Slot {

@@ -8,6 +8,7 @@ import type { Employee } from '@/types';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { Avatar } from '@/components/ui/Avatar';
 import { TableRowSkeleton } from '@/components/ui/Skeleton';
 import toast from 'react-hot-toast';
 
@@ -35,7 +36,7 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div>
           <Card className="text-center">
-            <div className="w-16 h-16 rounded-full bg-[#e8effa] text-[#1a56db] flex items-center justify-center text-2xl font-bold mx-auto mb-3">{user.name.charAt(0)}</div>
+            <Avatar name={user.name} size="lg" className="mx-auto mb-3" />
             <h3 className="text-base font-semibold">{user.name}</h3>
             <p className="text-xs text-[#6b7280]">{user.email}</p>
             <p className="text-xs text-[#6b7280] mb-4">{user.phone}</p>

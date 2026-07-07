@@ -3,6 +3,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import { Avatar } from '@/components/ui/Avatar';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
@@ -26,9 +27,14 @@ function SpecialistsPageContent() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {specialists.map((spec) => (
           <Card key={spec.id} className="text-center">
-            <div className="w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-3" style={{ background: spec.avatarBg, color: spec.avatarColor }}>
-              {spec.avatar}
-            </div>
+            <Avatar
+              src={spec.avatarUrl}
+              name={spec.name}
+              size="lg"
+              bg={spec.avatarBg}
+              color={spec.avatarColor}
+              className="mx-auto mb-3"
+            />
             <h3 className="text-base font-semibold">{spec.name}</h3>
             <p className="text-sm text-[#6b7280] mb-2">{spec.role}</p>
             <div className="flex items-center justify-center gap-1 mb-3">
