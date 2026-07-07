@@ -1,0 +1,12 @@
+steps:
+  - name: Install frontend dependencies
+    run: npm ci
+    working-directory: apps/frontend
+
+  - name: Frontend type check
+    run: npx tsc --noEmit
+    working-directory: apps/frontend
+
+  - name: Frontend lint
+    run: npm run lint
+    working-directory: apps/frontend
