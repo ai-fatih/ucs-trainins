@@ -1,6 +1,5 @@
-'use client';
 import type { Metadata } from 'next';
-import { Toaster } from 'react-hot-toast';
+import { Providers } from './providers';
 import { Header } from '@/components/layout/Header';
 import './globals.css';
 
@@ -20,8 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <Header />
-        <main>{children}</main>
-        <Toaster position="top-right" toastOptions={{ duration: 4000, style: { fontSize: '14px', borderRadius: '8px' } }} />
+        <Providers>
+          <main>{children}</main>
+        </Providers>
       </body>
     </html>
   );
