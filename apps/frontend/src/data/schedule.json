@@ -1,0 +1,40 @@
+{
+  "weekdays": ["Пн", "Вт", "Ср", "Чт", "Пт"],
+  "workHours": { "start": "09:00", "end": "18:00" },
+  "slotDurationMinutes": 60,
+  "specialists": [
+    {
+      "id": "1",
+      "name": "Иван Петров",
+      "schedule": {
+        "Пн": [{ "start": "09:00", "end": "18:00", "type": "available" }],
+        "Вт": [{ "start": "09:00", "end": "18:00", "type": "available" }],
+        "Ср": [{ "start": "09:00", "end": "13:00", "type": "available" }, { "start": "13:00", "end": "14:00", "type": "break" }, { "start": "14:00", "end": "18:00", "type": "available" }],
+        "Чт": [{ "start": "09:00", "end": "18:00", "type": "available" }],
+        "Пт": [{ "start": "09:00", "end": "16:00", "type": "available" }]
+      }
+    },
+    {
+      "id": "2",
+      "name": "Мария Соколова",
+      "schedule": {
+        "Пн": [{ "start": "10:00", "end": "18:00", "type": "available" }],
+        "Вт": [{ "start": "09:00", "end": "17:00", "type": "available" }],
+        "Ср": [{ "start": "09:00", "end": "18:00", "type": "available" }],
+        "Чт": [{ "start": "10:00", "end": "18:00", "type": "available" }],
+        "Пт": [{ "start": "09:00", "end": "15:00", "type": "available" }]
+      }
+    },
+    {
+      "id": "3",
+      "name": "Алексей Кузнецов",
+      "schedule": {
+        "Пн": [{ "start": "09:00", "end": "18:00", "type": "available" }],
+        "Вт": [{ "start": "09:00", "end": "18:00", "type": "available" }],
+        "Ср": [{ "start": "12:00", "end": "18:00", "type": "available" }],
+        "Чт": [{ "start": "09:00", "end": "18:00", "type": "available" }],
+        "Пт": [{ "start": "09:00", "end": "14:00", "type": "available" }]
+      }
+    }
+  ]
+}

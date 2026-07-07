@@ -2,67 +2,253 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card } from '@/components/ui/Card';
+import {
+  MessageCircle, GraduationCap, Video, Database,
+  FileText, Users, Award, Building2, ArrowRight,
+} from 'lucide-react';
+import howItWorksData from '@/data/how-it-works.json';
+import serviceCategoriesData from '@/data/service-categories.json';
+
+const categoryMeta: Record<string, { icon: React.ElementType; badge: string; badgeVariant: string }> = {
+  consultations: { icon: MessageCircle, badge: '30 мин', badgeVariant: 'bg-[#e8effa] text-[#1a56db]' },
+  trainings: { icon: GraduationCap, badge: 'от 2 ч', badgeVariant: 'bg-[#fef3c7] text-[#d97706]' },
+  video: { icon: Video, badge: '60 мин', badgeVariant: 'bg-[#ede9fe] text-[#7c3aed]' },
+  directories: { icon: Database, badge: 'от 60 мин', badgeVariant: 'bg-[#ccfbf1] text-[#0d9488]' },
+};
+
+function calcExperience(startDate: string): string {
+  const start = new Date(startDate);
+  const now = new Date();
+  let years = now.getFullYear() - start.getFullYear();
+  let months = now.getMonth() - start.getMonth();
+  if (months < 0) { years--; months += 12; }
+  const totalMonths = years * 12 + months;
+  if (totalMonths < 1) return 'Менее месяца';
+  if (totalMonths < 12) return `${totalMonths} мес.`;
+  const y = Math.floor(totalMonths / 12);
+  const m = totalMonths % 12;
+  return m > 0 ? `${y} г. ${m} мес.` : `${y} лет`;
+}
+
+interface TeamMember {
+  name: string;
+  role: string;
+  startDate?: string;
+  initials: string;
+  bg: string;
+  color: string;
+}
+
+const team: TeamMember[] = [
+  { name: 'Амир', role: 'Руководитель отдела', initials: 'АМ', bg: '#e8effa', color: '#1a56db' },
+  { name: 'Елена', role: 'Менеджер отдела', startDate: '2017-09-01', initials: 'ЕЛ', bg: '#ccfbf1', color: '#0d9488' },
+  { name: 'Владислав', role: 'Менеджер отдела', startDate: '2025-04-10', initials: 'ВЛ', bg: '#fef3c7', color: '#d97706' },
+  { name: 'Дмитрий', role: 'Менеджер отдела', startDate: '2025-10-01', initials: 'ДМ', bg: '#d1fae5', color: '#059669' },
+  { name: 'Елизавета', role: 'Менеджер отдела', startDate: '2026-02-01', initials: 'ЕЛ', bg: '#ede9fe', color: '#7c3aed' },
+];
 
 export default function HomePage() {
   return (
     <div>
-      <section className="bg-gradient-to-r from-[#1a56db] to-[#1e40af] text-white py-16 px-4 text-center">
-        <h1 className="text-3xl md:text-4xl font-extrabold mb-4">Профессиональные консультации и обучение по rkeeper</h1>
-        <p className="text-lg opacity-90 max-w-xl mx-auto mb-8">
-          Быстрая запись на консультации, тренинги и настройку. Бесплатно при активном договоре поддержки.
-        </p>
-        <div className="flex justify-center gap-4">
-          <Link href="/services" className="bg-white text-[#1a56db] font-bold px-8 py-3.5 rounded-md text-base hover:bg-gray-100 no-underline transition-colors">
-            Записаться
-          </Link>
-          <Link href="/auth/login" className="border-2 border-white text-white font-semibold px-8 py-3.5 rounded-md text-base hover:bg-white/10 no-underline transition-colors">
-            Войти
-          </Link>
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a56db] via-[#1e40af] to-[#0d9488] text-white py-20 px-4">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-white rounded-full blur-3xl" />
+          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#0d9488] rounded-full blur-3xl" />
+        </div>
+        <div className="max-w-[1200px] mx-auto relative z-10">
+          <div className="text-center">
+            <h1 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
+              Экспертная поддержка
+              <br className="hidden md:block" /> пользователей rkeeper
+            </h1>
+            <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-10">
+              Решаем вопросы с кассами, отчётами и складом. Обучаем сотрудников.
+              Настраиваем справочники и номенклатуру.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-10">
+            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-4">
+              <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center shrink-0">
+                <FileText className="w-5 h-5" />
+              </div>
+              <span className="text-sm font-medium">Помощь с кассами и отчётами</span>
+            </div>
+            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-4">
+              <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center shrink-0">
+                <GraduationCap className="w-5 h-5" />
+              </div>
+              <span className="text-sm font-medium">Обучение сотрудников</span>
+            </div>
+            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-4">
+              <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center shrink-0">
+                <Database className="w-5 h-5" />
+              </div>
+              <span className="text-sm font-medium">Настройка справочников</span>
+            </div>
+          </div>
+          <div className="flex justify-center gap-4">
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 bg-white text-[#1a56db] font-bold px-8 py-3.5 rounded-md text-base hover:bg-gray-100 no-underline transition-colors"
+            >
+              Записаться <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/auth/login"
+              className="inline-flex items-center gap-2 border-2 border-white text-white font-semibold px-8 py-3.5 rounded-md text-base hover:bg-white/10 no-underline transition-colors"
+            >
+              Войти
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="max-w-[1200px] mx-auto px-4 py-12">
-        <h2 className="text-2xl font-bold text-center mb-8">Наши услуги</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { icon: '💬', title: 'Консультации', desc: 'Решение вопросов по кассам, складу, отчётам', badge: '30 мин', badgeVariant: 'bg-[#d1fae5] text-[#059669]' },
-            { icon: '📚', title: 'Тренинги', desc: 'Обучение сотрудников, базовые и продвинутые курсы', badge: 'от 2 часов', badgeVariant: 'bg-[#fef3c7] text-[#d97706]' },
-            { icon: '⚙️', title: 'Настройка и аудит', desc: 'Проверка системы, кастомизация отчётов, интеграция', badge: 'Бесплатно*', badgeVariant: 'bg-[#d1fae5] text-[#059669]' },
-          ].map((item) => (
-            <Card key={item.title} hoverable className="text-center" onClick={() => window.location.href = '/services'}>
-              <div className="text-4xl mb-4">{item.icon}</div>
-              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-              <p className="text-sm text-[#6b7280] mb-4">{item.desc}</p>
-              <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${item.badgeVariant}`}>{item.badge}</span>
-            </Card>
-          ))}
+      {/* About */}
+      <section className="bg-white py-16 px-4">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">О нашем отделе</h2>
+            <p className="text-lg text-[#6b7280] max-w-3xl mx-auto leading-relaxed">
+              Мы — отдел пользовательской поддержки <strong className="text-[#1a56db]">UCS</strong>.
+              Наша специализация — помощь в ежедневной работе с <strong>rkeeper</strong>:
+              от настройки касс и отчётов до обучения персонала и ведения справочников.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-14 h-14 bg-[#e8effa] text-[#1a56db] rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Users className="w-7 h-7" />
+              </div>
+              <h3 className="font-semibold text-lg mb-2">5 экспертов</h3>
+              <p className="text-sm text-[#6b7280]">Специализируемся на разных направлениях работы с rkeeper</p>
+            </div>
+            <div className="text-center">
+              <div className="w-14 h-14 bg-[#ccfbf1] text-[#0d9488] rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Award className="w-7 h-7" />
+              </div>
+              <h3 className="font-semibold text-lg mb-2">Официальная поддержка</h3>
+              <p className="text-sm text-[#6b7280]">Работаем с юридическими лицами по договору поддержки</p>
+            </div>
+            <div className="text-center">
+              <div className="w-14 h-14 bg-[#fef3c7] text-[#d97706] rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Building2 className="w-7 h-7" />
+              </div>
+              <h3 className="font-semibold text-lg mb-2">B2B фокус</h3>
+              <p className="text-sm text-[#6b7280]">Помогаем ресторанам и кафе эффективно работать с системой</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="bg-white py-12 border-t border-[#e5e7eb]">
-        <div className="max-w-[1200px] mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold mb-4">Как это работает</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-8">
-            {[
-              { n: '1', title: 'Выберите услугу', desc: 'Консультация, тренинг или настройка' },
-              { n: '2', title: 'Выберите специалиста', desc: 'Посмотрите рейтинг и отзывы' },
-              { n: '3', title: 'Выберите удобное время', desc: 'Свободные слоты в реальном времени' },
-              { n: '4', title: 'Получите помощь', desc: 'Чат, консультация, материалы' },
-            ].map((step) => (
-              <div key={step.n}>
-                <div className="w-12 h-12 bg-[#e8effa] text-[#1a56db] rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">{step.n}</div>
-                <h3 className="font-semibold mb-2">{step.title}</h3>
-                <p className="text-sm text-[#6b7280]">{step.desc}</p>
+      {/* Services */}
+      <section className="bg-[#f9fafb] py-16 px-4">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">Наши услуги</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {serviceCategoriesData.map((cat) => {
+              const meta = categoryMeta[cat.id] || { icon: MessageCircle, badge: '', badgeVariant: '' };
+              const IconComp = meta.icon;
+              return (
+                <Card key={cat.id} hoverable className="text-center" onClick={() => window.location.href = '/services'}>
+                  <div className="w-12 h-12 bg-[#e8effa] text-[#1a56db] rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <IconComp className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{cat.label}</h3>
+                  <p className="text-sm text-[#6b7280] mb-4">{cat.description}</p>
+                  {meta.badge && (
+                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${meta.badgeVariant}`}>
+                      {meta.badge}
+                    </span>
+                  )}
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section className="bg-white py-16 px-4">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-4">Наша команда</h2>
+          <p className="text-center text-[#6b7280] mb-12 max-w-xl mx-auto">
+            Профессионалы, которые помогут вам с любым вопросом по rkeeper
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+            {team.map((member) => (
+              <div key={member.name} className="text-center">
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 shadow-sm"
+                  style={{ backgroundColor: member.bg, color: member.color }}
+                >
+                  {member.initials}
+                </div>
+                <h3 className="font-semibold text-base">{member.name}</h3>
+                <p className="text-sm text-[#6b7280] mb-1">{member.role}</p>
+                {member.startDate && (
+                  <p className="text-xs font-semibold text-[#0d9488]">
+                    {calcExperience(member.startDate)} в UCS
+                  </p>
+                )}
               </div>
             ))}
           </div>
-          <Link href="/services" className="btn-primary mt-8 inline-block">Записаться сейчас</Link>
         </div>
       </section>
 
-      <footer className="text-center py-8 text-sm text-[#9ca3af] border-t border-[#e5e7eb]">
-        <p>UCS service — Консультации и Обучения © 2026</p>
-        <p className="mt-1">* Бесплатно для клиентов с активным договором пользовательской поддержки</p>
+      {/* How It Works — Stepper */}
+      <section className="bg-[#f9fafb] py-16 px-4">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-4">Как это работает</h2>
+          <p className="text-center text-[#6b7280] mb-12 max-w-xl mx-auto">
+            Всего несколько шагов, чтобы получить профессиональную помощь
+          </p>
+
+          <div className="relative max-w-4xl mx-auto">
+            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-[#0d9488]/20 md:hidden" />
+
+            <div className="hidden md:flex flex-row gap-0 relative">
+              {howItWorksData.map((step, i) => (
+                <div key={step.id} className="flex-1 relative px-4">
+                  {i < howItWorksData.length - 1 && (
+                    <div className="absolute top-6 left-[calc(50%+28px)] right-[calc(50%-28px)] h-0.5 bg-[#0d9488]/20" />
+                  )}
+                  <div className="w-12 h-12 bg-[#0d9488] text-white rounded-full flex items-center justify-center text-lg font-bold mx-auto mb-4 relative z-10">
+                    {step.icon}
+                  </div>
+                  <h3 className="font-semibold text-center mb-2">{step.title}</h3>
+                  <p className="text-sm text-[#6b7280] text-center">{step.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="md:hidden flex flex-col gap-8">
+              {howItWorksData.map((step) => (
+                <div key={step.id} className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-[#0d9488] text-white rounded-full flex items-center justify-center text-lg font-bold shrink-0 relative z-10">
+                    {step.icon}
+                  </div>
+                  <div className="pt-2.5">
+                    <h3 className="font-semibold mb-1">{step.title}</h3>
+                    <p className="text-sm text-[#6b7280]">{step.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/services" className="btn-primary">
+              Записаться сейчас <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="text-center py-8 px-4 text-sm text-[#9ca3af] border-t border-[#e5e7eb] bg-white">
+        <p>UCS service — Отдел пользовательской поддержки rkeeper &copy; {new Date().getFullYear()}</p>
       </footer>
     </div>
   );

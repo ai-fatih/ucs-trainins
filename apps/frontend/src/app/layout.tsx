@@ -5,7 +5,8 @@ import { Header } from '@/components/layout/Header';
 import './globals.css';
 
 const manrope = Manrope({
-  subsets: ['cyrillic', 'latin'],
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-manrope',
   display: 'swap',
 });
 
@@ -22,7 +23,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
+    <html lang="ru" className={manrope.variable}>
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>

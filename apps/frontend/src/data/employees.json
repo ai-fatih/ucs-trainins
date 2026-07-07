@@ -1,0 +1,23 @@
+[
+  {
+    "id": "e1",
+    "name": "Анна Смирнова",
+    "position": "Управляющая",
+    "email": "anna@restoran.ru",
+    "bookingCount": 4
+  },
+  {
+    "id": "e2",
+    "name": "Павел Иванов",
+    "position": "Шеф-повар",
+    "email": "pavel@restoran.ru",
+    "bookingCount": 2
+  },
+  {
+    "id": "e3",
+    "name": "Елена Козлова",
+    "position": "Бухгалтер",
+    "email": "elena@restoran.ru",
+    "bookingCount": 0
+  }
+]

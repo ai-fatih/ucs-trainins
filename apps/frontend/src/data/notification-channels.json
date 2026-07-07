@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ch1",
+    "channel": "email",
+    "enabled": true,
+    "label": "Email",
+    "value": "email"
+  },
+  {
+    "id": "ch2",
+    "channel": "telegram",
+    "enabled": true,
+    "label": "Telegram",
+    "value": "telegram"
+  },
+  {
+    "id": "ch3",
+    "channel": "sms",
+    "enabled": false,
+    "label": "SMS",
+    "value": "sms"
+  }
+]
