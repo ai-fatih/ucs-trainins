@@ -1,7 +1,13 @@
 import type { Metadata, Viewport } from 'next';
+import { Manrope } from 'next/font/google';
 import { Providers } from './providers';
 import { Header } from '@/components/layout/Header';
 import './globals.css';
+
+const manrope = Manrope({
+  subsets: ['cyrillic', 'latin'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'UCS service — Консультации и Обучения',
@@ -20,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
-      <body>
+      <body className={manrope.className}>
         <Header />
         <Providers>
           <main>{children}</main>

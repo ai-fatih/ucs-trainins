@@ -9,3 +9,5 @@ build/
 .turbo/
 .vite/
 .npm-cache/
+*.tsbuildinfo
+tsconfig.tsbuildinfo
