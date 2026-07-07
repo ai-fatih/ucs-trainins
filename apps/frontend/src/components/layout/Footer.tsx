@@ -7,13 +7,8 @@ import { Phone, Mail, MapPin } from 'lucide-react';
 export function Footer() {
   const { user, isAuthenticated } = useAuthStore();
 
-  const dashboardHref = !isAuthenticated
-    ? '/'
-    : user?.role === 'admin' || user?.role === 'company_admin'
-      ? '/admin/requests'
-      : user?.role === 'specialist'
-        ? '/admin/requests'
-        : '/bookings';
+  const isStaff = user?.role === 'admin' || user?.role === 'company_admin' || user?.role === 'specialist';
+  const dashboardHref = !isAuthenticated ? '/' : isStaff ? '/admin/dashboard' : '/dashboard';
 
   return (
     <footer className="glass-strong border-t border-white/20">
