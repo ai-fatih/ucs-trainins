@@ -77,33 +77,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Services */}
-      <section className="bg-[#f9fafb] py-16 px-4">
-        <div className="max-w-[1200px] mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Наши услуги</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {serviceCategoriesData.map((cat) => {
-              const meta = categoryMeta[cat.id] || { icon: MessageCircle, badge: '', badgeVariant: '' };
-              const IconComp = meta.icon;
-              return (
-                <Card key={cat.id} hoverable className="text-center" onClick={() => window.location.href = '/services'}>
-                  <div className="w-12 h-12 bg-[#e8effa] text-[#1a56db] rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <IconComp className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{cat.label}</h3>
-                  <p className="text-sm text-[#6b7280] mb-4">{cat.description}</p>
-                  {meta.badge && (
-                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${meta.badgeVariant}`}>
-                      {meta.badge}
-                    </span>
-                  )}
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Team */}
       <section className="bg-white py-16 px-4">
         <div className="max-w-[1200px] mx-auto">
@@ -129,6 +102,33 @@ export default function HomePage() {
                 )}
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section className="bg-[#f9fafb] py-16 px-4">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">Наши услуги</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {serviceCategoriesData.map((cat) => {
+              const meta = categoryMeta[cat.id] || { icon: MessageCircle, badge: '', badgeVariant: '' };
+              const IconComp = meta.icon;
+              return (
+                <Card key={cat.id} hoverable className="text-center" onClick={() => window.location.href = '/services'}>
+                  <div className="w-12 h-12 bg-[#e8effa] text-[#1a56db] rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <IconComp className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{cat.label}</h3>
+                  <p className="text-sm text-[#6b7280] mb-4">{cat.description}</p>
+                  {meta.badge && (
+                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${meta.badgeVariant}`}>
+                      {meta.badge}
+                    </span>
+                  )}
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
