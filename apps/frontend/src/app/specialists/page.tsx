@@ -1,22 +1,35 @@
 'use client';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import { Avatar } from '@/components/ui/Avatar';
-import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
 import { Stars } from '@/components/ui/Stars';
+import { AuthModal } from '@/components/auth/AuthModal';
+import { useAuthStore } from '@/stores/auth';
 import type { Specialist } from '@/types';
 
 function SpecialistsPageContent() {
-  const [specialists, setSpecialists] = useState<Specialist[]>([]);
   const router = useRouter();
   const searchParams = useSearchParams();
   const serviceId = searchParams.get('serviceId');
+  const { isAuthenticated } = useAuthStore();
+  const [authOpen, setAuthOpen] = useState(false);
 
-  useEffect(() => { api.specialists.list().then(setSpecialists); }, []);
+  const { data: specialists = [] } = useQuery<Specialist[]>({
+    queryKey: ['specialists'],
+    queryFn: api.specialists.list,
+  });
+
+  const handleSelect = (specId: string) => {
+    if (!isAuthenticated) {
+      setAuthOpen(true);
+      return;
+    }
+    router.push(`/booking?specialistId=${specId}${serviceId ? `&serviceId=${serviceId}` : ''}`);
+  };
 
   return (
     <div className="max-w-[1200px] mx-auto px-4 py-8">
@@ -26,7 +39,7 @@ function SpecialistsPageContent() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {specialists.map((spec) => (
-          <Card key={spec.id} className="text-center">
+          <div key={spec.id} className="glass-card text-center p-6">
             <Avatar
               src={spec.avatarUrl}
               name={spec.name}
@@ -44,12 +57,17 @@ function SpecialistsPageContent() {
             <div className="flex flex-wrap justify-center gap-1 mb-4">
               {spec.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}
             </div>
-            <Button variant="primary" size="sm" className="w-full" onClick={() => router.push(`/booking?specialistId=${spec.id}${serviceId ? `&serviceId=${serviceId}` : ''}`)}>
+            <button
+              onClick={() => handleSelect(spec.id)}
+              className="glass-btn w-full"
+            >
               Выбрать
-            </Button>
-          </Card>
+            </button>
+          </div>
         ))}
       </div>
+
+      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
     </div>
   );
 }

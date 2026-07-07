@@ -7,10 +7,8 @@ import { api } from '@/lib/api';
 import type { Service, Slot } from '@/types';
 import { useBookingStore } from '@/stores/booking';
 import { useNotificationStore } from '@/stores/notifications';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Textarea } from '@/components/ui/Input';
 import { TableRowSkeleton } from '@/components/ui/Skeleton';
+import { ArrowLeft, ArrowRight, Check, Clock, Calendar } from 'lucide-react';
 
 function StepIndicator({ step }: { step: number }) {
   const steps = ['Услуга', 'Дата и время', 'Подтверждение'];
@@ -19,12 +17,14 @@ function StepIndicator({ step }: { step: number }) {
       {steps.map((label, i) => (
         <React.Fragment key={label}>
           <div className="flex items-center gap-2">
-            <span className={`w-7 h-7 rounded-full flex items-center justify-center font-semibold text-xs ${i < step ? 'bg-[#059669] text-white' : i === step ? 'bg-[#1a56db] text-white' : 'bg-[#f3f4f6] text-[#9ca3af]'}`}>
-              {i < step ? '✓' : i + 1}
+            <span className={`w-8 h-8 rounded-full flex items-center justify-center font-semibold text-xs transition-all ${
+              i < step ? 'bg-gradient-to-br from-[#059669] to-[#0d9488] text-white' : i === step ? 'bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white shadow-lg' : 'glass text-[#9ca3af]'
+            }`}>
+              {i < step ? <Check className="w-4 h-4" /> : i + 1}
             </span>
             <span className={`hidden sm:inline text-xs ${i === step ? 'text-[#1a56db] font-semibold' : i < step ? 'text-[#059669]' : 'text-[#9ca3af]'}`}>{label}</span>
           </div>
-          {i < 2 && <div className="w-6 h-px bg-[#e5e7eb]" />}
+          {i < 2 && <div className="w-8 h-px bg-gradient-to-r from-[#1a56db]/30 to-[#0d9488]/30" />}
         </React.Fragment>
       ))}
     </div>
@@ -49,7 +49,6 @@ function BookingPageContent() {
     queryFn: () => api.slots.getByDate(selectedDate),
   });
 
-  // Auto-select service from URL param
   const preselectedServiceId = searchParams.get('serviceId');
   if (preselectedServiceId && services.length && !store.selectedService) {
     const s = services.find((sv) => sv.id === preselectedServiceId);
@@ -92,33 +91,39 @@ function BookingPageContent() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>
-          {/* Step 0: Service */}
           {store.step === 0 && (
             <div className="space-y-3">
               {servicesLoading
                 ? Array.from({ length: 4 }).map((_, i) => <TableRowSkeleton key={i} cols={2} />)
                 : services.map((s) => (
-                    <Card key={s.id} hoverable onClick={() => { store.selectService(s); toast.success(`Выбрано: ${s.name}`); }}>
-                      <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-md flex items-center justify-center text-xl" style={{ background: s.iconBg }}>{s.icon}</div>
-                        <div className="flex-1">
-                          <div className="font-semibold text-sm">{s.name}</div>
-                          <div className="text-xs text-[#6b7280]">{(s.durationMinutes ?? 0) > 0 ? `${s.durationMinutes} мин` : 'Видео'} {s.isFree ? '• Бесплатно' : `• ${s.priceRub} ₽`}</div>
+                    <div
+                      key={s.id}
+                      onClick={() => { store.selectService(s); toast.success(`Выбрано: ${s.name}`); }}
+                      className={`glass-card p-4 flex items-center gap-4 cursor-pointer transition-all ${
+                        store.selectedService?.id === s.id ? 'ring-2 ring-[#1a56db]/30' : ''
+                      }`}
+                    >
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl" style={{ background: s.iconBg }}>{s.icon}</div>
+                      <div className="flex-1">
+                        <div className="font-semibold text-sm text-[#111827]">{s.name}</div>
+                        <div className="text-xs text-[#6b7280] flex items-center gap-2">
+                          <Clock className="w-3 h-3" /> {(s.durationMinutes ?? 0) > 0 ? `${s.durationMinutes} мин` : 'Видео'}
+                          <span>•</span>
+                          {s.isFree ? 'Бесплатно' : `${s.priceRub} ₽`}
                         </div>
                       </div>
-                    </Card>
+                    </div>
                   ))
               }
             </div>
           )}
 
-          {/* Step 1: Date & Time */}
           {store.step === 1 && (
             <div>
               <div className="flex items-center justify-between mb-4">
-                <Button variant="ghost" size="sm">←</Button>
+                <button onClick={() => store.setStep(0)} className="glass-card p-2 hover:bg-[#f3f4f6] transition-colors"><ArrowLeft className="w-4 h-4" /></button>
                 <span className="font-semibold text-sm">Июль 2026</span>
-                <Button variant="ghost" size="sm">→</Button>
+                <button className="glass-card p-2 hover:bg-[#f3f4f6] transition-colors"><ArrowRight className="w-4 h-4" /></button>
               </div>
               <div className="grid grid-cols-7 gap-1 mb-4">
                 {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d) => (
@@ -134,9 +139,9 @@ function BookingPageContent() {
                       key={d}
                       disabled={disabled}
                       onClick={() => setSelectedDate(date)}
-                      className={`text-center py-2.5 text-sm rounded-sm transition-all border-none cursor-pointer ${
-                        isSelected ? 'bg-[#1a56db] text-white font-bold' : isToday ? 'font-bold text-[#1a56db]' : disabled ? 'text-[#d1d5db] cursor-not-allowed' : 'hover:bg-[#f3f4f6]'
-                      } ${d >= 1 && d <= 4 ? 'bg-[#d1fae5] text-[#059669] font-medium' : ''} ${isSelected && d >= 1 && d <= 4 ? '!bg-[#1a56db] !text-white' : ''}`}
+                      className={`text-center py-2.5 text-sm rounded-lg transition-all border-none cursor-pointer ${
+                        isSelected ? 'bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white font-bold shadow-md' : isToday ? 'font-bold text-[#1a56db] glass-card' : disabled ? 'text-[#d1d5db] cursor-not-allowed' : 'hover:bg-[#f3f4f6]'
+                      } ${d >= 1 && d <= 4 ? 'bg-[#d1fae5] text-[#059669] font-medium' : ''} ${isSelected && d >= 1 && d <= 4 ? '!bg-gradient-to-br !from-[#1a56db] !to-[#0d9488] !text-white' : ''}`}
                     >
                       {d}
                     </button>
@@ -144,8 +149,10 @@ function BookingPageContent() {
                 })}
               </div>
 
-              <Card>
-                <h3 className="text-sm font-semibold mb-3">Доступное время — {selectedDate}</h3>
+              <div className="glass-card p-5">
+                <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-[#1a56db]" /> Доступное время — {selectedDate}
+                </h3>
                 <div className="grid grid-cols-4 gap-2">
                   {slotsLoading
                     ? Array.from({ length: 8 }).map((_, i) => <TableRowSkeleton key={i} cols={1} />)
@@ -156,9 +163,9 @@ function BookingPageContent() {
                             key={slot.id}
                             disabled={!slot.isAvailable}
                             onClick={() => store.selectSlot(slot)}
-                            className={`py-2 text-sm text-center rounded-md transition-all border cursor-pointer ${
-                              store.selectedSlot?.id === slot.id ? 'bg-[#1a56db] text-white border-[#1a56db]' :
-                              slot.isAvailable ? 'border-[#e5e7eb] hover:border-[#1a56db] hover:bg-[#e8effa]' : 'bg-[#f3f4f6] text-[#d1d5db] cursor-not-allowed border-[#f3f4f6]'
+                            className={`py-2 text-sm text-center rounded-lg transition-all border cursor-pointer ${
+                              store.selectedSlot?.id === slot.id ? 'bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white border-transparent shadow-md' :
+                              slot.isAvailable ? 'glass-card hover:border-[#1a56db]' : 'bg-[#f3f4f6] text-[#d1d5db] cursor-not-allowed border-[#f3f4f6]'
                             }`}
                           >
                             {slot.time}
@@ -166,16 +173,15 @@ function BookingPageContent() {
                         ))
                   }
                 </div>
-              </Card>
+              </div>
             </div>
           )}
 
-          {/* Step 2: Confirmation */}
           {store.step === 2 && (
-            <Card>
+            <div className="glass-card p-6">
               <h3 className="font-semibold mb-4">Детали записи</h3>
 
-              <div className="bg-[#e8effa] p-3 rounded-md mb-4">
+              <div className="glass p-3 rounded-lg mb-4">
                 <label className="block text-xs font-medium text-[#374151] mb-1.5">Сотрудник компании (для записи)</label>
                 <select className="form-input text-sm" value={store.selectedEmployee} onChange={(e) => store.setSelectedEmployee(e.target.value)}>
                   <option value="">— Выберите сотрудника —</option>
@@ -193,20 +199,22 @@ function BookingPageContent() {
                 <div className="col-span-2"><span className="text-[#6b7280]">Стоимость</span><div className="font-semibold text-[#059669]">{store.selectedService?.isFree ? 'Бесплатно (договор активен)' : `${store.selectedService?.priceRub} ₽`}</div></div>
               </div>
 
-              <Textarea
-                label="Описание вопроса (необязательно)"
-                rows={3}
-                placeholder="Опишите, что хотите обсудить — специалист подготовится"
-                value={store.topic}
-                onChange={(e) => store.setTopic(e.target.value)}
-              />
-            </Card>
+              <div>
+                <label className="block text-xs font-medium text-[#374151] mb-1.5">Описание вопроса (необязательно)</label>
+                <textarea
+                  rows={3}
+                  placeholder="Опишите, что хотите обсудить — специалист подготовится"
+                  value={store.topic}
+                  onChange={(e) => store.setTopic(e.target.value)}
+                  className="form-input text-sm"
+                />
+              </div>
+            </div>
           )}
         </div>
 
-        {/* Right sidebar */}
         <div>
-          <Card className="sticky top-24">
+          <div className="glass-card p-5 sticky top-24">
             <h3 className="font-semibold mb-3">Выбранное</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between"><span className="text-[#6b7280]">Услуга:</span><span className="font-medium">{store.selectedService?.name || '—'}</span></div>
@@ -217,26 +225,29 @@ function BookingPageContent() {
             <hr className="my-4 border-[#e5e7eb]" />
 
             <div className="flex gap-3">
-              {store.step > 0 && <Button variant="secondary" onClick={() => store.setStep(store.step - 1)}>Назад</Button>}
+              {store.step > 0 && (
+                <button onClick={() => store.setStep(store.step - 1)} className="glass-btn !bg-white !text-[#374151] border border-[#d1d5db] flex-1">
+                  <ArrowLeft className="w-4 h-4" /> Назад
+                </button>
+              )}
               {store.step < 2 ? (
-                <Button
-                  variant="primary"
-                  className="flex-1"
+                <button
+                  className="glass-btn flex-1"
                   disabled={
                     (store.step === 0 && !store.selectedService) ||
                     (store.step === 1 && !store.selectedSlot)
                   }
                   onClick={() => store.setStep(store.step + 1)}
                 >
-                  Далее
-                </Button>
+                  Далее <ArrowRight className="w-4 h-4" />
+                </button>
               ) : (
-                <Button variant="success" className="flex-1" onClick={handleConfirm} disabled={createBooking.isPending}>
-                  {createBooking.isPending ? 'Сохранение...' : 'Подтвердить запись'}
-                </Button>
+                <button className="glass-btn flex-1 !bg-gradient-to-br !from-[#059669] !to-[#0d9488]" onClick={handleConfirm} disabled={createBooking.isPending}>
+                  {createBooking.isPending ? 'Сохранение...' : '✓ Подтвердить запись'}
+                </button>
               )}
             </div>
-          </Card>
+          </div>
         </div>
       </div>
     </div>
