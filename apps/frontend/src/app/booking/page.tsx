@@ -169,7 +169,7 @@ function BookingPageContent() {
 
               <div className="grid grid-cols-2 gap-3 text-sm mb-4">
                 <div><span className="text-[#6b7280]">Услуга</span><div className="font-semibold">{store.selectedService?.name}</div></div>
-                <div><span className="text-[#6b7280]">Длительность</span><div className="font-semibold">{store.selectedService?.durationMinutes > 0 ? `${store.selectedService?.durationMinutes} мин` : 'Видео'}</div></div>
+                <div><span className="text-[#6b7280]">Длительность</span><div className="font-semibold">{(store.selectedService?.durationMinutes ?? 0) > 0 ? `${store.selectedService?.durationMinutes} мин` : 'Видео'}</div></div>
                 <div><span className="text-[#6b7280]">Дата</span><div className="font-semibold">{selectedDate}</div></div>
                 <div><span className="text-[#6b7280]">Время</span><div className="font-semibold">{store.selectedSlot?.time}</div></div>
                 <div className="col-span-2"><span className="text-[#6b7280]">Стоимость</span><div className="font-semibold text-[#059669]">{store.selectedService?.isFree ? 'Бесплатно (договор активен)' : `${store.selectedService?.priceRub} ₽`}</div></div>
