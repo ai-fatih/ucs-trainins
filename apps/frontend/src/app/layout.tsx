@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Providers } from './providers';
 import { Header } from '@/components/layout/Header';
 import './globals.css';
@@ -7,8 +7,11 @@ export const metadata: Metadata = {
   title: 'UCS service — Консультации и Обучения',
   description: 'Запись на консультации и обучение по программам rkeeper',
   manifest: '/manifest.json',
-  themeColor: '#1a56db',
   appleWebApp: { capable: true, statusBarStyle: 'default', title: 'UCS Service' },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#1a56db',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

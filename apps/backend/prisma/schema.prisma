@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum RequestStatus {
+  new
+  in_progress
+  done
+  rejected
+}
+
+enum ServiceType {
+  training
+  consultation
+  other
+}
+
+model AdminUser {
+  id           String           @id @default(cuid())
+  email        String           @unique
+  passwordHash String
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  comments     RequestComment[]
+  history      RequestHistory[]
+}
+
+model Request {
+  id                  String           @id @default(cuid())
+  number              String           @unique
+  name                String
+  contact             String
+  organization        String?
+  serviceType         ServiceType
+  topic               String
+  description         String
+  status              RequestStatus    @default(new)
+  feedbackToken       String?          @unique
+  feedbackRating      Int?
+  feedbackText        String?
+  feedbackCustomerName String?
+  feedbackSubmittedAt DateTime?
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+  comments            RequestComment[]
+  history             RequestHistory[]
+
+  @@index([status, createdAt])
+}
+
+model RequestComment {
+  id          String    @id @default(cuid())
+  requestId   String
+  adminUserId String
+  text        String
+  createdAt   DateTime  @default(now())
+  request     Request   @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  adminUser   AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Restrict)
+
+  @@index([requestId, createdAt])
+}
+
+model RequestHistory {
+  id          String         @id @default(cuid())
+  requestId   String
+  adminUserId String?
+  fromStatus  RequestStatus?
+  toStatus    RequestStatus
+  createdAt   DateTime       @default(now())
+  request     Request        @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  adminUser   AdminUser?     @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+
+  @@index([requestId, createdAt])
+}
