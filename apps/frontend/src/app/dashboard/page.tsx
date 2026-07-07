@@ -34,7 +34,7 @@ export default function ClientDashboardPage() {
 
   const { data: chats = [] } = useQuery<ChatRoom[]>({
     queryKey: ['chats'],
-    queryFn: api.chats.list,
+    queryFn: api.chat.list,
   });
 
   const now = new Date();
