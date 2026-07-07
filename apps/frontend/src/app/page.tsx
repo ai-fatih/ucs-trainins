@@ -3,8 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Card } from '@/components/ui/Card';
 import {
-  MessageCircle, GraduationCap, Video, Database,
-  FileText, Users, Award, Building2, ArrowRight,
+  MessageCircle, GraduationCap, Video, Database, ArrowRight,
 } from 'lucide-react';
 import howItWorksData from '@/data/how-it-works.json';
 import serviceCategoriesData from '@/data/service-categories.json';
@@ -20,14 +19,8 @@ function calcExperience(startDate: string): string {
   const start = new Date(startDate);
   const now = new Date();
   let years = now.getFullYear() - start.getFullYear();
-  let months = now.getMonth() - start.getMonth();
-  if (months < 0) { years--; months += 12; }
-  const totalMonths = years * 12 + months;
-  if (totalMonths < 1) return 'Менее месяца';
-  if (totalMonths < 12) return `${totalMonths} мес.`;
-  const y = Math.floor(totalMonths / 12);
-  const m = totalMonths % 12;
-  return m > 0 ? `${y} г. ${m} мес.` : `${y} лет`;
+  if (now.getMonth() < start.getMonth()) years--;
+  return years > 0 ? `${years}+ лет` : 'Менее года';
 }
 
 interface TeamMember {
@@ -67,26 +60,6 @@ export default function HomePage() {
               Настраиваем справочники и номенклатуру.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-10">
-            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-4">
-              <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center shrink-0">
-                <FileText className="w-5 h-5" />
-              </div>
-              <span className="text-sm font-medium">Помощь с кассами и отчётами</span>
-            </div>
-            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-4">
-              <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center shrink-0">
-                <GraduationCap className="w-5 h-5" />
-              </div>
-              <span className="text-sm font-medium">Обучение сотрудников</span>
-            </div>
-            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-4">
-              <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center shrink-0">
-                <Database className="w-5 h-5" />
-              </div>
-              <span className="text-sm font-medium">Настройка справочников</span>
-            </div>
-          </div>
           <div className="flex justify-center gap-4">
             <Link
               href="/services"
@@ -100,43 +73,6 @@ export default function HomePage() {
             >
               Войти
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* About */}
-      <section className="bg-white py-16 px-4">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">О нашем отделе</h2>
-            <p className="text-lg text-[#6b7280] max-w-3xl mx-auto leading-relaxed">
-              Мы — отдел пользовательской поддержки <strong className="text-[#1a56db]">UCS</strong>.
-              Наша специализация — помощь в ежедневной работе с <strong>rkeeper</strong>:
-              от настройки касс и отчётов до обучения персонала и ведения справочников.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-14 h-14 bg-[#e8effa] text-[#1a56db] rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Users className="w-7 h-7" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">5 экспертов</h3>
-              <p className="text-sm text-[#6b7280]">Специализируемся на разных направлениях работы с rkeeper</p>
-            </div>
-            <div className="text-center">
-              <div className="w-14 h-14 bg-[#ccfbf1] text-[#0d9488] rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Award className="w-7 h-7" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Официальная поддержка</h3>
-              <p className="text-sm text-[#6b7280]">Работаем с юридическими лицами по договору поддержки</p>
-            </div>
-            <div className="text-center">
-              <div className="w-14 h-14 bg-[#fef3c7] text-[#d97706] rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Building2 className="w-7 h-7" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">B2B фокус</h3>
-              <p className="text-sm text-[#6b7280]">Помогаем ресторанам и кафе эффективно работать с системой</p>
-            </div>
           </div>
         </div>
       </section>
