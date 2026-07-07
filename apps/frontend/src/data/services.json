@@ -5,8 +5,8 @@
     "description": "Решение вопросов по работе с системой: кассы, склад, отчёты",
     "type": "consultation",
     "durationMinutes": 30,
-    "priceRub": null,
-    "isFree": true,
+    "priceRub": 1500,
+    "isFree": false,
     "category": "consultations",
     "icon": "💬",
     "iconBg": "#e8effa"
@@ -25,30 +25,6 @@
   },
   {
     "id": "3",
-    "name": "Настройка отчётов",
-    "description": "Кастомизация отчётов под ваш бизнес: товарооборот, себестоимость",
-    "type": "setup",
-    "durationMinutes": 60,
-    "priceRub": null,
-    "isFree": true,
-    "category": "consultations",
-    "icon": "⚙️",
-    "iconBg": "#d1fae5"
-  },
-  {
-    "id": "4",
-    "name": "Интеграция с 1С",
-    "description": "Настройка обмена данными между rkeeper и 1С: Бухгалтерия",
-    "type": "setup",
-    "durationMinutes": 90,
-    "priceRub": 5000,
-    "isFree": false,
-    "category": "setup",
-    "icon": "🔗",
-    "iconBg": "#dbeafe"
-  },
-  {
-    "id": "5",
     "name": "Групповой тренинг",
     "description": "Курс для команды: до 10 человек, практические кейсы",
     "type": "training",
@@ -60,27 +36,27 @@
     "iconBg": "#fce7f3"
   },
   {
-    "id": "6",
-    "name": "Аудит системы",
-    "description": "Проверка настроек, выявление ошибок, рекомендации",
-    "type": "consultation",
-    "durationMinutes": 120,
-    "priceRub": null,
-    "isFree": true,
-    "category": "consultations",
-    "icon": "🏗️",
-    "iconBg": "#e0e7ff"
-  },
-  {
-    "id": "7",
+    "id": "4",
     "name": "Видео обучение rkeeper",
     "description": "Записи вебинаров и обучающих видео по работе с системой",
     "type": "training",
-    "durationMinutes": 0,
-    "priceRub": null,
-    "isFree": true,
+    "durationMinutes": 60,
+    "priceRub": 1000,
+    "isFree": false,
     "category": "video",
     "icon": "🎥",
     "iconBg": "#ede9fe"
+  },
+  {
+    "id": "5",
+    "name": "Заведение справочников и номенклатуры",
+    "description": "Настройка справочников, номенклатуры и цен под ваш бизнес",
+    "type": "consultation",
+    "durationMinutes": 60,
+    "priceRub": 2500,
+    "isFree": false,
+    "category": "directories",
+    "icon": "📋",
+    "iconBg": "#ccfbf1"
   }
 ]

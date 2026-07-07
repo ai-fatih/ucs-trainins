@@ -1,0 +1,18 @@
+{
+  "todayConsultations": 12,
+  "onlineSpecialists": 3,
+  "avgRating": 4.85,
+  "weeklyBookings": 45,
+  "specialistLoad": [
+    { "name": "Иван Петров", "load": 80, "color": "#059669" },
+    { "name": "Мария Соколова", "load": 95, "color": "#d97706" },
+    { "name": "Алексей Кузнецов", "load": 45, "color": "#9ca3af" }
+  ],
+  "stats": {
+    "total": 57,
+    "completed": 38,
+    "cancelled": 5,
+    "noShow": 2,
+    "waitlist": 3
+  }
+}

@@ -1,14 +1,16 @@
 'use client';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { api } from '@/lib/api';
+import type { Service, Slot } from '@/types';
 import { useBookingStore } from '@/stores/booking';
 import { useNotificationStore } from '@/stores/notifications';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Textarea } from '@/components/ui/Input';
-import type { Service, Slot } from '@/types';
+import { TableRowSkeleton } from '@/components/ui/Skeleton';
 
 function StepIndicator({ step }: { step: number }) {
   const steps = ['Услуга', 'Дата и время', 'Подтверждение'];
@@ -34,22 +36,35 @@ function BookingPageContent() {
   const router = useRouter();
   const store = useBookingStore();
   const addNotification = useNotificationStore((s) => s.addNotification);
-  const [services, setServices] = useState<Service[]>([]);
-  const [slots, setSlots] = useState<Slot[]>([]);
+  const queryClient = useQueryClient();
   const [selectedDate, setSelectedDate] = useState('2026-07-03');
 
-  useEffect(() => {
-    api.services.list().then(setServices);
-    const sid = searchParams.get('serviceId');
-    if (sid && services.length) {
-      const s = services.find((sv) => sv.id === sid);
-      if (s) store.selectService(s);
-    }
-    api.slots.getByDate(selectedDate).then(setSlots);
-  }, [searchParams, selectedDate, services.length]);
+  const { data: services = [], isLoading: servicesLoading } = useQuery<Service[]>({
+    queryKey: ['services'],
+    queryFn: api.services.list,
+  });
+
+  const { data: slots = [], isLoading: slotsLoading } = useQuery<Slot[]>({
+    queryKey: ['slots', selectedDate],
+    queryFn: () => api.slots.getByDate(selectedDate),
+  });
+
+  // Auto-select service from URL param
+  const preselectedServiceId = searchParams.get('serviceId');
+  if (preselectedServiceId && services.length && !store.selectedService) {
+    const s = services.find((sv) => sv.id === preselectedServiceId);
+    if (s) store.selectService(s);
+  }
+
+  const createBooking = useMutation({
+    mutationFn: api.bookings.create,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
+    },
+  });
 
   const handleConfirm = async () => {
-    await api.bookings.create({
+    await createBooking.mutateAsync({
       serviceName: store.selectedService?.name || '',
       date: selectedDate,
       time: store.selectedSlot?.time || '',
@@ -70,8 +85,6 @@ function BookingPageContent() {
     router.push('/bookings');
   };
 
-  const companyFlow = true;
-
   return (
     <div className="max-w-[1000px] mx-auto px-4 py-8">
       <h1 className="section-title">Запись на консультацию</h1>
@@ -82,17 +95,20 @@ function BookingPageContent() {
           {/* Step 0: Service */}
           {store.step === 0 && (
             <div className="space-y-3">
-              {services.map((s) => (
-                <Card key={s.id} hoverable onClick={() => { store.selectService(s); toast.success(`Выбрано: ${s.name}`); }}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-md flex items-center justify-center text-xl" style={{ background: s.iconBg }}>{s.icon}</div>
-                    <div className="flex-1">
-                      <div className="font-semibold text-sm">{s.name}</div>
-                      <div className="text-xs text-[#6b7280]">{s.durationMinutes > 0 ? `${s.durationMinutes} мин` : 'Видео'} {s.isFree ? '• Бесплатно' : `• ${s.priceRub} ₽`}</div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+              {servicesLoading
+                ? Array.from({ length: 4 }).map((_, i) => <TableRowSkeleton key={i} cols={2} />)
+                : services.map((s) => (
+                    <Card key={s.id} hoverable onClick={() => { store.selectService(s); toast.success(`Выбрано: ${s.name}`); }}>
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-md flex items-center justify-center text-xl" style={{ background: s.iconBg }}>{s.icon}</div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-sm">{s.name}</div>
+                          <div className="text-xs text-[#6b7280]">{(s.durationMinutes ?? 0) > 0 ? `${s.durationMinutes} мин` : 'Видео'} {s.isFree ? '• Бесплатно' : `• ${s.priceRub} ₽`}</div>
+                        </div>
+                      </div>
+                    </Card>
+                  ))
+              }
             </div>
           )}
 
@@ -117,7 +133,7 @@ function BookingPageContent() {
                     <button
                       key={d}
                       disabled={disabled}
-                      onClick={() => { setSelectedDate(date); api.slots.getByDate(date).then(setSlots); }}
+                      onClick={() => setSelectedDate(date)}
                       className={`text-center py-2.5 text-sm rounded-sm transition-all border-none cursor-pointer ${
                         isSelected ? 'bg-[#1a56db] text-white font-bold' : isToday ? 'font-bold text-[#1a56db]' : disabled ? 'text-[#d1d5db] cursor-not-allowed' : 'hover:bg-[#f3f4f6]'
                       } ${d >= 1 && d <= 4 ? 'bg-[#d1fae5] text-[#059669] font-medium' : ''} ${isSelected && d >= 1 && d <= 4 ? '!bg-[#1a56db] !text-white' : ''}`}
@@ -131,20 +147,24 @@ function BookingPageContent() {
               <Card>
                 <h3 className="text-sm font-semibold mb-3">Доступное время — {selectedDate}</h3>
                 <div className="grid grid-cols-4 gap-2">
-                  {slots.length === 0 && <p className="text-sm text-[#6b7280] col-span-4">Нет доступных слотов</p>}
-                  {slots.map((slot) => (
-                    <button
-                      key={slot.id}
-                      disabled={!slot.isAvailable}
-                      onClick={() => { store.selectSlot(slot); }}
-                      className={`py-2 text-sm text-center rounded-md transition-all border cursor-pointer ${
-                        store.selectedSlot?.id === slot.id ? 'bg-[#1a56db] text-white border-[#1a56db]' :
-                        slot.isAvailable ? 'border-[#e5e7eb] hover:border-[#1a56db] hover:bg-[#e8effa]' : 'bg-[#f3f4f6] text-[#d1d5db] cursor-not-allowed border-[#f3f4f6]'
-                      }`}
-                    >
-                      {slot.time}
-                    </button>
-                  ))}
+                  {slotsLoading
+                    ? Array.from({ length: 8 }).map((_, i) => <TableRowSkeleton key={i} cols={1} />)
+                    : slots.length === 0
+                      ? <p className="text-sm text-[#6b7280] col-span-4">Нет доступных слотов</p>
+                      : slots.map((slot) => (
+                          <button
+                            key={slot.id}
+                            disabled={!slot.isAvailable}
+                            onClick={() => store.selectSlot(slot)}
+                            className={`py-2 text-sm text-center rounded-md transition-all border cursor-pointer ${
+                              store.selectedSlot?.id === slot.id ? 'bg-[#1a56db] text-white border-[#1a56db]' :
+                              slot.isAvailable ? 'border-[#e5e7eb] hover:border-[#1a56db] hover:bg-[#e8effa]' : 'bg-[#f3f4f6] text-[#d1d5db] cursor-not-allowed border-[#f3f4f6]'
+                            }`}
+                          >
+                            {slot.time}
+                          </button>
+                        ))
+                  }
                 </div>
               </Card>
             </div>
@@ -155,17 +175,15 @@ function BookingPageContent() {
             <Card>
               <h3 className="font-semibold mb-4">Детали записи</h3>
 
-              {companyFlow && (
-                <div className="bg-[#e8effa] p-3 rounded-md mb-4">
-                  <label className="block text-xs font-medium text-[#374151] mb-1.5">Сотрудник компании (для записи)</label>
-                  <select className="form-input text-sm" value={store.selectedEmployee} onChange={(e) => store.setSelectedEmployee(e.target.value)}>
-                    <option value="">— Выберите сотрудника —</option>
-                    <option value="e1">Анна Смирнова — Управляющая</option>
-                    <option value="e2">Павел Иванов — Шеф-повар</option>
-                    <option value="e3">Елена Козлова — Бухгалтер</option>
-                  </select>
-                </div>
-              )}
+              <div className="bg-[#e8effa] p-3 rounded-md mb-4">
+                <label className="block text-xs font-medium text-[#374151] mb-1.5">Сотрудник компании (для записи)</label>
+                <select className="form-input text-sm" value={store.selectedEmployee} onChange={(e) => store.setSelectedEmployee(e.target.value)}>
+                  <option value="">— Выберите сотрудника —</option>
+                  <option value="e1">Анна Смирнова — Управляющая</option>
+                  <option value="e2">Павел Иванов — Шеф-повар</option>
+                  <option value="e3">Елена Козлова — Бухгалтер</option>
+                </select>
+              </div>
 
               <div className="grid grid-cols-2 gap-3 text-sm mb-4">
                 <div><span className="text-[#6b7280]">Услуга</span><div className="font-semibold">{store.selectedService?.name}</div></div>
@@ -213,8 +231,8 @@ function BookingPageContent() {
                   Далее
                 </Button>
               ) : (
-                <Button variant="success" className="flex-1" onClick={handleConfirm}>
-                  Подтвердить запись
+                <Button variant="success" className="flex-1" onClick={handleConfirm} disabled={createBooking.isPending}>
+                  {createBooking.isPending ? 'Сохранение...' : 'Подтвердить запись'}
                 </Button>
               )}
             </div>

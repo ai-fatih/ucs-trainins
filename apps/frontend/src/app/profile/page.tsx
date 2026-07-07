@@ -1,15 +1,25 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/stores/auth';
+import { api } from '@/lib/api';
+import type { Employee } from '@/types';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { TableRowSkeleton } from '@/components/ui/Skeleton';
 import toast from 'react-hot-toast';
 
 export default function ProfilePage() {
   const { user } = useAuthStore();
   const isCompany = user?.userType === 'company';
+
+  const { data: employees = [], isLoading: employeesLoading } = useQuery<Employee[]>({
+    queryKey: ['employees'],
+    queryFn: api.employees.list,
+    enabled: isCompany,
+  });
 
   if (!user) {
     return (
@@ -46,21 +56,24 @@ export default function ProfilePage() {
               <table className="w-full text-sm">
                 <thead><tr className="border-b border-[#e5e7eb]"><th className="text-left py-2 text-[#6b7280] font-medium">Сотрудник</th><th className="text-left py-2 text-[#6b7280] font-medium">Должность</th><th className="text-left py-2 text-[#6b7280] font-medium">Записей</th></tr></thead>
                 <tbody>
-                  {[{ name: 'Анна Смирнова', pos: 'Управляющая', count: 4 }, { name: 'Павел Иванов', pos: 'Шеф-повар', count: 2 }, { name: 'Елена Козлова', pos: 'Бухгалтер', count: 0 }].map((emp) => (
-                    <tr key={emp.name} className="border-b border-[#f3f4f6]">
-                      <td className="py-2.5 font-medium">{emp.name}</td>
-                      <td className="py-2.5 text-[#6b7280]">{emp.pos}</td>
-                      <td className="py-2.5"><Badge variant={emp.count > 0 ? 'info' : 'gray'}>{emp.count}</Badge></td>
-                    </tr>
-                  ))}
+                  {employeesLoading
+                    ? Array.from({ length: 3 }).map((_, i) => <TableRowSkeleton key={i} cols={3} />)
+                    : employees.map((emp) => (
+                        <tr key={emp.id} className="border-b border-[#f3f4f6]">
+                          <td className="py-2.5 font-medium">{emp.name}</td>
+                          <td className="py-2.5 text-[#6b7280]">{emp.position}</td>
+                          <td className="py-2.5"><Badge variant={emp.bookingCount > 0 ? 'info' : 'gray'}>{emp.bookingCount}</Badge></td>
+                        </tr>
+                      ))
+                  }
                 </tbody>
               </table>
             ) : (
               <div className="grid grid-cols-2 gap-3 text-sm">
-                <div><span className="text-[#6b7280]">Имя</span><div className="font-semibold">Иван</div></div>
-                <div><span className="text-[#6b7280]">Фамилия</span><div className="font-semibold">Петров</div></div>
-                <div><span className="text-[#6b7280]">Email</span><div className="font-semibold">ivan@example.ru</div></div>
-                <div><span className="text-[#6b7280]">Телефон</span><div className="font-semibold">+7 (999) 123-45-67</div></div>
+                <div><span className="text-[#6b7280]">Имя</span><div className="font-semibold">{user.name.split(' ')[0]}</div></div>
+                <div><span className="text-[#6b7280]">Фамилия</span><div className="font-semibold">{user.name.split(' ')[1] || ''}</div></div>
+                <div><span className="text-[#6b7280]">Email</span><div className="font-semibold">{user.email}</div></div>
+                <div><span className="text-[#6b7280]">Телефон</span><div className="font-semibold">{user.phone}</div></div>
               </div>
             )}
           </Card>

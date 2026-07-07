@@ -1,5 +1,6 @@
 'use client';
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import type { User } from '@/types';
 
 interface AuthState {
@@ -10,10 +11,18 @@ interface AuthState {
   setUser: (user: User) => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  isAuthenticated: false,
-  login: (user) => set({ user, isAuthenticated: true }),
-  logout: () => set({ user: null, isAuthenticated: false }),
-  setUser: (user) => set({ user }),
-}));
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      isAuthenticated: false,
+      login: (user) => set({ user, isAuthenticated: true }),
+      logout: () => set({ user: null, isAuthenticated: false }),
+      setUser: (user) => set({ user }),
+    }),
+    {
+      name: 'ucs-auth',
+      partialize: (state) => ({ user: state.user, isAuthenticated: state.isAuthenticated }),
+    }
+  )
+);

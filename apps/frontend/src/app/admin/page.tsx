@@ -1,24 +1,28 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Card, CardHeader } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
 import { Stars } from '@/components/ui/Stars';
+import { PageSkeleton } from '@/components/ui/Skeleton';
 import { api } from '@/lib/api';
 import type { AdminDashboard } from '@/types';
 
 export default function AdminDashboardPage() {
-  const [data, setData] = useState<AdminDashboard | null>(null);
-  useEffect(() => { api.admin.dashboard().then(setData); }, []);
+  const { data, isLoading } = useQuery<AdminDashboard>({
+    queryKey: ['admin', 'dashboard'],
+    queryFn: api.admin.dashboard,
+  });
 
-  if (!data) return <div className="p-8 text-center text-sm text-[#6b7280]">Загрузка...</div>;
+  if (isLoading) return <div className="flex"><Sidebar /><div className="flex-1 p-8"><PageSkeleton /></div></div>;
+  if (!data) return null;
 
   return (
     <div className="flex">
       <Sidebar />
       <div className="flex-1 p-8">
         <h1 className="section-title">Дашборд отдела консультации</h1>
-        <p className="section-subtitle">Оперативная статистика за сегодня, 3 июля 2026</p>
+        <p className="section-subtitle">Оперативная статистика за сегодня</p>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           {[
@@ -68,7 +72,7 @@ export default function AdminDashboardPage() {
         <Card>
           <CardHeader>
             <h3 className="font-semibold">Последние отзывы</h3>
-            <button className="btn-secondary !text-xs !px-3 !py-1.5" onClick={() => alert('Экспорт отчёта')}>📥 Экспорт</button>
+            <button className="btn-secondary !text-xs !px-3 !py-1.5">📥 Экспорт</button>
           </CardHeader>
           <div className="space-y-3">
             {data.recentReviews.map((r, i) => (
