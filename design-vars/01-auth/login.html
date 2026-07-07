@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Вход — rkeeper Training</title>
+  <title>Вход — UCS service</title>
   <link rel="stylesheet" href="../styles.css">
   <style>
     .auth-page {
@@ -11,13 +11,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--gray-50);
+      background: linear-gradient(135deg, #f0f4ff 0%, #f9fafb 50%, #f0fdfa 100%);
       padding: 16px;
     }
     .auth-card {
-      background: white;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.4);
       border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
+      box-shadow: 0 20px 60px rgba(26,86,219,0.2);
       padding: 40px 32px 32px;
       max-width: 420px;
       width: 100%;
@@ -25,7 +27,7 @@
     .auth-logo { text-align: center; margin-bottom: 32px; }
     .auth-logo h1 { font-size: 22px; font-weight: 700; color: var(--primary); }
     .auth-logo p { font-size: 14px; color: var(--gray-500); margin-top: 4px; }
-    .auth-tabs { display: flex; margin-bottom: 24px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; }
+    .auth-tabs { display: flex; margin-bottom: 24px; background: rgba(255,255,255,0.5); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); border-radius: var(--radius-md); overflow: hidden; }
     .auth-tab {
       flex: 1;
       padding: 10px;
@@ -33,23 +35,27 @@
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      background: white;
+      background: transparent;
       color: var(--gray-500);
       border: none;
       transition: 0.15s;
     }
-    .auth-tab.active { background: var(--primary); color: white; }
-    .auth-tab:not(.active):hover { background: var(--gray-50); }
+    .auth-tab.active { background: linear-gradient(135deg, #1a56db, #0d9488); color: white; }
+    .auth-tab:not(.active):hover { background: rgba(255,255,255,0.5); }
     .auth-footer { text-align: center; margin-top: 24px; font-size: 14px; color: var(--gray-500); }
-    .benefits { background: var(--primary-light); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px; font-size: 13px; color: var(--gray-700); }
+    .benefits { background: rgba(26,86,219,0.08); border: 1px solid rgba(26,86,219,0.15); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px; font-size: 13px; color: var(--gray-700); }
     .benefits strong { color: var(--primary); }
+    .form-input {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.4);
+    }
   </style>
 </head>
 <body>
   <div class="auth-page">
     <div class="auth-card">
       <div class="auth-logo">
-        <h1>rkeeper Training</h1>
+        <h1>UCS service</h1>
         <p>Консультации и обучение</p>
       </div>
 
