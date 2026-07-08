@@ -219,59 +219,11 @@ export default function HomePage() {
             </div>
 
             <div className="hidden md:flex items-center justify-center">
-              <div className="w-[320px] h-[320px] rounded-2xl overflow-hidden shadow-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320" style={{display: 'block'}}>
-                  <defs>
-                    <radialGradient id="onlineGradient" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stopColor="#22c55e" stopOpacity="1" />
-                      <stop offset="100%" stopColor="#22c55e" stopOpacity="0" />
-                    </radialGradient>
-                  </defs>
-
-                  {/* Calendar */}
-                  <rect x="32" y="60" width="120" height="160" rx="12" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-                  <rect x="32" y="60" width="120" height="32" rx="12" fill="#1a56db" />
-                  <line x1="48" y1="60" x2="48" y2="44" stroke="#374151" strokeWidth="3" strokeLinecap="round" />
-                  <line x1="136" y1="60" x2="136" y2="44" stroke="#374151" strokeWidth="3" strokeLinecap="round" />
-                  <text x="92" y="82" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="12" fill="#ffffff" fontWeight="700">
-                    ДЕКАБРЬ 2026
-                  </text>
-                  <text x="92" y="140" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="56" fill="#374151" fontWeight="800">
-                    7
-                  </text>
-                  <rect x="48" y="170" width="88" height="28" rx="6" fill="#e8effa" />
-                  <text x="92" y="188" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="10" fill="#374151" fontWeight="600">
-                    поддержка rkeeper
-                  </text>
-
-                  {/* Operator */}
-                  <rect x="168" y="60" width="120" height="160" rx="12" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-                  <circle cx="228" cy="116" r="18" fill="#ffffff" stroke="#374151" strokeWidth="1.5" />
-                  <circle cx="221" cy="112" r="2" fill="#374151" />
-                  <circle cx="235" cy="112" r="2" fill="#374151" />
-                  <path d="M220 122 Q228 128 236 122" fill="none" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
-                  <path d="M210 104 Q228 92 246 104" fill="none" stroke="#374151" strokeWidth="2" strokeLinecap="round" />
-                  <rect x="206" y="110" width="6" height="16" rx="3" fill="#0d9488" />
-                  <rect x="244" y="110" width="6" height="16" rx="3" fill="#0d9488" />
-                  <path d="M240 124 Q248 132 252 138" fill="none" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
-                  <circle cx="254" cy="140" r="3" fill="#374151" />
-                  <path d="M200 148 Q228 164 256 148 Q264 170 264 188 H192 Q192 170 200 148 Z" fill="#0d9488" stroke="#374151" strokeWidth="1.5" />
-
-                  {/* Online status */}
-                  <circle cx="268" cy="92" r="10" fill="url(#onlineGradient)">
-                    <animate attributeName="r" values="10;16;10" dur="1.6s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" values="0.8;0;0.8" dur="1.6s" repeatCount="indefinite" />
-                  </circle>
-                  <circle cx="268" cy="92" r="5" fill="#22c55e" stroke="#ffffff" strokeWidth="1.5" />
-
-                  <text x="228" y="204" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="11" fill="#374151" fontWeight="600">
-                    Оператор на линии
-                  </text>
-                  <text x="228" y="218" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="10" fill="#374151">
-                    готов помочь
-                  </text>
-                </svg>
-              </div>
+              <img
+                src="/images/hero-banner.webp"
+                alt="UCS Service — поддержка rkeeper"
+                className="w-auto h-[300px] rounded-2xl shadow-2xl object-contain"
+              />
             </div>
           </div>
         </div>
