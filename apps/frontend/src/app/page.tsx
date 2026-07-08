@@ -309,7 +309,6 @@ export default function HomePage() {
 
           {/* Tags — all unique from all specialists */}
           <div className="flex flex-wrap justify-center gap-2 mt-8 pt-6 border-t border-[#e5e7eb]">
-            <span className="text-xs font-semibold text-[#6b7280] mr-1">Специализации:</span>
             {Array.from(new Set(specialists.flatMap((s) => s.tags))).map((tag) => (
               <span key={tag} className="text-[11px] px-2.5 py-1 rounded-full bg-gradient-to-r from-[#e8effa] to-[#ccfbf1] text-[#374151] font-medium">
                 {tag}
