@@ -5,30 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Оценить — rkeeper Training</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .star-input { display:flex; gap:4px; justify-content:center; }
-    .star-input button {
-      font-size:36px;
-      background:none;
-      border:none;
-      cursor:pointer;
-      color:var(--gray-300);
-      transition:0.15s;
-    }
-    .star-input button:hover,
-    .star-input button.active { color:#f59e0b; }
-  </style>
 </head>
 <body>
   <div class="auth-page">
-    <div class="auth-card" style="max-width:500px;">
+    <div class="auth-card glass-card" style="max-width:500px;">
       <div style="text-align:center;margin-bottom:24px;">
         <div style="font-size:48px;margin-bottom:8px;">🎉</div>
         <h2 style="font-size:20px;">Консультация завершена!</h2>
         <p style="font-size:14px;color:var(--gray-500);">Как прошла консультация с Иваном Петровым?</p>
       </div>
 
-      <div class="card" style="border:1px solid var(--gray-200);margin-bottom:24px;text-align:center;">
+      <div class="glass-card" style="margin-bottom:24px;text-align:center;padding:24px;">
         <div class="section-subtitle" style="margin-bottom:8px;">Оцените качество консультации</div>
         <div class="star-input">
           <button class="active" onclick="rate(this,1)">★</button>

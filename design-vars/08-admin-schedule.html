@@ -5,27 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Расписание — rkeeper Training</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .schedule-table { width:100%; border-collapse:collapse; font-size:14px; }
-    .schedule-table th { text-align:left; padding:8px; color:var(--gray-500); font-weight:500; border-bottom:1px solid var(--gray-200); }
-    .schedule-table td { padding:8px; border-bottom:1px solid var(--gray-100); vertical-align:top; }
-    .schedule-slot {
-      display:inline-block;
-      padding:4px 8px;
-      border-radius:4px;
-      font-size:12px;
-      margin:2px;
-      cursor:pointer;
-    }
-    .schedule-slot.available { background:var(--success-light); color:var(--success); }
-    .schedule-slot.booked { background:var(--primary-light); color:var(--primary); }
-    .schedule-slot.blocked { background:var(--gray-100); color:var(--gray-400); cursor:not-allowed; }
-  </style>
 </head>
 <body>
   <div class="header">
     <div class="header-inner">
-      <div class="header-logo">rkeeper <span>Training</span> <span class="badge badge-warning" style="font-size:11px;">Admin</span></div>
+      <div class="header-logo">UCS <span>service</span> <span class="badge badge-warning" style="font-size:11px;">Admin</span></div>
       <div class="header-nav">
         <a href="08-admin-dashboard.html">Дашборд</a>
         <a href="08-admin-schedule.html" class="active">Расписание</a>
@@ -63,7 +47,7 @@
     </div>
 
     <!-- Calendar header -->
-    <div class="card" style="margin-bottom:24px;">
+    <div class="glass-card" style="margin-bottom:24px;">
       <div class="calendar-header">
         <button class="btn btn-ghost btn-sm">←</button>
         <span style="font-weight:600;">3 — 9 июля 2026</span>
@@ -71,7 +55,7 @@
       </div>
     </div>
 
-    <div class="card" style="padding:16px;">
+    <div class="glass-card" style="padding:16px;">
       <!-- Specialist info -->
       <div class="flex items-center justify-between mb-16">
         <div class="flex items-center gap-12">
@@ -135,7 +119,7 @@
 
         <!-- Thursday -->
         <div style="font-size:13px;font-weight:500;padding:8px;color:var(--gray-600);">Чт, 6 июл</div>
-        <div style="padding:4px 8px;background:var(--warning-light);border-radius:var(--radius-sm);">
+        <div style="padding:4px 8px;background:rgba(217,119,6,0.08);border-radius:var(--radius-sm);border:1px solid rgba(217,119,6,0.2);">
           <span style="font-size:13px;display:flex;align-items:center;gap:8px;">
             🏖 <strong>Отпуск</strong>
             <button class="btn btn-ghost btn-sm" style="color:var(--danger);">Отменить</button>

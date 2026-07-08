@@ -12,8 +12,8 @@ export function Card({ children, className, onClick, hoverable }: CardProps) {
   return (
     <div
       className={cn(
-        'bg-white rounded-lg border border-[#e5e7eb] p-6 shadow-sm',
-        hoverable && 'cursor-pointer transition-all hover:border-[#1a56db] hover:shadow-md',
+        'glass-card p-6',
+        hoverable && 'cursor-pointer',
         className
       )}
       onClick={onClick}

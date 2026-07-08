@@ -4,11 +4,11 @@ import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import type { Service } from '@/types';
-import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Tabs } from '@/components/ui/Tabs';
 import { CardSkeleton } from '@/components/ui/Skeleton';
 import { PrefetchLink } from '@/components/ui/PrefetchLink';
+import { Clock, Calendar } from 'lucide-react';
 
 const tabs = [
   { id: 'consultations', label: 'Консультации' },
@@ -39,15 +39,25 @@ export default function ServicesPage() {
           ? Array.from({ length: 3 }).map((_, i) => <CardSkeleton key={i} />)
           : filtered.map((service) => (
               <PrefetchLink key={service.id} href={`/booking?serviceId=${service.id}`}>
-                <Card hoverable>
-                  <div className="w-12 h-12 rounded-md flex items-center justify-center text-2xl mb-3" style={{ background: service.iconBg }}>{service.icon}</div>
-                  <h3 className="text-base font-semibold mb-1">{service.name}</h3>
-                  <p className="text-sm text-[#6b7280] mb-4">{service.description}</p>
-                  <div className="flex items-center gap-4 text-sm text-[#6b7280]">
-                    {service.durationMinutes > 0 && <span>🕐 {service.durationMinutes} мин</span>}
-                    {service.isFree ? <Badge variant="success">Бесплатно*</Badge> : <Badge variant="warning">{service.priceRub?.toLocaleString()} ₽</Badge>}
+                <div className="glass-card p-6 no-underline group cursor-pointer">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform" style={{ background: service.iconBg }}>
+                    {service.icon}
                   </div>
-                </Card>
+                  <h3 className="text-base font-semibold mb-2 text-[#111827]">{service.name}</h3>
+                  <p className="text-sm text-[#6b7280] mb-4">{service.description}</p>
+                  <div className="flex items-center gap-3 text-sm text-[#6b7280]">
+                    {service.durationMinutes > 0 && (
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5" /> {service.durationMinutes} мин
+                      </span>
+                    )}
+                    {service.isFree ? (
+                      <Badge variant="success">Бесплатно*</Badge>
+                    ) : (
+                      <Badge variant="warning">{service.priceRub?.toLocaleString()} ₽</Badge>
+                    )}
+                  </div>
+                </div>
               </PrefetchLink>
             ))}
       </div>

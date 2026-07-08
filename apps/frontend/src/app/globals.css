@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   *,
   *::before,
@@ -45,10 +49,78 @@
   .form-input {
     @apply w-full px-3.5 py-2.5 text-sm border border-[#d1d5db] rounded-md outline-none transition-all bg-white text-[#111827] focus:border-[#1a56db] focus:shadow-[0_0_0_3px_rgba(26,86,219,0.1)];
   }
+
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+  .glass-dark {
+    background: rgba(26, 86, 219, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .glass-card {
+    @apply rounded-xl;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(26, 86, 219, 0.08);
+    transition: all 0.3s ease;
+  }
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 12px 40px rgba(26, 86, 219, 0.15);
+    transform: translateY(-2px);
+  }
+  .glass-btn {
+    @apply px-6 py-3 rounded-lg font-semibold text-sm text-white no-underline inline-flex items-center justify-center gap-2 transition-all;
+    background: linear-gradient(135deg, #1a56db, #0d9488);
+    box-shadow: 0 4px 15px rgba(26, 86, 219, 0.3);
+  }
+  .glass-btn:hover {
+    box-shadow: 0 6px 20px rgba(26, 86, 219, 0.4);
+    transform: translateY(-1px);
+  }
+  .glass-gradient-border {
+    position: relative;
+    background: white;
+    border-radius: 12px;
+  }
+  .glass-gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #1a56db, #0d9488, #1a56db);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .glass-gradient-border:hover::before {
+    opacity: 1;
+  }
 }
 
 @layer utilities {
   .text-gray {
     color: #6b7280;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }

@@ -3,21 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Регистрация — rkeeper Training</title>
+  <title>Регистрация — UCS service</title>
   <link rel="stylesheet" href="../styles.css">
   <style>
-    .auth-page { min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--gray-50); padding:16px; }
-    .auth-card { background:white; border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); padding:40px 32px 32px; max-width:480px; width:100%; }
-    .auth-logo { text-align:center; margin-bottom:24px; }
-    .auth-logo h1 { font-size:22px; font-weight:700; color:var(--primary); }
-    .auth-logo p { font-size:14px; color:var(--gray-500); }
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f0f4ff 0%, #f9fafb 50%, #f0fdfa 100%);
+      padding: 16px;
+    }
+    .auth-card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(26,86,219,0.2);
+      padding: 40px 32px 32px;
+      max-width: 480px;
+      width: 100%;
+    }
+    .auth-logo { text-align: center; margin-bottom: 24px; }
+    .auth-logo h1 { font-size: 22px; font-weight: 700; color: var(--primary); }
+    .auth-logo p { font-size: 14px; color: var(--gray-500); }
+    .form-input {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .step.active {
+      background: linear-gradient(135deg, #1a56db, #0d9488);
+      color: white;
+    }
+    .step.completed {
+      background: linear-gradient(135deg, #0d9488, #1a56db);
+      color: white;
+    }
   </style>
 </head>
 <body>
   <div class="auth-page">
     <div class="auth-card">
       <div class="auth-logo">
-        <h1>Регистрация</h1>
+        <h1>UCS service</h1>
         <p>Создайте аккаунт для записи на консультации и тренинги</p>
       </div>
 
@@ -59,7 +87,7 @@
         <input class="form-input" type="password" placeholder="Повторите пароль">
       </div>
 
-      <div class="form-group" style="background:var(--gray-50);padding:16px;border-radius:var(--radius-md);">
+      <div class="form-group" style="background:rgba(26,86,219,0.08);border:1px solid rgba(26,86,219,0.15);padding:16px;border-radius:var(--radius-md);">
         <div class="checkbox-group">
           <input type="checkbox" id="consent" checked>
           <label for="consent" style="font-size:13px;color:var(--gray-600);">

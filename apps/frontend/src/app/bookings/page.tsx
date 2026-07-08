@@ -5,11 +5,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import type { Booking } from '@/types';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
-import { Stars } from '@/components/ui/Stars';
 import { Tabs } from '@/components/ui/Tabs';
 import { TableRowSkeleton } from '@/components/ui/Skeleton';
 import { getStatusLabel } from '@/lib/utils';
+import { Calendar, MessageCircle, XCircle, Star } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const tabs = [
@@ -45,15 +44,17 @@ export default function BookingsPage() {
           <h1 className="section-title">Мои записи</h1>
           <p className="text-sm text-[#6b7280]">Всего записей: {bookings.length} • Предстоящих: {bookings.filter((b) => b.status === 'scheduled').length}</p>
         </div>
-        <Link href="/services" className="btn-primary">+ Новая запись</Link>
+        <Link href="/services" className="glass-btn text-sm">
+          <Calendar className="w-4 h-4" /> Новая запись
+        </Link>
       </div>
 
       <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
 
       {activeTab === 'all' && (
-        <div className="bg-[#fef3c7] border border-[#f59e0b] rounded-md p-3 mb-4 text-sm flex items-center justify-between">
-          <span>⏳ Вы в листе ожидания к специалисту <strong>Мария Соколова</strong> с 28 июня.</span>
-          <button className="text-xs text-[#6b7280] bg-none border-none cursor-pointer" onClick={() => toast('Вы отписались от листа ожидания')}>Отписаться</button>
+        <div className="glass-card border-l-4 border-l-[#f59e06] p-4 mb-4 flex items-center justify-between">
+          <span className="text-sm">⏳ Вы в листе ожидания к специалисту <strong>Мария Соколова</strong> с 28 июня.</span>
+          <button className="text-xs text-[#6b7280] hover:text-[#dc2626] transition-colors" onClick={() => toast('Вы отписались от листа ожидания')}>Отписаться</button>
         </div>
       )}
 
@@ -63,30 +64,44 @@ export default function BookingsPage() {
           : filtered.map((booking) => {
               const status = getStatusLabel(booking.status);
               return (
-                <div key={booking.id} className={`flex items-center gap-4 p-4 border rounded-md transition-all bg-white hover:border-[#1a56db] ${booking.status === 'scheduled' ? 'border-[#1a56db] bg-[#e8effa]' : 'border-[#e5e7eb]'}`}>
+                <div
+                  key={booking.id}
+                  className={`glass-card p-4 flex items-center gap-4 ${
+                    booking.status === 'scheduled' ? 'ring-2 ring-[#1a56db]/20' : ''
+                  }`}
+                >
                   <div className="text-center min-w-[56px]">
                     <div className="text-2xl font-bold text-[#1a56db]">{new Date(booking.date).getDate()}</div>
                     <div className="text-[10px] text-[#6b7280] uppercase">{new Date(booking.date).toLocaleDateString('ru-RU', { month: 'short' })}</div>
                     <div className="text-xs font-medium text-[#6b7280]">{booking.time}</div>
                   </div>
                   <div className="flex-1">
-                    <div className="font-semibold text-sm">{booking.serviceName}</div>
+                    <div className="font-semibold text-sm text-[#111827]">{booking.serviceName}</div>
                     <div className="text-xs text-[#6b7280]">{booking.specialistName} • {booking.durationMinutes} мин</div>
                     {booking.topic && <div className="text-xs text-[#6b7280]">Тема: {booking.topic}</div>}
                     {booking.employeeName && <div className="text-xs text-[#6b7280]">Сотрудник: {booking.employeeName}</div>}
                   </div>
                   <div className="text-right">
                     <Badge variant={status.variant}>{status.label}</Badge>
-                    {booking.rating && <div className="mt-1 flex items-center gap-1 justify-end"><Stars rating={booking.rating} /></div>}
+                    {booking.rating && <div className="mt-1 flex items-center gap-1 justify-end"><span className="text-xs">⭐</span></div>}
                     <div className="flex gap-1 mt-2">
                       {booking.status === 'scheduled' && (
                         <>
-                          <Link href="/chat/chat1" className="btn-secondary !py-1 !px-2 !text-xs">Чат</Link>
-                          <Button variant="ghost" size="sm" className="!text-[#dc2626] !text-xs" onClick={() => cancelMutation.mutate(booking.id)}>Отменить</Button>
+                          <Link href="/chat/chat1" className="glass-btn !py-1 !px-2 !text-xs">
+                            <MessageCircle className="w-3 h-3" /> Чат
+                          </Link>
+                          <button
+                            onClick={() => cancelMutation.mutate(booking.id)}
+                            className="text-xs text-[#dc2626] hover:bg-red-50 px-2 py-1 rounded-md transition-colors"
+                          >
+                            <XCircle className="w-3 h-3 inline mr-1" /> Отменить
+                          </button>
                         </>
                       )}
                       {booking.status === 'completed' && !booking.rating && (
-                        <Link href="/review" className="text-xs text-[#1a56db]">⭐ Оценить</Link>
+                        <Link href="/review" className="text-xs text-[#1a56db] hover:bg-[#e8effa] px-2 py-1 rounded-md transition-colors">
+                          <Star className="w-3 h-3 inline mr-1" /> Оценить
+                        </Link>
                       )}
                     </div>
                   </div>

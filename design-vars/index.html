@@ -8,13 +8,19 @@
   <style>
     .proto-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 24px; }
     .proto-card {
-      background: white;
-      border: 1px solid var(--gray-200);
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.3);
       border-radius: var(--radius-lg);
       padding: 20px;
-      transition: 0.15s;
+      transition: 0.3s;
+      box-shadow: 0 8px 32px rgba(26,86,219,0.08);
     }
-    .proto-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); }
+    .proto-card:hover {
+      background: rgba(255,255,255,0.85);
+      box-shadow: 0 12px 40px rgba(26,86,219,0.15);
+      transform: translateY(-2px);
+    }
     .proto-card h3 { font-size: 15px; margin-bottom: 4px; }
     .proto-card p { font-size: 13px; color: var(--gray-500); margin-bottom: 12px; }
     .proto-card .tag {
@@ -28,14 +34,13 @@
       margin-bottom: 8px;
     }
     .proto-card .tag.flow { background: var(--success-light); color: var(--success); }
-    .hero { margin-top: 16px; }
   </style>
 </head>
 <body>
   <div class="hero" style="border-radius:0;margin-bottom:0;padding:48px 16px;">
     <h1 style="font-size:28px;">rkeeper Training</h1>
     <p style="font-size:16px;">HTML-прототипы экранов модуля записи на консультации и обучение</p>
-    <p style="font-size:13px;opacity:0.7;">Кликабельные макеты для согласования flow и UX</p>
+    <p style="font-size:13px;opacity:0.7;">Кликабельные макеты для согласования flow и UX • Стиль: Glassmorphism</p>
   </div>
 
   <div class="container">
@@ -50,115 +55,103 @@
     </div>
 
     <div class="proto-grid">
-      <!-- Auth -->
       <div class="proto-card" data-flow="auth">
         <span class="tag">Авторизация</span>
         <h3>Вход в систему</h3>
-        <p>Вход для компаний (по договору) и физлиц (email/пароль)</p>
-        <a href="01-auth/login.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <p>Модальное окно: вход для компаний (по договору) и физлиц (email/пароль)</p>
+        <a href="01-auth/login.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
       <div class="proto-card" data-flow="auth">
         <span class="tag flow">Flow: Регистрация</span>
         <h3>Регистрация физлица</h3>
         <p>Форма регистрации с подтверждением email + согласие 152-ФЗ</p>
-        <a href="01-auth/register.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <a href="01-auth/register.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
-      <!-- Profile -->
       <div class="proto-card" data-flow="profile">
         <span class="tag">Профиль</span>
         <h3>Профиль компании</h3>
         <p>Данные из ITSM, договор, сотрудники, история записей</p>
-        <a href="02-profile/company.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <a href="02-profile/company.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
       <div class="proto-card" data-flow="profile">
         <span class="tag">Профиль</span>
         <h3>Профиль физлица</h3>
         <p>Личные данные, настройки, история консультаций</p>
-        <a href="02-profile/individual.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <a href="02-profile/individual.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
-      <!-- Services -->
       <div class="proto-card" data-flow="booking">
         <span class="tag">Услуги</span>
         <h3>Каталог услуг</h3>
         <p>Список консультаций, тренингов, настроек с ценами и описанием</p>
-        <a href="03-services/services.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <a href="03-services/services.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
       <div class="proto-card" data-flow="booking">
         <span class="tag">Специалисты</span>
         <h3>Специалисты отдела</h3>
         <p>Профили специалистов с компетенциями, рейтингом, отзывами</p>
-        <a href="03-services/specialists.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <a href="03-services/specialists.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
       <div class="proto-card" data-flow="booking">
         <span class="tag flow">Flow: Запись</span>
         <h3>Запись на услугу</h3>
-        <p>Полный flow: выбор услуги → специалист → слот → подтверждение</p>
-        <a href="03-services/booking.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <p>Полный flow: выбор услуги → дата/время → подтверждение</p>
+        <a href="03-services/booking.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
-      <!-- Chat -->
       <div class="proto-card" data-flow="chat">
         <span class="tag">Коммуникация</span>
         <h3>Чат с отделом</h3>
         <p>Диалог с выделенным специалистом, привязка к записи</p>
-        <a href="04-chat.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <a href="04-chat.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
-      <!-- My bookings -->
       <div class="proto-card" data-flow="booking">
         <span class="tag">Записи</span>
         <h3>Мои записи</h3>
         <p>Список всех записей со статусами, датами, возможность отмены</p>
-        <a href="05-my-bookings.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <a href="05-my-bookings.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
-      <!-- Review -->
       <div class="proto-card" data-flow="booking">
         <span class="tag">Оценка</span>
         <h3>Оценка услуги</h3>
         <p>Форма оценки после консультации: звёзды + комментарий</p>
-        <a href="06-review.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <a href="06-review.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
-      <!-- Notifications -->
       <div class="proto-card" data-flow="profile">
         <span class="tag">Уведомления</span>
         <h3>Настройка уведомлений</h3>
         <p>Каналы и триггеры уведомлений (email, Telegram)</p>
-        <a href="07-notifications.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <a href="07-notifications.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
-      <!-- Admin -->
       <div class="proto-card" data-flow="admin">
         <span class="tag flow">Администрирование</span>
         <h3>Dashboard администратора</h3>
         <p>Аналитика, загрузка специалистов, статусы записей</p>
-        <a href="08-admin-dashboard.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <a href="08-admin-dashboard.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
 
       <div class="proto-card" data-flow="admin">
         <span class="tag">Администрирование</span>
         <h3>Управление расписанием</h3>
         <p>Настройка рабочих часов, слотов, перерывов, отпусков специалистов</p>
-        <a href="08-admin-schedule.html" class="btn btn-primary btn-sm">Открыть →</a>
+        <a href="08-admin-schedule.html" class="glass-btn btn-sm">Открыть →</a>
       </div>
     </div>
 
-    <hr style="margin:32px 0;border:none;border-top:1px solid var(--gray-200);">
+    <hr style="margin:32px 0;border:none;border-top:1px solid rgba(255,255,255,0.3);">
 
     <div style="text-align:center;color:var(--gray-500);font-size:13px;">
-      <p>Статус проекта: прототипирование • Версия: 0.1.0 • Июль 2026</p>
-      <p style="margin-top:4px;">
-        <a href="../docs/requirements.md">📄 Требования</a> •
-        <a href="../docs/tools-and-resources.md">🔧 Инструменты</a> •
-        <a href="../docs/legal-security.md">🔒 Legal & Security</a>
-      </p>
+      <p>Статус проекта: прототипирование • Версия: 0.2.0 • Июль 2026</p>
+      <p style="margin-top:4px;">Стиль: Glassmorphism • Шрифт: Manrope</p>
     </div>
   </div>
 </body>
