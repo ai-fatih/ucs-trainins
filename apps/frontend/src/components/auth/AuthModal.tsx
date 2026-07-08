@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/auth';
 import type { UserRole } from '@/types';
 import { X, Mail, Lock, Building2, User, Phone } from 'lucide-react';
@@ -29,6 +30,12 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
   const [phone, setPhone] = useState('');
   const [error, setError] = useState('');
   const login = useAuthStore((s) => s.login);
+  const router = useRouter();
+
+  const redirectAfterLogin = (role: UserRole) => {
+    const isStaff = role === 'admin' || role === 'company_admin' || role === 'specialist';
+    router.push(isStaff ? '/admin/dashboard' : '/dashboard');
+  };
 
   useEffect(() => {
     if (open) document.body.style.overflow = 'hidden';
@@ -45,21 +52,25 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
     if (mock) {
       login(mock);
       onClose();
+      redirectAfterLogin(mock.role);
       return;
     }
     if (email === 'root@ucs.ru' && password === 'admin') {
       login(mockUsers['root/admin']);
       onClose();
+      redirectAfterLogin(mockUsers['root/admin'].role);
       return;
     }
     if (email === 'user@ucs.ru' && password === 'admin') {
       login(mockUsers['user/admin']);
       onClose();
+      redirectAfterLogin(mockUsers['user/admin'].role);
       return;
     }
     if (email === 'staff@ucs.ru' && password === 'admin') {
       login(mockUsers['staff/admin']);
       onClose();
+      redirectAfterLogin(mockUsers['staff/admin'].role);
       return;
     }
     setError('Неверные данные. Попробуйте root@ucs.ru / admin');
@@ -80,6 +91,7 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
       role: 'user',
     });
     onClose();
+    redirectAfterLogin('user');
   };
 
   return (
