@@ -194,8 +194,8 @@ export default function HomePage() {
   });
   const [authOpen, setAuthOpen] = useState(false);
 
-  const leader = specialists.find(s => s.role === 'Руководитель отдела');
-  const managers = specialists.filter(s => s.role !== 'Руководитель отдела');
+  const leader = specialists.find(s => s.role === 'Руководитель');
+  const managers = specialists.filter(s => s.role !== 'Руководитель');
 
   return (
     <div>
