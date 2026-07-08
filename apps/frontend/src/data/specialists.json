@@ -5,7 +5,7 @@
     "role": "Руководитель",
     "rating": 5.0,
     "reviewCount": 0,
-    "programTags": ["rkeeper", "storehouse pro"],
+    "programTags": ["rkeeper", "storehouse"],
     "skillTags": ["Консультации", "Отчёты", "Выгрузка в 1C"],
     "avatar": "АМ",
     "avatarBg": "#e8effa",
@@ -16,10 +16,10 @@
   {
     "id": "2",
     "name": "Елена",
-    "role": "Менеджер отдела",
+    "role": "Менеджер",
     "rating": 5.0,
     "reviewCount": 0,
-    "programTags": ["rkeeper", "storehouse pro", "rk_delivery", "rk_event"],
+    "programTags": ["rkeeper", "storehouse", "rk_delivery", "rk_event"],
     "skillTags": ["Консультации", "Обучение персонала", "Справочники"],
     "avatar": "ЕЛ",
     "avatarBg": "#ccfbf1",
@@ -30,7 +30,7 @@
   {
     "id": "3",
     "name": "Владислав",
-    "role": "Менеджер отдела",
+    "role": "Менеджер",
     "rating": 5.0,
     "reviewCount": 0,
     "programTags": ["rkeeper"],
@@ -44,7 +44,7 @@
   {
     "id": "4",
     "name": "Дмитрий",
-    "role": "Менеджер отдела",
+    "role": "Менеджер",
     "rating": 5.0,
     "reviewCount": 0,
     "programTags": ["rkeeper"],
@@ -58,7 +58,7 @@
   {
     "id": "5",
     "name": "Елизавета",
-    "role": "Менеджер отдела",
+    "role": "Менеджер",
     "rating": 5.0,
     "reviewCount": 0,
     "programTags": ["rkeeper"],

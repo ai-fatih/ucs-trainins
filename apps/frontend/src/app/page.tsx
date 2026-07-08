@@ -16,7 +16,7 @@ import reviewsData from '@/data/reviews.json';
 
 const programTagColors: Record<string, { bg: string; text: string }> = {
   rkeeper: { bg: '#e8effa', text: '#1a56db' },
-  'storehouse pro': { bg: '#fef3c7', text: '#d97706' },
+  'storehouse': { bg: '#fef3c7', text: '#d97706' },
   rk_delivery: { bg: '#ede9fe', text: '#7c3aed' },
   rk_event: { bg: '#fce7f3', text: '#be185d' },
 };
@@ -261,24 +261,7 @@ export default function HomePage() {
                 <div className="glass-card text-center p-6 h-full flex flex-col items-center">
                   <Avatar src={leader.avatarUrl} name={leader.name} size="lg" bg={leader.avatarBg} color={leader.avatarColor} className="mb-3" />
                   <h3 className="font-bold text-lg text-[#111827]">{leader.name}</h3>
-                  <p className="text-sm text-[#6b7280] mt-0.5 mb-3">{leader.role}</p>
-                  <div className="flex flex-wrap justify-center gap-1.5">
-                    {leader.programTags?.map((tag) => {
-                      const colors = programTagColors[tag] || { bg: '#f3f4f6', text: '#374151' };
-                      return (
-                        <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: colors.bg, color: colors.text }}>
-                          {tag}
-                        </span>
-                      );
-                    })}
-                  </div>
-                  <div className="flex flex-wrap justify-center gap-1.5 mt-1.5">
-                    {leader.skillTags?.map((tag) => (
-                      <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="text-sm text-[#6b7280] mt-0.5">{leader.role}</p>
                 </div>
               </div>
 
@@ -302,24 +285,7 @@ export default function HomePage() {
                             )}
                           </div>
                           <h3 className="font-bold text-lg text-[#111827]">{elena.name}</h3>
-                          <p className="text-sm text-[#6b7280] mt-0.5 mb-3">{elena.role}</p>
-                          <div className="flex flex-wrap justify-center gap-1.5">
-                            {elena.programTags?.map((tag) => {
-                              const colors = programTagColors[tag] || { bg: '#f3f4f6', text: '#374151' };
-                              return (
-                                <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: colors.bg, color: colors.text }}>
-                                  {tag}
-                                </span>
-                              );
-                            })}
-                          </div>
-                          <div className="flex flex-wrap justify-center gap-1.5 mt-1.5">
-                            {elena.skillTags?.map((tag) => (
-                              <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium">
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
+                          <p className="text-sm text-[#6b7280] mt-0.5">{elena.role}</p>
                         </div>
                       </div>
                     )}
@@ -330,24 +296,7 @@ export default function HomePage() {
                         <div key={spec.id} className="glass-card text-center p-5 flex flex-col items-center">
                           <Avatar src={spec.avatarUrl} name={spec.name} size="lg" bg={spec.avatarBg} color={spec.avatarColor} className="mb-3" />
                           <h3 className="font-semibold text-sm text-[#111827]">{spec.name}</h3>
-                          <p className="text-xs text-[#6b7280] mt-0.5 mb-2">{spec.role}</p>
-                          <div className="flex flex-wrap justify-center gap-1">
-                            {spec.programTags?.map((tag) => {
-                              const colors = programTagColors[tag] || { bg: '#f3f4f6', text: '#374151' };
-                              return (
-                                <span key={tag} className="text-[9px] px-1.5 py-0.5 rounded-full font-semibold" style={{ backgroundColor: colors.bg, color: colors.text }}>
-                                  {tag}
-                                </span>
-                              );
-                            })}
-                          </div>
-                          <div className="flex flex-wrap justify-center gap-1 mt-1">
-                            {spec.skillTags?.map((tag) => (
-                              <span key={tag} className="text-[9px] px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium">
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
+                          <p className="text-xs text-[#6b7280] mt-0.5">{spec.role}</p>
                         </div>
                       ))}
                     </div>
@@ -359,24 +308,7 @@ export default function HomePage() {
                           <div className="glass-card text-center p-5 h-full flex flex-col items-center">
                             <Avatar src={spec.avatarUrl} name={spec.name} size="lg" bg={spec.avatarBg} color={spec.avatarColor} className="mb-3" />
                             <h3 className="font-semibold text-sm text-[#111827]">{spec.name}</h3>
-                            <p className="text-xs text-[#6b7280] mt-0.5 mb-2">{spec.role}</p>
-                            <div className="flex flex-wrap justify-center gap-1">
-                              {spec.programTags?.map((tag) => {
-                                const colors = programTagColors[tag] || { bg: '#f3f4f6', text: '#374151' };
-                                return (
-                                  <span key={tag} className="text-[9px] px-1.5 py-0.5 rounded-full font-semibold" style={{ backgroundColor: colors.bg, color: colors.text }}>
-                                    {tag}
-                                  </span>
-                                );
-                              })}
-                            </div>
-                            <div className="flex flex-wrap justify-center gap-1 mt-1">
-                              {spec.skillTags?.map((tag) => (
-                                <span key={tag} className="text-[9px] px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium">
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
+                            <p className="text-xs text-[#6b7280] mt-0.5">{spec.role}</p>
                           </div>
                         </div>
                       ))}

@@ -13,7 +13,7 @@ import type { Specialist } from '@/types';
 
 const programTagColors: Record<string, { bg: string; text: string }> = {
   rkeeper: { bg: '#e8effa', text: '#1a56db' },
-  'storehouse pro': { bg: '#fef3c7', text: '#d97706' },
+  'storehouse': { bg: '#fef3c7', text: '#d97706' },
   rk_delivery: { bg: '#ede9fe', text: '#7c3aed' },
   rk_event: { bg: '#fce7f3', text: '#be185d' },
 };
@@ -57,24 +57,9 @@ function SpecialistsPageContent() {
             />
             <h3 className="text-base font-semibold">{spec.name}</h3>
             <p className="text-sm text-[#6b7280] mb-2">{spec.role}</p>
-            <div className="flex items-center justify-center gap-1 mb-3">
+            <div className="flex items-center justify-center gap-1 mb-4">
               <Stars rating={spec.rating} />
               <span className="text-xs text-[#6b7280] font-medium">{spec.rating} ({spec.reviewCount} отзывов)</span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-1 mb-4">
-              {spec.programTags?.map((tag) => {
-                const colors = programTagColors[tag] || { bg: '#f3f4f6', text: '#374151' };
-                return (
-                  <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: colors.bg, color: colors.text }}>
-                    {tag}
-                  </span>
-                );
-              })}
-              {spec.skillTags?.map((tag) => (
-                <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium">
-                  {tag}
-                </span>
-              ))}
             </div>
             <button
               onClick={() => handleSelect(spec.id)}
