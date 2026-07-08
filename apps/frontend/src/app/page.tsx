@@ -209,9 +209,9 @@ export default function HomePage() {
                 Решаем вопросы с кассами, отчётами и складом. Обучаем сотрудников. Настраиваем справочники и номенклатуру.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button onClick={() => setAuthOpen(true)} className="inline-flex items-center gap-2 bg-white text-[#1a56db] font-bold px-8 py-3.5 rounded-xl text-base hover:bg-gray-100 no-underline transition-all shadow-lg hover:shadow-xl">
+                <Link href="/services" className="inline-flex items-center gap-2 bg-white text-[#1a56db] font-bold px-8 py-3.5 rounded-xl text-base hover:bg-gray-100 no-underline transition-all shadow-lg hover:shadow-xl">
                   Записаться <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
                 <button onClick={() => setAuthOpen(true)} className="inline-flex items-center gap-2 border-2 border-white/60 text-white font-semibold px-8 py-3.5 rounded-xl text-base hover:bg-white/10 no-underline transition-all">
                   Войти
                 </button>
@@ -277,47 +277,91 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. Team — Horizontal Scroll */}
+      {/* 2. Team — 2+3 layout */}
       <section id="specialists" className="bg-white py-16 px-4">
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[900px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Наша команда</h2>
           <p className="text-center text-[#6b7280] mb-10 max-w-xl mx-auto">
             Профессионалы, которые помогут вам с любым вопросом по rkeeper
           </p>
 
-          <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide">
-            {leader && (
-              <div className="snap-start shrink-0 w-[260px]">
+          {leader && (
+            <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide md:overflow-visible md:grid md:grid-cols-2 md:gap-5 md:pb-0 mb-5">
+              {/* Desktop: grid-2, Mobile: scroll */}
+              <div className="snap-start shrink-0 w-[280px] md:w-auto">
                 <div className="glass-card text-center p-6 h-full flex flex-col items-center">
                   <div className="relative mb-3">
                     <Avatar src={leader.avatarUrl} name={leader.name} size="lg" bg={leader.avatarBg} color={leader.avatarColor} />
-                    <span className="absolute -top-1 -right-1 bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
+                    <span className="absolute -top-1 -right-1 bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-md">
                       Руководитель
                     </span>
                   </div>
-                  <h3 className="font-bold text-base mb-1">{leader.name}</h3>
-                  <p className="text-sm text-[#6b7280] mb-2">{leader.role}</p>
-                  <div className="flex flex-wrap gap-1.5 justify-center mt-auto">
-                    {leader.tags.map((tag) => (
-                      <span key={tag} className="text-[11px] px-2 py-0.5 rounded-full bg-[#f3f4f6] text-[#6b7280]">{tag}</span>
-                    ))}
-                  </div>
+                  <h3 className="font-bold text-lg text-[#111827]">{leader.name}</h3>
+                  <p className="text-sm text-[#6b7280] mt-0.5">{leader.role}</p>
                 </div>
               </div>
-            )}
-            {managers.map((spec) => (
-              <div key={spec.id} className="snap-start shrink-0 w-[220px]">
-                <div className="glass-card text-center p-5 h-full flex flex-col items-center">
-                  <Avatar src={spec.avatarUrl} name={spec.name} size="lg" bg={spec.avatarBg} color={spec.avatarColor} className="mb-3" />
-                  <h3 className="font-semibold text-sm mb-1">{spec.name}</h3>
-                  <p className="text-xs text-[#6b7280] mb-2">{spec.role}</p>
-                  <div className="flex flex-wrap gap-1 justify-center mt-auto">
-                    {spec.tags.map((tag) => (
-                      <span key={tag} className={`text-[11px] px-2 py-0.5 rounded-full bg-[#f3f4f6] text-[#6b7280]`}>{tag}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+
+              {(() => {
+                const elena = managers.find((s) => s.name === 'Елена');
+                const others = managers.filter((s) => s.name !== 'Елена');
+                const seniority = elena?.startDate
+                  ? 2026 - new Date(elena.startDate).getFullYear()
+                  : null;
+                return (
+                  <>
+                    {elena && (
+                      <div className="snap-start shrink-0 w-[280px] md:w-auto">
+                        <div className="glass-card text-center p-6 h-full flex flex-col items-center">
+                          <div className="relative mb-3">
+                            <Avatar src={elena.avatarUrl} name={elena.name} size="lg" bg={elena.avatarBg} color={elena.avatarColor} />
+                            {seniority && (
+                              <span className="absolute -top-1 -right-1 bg-gradient-to-br from-[#0d9488] to-[#059669] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-md">
+                                {seniority}+ лет в UCS
+                              </span>
+                            )}
+                          </div>
+                          <h3 className="font-bold text-lg text-[#111827]">{elena.name}</h3>
+                          <p className="text-sm text-[#6b7280] mt-0.5">{elena.role}</p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Desktop: grid-3 for others, Mobile: continue horizontal scroll */}
+                    <div className="hidden md:grid md:grid-cols-3 md:gap-5 md:col-span-2 md:mt-5 md:w-full">
+                      {others.map((spec) => (
+                        <div key={spec.id} className="glass-card text-center p-5 flex flex-col items-center">
+                          <Avatar src={spec.avatarUrl} name={spec.name} size="lg" bg={spec.avatarBg} color={spec.avatarColor} className="mb-3" />
+                          <h3 className="font-semibold text-sm text-[#111827]">{spec.name}</h3>
+                          <p className="text-xs text-[#6b7280] mt-0.5">{spec.role}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Mobile: rest as scroll items */}
+                    <div className="md:hidden flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+                      {others.map((spec) => (
+                        <div key={spec.id} className="snap-start shrink-0 w-[220px]">
+                          <div className="glass-card text-center p-5 h-full flex flex-col items-center">
+                            <Avatar src={spec.avatarUrl} name={spec.name} size="lg" bg={spec.avatarBg} color={spec.avatarColor} className="mb-3" />
+                            <h3 className="font-semibold text-sm text-[#111827]">{spec.name}</h3>
+                            <p className="text-xs text-[#6b7280] mt-0.5">{spec.role}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          )}
+
+          {/* Tags — all unique from all specialists */}
+          <div className="flex flex-wrap justify-center gap-2 mt-8 pt-6 border-t border-[#e5e7eb]">
+            <span className="text-xs font-semibold text-[#6b7280] mr-1">Специализации:</span>
+            {Array.from(new Set(specialists.flatMap((s) => s.tags))).map((tag) => (
+              <span key={tag} className="text-[11px] px-2.5 py-1 rounded-full bg-gradient-to-r from-[#e8effa] to-[#ccfbf1] text-[#374151] font-medium">
+                {tag}
+              </span>
             ))}
           </div>
         </div>
