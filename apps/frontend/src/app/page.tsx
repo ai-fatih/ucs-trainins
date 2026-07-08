@@ -435,9 +435,9 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <button onClick={() => setAuthOpen(true)} className="glass-btn text-base">
+            <Link href="/services" className="glass-btn text-base no-underline">
               Записаться сейчас <ArrowRight className="w-4 h-4" />
-            </button>
+            </Link>
           </div>
         </div>
       </section>
