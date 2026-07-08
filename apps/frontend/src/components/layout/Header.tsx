@@ -21,6 +21,8 @@ export function Header() {
   const unauthorizedLinks = [
     { href: '/#specialists', label: 'Специалисты' },
     { href: '/#services', label: 'Услуги' },
+    { href: '/#reviews', label: 'Отзывы' },
+    { href: '/#faq', label: 'Вопросы и ответы' },
   ];
 
   const authorizedLinks = [

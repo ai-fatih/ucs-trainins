@@ -11,6 +11,13 @@ import { AuthModal } from '@/components/auth/AuthModal';
 import { useAuthStore } from '@/stores/auth';
 import type { Specialist } from '@/types';
 
+const programTagColors: Record<string, { bg: string; text: string }> = {
+  rkeeper: { bg: '#e8effa', text: '#1a56db' },
+  'storehouse pro': { bg: '#fef3c7', text: '#d97706' },
+  rk_delivery: { bg: '#ede9fe', text: '#7c3aed' },
+  rk_event: { bg: '#fce7f3', text: '#be185d' },
+};
+
 function SpecialistsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -55,7 +62,19 @@ function SpecialistsPageContent() {
               <span className="text-xs text-[#6b7280] font-medium">{spec.rating} ({spec.reviewCount} отзывов)</span>
             </div>
             <div className="flex flex-wrap justify-center gap-1 mb-4">
-              {spec.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}
+              {spec.programTags?.map((tag) => {
+                const colors = programTagColors[tag] || { bg: '#f3f4f6', text: '#374151' };
+                return (
+                  <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: colors.bg, color: colors.text }}>
+                    {tag}
+                  </span>
+                );
+              })}
+              {spec.skillTags?.map((tag) => (
+                <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium">
+                  {tag}
+                </span>
+              ))}
             </div>
             <button
               onClick={() => handleSelect(spec.id)}
