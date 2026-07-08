@@ -14,6 +14,13 @@ import howItWorksData from '@/data/how-it-works.json';
 import serviceCategoriesData from '@/data/service-categories.json';
 import reviewsData from '@/data/reviews.json';
 
+const programTagColors: Record<string, { bg: string; text: string }> = {
+  rkeeper: { bg: '#e8effa', text: '#1a56db' },
+  'storehouse': { bg: '#fef3c7', text: '#d97706' },
+  rk_delivery: { bg: '#ede9fe', text: '#7c3aed' },
+  rk_event: { bg: '#fce7f3', text: '#be185d' },
+};
+
 const categoryMeta: Record<string, { icon: React.ElementType; badge: string; badgeVariant: string }> = {
   consultations: { icon: MessageCircle, badge: '30 мин', badgeVariant: 'bg-[#e8effa] text-[#1a56db]' },
   trainings: { icon: GraduationCap, badge: 'от 2 ч', badgeVariant: 'bg-[#fef3c7] text-[#d97706]' },
@@ -187,8 +194,8 @@ export default function HomePage() {
   });
   const [authOpen, setAuthOpen] = useState(false);
 
-  const leader = specialists.find(s => s.role === 'Руководитель отдела');
-  const managers = specialists.filter(s => s.role !== 'Руководитель отдела');
+  const leader = specialists.find(s => s.role === 'Руководитель');
+  const managers = specialists.filter(s => s.role !== 'Руководитель');
 
   return (
     <div>
@@ -217,7 +224,7 @@ export default function HomePage() {
             </h1>
             <ul className="space-y-3 max-w-lg mb-8">
               {[
-                'Решаем вопросы с кассами, отчётами и складом',
+                'Консультируем по вопросам с кассами, отчётами и складом',
                 'Обучаем сотрудников',
                 'Настраиваем справочники и номенклатуру',
               ].map((item) => (
@@ -242,7 +249,7 @@ export default function HomePage() {
       {/* 2. Team — 2+3 layout */}
       <section id="specialists" className="bg-white py-16 px-4">
         <div className="max-w-[900px] mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4">Наша команда</h2>
+          <h2 className="text-3xl font-bold text-center mb-4">Отдел консультации и обучения</h2>
           <p className="text-center text-[#6b7280] mb-10 max-w-xl mx-auto">
             Профессионалы, которые помогут вам с любым вопросом по rkeeper
           </p>
@@ -252,12 +259,7 @@ export default function HomePage() {
               {/* Desktop: grid-2, Mobile: scroll */}
               <div className="snap-start shrink-0 w-[280px] md:w-auto">
                 <div className="glass-card text-center p-6 h-full flex flex-col items-center">
-                  <div className="relative mb-3">
-                    <Avatar src={leader.avatarUrl} name={leader.name} size="lg" bg={leader.avatarBg} color={leader.avatarColor} />
-                    <span className="absolute -top-1 -right-1 bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-md">
-                      Руководитель
-                    </span>
-                  </div>
+                  <Avatar src={leader.avatarUrl} name={leader.name} size="lg" bg={leader.avatarBg} color={leader.avatarColor} className="mb-3" />
                   <h3 className="font-bold text-lg text-[#111827]">{leader.name}</h3>
                   <p className="text-sm text-[#6b7280] mt-0.5">{leader.role}</p>
                 </div>
@@ -319,8 +321,16 @@ export default function HomePage() {
 
           {/* Tags — all unique from all specialists */}
           <div className="flex flex-wrap justify-center gap-2 mt-8 pt-6 border-t border-[#e5e7eb]">
-            {Array.from(new Set(specialists.flatMap((s) => s.tags))).map((tag) => (
-              <span key={tag} className="text-[11px] px-2.5 py-1 rounded-full bg-gradient-to-r from-[#e8effa] to-[#ccfbf1] text-[#374151] font-medium">
+            {Array.from(new Set(specialists.flatMap((s) => s.programTags ?? []))).map((tag) => {
+              const colors = programTagColors[tag] || { bg: '#f3f4f6', text: '#374151' };
+              return (
+                <span key={tag} className="text-[11px] px-2.5 py-1 rounded-full font-semibold" style={{ backgroundColor: colors.bg, color: colors.text }}>
+                  {tag}
+                </span>
+              );
+            })}
+            {Array.from(new Set(specialists.flatMap((s) => s.skillTags ?? []))).map((tag) => (
+              <span key={tag} className="text-[11px] px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 font-medium">
                 {tag}
               </span>
             ))}
@@ -404,7 +414,7 @@ export default function HomePage() {
       </section>
 
       {/* 5. Social Proof — Reviews Carousel */}
-      <section className="bg-[#f9fafb] py-16 px-4">
+      <section id="reviews" className="bg-[#f9fafb] py-16 px-4">
         <div className="max-w-[1200px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Что говорят клиенты</h2>
           <p className="text-center text-[#6b7280] mb-10 max-w-xl mx-auto">
@@ -415,7 +425,7 @@ export default function HomePage() {
       </section>
 
       {/* 6. FAQ — Accordion */}
-      <section className="bg-white py-16 px-4">
+      <section id="faq" className="bg-white py-16 px-4">
         <div className="max-w-[1200px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Частые вопросы</h2>
           <p className="text-center text-[#6b7280] mb-10 max-w-xl mx-auto">

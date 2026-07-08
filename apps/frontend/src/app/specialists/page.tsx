@@ -11,6 +11,13 @@ import { AuthModal } from '@/components/auth/AuthModal';
 import { useAuthStore } from '@/stores/auth';
 import type { Specialist } from '@/types';
 
+const programTagColors: Record<string, { bg: string; text: string }> = {
+  rkeeper: { bg: '#e8effa', text: '#1a56db' },
+  'storehouse': { bg: '#fef3c7', text: '#d97706' },
+  rk_delivery: { bg: '#ede9fe', text: '#7c3aed' },
+  rk_event: { bg: '#fce7f3', text: '#be185d' },
+};
+
 function SpecialistsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -50,12 +57,9 @@ function SpecialistsPageContent() {
             />
             <h3 className="text-base font-semibold">{spec.name}</h3>
             <p className="text-sm text-[#6b7280] mb-2">{spec.role}</p>
-            <div className="flex items-center justify-center gap-1 mb-3">
+            <div className="flex items-center justify-center gap-1 mb-4">
               <Stars rating={spec.rating} />
               <span className="text-xs text-[#6b7280] font-medium">{spec.rating} ({spec.reviewCount} отзывов)</span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-1 mb-4">
-              {spec.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}
             </div>
             <button
               onClick={() => handleSelect(spec.id)}

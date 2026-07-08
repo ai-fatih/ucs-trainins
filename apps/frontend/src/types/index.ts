@@ -52,7 +52,8 @@ export interface Specialist {
   role: string;
   rating: number;
   reviewCount: number;
-  tags: string[];
+  programTags: string[];
+  skillTags: string[];
   avatar: string;
   avatarBg: string;
   avatarColor: string;
