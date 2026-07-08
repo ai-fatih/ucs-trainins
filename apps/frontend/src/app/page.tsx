@@ -193,37 +193,47 @@ export default function HomePage() {
   return (
     <div>
       {/* 1. Hero — Split Layout */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a56db] via-[#1e40af] to-[#0d9488] text-white py-20 px-4">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a56db] via-[#1e40af] to-[#0d9488] text-white">
         <div className="absolute inset-0">
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
           <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#0d9488]/20 rounded-full blur-3xl" />
         </div>
-        <div className="max-w-[1200px] mx-auto relative z-10">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <h1 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
-                Экспертная поддержка
-                <br /> пользователей rkeeper
-              </h1>
-              <p className="text-lg md:text-xl opacity-90 max-w-lg mb-8">
-                Решаем вопросы с кассами, отчётами и складом. Обучаем сотрудников. Настраиваем справочники и номенклатуру.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/services" className="inline-flex items-center gap-2 bg-white text-[#1a56db] font-bold px-8 py-3.5 rounded-xl text-base hover:bg-gray-100 no-underline transition-all shadow-lg hover:shadow-xl">
-                  Записаться <ArrowRight className="w-4 h-4" />
-                </Link>
-                <button onClick={() => setAuthOpen(true)} className="inline-flex items-center gap-2 border-2 border-white/60 text-white font-semibold px-8 py-3.5 rounded-xl text-base hover:bg-white/10 no-underline transition-all">
-                  Войти
-                </button>
-              </div>
-            </div>
 
-            <div className="hidden md:flex items-center justify-center">
-              <img
-                src="/images/hero-banner.webp"
-                alt="UCS Service — поддержка rkeeper"
-                className="w-auto h-[300px] rounded-2xl shadow-2xl object-contain"
-              />
+        <div className="hidden md:block absolute right-0 top-0 bottom-0 w-1/2">
+          <img
+            src="/images/hero-banner.webp"
+            alt="UCS Service — поддержка rkeeper"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-white z-10" />
+
+        <div className="relative z-20 max-w-[1200px] mx-auto px-4 min-h-[500px] flex items-center">
+          <div className="py-20 max-w-[600px]">
+            <h1 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
+              Экспертная поддержка
+              <br /> пользователей rkeeper
+            </h1>
+            <ul className="space-y-3 max-w-lg mb-8">
+              {[
+                'Решаем вопросы с кассами, отчётами и складом',
+                'Обучаем сотрудников',
+                'Настраиваем справочники и номенклатуру',
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="w-2 h-2 rounded-full bg-white/80 mt-[11px] shrink-0" />
+                  <span className="text-lg md:text-xl opacity-90">{item}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/services" className="inline-flex items-center gap-2 bg-white text-[#1a56db] font-bold px-8 py-3.5 rounded-xl text-base hover:bg-gray-100 no-underline transition-all shadow-lg hover:shadow-xl">
+                Записаться <ArrowRight className="w-4 h-4" />
+              </Link>
+              <button onClick={() => setAuthOpen(true)} className="inline-flex items-center gap-2 border-2 border-white/60 text-white font-semibold px-8 py-3.5 rounded-xl text-base hover:bg-white/10 no-underline transition-all">
+                Войти
+              </button>
             </div>
           </div>
         </div>
