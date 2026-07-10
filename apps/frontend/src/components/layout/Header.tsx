@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useAuthStore } from '@/stores/auth';
 import { useNotificationStore } from '@/stores/notifications';
 import { AuthModal } from '@/components/auth/AuthModal';
-import { Menu, X, Bell, LogOut } from 'lucide-react';
+import { Menu, X, Bell, LogOut, User } from 'lucide-react';
 
 export function Header() {
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -18,11 +18,16 @@ export function Header() {
 
   const isActive = (href: string) => pathname === href || (href !== '/' && pathname.startsWith(href));
 
-  const unauthorizedLinks = [
-    { href: '/#specialists', label: 'Специалисты' },
+  const unauthorizedLinksLeft = [
+    { href: '/#about', label: 'О нас' },
     { href: '/#services', label: 'Услуги' },
+    { href: '/#faq', label: 'Вопросы' },
+  ];
+
+  const unauthorizedLinksRight = [
+    { href: '/#news', label: 'Новости' },
     { href: '/#reviews', label: 'Отзывы' },
-    { href: '/#faq', label: 'Вопросы и ответы' },
+    { href: '/#contacts', label: 'Контакты' },
   ];
 
   const authorizedLinks = [
@@ -43,19 +48,41 @@ export function Header() {
 
   const renderNavLinks = () => {
     if (!isAuthenticated) {
-      return unauthorizedLinks.map((link) => (
-        <Link
-          key={link.href}
-          href={link.href}
-          className={`text-sm font-medium px-3 py-2 rounded-lg no-underline transition-all ${
-            isActive(link.href)
-              ? 'text-[#1a56db] bg-[#1a56db]/10'
-              : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
-          }`}
-        >
-          {link.label}
-        </Link>
-      ));
+      return (
+        <>
+          <div className="flex items-center gap-1">
+            {unauthorizedLinksLeft.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm font-medium px-3 py-2 rounded-lg no-underline transition-all ${
+                  isActive(link.href)
+                    ? 'text-[#1a56db] bg-[#1a56db]/10'
+                    : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          <div className="w-px h-5 bg-[#d1d5db] mx-1.5" />
+          <div className="flex items-center gap-1">
+            {unauthorizedLinksRight.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm font-medium px-3 py-2 rounded-lg no-underline transition-all ${
+                  isActive(link.href)
+                    ? 'text-[#1a56db] bg-[#1a56db]/10'
+                    : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </>
+      );
     }
 
     const links = isStaff ? staffLinks : authorizedLinks;
@@ -127,9 +154,9 @@ export function Header() {
             ) : (
               <button
                 onClick={() => setAuthOpen(true)}
-                className="glass-btn text-sm"
+                className="glass-btn text-sm flex items-center gap-2"
               >
-                Войти
+                <User className="w-4 h-4" /> Личный кабинет
               </button>
             )}
           </div>
@@ -145,21 +172,39 @@ export function Header() {
         {mobileOpen && (
           <div className="md:hidden glass-strong border-t border-white/20 p-4">
             <nav className="flex flex-col gap-1">
-              {!isAuthenticated &&
-                unauthorizedLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={`text-sm font-medium px-4 py-3 rounded-lg no-underline transition-all ${
-                      isActive(link.href)
-                        ? 'text-[#1a56db] bg-[#1a56db]/10'
-                        : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+              {!isAuthenticated && (
+                <>
+                  {unauthorizedLinksLeft.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={`text-sm font-medium px-4 py-3 rounded-lg no-underline transition-all ${
+                        isActive(link.href)
+                          ? 'text-[#1a56db] bg-[#1a56db]/10'
+                          : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                  <hr className="border-t border-[#e2e8f0] my-1" />
+                  {unauthorizedLinksRight.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={`text-sm font-medium px-4 py-3 rounded-lg no-underline transition-all ${
+                        isActive(link.href)
+                          ? 'text-[#1a56db] bg-[#1a56db]/10'
+                          : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </>
+              )}
               {isAuthenticated && !isStaff &&
                 authorizedLinks.map((link) => (
                   <Link
@@ -226,7 +271,7 @@ export function Header() {
                   onClick={() => { setAuthOpen(true); setMobileOpen(false); }}
                   className="glass-btn text-sm mt-2"
                 >
-                  Войти
+                  <User className="w-4 h-4" /> Личный кабинет
                 </button>
               )}
             </nav>

@@ -10,11 +10,11 @@ import { api } from '@/lib/api';
 import type { Specialist } from '@/types';
 import {
   MessageCircle, GraduationCap, Video, Database, ArrowRight,
-  Star, ChevronDown,
+  Star, ChevronDown, Mail, Phone,
 } from 'lucide-react';
-import howItWorksData from '@/data/how-it-works.json';
 import serviceCategoriesData from '@/data/service-categories.json';
 import reviewsData from '@/data/reviews.json';
+import newsData from '@/data/news.json';
 
 const programTagColors: Record<string, { bg: string; text: string }> = {
   rkeeper: { bg: '#e8effa', text: '#1a56db' },
@@ -37,80 +37,6 @@ const faqData = [
   { question: 'Как отменить или перенести запись?', answer: 'В личном кабинете вы можете отменить запись не позднее чем за 2 часа до начала.' },
   { question: 'Предоставляете ли документы для налоговой?', answer: 'Да, после оказания услуг мы предоставляем акт и чек. Для юрлиц — счёт-фактуру.' },
 ];
-
-function StepSvg({ step }: { step: string }) {
-  const svg = (() => {
-    switch (step) {
-      case '1': return (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" className="w-full h-24 md:h-32 rounded-xl">
-        <rect x="0" y="0" width="400" height="160" rx="12" fill="#e8effa" opacity="0.3" />
-        <text x="20" y="28" fontSize="16" fontFamily="sans-serif" fill="#374151" fontWeight="700">Выберите услугу</text>
-        <rect x="20" y="48" width="110" height="32" rx="6" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-        <circle cx="40" cy="64" r="6" fill="#1a56db" />
-        <text x="60" y="68" fontSize="14" fontFamily="sans-serif" fill="#374151">Консультация</text>
-        <rect x="20" y="88" width="110" height="32" rx="6" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-        <circle cx="40" cy="104" r="6" fill="#e8effa" stroke="#374151" strokeWidth="2" />
-        <text x="60" y="108" fontSize="14" fontFamily="sans-serif" fill="#374151">Обучение</text>
-        <rect x="20" y="128" width="110" height="32" rx="6" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-        <circle cx="40" cy="144" r="6" fill="#e8effa" stroke="#374151" strokeWidth="2" />
-        <text x="60" y="148" fontSize="14" fontFamily="sans-serif" fill="#374151">Настройка</text>
-        <rect x="160" y="60" width="80" height="32" rx="16" fill="#e8effa" stroke="#374151" strokeWidth="2" />
-        <circle cx="180" cy="76" r="10" fill="#1a56db" />
-        <text x="200" y="81" fontSize="12" fontFamily="sans-serif" fill="#374151">Онлайн</text>
-      </svg>);
-      case '2': return (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" className="w-full h-24 md:h-32 rounded-xl">
-        <rect x="0" y="0" width="400" height="160" rx="12" fill="#e8effa" opacity="0.3" />
-        <rect x="20" y="20" width="160" height="120" rx="10" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-        <text x="40" y="60" fontSize="14" fontFamily="sans-serif" fill="#374151">5</text>
-        <text x="80" y="60" fontSize="14" fontFamily="sans-serif" fill="#374151">6</text>
-        <rect x="110" y="44" width="32" height="24" rx="4" fill="#1a56db" />
-        <text x="126" y="60" fontSize="14" fontFamily="sans-serif" fill="#ffffff" textAnchor="middle" fontWeight="700">7</text>
-        <text x="40" y="92" fontSize="14" fontFamily="sans-serif" fill="#374151">8</text>
-        <text x="80" y="92" fontSize="14" fontFamily="sans-serif" fill="#374151">9</text>
-        <text x="120" y="92" fontSize="14" fontFamily="sans-serif" fill="#374151">10</text>
-        <rect x="210" y="32" width="140" height="96" rx="10" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-        <text x="230" y="60" fontSize="14" fontFamily="sans-serif" fill="#374151">10:00</text>
-        <rect x="220" y="72" width="100" height="24" rx="6" fill="#1a56db" />
-        <text x="250" y="88" fontSize="14" fontFamily="sans-serif" fill="#ffffff" textAnchor="middle" fontWeight="700">11:00</text>
-        <text x="230" y="116" fontSize="14" fontFamily="sans-serif" fill="#374151">14:00</text>
-        <rect x="210" y="120" width="140" height="28" rx="6" fill="#0d9488" />
-        <text x="280" y="140" fontSize="14" fontFamily="sans-serif" fill="#ffffff" textAnchor="middle" fontWeight="700">Подтвердить</text>
-      </svg>);
-      case '3': return (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" className="w-full h-24 md:h-32 rounded-xl">
-        <rect x="0" y="0" width="400" height="160" rx="12" fill="#e8effa" opacity="0.3" />
-        <circle cx="80" cy="80" r="32" fill="#e8effa" stroke="#374151" strokeWidth="2" />
-        <circle cx="80" cy="74" r="16" fill="#ffffff" stroke="#374151" strokeWidth="1.5" />
-        <rect x="60" y="92" width="40" height="20" rx="6" fill="#0d9488" />
-        <circle cx="320" cy="80" r="32" fill="#e8effa" stroke="#374151" strokeWidth="2" />
-        <circle cx="320" cy="74" r="16" fill="#ffffff" stroke="#374151" strokeWidth="1.5" />
-        <rect x="300" y="92" width="40" height="20" rx="6" fill="#1a56db" />
-        <rect x="150" y="50" width="100" height="60" rx="10" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-        <circle cx="170" cy="80" r="4" fill="#374151" />
-        <circle cx="185" cy="80" r="4" fill="#374151" />
-        <circle cx="200" cy="80" r="4" fill="#374151" />
-      </svg>);
-      case '4': return (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" className="w-full h-24 md:h-32 rounded-xl">
-        <rect x="0" y="0" width="400" height="160" rx="12" fill="#e8effa" opacity="0.3" />
-        <rect x="20" y="20" width="160" height="120" rx="10" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-        <polyline points="40,120 80,100 120,80 150,50" fill="none" stroke="#1a56db" strokeWidth="3" />
-        <circle cx="220" cy="60" r="24" fill="#e8effa" stroke="#374151" strokeWidth="2" />
-        <path d="M210 60 L218 68 L234 52" stroke="#22c55e" strokeWidth="4" fill="none" strokeLinecap="round" />
-        <rect x="270" y="40" width="32" height="32" rx="6" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-        <rect x="310" y="40" width="32" height="32" rx="6" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-        <rect x="350" y="40" width="32" height="32" rx="6" fill="#ffffff" stroke="#374151" strokeWidth="2" />
-        <circle cx="286" cy="56" r="6" fill="#22c55e" />
-        <circle cx="326" cy="56" r="6" fill="#22c55e" />
-        <circle cx="366" cy="56" r="6" fill="#22c55e" />
-      </svg>);
-      default: return null;
-    }
-  })();
-
-  return (
-    <div className="rounded-xl overflow-hidden h-24 md:h-32">
-      {svg}
-    </div>
-  );
-}
 
 function ReviewsCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -200,6 +126,7 @@ export default function HomePage() {
 
   const leader = specialists.find(s => s.role === 'Руководитель');
   const managers = specialists.filter(s => s.role !== 'Руководитель');
+  const elena = managers.find(s => s.name.startsWith('Елена'));
 
   const nextDate = new Date();
   nextDate.setDate(nextDate.getDate() + 14);
@@ -272,7 +199,7 @@ export default function HomePage() {
                 </div>
                 <div className="min-w-0">
                   <div className="text-base font-semibold text-white leading-tight">Консультация по StoreHouse</div>
-                  <div className="text-xs text-[#94a3b8] mt-0.5 mb-1">Елена Попова</div>
+                  <div className="text-xs text-[#94a3b8] mt-0.5 mb-1">{elena?.name || 'Елена Попова'}</div>
                   <div className="flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
                     <span className="text-[11px] text-[#22c55e] font-semibold">Запланировано</span>
@@ -300,18 +227,18 @@ export default function HomePage() {
           </div>
         </div>
 
-        <a href="#specialists" className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[#64748b] text-xs hover:text-[#94a3b8] transition-colors no-underline">
-          <span>Наша команда</span>
+        <a href="#about" className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[#64748b] text-xs hover:text-[#94a3b8] transition-colors no-underline">
+          <span>О нас</span>
           <ChevronDown className="w-5 h-5 animate-bounce" />
         </a>
       </section>
 
-      {/* 1. Team — 2+3 layout */}
-      <section id="specialists" className="bg-white py-16 px-4">
+      {/* 1. About — 2+3 layout */}
+      <section id="about" className="bg-white py-16 px-4">
         <div className="max-w-[900px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Отдел консультации и обучения</h2>
           <p className="text-center text-[#6b7280] mb-10 max-w-xl mx-auto">
-            Профессионалы, которые помогут вам с любым вопросом по rkeeper
+            Помогаем ресторанам разобраться с rkeeper, StoreHouse и доставкой. В команде 5 специалистов. Проводим обучение персонала, заводим справочники, консультируем по любым вопросам.
           </p>
 
           {leader && (
@@ -326,8 +253,7 @@ export default function HomePage() {
               </div>
 
               {(() => {
-                const elena = managers.find((s) => s.name === 'Елена');
-                const others = managers.filter((s) => s.name !== 'Елена');
+                const others = managers.filter((s) => !s.name.startsWith('Елена'));
                 const seniority = elena?.startDate
                   ? 2026 - new Date(elena.startDate).getFullYear()
                   : null;
@@ -398,6 +324,28 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 2. News — Blog */}
+      <section id="news" className="bg-[#f9fafb] py-16 px-4">
+        <div className="max-w-[900px] mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-4">Новости отдела</h2>
+          <p className="text-center text-[#6b7280] mb-10 max-w-xl mx-auto">
+            Полезные материалы, обновления и анонсы
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {newsData.map((item) => (
+              <div key={item.id} className="glass-card p-5 flex flex-col">
+                <span className="text-[11px] font-semibold text-[#0d9488] bg-[rgba(13,148,136,0.1)] px-2.5 py-1 rounded-full inline-block w-fit mb-3">
+                  {item.category}
+                </span>
+                <time className="text-xs text-[#94a3b8] mb-2">{item.date}</time>
+                <h3 className="text-sm font-semibold text-[#111827] mb-2 leading-snug">{item.title}</h3>
+                <p className="text-xs text-[#6b7280] leading-relaxed flex-1">{item.preview}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 3. Services — 2x2 Grid */}
       <section id="services" className="bg-[#f9fafb] py-16 px-4">
         <div className="max-w-[1200px] mx-auto">
@@ -436,44 +384,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. How It Works — Vertical Timeline */}
-      <section className="bg-white py-16 px-4">
-        <div className="max-w-[900px] mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4">Как это работает</h2>
-          <p className="text-center text-[#6b7280] mb-14 max-w-xl mx-auto">
-            Простой путь от заявки до результата
-          </p>
-
-          <div className="relative">
-            <div className="absolute left-[23px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#1a56db] via-[#0d9488] to-[#1a56db]/10" />
-
-            <div className="space-y-12">
-              {howItWorksData.map((step, i) => (
-                <div key={step.id} className="relative flex items-start gap-6 md:gap-10">
-                  <div className="w-[46px] h-[46px] rounded-full flex items-center justify-center text-lg font-bold shrink-0 relative z-10 bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white border-[3px] border-white shadow-md">
-                    {step.icon}
-                  </div>
-
-                  <div className="min-w-0 flex-1 pt-1.5">
-                    <h3 className="font-bold text-lg text-[#111827] mb-1.5">{step.title}</h3>
-                    <p className="text-sm text-[#6b7280] mb-4">{step.description}</p>
-
-                    <StepSvg step={step.icon} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/services" className="glass-btn text-base no-underline">
-              Записаться сейчас <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Social Proof — Reviews Carousel */}
+      {/* 4. Social Proof — Reviews Carousel */}
       <section id="reviews" className="bg-[#f9fafb] py-16 px-4">
         <div className="max-w-[1200px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Что говорят клиенты</h2>
@@ -484,7 +395,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. FAQ — Accordion */}
+      {/* 5. FAQ — Accordion */}
       <section id="faq" className="bg-white py-16 px-4">
         <div className="max-w-[1200px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Частые вопросы</h2>
@@ -492,6 +403,44 @@ export default function HomePage() {
             Всё, что нужно знать перед записью
           </p>
           <FAQSection />
+        </div>
+      </section>
+
+      {/* 6. Contacts — Hero-style dark */}
+      <section id="contacts" className="bg-[#0f172a] py-16 px-4 relative overflow-hidden">
+        <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(13,148,136,0.2)] top-[10%] -left-[10%]" />
+        <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(26,86,219,0.2)] bottom-[10%] -right-[10%]" />
+        <div className="relative z-10 max-w-[500px] mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-4 text-[#f1f5f9]">Контакты отдела обучения</h2>
+          <p className="text-center text-[#64748b] mb-10 max-w-md mx-auto">
+            Свяжитесь с нами любым удобным способом
+          </p>
+          <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-8 space-y-6">
+            <a href="mailto:school@ucs-service.ru" className="flex items-center gap-4 no-underline group">
+              <div className="w-12 h-12 rounded-xl bg-[rgba(13,148,136,0.15)] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <Mail className="w-5 h-5 text-[#5eead4]" />
+              </div>
+              <div>
+                <p className="text-xs text-[#64748b] mb-0.5">Электронная почта</p>
+                <p className="text-base font-semibold text-[#f1f5f9] group-hover:text-[#5eead4] transition-colors">school@ucs-service.ru</p>
+              </div>
+            </a>
+            <div className="border-t border-[rgba(255,255,255,0.08)]" />
+            <a href="tel:+74959214770" className="flex items-center gap-4 no-underline group">
+              <div className="w-12 h-12 rounded-xl bg-[rgba(13,148,136,0.15)] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <Phone className="w-5 h-5 text-[#5eead4]" />
+              </div>
+              <div>
+                <p className="text-xs text-[#64748b] mb-0.5">Телефон:</p>
+                <p className="text-base font-semibold text-[#f1f5f9] group-hover:text-[#5eead4] transition-colors">+7 (495) 921-47-70</p>
+              </div>
+            </a>
+            <p className="text-[11px] text-[#64748b] ml-[68px] mt-1">
+              добавочный{' '}
+              <span className="inline-flex items-center justify-center w-4 h-4 rounded bg-[rgba(13,148,136,0.25)] text-[#5eead4] text-[10px] font-bold">2</span>
+              {' '}— отдел консультации и обучения
+            </p>
+          </div>
         </div>
       </section>
 
