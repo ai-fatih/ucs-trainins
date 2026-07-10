@@ -2,8 +2,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { Avatar } from '@/components/ui/Avatar';
 import { AuthModal } from '@/components/auth/AuthModal';
+import { useAuthStore } from '@/stores/auth';
 import { api } from '@/lib/api';
 import type { Specialist } from '@/types';
 import {
@@ -193,60 +195,118 @@ export default function HomePage() {
     queryFn: api.specialists.list,
   });
   const [authOpen, setAuthOpen] = useState(false);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const router = useRouter();
 
   const leader = specialists.find(s => s.role === 'Руководитель');
   const managers = specialists.filter(s => s.role !== 'Руководитель');
 
+  const nextDate = new Date();
+  nextDate.setDate(nextDate.getDate() + 14);
+  const date4 = new Date();
+  date4.setDate(date4.getDate() + 4);
+  const datePast = new Date();
+  datePast.setDate(datePast.getDate() - 3);
+  const months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+
   return (
     <div>
-      {/* 1. Hero — Split Layout */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a56db] via-[#1e40af] to-[#0d9488] text-white">
-        <div className="absolute inset-0">
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#0d9488]/20 rounded-full blur-3xl" />
+      {/* 0. Hero — Split Layout */}
+      <section className="min-h-[520px] grid grid-cols-1 lg:grid-cols-2 bg-[#0f172a] relative">
+        <div className="text-white p-8 md:p-16 flex flex-col justify-center">
+          <div className="inline-flex items-center gap-2 bg-[rgba(13,148,136,0.2)] text-slate-50 px-3 py-1.5 rounded-full text-xs font-semibold w-fit mb-5">
+            ✦ Консультации и обучение
+          </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+            Экспертная поддержка <span className="text-[#0d9488]">пользователей rkeeper</span>
+          </h1>
+          <p className="text-base text-[#94a3b8] mb-4 max-w-md">
+            Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper
+          </p>
+          <div className="flex gap-2 flex-wrap mb-8">
+            <span className="text-[11px] px-3 py-1 rounded-full font-semibold bg-[rgba(13,148,136,0.15)] text-[#5eead4]">rkeeper</span>
+            <span className="text-[11px] px-3 py-1 rounded-full font-semibold bg-[rgba(13,148,136,0.15)] text-[#5eead4]">storehouse</span>
+            <span className="text-[11px] px-3 py-1 rounded-full font-semibold bg-[rgba(13,148,136,0.15)] text-[#5eead4]">delivery</span>
+          </div>
+          <button
+            onClick={() => {
+              if (isAuthenticated) {
+                router.push('/dashboard');
+              } else {
+                setAuthOpen(true);
+              }
+            }}
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-[#1a56db] to-[#0d9488] text-white rounded-lg font-bold text-sm w-fit hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[rgba(26,86,219,0.4)] transition-all"
+          >
+            Личный кабинет <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
 
-        <div className="hidden md:block absolute right-0 top-0 bottom-0 w-1/2">
-          <img
-            src="/images/hero-banner.webp"
-            alt="UCS Service — поддержка rkeeper"
-            className="w-full h-full object-cover"
-          />
-        </div>
+        <div className="hidden lg:flex items-center justify-center bg-gradient-to-br from-[#1e293b] to-[#0f172a] relative overflow-hidden">
+          <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(26,86,219,0.3)] top-[10%] left-[10%]" />
+          <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(13,148,136,0.25)] bottom-[10%] right-[10%]" />
+          <div className="relative z-10 flex flex-col gap-5">
+            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-4">
+              <div className="flex items-start gap-3">
+                <div className="text-center min-w-[52px]">
+                  <div className="text-lg font-bold text-[#0d9488]">{nextDate.getDate()}</div>
+                  <div className="text-[10px] text-[#94a3b8] uppercase">{months[nextDate.getMonth()]}</div>
+                  <div className="text-[11px] font-medium text-[#64748b] mt-0.5">14:00</div>
+                </div>
+                <div className="min-w-0 pt-0.5">
+                  <div className="text-sm font-semibold text-white leading-tight mb-1">Обучение по rkeeper</div>
+                  <div className="flex items-center gap-1.5 mt-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#d97706]" />
+                    <span className="text-[11px] text-[#d97706] font-semibold">На согласовании</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-white z-10" />
+            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-5 scale-105">
+              <div className="flex items-start gap-3">
+                <div className="text-center min-w-[56px]">
+                  <div className="text-3xl font-bold text-[#0d9488]">{date4.getDate()}</div>
+                  <div className="text-xs text-[#94a3b8] uppercase">{months[date4.getMonth()]}</div>
+                  <div className="text-sm font-medium text-[#64748b] mt-1">11:00</div>
+                </div>
+                <div className="min-w-0">
+                  <div className="text-base font-semibold text-white leading-tight">Консультация по StoreHouse</div>
+                  <div className="text-xs text-[#94a3b8] mt-0.5 mb-1">Елена Попова</div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+                    <span className="text-[11px] text-[#22c55e] font-semibold">Запланировано</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <div className="relative z-20 max-w-[1200px] mx-auto px-4 min-h-[500px] flex items-center">
-          <div className="py-20 max-w-[600px]">
-            <h1 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
-              Экспертная поддержка
-              <br /> пользователей rkeeper
-            </h1>
-            <ul className="space-y-3 max-w-lg mb-8">
-              {[
-                'Консультируем по вопросам с кассами, отчётами и складом',
-                'Обучаем сотрудников',
-                'Настраиваем справочники и номенклатуру',
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="w-2 h-2 rounded-full bg-white/80 mt-[11px] shrink-0" />
-                  <span className="text-lg md:text-xl opacity-90">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/services" className="inline-flex items-center gap-2 bg-white text-[#1a56db] font-bold px-8 py-3.5 rounded-xl text-base hover:bg-gray-100 no-underline transition-all shadow-lg hover:shadow-xl">
-                Записаться <ArrowRight className="w-4 h-4" />
-              </Link>
-              <button onClick={() => setAuthOpen(true)} className="inline-flex items-center gap-2 border-2 border-white/60 text-white font-semibold px-8 py-3.5 rounded-xl text-base hover:bg-white/10 no-underline transition-all">
-                Войти
-              </button>
+            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-4">
+              <div className="flex items-start gap-3">
+                <div className="text-center min-w-[52px]">
+                  <div className="text-lg font-bold text-[#64748b]">{datePast.getDate()}</div>
+                  <div className="text-[10px] text-[#64748b] uppercase">{months[datePast.getMonth()]}</div>
+                  <div className="text-[11px] font-medium text-[#475569] mt-0.5">16:00</div>
+                </div>
+                <div className="min-w-0">
+                  <div className="text-sm font-semibold text-white leading-tight mb-1">Консультация по смене НДС</div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#64748b]" />
+                    <span className="text-[11px] text-[#64748b] font-semibold">Проведено</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        <a href="#specialists" className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[#64748b] text-xs hover:text-[#94a3b8] transition-colors no-underline">
+          <span>Наша команда</span>
+          <ChevronDown className="w-5 h-5 animate-bounce" />
+        </a>
       </section>
 
-      {/* 2. Team — 2+3 layout */}
+      {/* 1. Team — 2+3 layout */}
       <section id="specialists" className="bg-white py-16 px-4">
         <div className="max-w-[900px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Отдел консультации и обучения</h2>
@@ -343,7 +403,7 @@ export default function HomePage() {
         <div className="max-w-[1200px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Наши услуги</h2>
           <p className="text-center text-[#6b7280] mb-10 max-w-xl mx-auto">
-            Выберите формат поддержки, который подходит вашему бизнесу
+            Выберите подходящий формат обучения
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {serviceCategoriesData.map((cat) => {
@@ -418,7 +478,7 @@ export default function HomePage() {
         <div className="max-w-[1200px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Что говорят клиенты</h2>
           <p className="text-center text-[#6b7280] mb-10 max-w-xl mx-auto">
-            Реальные отзывы пользователей нашего сервиса
+            Реальные отзывы клиентов
           </p>
           <ReviewsCarousel />
         </div>

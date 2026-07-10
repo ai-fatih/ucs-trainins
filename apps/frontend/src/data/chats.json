@@ -14,7 +14,7 @@
       { "id": "m3", "chatRoomId": "chat1", "senderId": "spec1", "senderName": "Иван Петров", "content": "Понял. Можете скинуть скриншот настроек отчёта и пример расхождения?", "type": "text", "createdAt": "2026-07-03T09:47:00", "isSent": false },
       { "id": "m4", "chatRoomId": "chat1", "senderId": "user1", "senderName": "Вы", "content": "Да, прикладываю.", "type": "text", "createdAt": "2026-07-03T09:48:00", "isSent": true },
       { "id": "m5", "chatRoomId": "chat1", "senderId": "user1", "senderName": "Вы", "content": "screenshot_2026-07-03.png", "type": "file", "fileName": "screenshot_2026-07-03.png", "fileUrl": "#", "createdAt": "2026-07-03T09:48:30", "isSent": true },
-      { "id": "m6", "chatRoomId": "chat1", "senderId": "spec1", "senderName": "Иван Петров", "content": "Вижу проблему. В настройках указан неверный тип калькуляции. Нужно переключить на \"Полный учёт\". Давайте я настрою на консультации?", "type": "text", "createdAt": "2026-07-03T09:50:00", "isSent": false },
+      { "id": "m6", "chatRoomId": "chat1", "senderId": "spec1", "senderName": "Иван Петров", "content": "Вижу проблему. В настройках указан неверный тип калькуляции. Нужно переключить на \"Полный учёт\". Давайте разберём на консультации?", "type": "text", "createdAt": "2026-07-03T09:50:00", "isSent": false },
       { "id": "m7", "chatRoomId": "chat1", "senderId": "user1", "senderName": "Вы", "content": "Да, отлично! Буду ждать.", "type": "text", "createdAt": "2026-07-03T09:51:00", "isSent": true }
     ]
   },
