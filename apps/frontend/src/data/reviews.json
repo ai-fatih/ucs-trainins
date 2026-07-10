@@ -1,5 +1,5 @@
 [
-  { "id": "r1", "userName": "Иван П.", "rating": 5, "text": "Очень помогли с настройкой, спасибо!", "date": "03.07.2026", "specialistName": "Иван Петров", "serviceName": "Консультация по rkeeper" },
+  { "id": "r1", "userName": "Иван П.", "rating": 5, "text": "Очень помогли разобраться, спасибо!", "date": "03.07.2026", "specialistName": "Иван Петров", "serviceName": "Консультация по rkeeper" },
   { "id": "r2", "userName": "ООО Ресторанъ", "rating": 4, "text": "В целом всё хорошо, но хотелось бы больше практики", "date": "01.07.2026", "specialistName": "Мария Соколова", "serviceName": "Групповой тренинг" },
   { "id": "r3", "userName": "Алексей К.", "rating": 5, "text": "Лучший тренинг по rkeeper, где я был!", "date": "28.06.2026", "specialistName": "Мария Соколова", "serviceName": "Базовый курс rkeeper" }
 ]
