@@ -10,7 +10,7 @@ import { api } from '@/lib/api';
 import type { Specialist } from '@/types';
 import {
   MessageCircle, GraduationCap, Video, Database, ArrowRight,
-  Star, ChevronDown, Mail, Phone,
+  Star, ChevronDown, Mail, Phone, CheckCircle, MoreHorizontal,
 } from 'lucide-react';
 import serviceCategoriesData from '@/data/service-categories.json';
 import reviewsData from '@/data/reviews.json';
@@ -139,7 +139,8 @@ export default function HomePage() {
   return (
     <div>
       {/* 0. Hero — Split Layout */}
-      <section className="min-h-[520px] grid grid-cols-1 lg:grid-cols-2 bg-[#0f172a] relative">
+      <div className="bg-[#0f172a]">
+      <section className="min-h-[520px] grid grid-cols-1 lg:grid-cols-2 relative max-w-[1440px] mx-auto">
         <div className="text-white p-8 md:p-16 flex flex-col justify-center">
           <div className="inline-flex items-center gap-2 bg-[rgba(13,148,136,0.2)] text-slate-50 px-3 py-1.5 rounded-full text-xs font-semibold w-fit mb-5">
             ✦ Консультации и обучение
@@ -169,58 +170,106 @@ export default function HomePage() {
           </button>
         </div>
 
-        <div className="hidden lg:flex items-center justify-center bg-gradient-to-br from-[#1e293b] to-[#0f172a] relative overflow-hidden">
+        <div className="flex items-center justify-center bg-gradient-to-br from-[#1e293b] to-[#0f172a] relative overflow-hidden py-8 lg:py-0">
           <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(26,86,219,0.3)] top-[10%] left-[10%]" />
           <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(13,148,136,0.25)] bottom-[10%] right-[10%]" />
-          <div className="relative z-10 flex flex-col gap-5">
-            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-4">
-              <div className="flex items-start gap-3">
-                <div className="text-center min-w-[52px]">
-                  <div className="text-lg font-bold text-[#0d9488]">{nextDate.getDate()}</div>
-                  <div className="text-[10px] text-[#94a3b8] uppercase">{months[nextDate.getMonth()]}</div>
-                  <div className="text-[11px] font-medium text-[#64748b] mt-0.5">14:00</div>
-                </div>
-                <div className="min-w-0 pt-0.5">
+          <div className="relative z-10 flex flex-col lg:flex-row gap-6 lg:gap-10 items-center lg:items-start">
+            {/* Left: Booking cards (unchanged) */}
+            <div className="flex flex-col gap-5 w-full lg:w-auto">
+              <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-4">
+                <div className="flex items-start gap-3">
+                  <div className="text-center min-w-[52px]">
+                    <div className="text-lg font-bold text-[#0d9488]">{nextDate.getDate()}</div>
+                    <div className="text-[10px] text-[#94a3b8] uppercase">{months[nextDate.getMonth()]}</div>
+                    <div className="text-[11px] font-medium text-[#64748b] mt-0.5">14:00</div>
+                  </div>
+                  <div className="min-w-0 pt-0.5">
                   <div className="text-sm font-semibold text-white leading-tight mb-1">Обучение по rkeeper</div>
+                  <div className="text-xs text-[#94a3b8] mt-0.5">Владислав Фатихов</div>
                   <div className="flex items-center gap-1.5 mt-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#d97706]" />
                     <span className="text-[11px] text-[#d97706] font-semibold">На согласовании</span>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-5 scale-105">
-              <div className="flex items-start gap-3">
-                <div className="text-center min-w-[56px]">
-                  <div className="text-3xl font-bold text-[#0d9488]">{date4.getDate()}</div>
-                  <div className="text-xs text-[#94a3b8] uppercase">{months[date4.getMonth()]}</div>
-                  <div className="text-sm font-medium text-[#64748b] mt-1">11:00</div>
-                </div>
-                <div className="min-w-0">
-                  <div className="text-base font-semibold text-white leading-tight">Консультация по StoreHouse</div>
-                  <div className="text-xs text-[#94a3b8] mt-0.5 mb-1">{elena?.name || 'Елена Попова'}</div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
-                    <span className="text-[11px] text-[#22c55e] font-semibold">Запланировано</span>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-4">
-              <div className="flex items-start gap-3">
-                <div className="text-center min-w-[52px]">
-                  <div className="text-lg font-bold text-[#64748b]">{datePast.getDate()}</div>
-                  <div className="text-[10px] text-[#64748b] uppercase">{months[datePast.getMonth()]}</div>
-                  <div className="text-[11px] font-medium text-[#475569] mt-0.5">16:00</div>
+              <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-5 scale-105 lg:scale-105 max-w-full">
+                <div className="flex items-start gap-3">
+                  <div className="text-center min-w-[56px]">
+                    <div className="text-3xl font-bold text-[#0d9488]">{date4.getDate()}</div>
+                    <div className="text-xs text-[#94a3b8] uppercase">{months[date4.getMonth()]}</div>
+                    <div className="text-sm font-medium text-[#64748b] mt-1">11:00</div>
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-base font-semibold text-white leading-tight">Консультация по StoreHouse</div>
+                    <div className="text-xs text-[#94a3b8] mt-0.5 mb-1">Дмитрий Резников</div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+                      <span className="text-[11px] text-[#22c55e] font-semibold">Запланировано</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="min-w-0">
+              </div>
+
+              <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-4">
+                <div className="flex items-start gap-3">
+                  <div className="text-center min-w-[52px]">
+                    <div className="text-lg font-bold text-[#64748b]">{datePast.getDate()}</div>
+                    <div className="text-[10px] text-[#64748b] uppercase">{months[datePast.getMonth()]}</div>
+                    <div className="text-[11px] font-medium text-[#475569] mt-0.5">16:00</div>
+                  </div>
+                  <div className="min-w-0">
                   <div className="text-sm font-semibold text-white leading-tight mb-1">Консультация по смене НДС</div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#64748b]" />
+                  <div className="text-xs text-[#94a3b8] mt-0.5">Елизавета Галаган</div>
+                  <div className="flex items-center gap-1.5 mt-2">
+                    <CheckCircle className="w-3 h-3 text-[#22c55e]" />
                     <span className="text-[11px] text-[#64748b] font-semibold">Проведено</span>
                   </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Chat preview */}
+            <div className="flex flex-col justify-center w-full lg:w-auto lg:min-w-[220px] lg:max-w-[280px]">
+              <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl overflow-hidden hover:bg-[rgba(255,255,255,0.08)] transition-colors">
+                {/* Header */}
+                <div className="flex items-center gap-2.5 px-4 py-3 border-b border-[rgba(255,255,255,0.06)]">
+                  <div className="w-[30px] h-[30px] rounded-full bg-gradient-to-br from-[#d97706] to-[#f59e0b] flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0">
+                    ЕП
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[13px] font-semibold text-white">Елена Попова</div>
+                    <div className="flex items-center gap-1 text-[10px] text-[#22c55e]">
+                      <span className="w-1 h-1 rounded-full bg-[#22c55e]" /> Онлайн
+                    </div>
+                  </div>
+                  <MoreHorizontal className="w-4 h-4 text-[#64748b]" />
+                </div>
+
+                {/* Messages with fade effect */}
+                <div className="relative px-4 py-3 flex flex-col gap-2">
+                  <div className="absolute top-0 left-0 right-0 h-2/3 bg-gradient-to-b from-[#0f172a] to-transparent pointer-events-none z-10" />
+                  <div className="max-w-[88%] self-start bg-[rgba(255,255,255,0.08)] text-[#e2e8f0] rounded-[10px] rounded-bl px-3.5 py-2.5 text-[12px] leading-relaxed" style={{ opacity: 0.3 }}>
+                    Добрый день! Чем могу помочь?
+                  </div>
+                  <div className="max-w-[88%] self-end bg-gradient-to-r from-[#1a56db] to-[#0d9488] text-white rounded-[10px] rounded-br px-3.5 py-2.5 text-[12px] leading-relaxed" style={{ opacity: 0.75 }}>
+                    Добрый день! Нужно обучение персонала по StoreHouse Pro, будет алкоголь и импорт в 1С. Есть такое?
+                  </div>
+                  <div className="max-w-[88%] self-start bg-[rgba(255,255,255,0.08)] text-[#e2e8f0] rounded-[10px] rounded-bl px-3.5 py-2.5 text-[12px] leading-relaxed" style={{ opacity: 1 }}>
+                    Здравствуйте! Есть базовый курс 4 ч по складскому учёту, включает ЕГАИС и импорт в 1С. Можем начать в четверг в 11:00?
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="flex items-center gap-2 px-4 py-2.5 border-t border-[rgba(255,255,255,0.06)]">
+                  <div className="flex-1 px-3 py-2 rounded-md bg-[rgba(255,255,255,0.06)] text-[#64748b] text-[11px] border border-[rgba(255,255,255,0.06)]">
+                    Напишите сообщение...
+                  </div>
+                  <button className="w-[30px] h-[30px] rounded-md bg-gradient-to-r from-[#1a56db] to-[#0d9488] flex items-center justify-center text-white hover:scale-105 transition-transform">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9 22 2"/></svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -232,6 +281,7 @@ export default function HomePage() {
           <ChevronDown className="w-5 h-5 animate-bounce" />
         </a>
       </section>
+      </div>
 
       {/* 1. About — 2+3 layout */}
       <section id="about" className="bg-white py-16 px-4">
