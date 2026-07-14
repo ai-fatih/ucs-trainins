@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
+import Link from 'next/link';
 import { apiClient, type ServiceType } from '@/lib/api-client';
 import { Button } from '@/components/ui/Button';
 import { Input, Textarea } from '@/components/ui/Input';
@@ -62,6 +63,10 @@ export default function RequestPage() {
         </select>
         <Input label="Тема *" required maxLength={200} value={form.topic} onChange={(event) => setForm({ ...form, topic: event.target.value })} />
         <Textarea label="Описание *" required rows={6} maxLength={5000} value={form.description} onChange={(event) => setForm({ ...form, description: event.target.value })} />
+        <label className="flex items-start gap-3 mb-4 text-sm text-[#6b7280]">
+          <input type="checkbox" required className="mt-0.5 shrink-0" />
+          <span>Даю <Link href="/consent" className="text-[#1a56db] underline">согласие на обработку персональных данных</Link> в соответствии с <Link href="/privacy" className="text-[#1a56db] underline">Политикой конфиденциальности</Link> <span className="text-[#dc2626]">*</span></span>
+        </label>
         <Button type="submit" loading={loading}>Отправить заявку</Button>
       </form>
     </div>

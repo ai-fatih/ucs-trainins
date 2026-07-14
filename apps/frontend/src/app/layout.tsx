@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
 import { Providers } from './providers';
 import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
+import { CookieBanner } from '@/components/layout/CookieBanner';
 import './globals.css';
 
 const manrope = Manrope({
@@ -31,6 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <Providers>
           <main>{children}</main>
+          <Footer />
+          <CookieBanner />
         </Providers>
       </body>
     </html>

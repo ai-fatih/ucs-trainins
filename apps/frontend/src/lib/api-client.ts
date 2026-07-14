@@ -120,6 +120,13 @@ export const apiClient = {
         method: 'POST',
       }),
   },
+  consent: {
+    log: (data: { consentType: string; page?: string }) =>
+      request<{ success: true }>('/consent', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }).catch(() => ({ success: false })),
+  },
   feedback: {
     get: (token: string) => request<FeedbackRequestSummary>(`/feedback/${token}`),
     submit: (

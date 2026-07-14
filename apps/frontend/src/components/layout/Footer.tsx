@@ -47,22 +47,33 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-[#6b7280]">
                 <Phone className="w-4 h-4 text-[#1a56db]" />
-                +7 (495) 123-45-67
+                +7 (495) 777-01-20
               </li>
               <li className="flex items-center gap-2 text-sm text-[#6b7280]">
                 <Mail className="w-4 h-4 text-[#1a56db]" />
-                support@ucs.ru
+                school@ucs-service.ru
               </li>
               <li className="flex items-start gap-2 text-sm text-[#6b7280]">
                 <MapPin className="w-4 h-4 text-[#1a56db] mt-0.5" />
-                <span>Москва, ул. Пример, д. 1</span>
+                <span>Москва, Большой Полуярославский пер., д. 10 стр. 1</span>
               </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-sm mb-3 text-[#111827]">Правовая информация</h4>
+            <ul className="space-y-2">
+              <li><Link href="/privacy" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Политика конфиденциальности</Link></li>
+              <li><Link href="/consent" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Согласие на обработку ПДн</Link></li>
+              <li><Link href="/terms" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Пользовательское соглашение</Link></li>
+              <li><Link href="/offer" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Публичная оферта</Link></li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-[#e5e7eb] mt-8 pt-6 text-center text-xs text-[#9ca3af]">
-          UCS service &copy; {new Date().getFullYear()}. Все права защищены.
+        <div className="border-t border-[#e5e7eb] mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#9ca3af]">
+          <span>ООО ЦТО «ЮСИЭС сервис» &copy; {new Date().getFullYear()}. Все права защищены.</span>
+          <span>ОГРН 1037723040871 / ИНН 7723347991</span>
         </div>
       </div>
     </footer>

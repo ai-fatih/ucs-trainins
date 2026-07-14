@@ -66,6 +66,17 @@ model RequestComment {
   @@index([requestId, createdAt])
 }
 
+model ConsentLog {
+  id          String   @id @default(cuid())
+  subjectName String?
+  contact     String?
+  consentType String   @default("privacy")
+  ip          String?
+  userAgent   String?
+  page        String?
+  grantedAt   DateTime @default(now())
+}
+
 model RequestHistory {
   id          String         @id @default(cuid())
   requestId   String

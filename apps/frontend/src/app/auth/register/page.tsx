@@ -56,8 +56,8 @@ export default function RegisterPage() {
             <>
               <div className="bg-[#f9fafb] rounded-md p-4 mb-4">
                 <label className="flex items-start gap-3 text-sm text-[#6b7280] mb-4">
-                  <input type="checkbox" defaultChecked className="mt-0.5" />
-                  <span>Даю согласие на обработку персональных данных в соответствии с <Link href="#">Политикой конфиденциальности</Link> и принимаю условия <Link href="#">Пользовательского соглашения</Link> <span className="text-[#dc2626]">*</span></span>
+                  <input type="checkbox" required className="mt-0.5" />
+                  <span>Даю <Link href="/consent" className="text-[#1a56db] underline">согласие на обработку персональных данных</Link> в соответствии с <Link href="/privacy" className="text-[#1a56db] underline">Политикой конфиденциальности</Link> и принимаю условия <Link href="/terms" className="text-[#1a56db] underline">Пользовательского соглашения</Link> <span className="text-[#dc2626]">*</span></span>
                 </label>
                 <label className="flex items-start gap-3 text-sm text-[#9ca3af]">
                   <input type="checkbox" className="mt-0.5" />

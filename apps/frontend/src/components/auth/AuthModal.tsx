@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/auth';
 import type { UserRole } from '@/types';
@@ -210,6 +211,10 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
             </button>
 
             <p className="text-xs text-center text-[#9ca3af]">
+              Продолжая вход, вы принимаете условия <Link href="/terms" className="text-[#1a56db] underline">Пользовательского соглашения</Link> и <Link href="/privacy" className="text-[#1a56db] underline">Политики конфиденциальности</Link>
+            </p>
+
+            <p className="text-xs text-center text-[#9ca3af]">
               Мок: root@ucs.ru / admin (юрлицо) или user@ucs.ru / admin (физлицо)
             </p>
           </div>
@@ -275,6 +280,10 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
               </button>
             </div>
 
+            <label className="flex items-start gap-3 text-sm text-[#6b7280]">
+              <input type="checkbox" required className="mt-0.5 shrink-0" />
+              <span>Даю <Link href="/consent" className="text-[#1a56db] underline">согласие на обработку персональных данных</Link> в соответствии с <Link href="/privacy" className="text-[#1a56db] underline">Политикой конфиденциальности</Link> <span className="text-[#dc2626]">*</span></span>
+            </label>
             <button onClick={handleRegister} className="glass-btn w-full">
               Зарегистрироваться
             </button>
