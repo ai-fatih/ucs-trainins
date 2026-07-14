@@ -56,6 +56,9 @@ export default function LoginPage() {
           <Button type="submit" variant="primary" size="lg" loading={loading} className="w-full">
             {tab === 'company' ? 'Войти как компания' : 'Войти'}
           </Button>
+          <p className="text-xs text-center text-[#9ca3af] mt-4">
+            Продолжая вход, вы принимаете условия <Link href="/terms" className="text-[#1a56db] underline">Пользовательского соглашения</Link> и <Link href="/privacy" className="text-[#1a56db] underline">Политики конфиденциальности</Link>
+          </p>
         </form>
 
         <p className="text-center mt-6 text-sm text-[#6b7280]">
