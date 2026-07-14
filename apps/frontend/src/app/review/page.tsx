@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { Button } from '@/components/ui/Button';
@@ -43,6 +44,10 @@ export default function ReviewPage() {
           hint="Ваш отзыв поможет другим клиентам выбрать специалиста"
         />
 
+        <label className="flex items-start gap-3 mb-4 text-sm text-[#6b7280]">
+          <input type="checkbox" required className="mt-0.5 shrink-0" />
+          <span>Даю <Link href="/consent" className="text-[#1a56db] underline">согласие на обработку персональных данных</Link> в соответствии с <Link href="/privacy" className="text-[#1a56db] underline">Политикой конфиденциальности</Link> <span className="text-[#dc2626]">*</span></span>
+        </label>
         <div className="flex gap-4">
           <Button variant="secondary" className="flex-1" onClick={() => router.push('/bookings')}>Пропустить</Button>
           <Button variant="primary" size="lg" className="flex-[2]" onClick={handleSubmit}>Отправить</Button>

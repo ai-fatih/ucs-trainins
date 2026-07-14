@@ -1,10 +1,12 @@
 'use client';
 
 import { FormEvent, useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { apiClient, type FeedbackRequestSummary } from '@/lib/api-client';
 import { Button } from '@/components/ui/Button';
 import { Input, Textarea } from '@/components/ui/Input';
+import { getStatusLabel } from '@/lib/utils';
 
 export default function FeedbackPage() {
   const { token } = useParams<{ token: string }>();
@@ -54,7 +56,7 @@ export default function FeedbackPage() {
       <div className="mb-6 rounded-lg border border-[#e5e7eb] bg-white p-4 text-sm">
         <p><span className="text-[#6b7280]">Организация:</span> {summary.organization || '—'}</p>
         <p><span className="text-[#6b7280]">Тема:</span> {summary.topic}</p>
-        <p><span className="text-[#6b7280]">Статус:</span> {summary.status}</p>
+        <p><span className="text-[#6b7280]">Статус:</span> {getStatusLabel(summary.status).label}</p>
         <p><span className="text-[#6b7280]">Тип услуги:</span> {summary.serviceType}</p>
       </div>
       {error && <p className="mb-4 text-sm text-[#dc2626]">{error}</p>}
@@ -65,6 +67,10 @@ export default function FeedbackPage() {
         </select>
         <Input label="Ваше имя" maxLength={120} value={customerName} onChange={(event) => setCustomerName(event.target.value)} />
         <Textarea label="Текст отзыва" rows={5} maxLength={3000} value={text} onChange={(event) => setText(event.target.value)} />
+        <label className="flex items-start gap-3 mb-4 text-sm text-[#6b7280]">
+          <input type="checkbox" required className="mt-0.5 shrink-0" />
+          <span>Даю <Link href="/consent" className="text-[#1a56db] underline">согласие на обработку персональных данных</Link> в соответствии с <Link href="/privacy" className="text-[#1a56db] underline">Политикой конфиденциальности</Link> <span className="text-[#dc2626]">*</span></span>
+        </label>
         <Button type="submit" loading={submitting}>Отправить отзыв</Button>
       </form>
     </div>

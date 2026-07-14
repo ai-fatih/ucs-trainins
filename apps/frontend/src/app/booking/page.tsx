@@ -1,5 +1,6 @@
 'use client';
 import React, { Suspense, useState } from 'react';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
@@ -242,9 +243,15 @@ function BookingPageContent() {
                   Далее <ArrowRight className="w-4 h-4" />
                 </button>
               ) : (
-                <button className="glass-btn flex-1 !bg-gradient-to-br !from-[#059669] !to-[#0d9488]" onClick={handleConfirm} disabled={createBooking.isPending}>
-                  {createBooking.isPending ? 'Сохранение...' : '✓ Подтвердить запись'}
-                </button>
+                <>
+                  <label className="flex items-start gap-3 mb-4 text-sm text-[#6b7280]">
+                    <input type="checkbox" required className="mt-0.5 shrink-0" />
+                    <span>Даю <Link href="/consent" className="text-[#1a56db] underline">согласие на обработку персональных данных</Link> в соответствии с <Link href="/privacy" className="text-[#1a56db] underline">Политикой конфиденциальности</Link> <span className="text-[#dc2626]">*</span></span>
+                  </label>
+                  <button className="glass-btn flex-1 !bg-gradient-to-br !from-[#059669] !to-[#0d9488]" onClick={handleConfirm} disabled={createBooking.isPending}>
+                    {createBooking.isPending ? 'Сохранение...' : '✓ Подтвердить запись'}
+                  </button>
+                </>
               )}
             </div>
           </div>
