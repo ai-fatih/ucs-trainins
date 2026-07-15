@@ -3,6 +3,8 @@ import { Manrope } from 'next/font/google';
 import { Providers } from './providers';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { SidebarLeft } from '@/components/layout/SidebarLeft';
+import { BottomActionBar } from '@/components/layout/BottomActionBar';
 import { CookieBanner } from '@/components/layout/CookieBanner';
 import './globals.css';
 
@@ -30,12 +32,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
       <body className={manrope.className}>
-        <Header />
-        <Providers>
-          <main>{children}</main>
-          <Footer />
-          <CookieBanner />
-        </Providers>
+        <div className="flex min-h-screen">
+          <SidebarLeft />
+          <div className="flex-1 flex flex-col min-w-0">
+            <Header />
+            <Providers>
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </Providers>
+          </div>
+        </div>
+        <BottomActionBar />
+        <CookieBanner />
       </body>
     </html>
   );

@@ -4,23 +4,37 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useAuthStore } from '@/stores/auth';
+import { api } from '@/lib/api';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 
 export default function LoginPage() {
   const [tab, setTab] = useState<'company' | 'individual'>('company');
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [contract, setContract] = useState('');
+  const [accessCode, setAccessCode] = useState('');
   const login = useAuthStore((s) => s.login);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 500));
-    login({ id: 'user1', email: tab === 'company' ? 'admin@restoran.ru' : 'ivan@example.ru', name: tab === 'company' ? 'ООО «Ресторанъ»' : 'Иван Петров', phone: '+7 (999) 123-45-67', userType: tab, role: tab === 'company' ? 'company_admin' : 'user', companyId: tab === 'company' ? 'comp1' : undefined });
-    toast.success('Вы успешно вошли!');
-    setLoading(false);
-    router.push('/');
+    try {
+      const identifier = tab === 'company' ? contract : email;
+      const secret = tab === 'company' ? accessCode : password;
+      if (!identifier) { toast.error('Заполните обязательные поля'); setLoading(false); return; }
+      const actualEmail = tab === 'company' ? `${contract}@company` : email || 'root@ucs.ru';
+      const { user } = await api.auth.login(actualEmail, secret);
+      login(user);
+      toast.success('Вы успешно вошли!');
+      router.push('/');
+    } catch (err: any) {
+      toast.error(err.message || 'Ошибка входа');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -42,14 +56,14 @@ export default function LoginPage() {
               <div className="bg-[#e8effa] rounded-md p-3 mb-5 text-sm text-[#374151]">
                 <strong className="text-[#1a56db]">✓ Активный договор?</strong> Консультации бесплатно в рамках поддержки.
               </div>
-              <Input label="Номер договора" defaultValue="Д-2025-0891" />
-              <Input label="Код доступа" type="password" defaultValue="••••••" />
+              <Input label="Номер договора" value={contract} onChange={(e) => setContract(e.target.value)} />
+              <Input label="Код доступа" type="password" value={accessCode} onChange={(e) => setAccessCode(e.target.value)} />
             </>
           )}
           {tab === 'individual' && (
             <>
-              <Input label="Email" type="email" defaultValue="ivan@example.ru" />
-              <Input label="Пароль" type="password" />
+              <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Input label="Пароль" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
               <div className="text-right -mt-3 mb-3"><Link href="#" className="text-xs text-[#1a56db]">Забыли пароль?</Link></div>
             </>
           )}

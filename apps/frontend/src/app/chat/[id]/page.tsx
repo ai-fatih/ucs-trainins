@@ -39,15 +39,15 @@ export default function ChatPage() {
                 chat.id === id ? 'bg-[#e8effa] border-l-[3px] border-[#1a56db]' : 'border-l-[3px] border-transparent hover:bg-[#f9fafb]'
               }`}
             >
-              <div className="w-8 h-8 rounded-full bg-[#e8effa] text-[#1a56db] flex items-center justify-center text-xs font-bold shrink-0">{chat.specialistAvatar}</div>
-              <div className="flex-1 min-w-0">
-                <div className="flex justify-between items-center">
+              <span className="w-8 h-8 rounded-full bg-[#e8effa] text-[#1a56db] flex items-center justify-center text-xs font-bold shrink-0">{chat.specialistAvatar}</span>
+              <span className="flex-1 min-w-0">
+                <span className="flex justify-between items-center">
                   <span className="text-sm font-medium text-[#111827]">{chat.specialistName}</span>
                   <span className="text-[10px] text-[#6b7280]">{chat.lastMessageTime}</span>
-                </div>
-                <div className="text-xs text-[#6b7280] truncate">{chat.lastMessage}</div>
+                </span>
+                <span className="text-xs text-[#6b7280] truncate block">{chat.lastMessage}</span>
                 <Badge variant={chat.isOnline ? 'success' : 'gray'}>{chat.bookingRefLabel}</Badge>
-              </div>
+              </span>
             </Link>
           ))}
         </div>

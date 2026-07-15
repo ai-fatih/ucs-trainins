@@ -118,16 +118,16 @@ export default function StaffDashboardPage() {
               href={`/admin/requests/${b.id}`}
               className="glass-card p-5 no-underline hover:bg-white group"
             >
-              <div className="flex items-start justify-between mb-2">
+              <span className="flex items-start justify-between mb-2">
                 <span className="text-xs font-semibold text-[#6b7280]">#{b.id.toUpperCase()}</span>
                 <StatusBadge status={b.status} />
-              </div>
+              </span>
               <h3 className="font-semibold text-sm text-[#111827] mb-1 group-hover:text-[#1a56db] transition-colors">{b.serviceName}</h3>
-              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#6b7280]">
+              <span className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#6b7280]">
                 <span>👤 {b.employeeName || b.specialistName || '—'}</span>
                 <span>📅 {b.date}</span>
                 <span>⏰ {b.time}</span>
-              </div>
+              </span>
               {b.topic && <p className="text-xs text-[#9ca3af] mt-2 truncate">{b.topic}</p>}
             </Link>
           ))}

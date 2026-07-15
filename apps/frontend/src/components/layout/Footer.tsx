@@ -57,6 +57,10 @@ export function Footer() {
                 <MapPin className="w-4 h-4 text-[#1a56db] mt-0.5" />
                 <span>Москва, Большой Полуярославский пер., д. 10 стр. 1</span>
               </li>
+              <li className="flex items-start gap-2 text-sm text-[#6b7280]">
+                <MapPin className="w-4 h-4 text-[#1a56db] mt-0.5" />
+                <span>Воронеж, Московский проспект, 4, Бизнес Парк Московский, 10 этаж</span>
+              </li>
             </ul>
           </div>
 

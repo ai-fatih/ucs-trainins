@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/auth';
+import { api } from '@/lib/api';
 import type { UserRole } from '@/types';
-import { X, Mail, Lock, Building2, User, Phone } from 'lucide-react';
+import { X, Mail, Lock, Building2, User, Phone, Loader2 } from 'lucide-react';
 
 type Tab = 'login' | 'register';
 type UserType = 'company' | 'individual';
@@ -13,12 +14,6 @@ interface AuthModalProps {
   open: boolean;
   onClose: () => void;
 }
-
-const mockUsers: Record<string, { id: string; name: string; email: string; phone: string; userType: UserType; role: UserRole }> = {
-  'root/admin': { id: 'u1', name: 'Амир', email: 'root@ucs.ru', phone: '+7 (999) 000-00-00', userType: 'company', role: 'company_admin' },
-  'user/admin': { id: 'u2', name: 'Иван Петров', email: 'user@ucs.ru', phone: '+7 (999) 111-11-11', userType: 'individual', role: 'user' },
-  'staff/admin': { id: 'u3', name: 'Елена Смирнова', email: 'staff@ucs.ru', phone: '+7 (999) 222-22-22', userType: 'individual', role: 'specialist' },
-};
 
 export function AuthModal({ open, onClose }: AuthModalProps) {
   const [tab, setTab] = useState<Tab>('login');
@@ -30,6 +25,7 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const login = useAuthStore((s) => s.login);
   const router = useRouter();
 
@@ -46,53 +42,39 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
 
   if (!open) return null;
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setError('');
-    const key = `${email}/${password}`;
-    const mock = mockUsers[key];
-    if (mock) {
-      login(mock);
+    setLoading(true);
+    try {
+      const identifier = userType === 'company' ? contract : email;
+      const code = userType === 'company' ? accessCode : password;
+      if (!identifier) { setError('Введите email или номер договора'); setLoading(false); return; }
+      const actualEmail = userType === 'company' ? `${contract}@company` : email;
+      const { user } = await api.auth.login(actualEmail, code);
+      login(user);
       onClose();
-      redirectAfterLogin(mock.role);
-      return;
+      redirectAfterLogin(user.role);
+    } catch (err: any) {
+      setError(err.message || 'Ошибка входа');
+    } finally {
+      setLoading(false);
     }
-    if (email === 'root@ucs.ru' && password === 'admin') {
-      login(mockUsers['root/admin']);
-      onClose();
-      redirectAfterLogin(mockUsers['root/admin'].role);
-      return;
-    }
-    if (email === 'user@ucs.ru' && password === 'admin') {
-      login(mockUsers['user/admin']);
-      onClose();
-      redirectAfterLogin(mockUsers['user/admin'].role);
-      return;
-    }
-    if (email === 'staff@ucs.ru' && password === 'admin') {
-      login(mockUsers['staff/admin']);
-      onClose();
-      redirectAfterLogin(mockUsers['staff/admin'].role);
-      return;
-    }
-    setError('Неверные данные. Попробуйте root@ucs.ru / admin');
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     setError('');
-    if (!name || !email || !password) {
-      setError('Заполните обязательные поля');
-      return;
+    if (!name || !email || !password) { setError('Заполните обязательные поля'); return; }
+    setLoading(true);
+    try {
+      const { user } = await api.auth.register({ name, email, phone, password, userType });
+      login(user);
+      onClose();
+      redirectAfterLogin(user.role);
+    } catch (err: any) {
+      setError(err.message || 'Ошибка регистрации');
+    } finally {
+      setLoading(false);
     }
-    login({
-      id: `u${Date.now()}`,
-      name,
-      email,
-      phone,
-      userType,
-      role: 'user',
-    });
-    onClose();
-    redirectAfterLogin('user');
   };
 
   return (
@@ -110,7 +92,6 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
           <p className="text-sm text-[#6b7280] mt-1">Войдите или создайте аккаунт</p>
         </div>
 
-        {/* Tabs */}
         <div className="flex glass rounded-lg p-1 mb-6">
           <button
             onClick={() => setTab('login')}
@@ -138,7 +119,6 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
 
         {tab === 'login' ? (
           <div className="space-y-4">
-            {/* User type toggle */}
             <div className="flex glass rounded-lg p-1">
               <button
                 onClick={() => setUserType('individual')}
@@ -206,8 +186,8 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
               </>
             )}
 
-            <button onClick={handleLogin} className="glass-btn w-full">
-              Войти
+            <button onClick={handleLogin} disabled={loading} className="glass-btn w-full flex items-center justify-center gap-2">
+              {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Вход...</> : 'Войти'}
             </button>
 
             <p className="text-xs text-center text-[#9ca3af]">
@@ -215,7 +195,7 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
             </p>
 
             <p className="text-xs text-center text-[#9ca3af]">
-              Мок: root@ucs.ru / admin (юрлицо) или user@ucs.ru / admin (физлицо)
+              Демо: root@ucs.ru / admin или user@ucs.ru / admin
             </p>
           </div>
         ) : (
@@ -284,8 +264,8 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
               <input type="checkbox" required className="mt-0.5 shrink-0" />
               <span>Даю <Link href="/consent" className="text-[#1a56db] underline">согласие на обработку персональных данных</Link> в соответствии с <Link href="/privacy" className="text-[#1a56db] underline">Политикой конфиденциальности</Link> <span className="text-[#dc2626]">*</span></span>
             </label>
-            <button onClick={handleRegister} className="glass-btn w-full">
-              Зарегистрироваться
+            <button onClick={handleRegister} disabled={loading} className="glass-btn w-full flex items-center justify-center gap-2">
+              {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Регистрация...</> : 'Зарегистрироваться'}
             </button>
           </div>
         )}

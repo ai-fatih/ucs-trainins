@@ -121,13 +121,13 @@ export default function ClientDashboardPage() {
             href="/booking"
             className="glass-card p-5 flex items-center gap-4 no-underline group hover:bg-white"
           >
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <span className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
               <Calendar className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-sm text-[#111827]">Новая запись</h3>
-              <p className="text-xs text-[#6b7280]">Выбрать услугу и время</p>
-            </div>
+            </span>
+            <span>
+              <span className="font-semibold text-sm text-[#111827] block">Новая запись</span>
+              <span className="text-xs text-[#6b7280] block">Выбрать услугу и время</span>
+            </span>
             <ArrowRight className="w-4 h-4 text-[#d1d5db] ml-auto group-hover:text-[#1a56db] transition-colors" />
           </Link>
 
@@ -135,13 +135,13 @@ export default function ClientDashboardPage() {
             href="/chat"
             className="glass-card p-5 flex items-center gap-4 no-underline group hover:bg-white"
           >
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0d9488] to-[#059669] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <span className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0d9488] to-[#059669] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
               <MessageCircle className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-sm text-[#111827]">Открыть чат</h3>
-              <p className="text-xs text-[#6b7280]">{chats.length > 0 ? `${chats.length} активных чатов` : 'Написать специалисту'}</p>
-            </div>
+            </span>
+            <span>
+              <span className="font-semibold text-sm text-[#111827] block">Открыть чат</span>
+              <span className="text-xs text-[#6b7280] block">{chats.length > 0 ? `${chats.length} активных чатов` : 'Написать специалисту'}</span>
+            </span>
             <ArrowRight className="w-4 h-4 text-[#d1d5db] ml-auto group-hover:text-[#0d9488] transition-colors" />
           </Link>
 
@@ -149,13 +149,13 @@ export default function ClientDashboardPage() {
             href="/bookings"
             className="glass-card p-5 flex items-center gap-4 no-underline group hover:bg-white"
           >
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7c3aed] to-[#6366f1] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <span className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7c3aed] to-[#6366f1] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
               <List className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-sm text-[#111827]">Мои записи</h3>
-              <p className="text-xs text-[#6b7280]">{bookings.length > 0 ? `${bookings.filter(b => b.status !== 'cancelled').length} активных` : 'Посмотреть историю'}</p>
-            </div>
+            </span>
+            <span>
+              <span className="font-semibold text-sm text-[#111827] block">Мои записи</span>
+              <span className="text-xs text-[#6b7280] block">{bookings.length > 0 ? `${bookings.filter(b => b.status !== 'cancelled').length} активных` : 'Посмотреть историю'}</span>
+            </span>
             <ArrowRight className="w-4 h-4 text-[#d1d5db] ml-auto group-hover:text-[#7c3aed] transition-colors" />
           </Link>
         </div>
@@ -171,16 +171,16 @@ export default function ClientDashboardPage() {
               href={item.href}
               className="glass-card p-4 flex items-start gap-3 no-underline hover:bg-white group"
             >
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
+              <span className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
                 item.type === 'booking' ? 'bg-[#e8effa] text-[#1a56db]' : 'bg-[#ccfbf1] text-[#0d9488]'
               }`}>
                 {item.type === 'booking' ? <Calendar className="w-4 h-4" /> : <MessageCircle className="w-4 h-4" />}
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold text-[#111827] group-hover:text-[#1a56db] transition-colors">{item.title}</p>
-                <p className="text-xs text-[#6b7280] truncate mt-0.5">{item.detail}</p>
-              </div>
-              <div className="text-[10px] text-[#9ca3af] whitespace-nowrap mt-1">{item.date || item.time}</div>
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="text-sm font-semibold text-[#111827] group-hover:text-[#1a56db] transition-colors block">{item.title}</span>
+                <span className="text-xs text-[#6b7280] truncate mt-0.5 block">{item.detail}</span>
+              </span>
+              <span className="text-[10px] text-[#9ca3af] whitespace-nowrap mt-1">{item.date || item.time}</span>
             </Link>
           )) : (
             <div className="glass-card p-6 text-center">

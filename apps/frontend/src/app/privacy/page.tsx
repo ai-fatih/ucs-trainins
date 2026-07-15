@@ -194,6 +194,30 @@ export default function PrivacyPage() {
             редакцией. Актуальная версия всегда доступна по адресу: <a href="/privacy" className="text-[#1a56db] underline">/privacy</a>.
           </p>
         </section>
+
+        <section>
+          <h2 className="text-lg font-semibold mb-2">13. Отношение к документам компании</h2>
+          <p>
+            Настоящий документ является дополнением к основным правовым документам
+            ООО ЦТО «ЮСИЭС сервис», размещённым на официальном сайте компании:
+          </p>
+          <ul className="list-disc pl-5 mt-2 space-y-1">
+            <li>
+              <a href="https://ucs-service.ru/legal/privacy-policy/" className="text-[#1a56db] underline">
+                Политика конфиденциальности (основная)
+              </a>
+            </li>
+            <li>
+              <a href="https://ucs-service.ru/legal/" className="text-[#1a56db] underline">
+                Раздел правовых документов
+              </a>
+            </li>
+          </ul>
+          <p className="mt-2">
+            В случае расхождений приоритет имеют документы, размещённые на официальном сайте
+            <a href="https://ucs-service.ru" className="text-[#1a56db] underline"> ucs-service.ru</a>.
+          </p>
+        </section>
       </div>
     </div>
   );

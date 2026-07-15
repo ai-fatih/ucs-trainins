@@ -11,13 +11,6 @@ import { AuthModal } from '@/components/auth/AuthModal';
 import { useAuthStore } from '@/stores/auth';
 import type { Specialist } from '@/types';
 
-const programTagColors: Record<string, { bg: string; text: string }> = {
-  rkeeper: { bg: '#e8effa', text: '#1a56db' },
-  'storehouse': { bg: '#fef3c7', text: '#d97706' },
-  rk_delivery: { bg: '#ede9fe', text: '#7c3aed' },
-  rk_event: { bg: '#fce7f3', text: '#be185d' },
-};
-
 function SpecialistsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
