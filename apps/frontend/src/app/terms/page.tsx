@@ -111,6 +111,30 @@ export default function TermsPage() {
             <li><strong>Email:</strong> <a href="mailto:school@ucs-service.ru" className="text-[#1a56db] underline">school@ucs-service.ru</a></li>
           </ul>
         </section>
+
+        <section>
+          <h2 className="text-lg font-semibold mb-2">10. Отношение к документам компании</h2>
+          <p>
+            Настоящий документ является дополнением к основным правовым документам
+            ООО ЦТО «ЮСИЭС сервис», размещённым на официальном сайте компании:
+          </p>
+          <ul className="list-disc pl-5 mt-2 space-y-1">
+            <li>
+              <a href="https://ucs-service.ru/legal/privacy-policy/" className="text-[#1a56db] underline">
+                Политика конфиденциальности (основная)
+              </a>
+            </li>
+            <li>
+              <a href="https://ucs-service.ru/legal/" className="text-[#1a56db] underline">
+                Раздел правовых документов
+              </a>
+            </li>
+          </ul>
+          <p className="mt-2">
+            В случае расхождений приоритет имеют документы, размещённые на официальном сайте
+            <a href="https://ucs-service.ru" className="text-[#1a56db] underline"> ucs-service.ru</a>.
+          </p>
+        </section>
       </div>
     </div>
   );

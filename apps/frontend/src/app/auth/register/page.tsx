@@ -5,20 +5,42 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { api } from '@/lib/api';
+import { useAuthStore } from '@/stores/auth';
 
 export default function RegisterPage() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [agreeMarketing, setAgreeMarketing] = useState(false);
   const router = useRouter();
+  const login = useAuthStore((s) => s.login);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (step === 1) { setStep(2); return; }
+    if (step === 1) {
+      if (!name || !email || !phone || !password) { toast.error('Заполните обязательные поля'); return; }
+      if (password !== passwordConfirm) { toast.error('Пароли не совпадают'); return; }
+      if (password.length < 6) { toast.error('Пароль должен быть минимум 6 символов'); return; }
+      setStep(2);
+      return;
+    }
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    toast.success('✓ Регистрация завершена! Письмо отправлено на email.');
-    setLoading(false);
-    router.push('/auth/login');
+    try {
+      const { user } = await api.auth.register({ name: `${name} ${surname}`.trim(), email, phone, password, userType: 'individual' });
+      login(user);
+      toast.success('Регистрация завершена! Добро пожаловать.');
+      router.push('/');
+    } catch (err: any) {
+      toast.error(err.message || 'Ошибка регистрации');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -41,13 +63,13 @@ export default function RegisterPage() {
           {step === 1 && (
             <>
               <div className="grid grid-cols-2 gap-3">
-                <Input label="Имя" defaultValue="Иван" />
-                <Input label="Фамилия" defaultValue="Петров" />
+                <Input label="Имя *" value={name} onChange={(e) => setName(e.target.value)} />
+                <Input label="Фамилия" value={surname} onChange={(e) => setSurname(e.target.value)} />
               </div>
-              <Input label="Email *" type="email" defaultValue="ivan@example.ru" hint="На этот email придёт письмо с подтверждением" />
-              <Input label="Телефон *" type="tel" defaultValue="+7 (999) 123-45-67" hint="Для идентификации в чате (149-ФЗ)" />
-              <Input label="Пароль *" type="password" hint="Минимум 8 символов: буквы + цифры" />
-              <Input label="Подтверждение пароля" type="password" />
+              <Input label="Email *" type="email" value={email} onChange={(e) => setEmail(e.target.value)} hint="На этот email придёт письмо с подтверждением" />
+              <Input label="Телефон *" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} hint="Для связи по записям" />
+              <Input label="Пароль *" type="password" value={password} onChange={(e) => setPassword(e.target.value)} hint="Минимум 6 символов" />
+              <Input label="Подтверждение пароля *" type="password" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} />
               <Button type="submit" variant="primary" size="lg" className="w-full">Далее</Button>
             </>
           )}
@@ -60,12 +82,12 @@ export default function RegisterPage() {
                   <span>Даю <Link href="/consent" className="text-[#1a56db] underline">согласие на обработку персональных данных</Link> в соответствии с <Link href="/privacy" className="text-[#1a56db] underline">Политикой конфиденциальности</Link> и принимаю условия <Link href="/terms" className="text-[#1a56db] underline">Пользовательского соглашения</Link> <span className="text-[#dc2626]">*</span></span>
                 </label>
                 <label className="flex items-start gap-3 text-sm text-[#9ca3af]">
-                  <input type="checkbox" className="mt-0.5" />
+                  <input type="checkbox" checked={agreeMarketing} onChange={(e) => setAgreeMarketing(e.target.checked)} className="mt-0.5" />
                   <span>Согласен получать информацию о новых тренингах и акциях</span>
                 </label>
               </div>
               <Button type="submit" variant="primary" size="lg" loading={loading} className="w-full">
-                {loading ? 'Отправка...' : 'Зарегистрироваться'}
+                {loading ? 'Регистрация...' : 'Зарегистрироваться'}
               </Button>
             </>
           )}

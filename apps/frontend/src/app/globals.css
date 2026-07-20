@@ -110,6 +110,98 @@ html {
   .glass-gradient-border:hover::before {
     opacity: 1;
   }
+
+  /* SaaS 2.0 — Enhanced Glassmorphism */
+  .glass-saas {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  }
+  .glass-saas-strong {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+  }
+  .glass-saas-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(26, 86, 219, 0.08);
+    transition: all 0.3s ease;
+    @apply rounded-2xl;
+  }
+  .glass-saas-card:hover {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 16px 48px rgba(26, 86, 219, 0.15);
+    transform: translateY(-3px);
+  }
+
+  /* Sidebar glass */
+  .glass-sidebar {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  /* Bottom action bar / panel glass */
+  .glass-bottom-panel {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.1), 0 8px 48px rgba(26, 86, 219, 0.08);
+  }
+  .glass-bottom-btn {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  }
+  .glass-bottom-btn:hover {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Animated gradient border */
+  .gradient-border-glow {
+    position: relative;
+    border-radius: 16px;
+  }
+  .gradient-border-glow::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 17px;
+    background: linear-gradient(135deg, #1a56db, #0d9488, #1a56db);
+    background-size: 200% 200%;
+    animation: gradient-shift 4s ease infinite;
+    z-index: -1;
+    opacity: 0.5;
+  }
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Section fade-in animation */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 @layer utilities {

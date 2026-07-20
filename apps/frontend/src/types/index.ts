@@ -85,6 +85,7 @@ export interface Booking {
   rating?: number;
   reviewText?: string;
   isFree: boolean;
+  createdAt?: string;
 }
 
 export interface ChatMessage {

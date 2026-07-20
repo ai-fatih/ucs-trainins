@@ -1,4 +1,4 @@
-import servicesData from '@/data/services.json';
+import { mockDB, MockApiError } from '@/lib/mock-db';
 import specialistsData from '@/data/specialists.json';
 import slotsData from '@/data/slots.json';
 import bookingsData from '@/data/bookings.json';
@@ -12,122 +12,104 @@ import type { Service, Specialist, Slot, Booking, ChatRoom, Review, AdminDashboa
 
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+async function wrap<T>(fn: () => T): Promise<T> {
+  await delay(200 + Math.random() * 200);
+  const result = fn();
+  return result;
+}
+
 export const api = {
   services: {
     list: async (): Promise<Service[]> => {
-      await delay(100);
-      return servicesData as Service[];
+      return wrap(() => mockDB.services);
     },
   },
 
   specialists: {
     list: async (): Promise<Specialist[]> => {
-      await delay(100);
-      return specialistsData as Specialist[];
+      return wrap(() => specialistsData as Specialist[]);
     },
   },
 
   slots: {
     getByDate: async (date: string): Promise<Slot[]> => {
-      await delay(100);
-      return (slotsData as Record<string, Slot[]>)[date] || [];
+      return wrap(() => (slotsData as Record<string, Slot[]>)[date] || []);
     },
   },
 
   bookings: {
     list: async (): Promise<Booking[]> => {
-      await delay(100);
-      return bookingsData as Booking[];
+      return wrap(() => {
+        const seeded = bookingsData as Booking[];
+        const created = mockDB.listBookings();
+        return [...created, ...seeded.filter((s) => !created.find((c) => c.id === s.id))];
+      });
     },
     create: async (data: Partial<Booking>): Promise<Booking> => {
-      await delay(150);
-      return {
-        id: `b${Date.now()}`,
-        serviceId: data.serviceId || '',
-        serviceName: data.serviceName || '',
-        specialistId: data.specialistId || '',
-        specialistName: data.specialistName || '',
-        status: 'scheduled',
-        date: data.date || '',
-        time: data.time || '',
-        durationMinutes: data.durationMinutes || 30,
-        isFree: data.isFree ?? true,
-        ...data,
-      } as Booking;
+      return wrap(() => mockDB.createBooking(data as any));
     },
-    cancel: async (_id: string): Promise<void> => {
-      await delay(100);
+    cancel: async (id: string): Promise<void> => {
+      return wrap(() => { mockDB.cancelBooking(id); });
     },
   },
 
   employees: {
     list: async (): Promise<Employee[]> => {
-      await delay(50);
-      return employeesData as Employee[];
+      return wrap(() => employeesData as Employee[]);
     },
   },
 
   auth: {
-    login: async (email: string, _password: string, type: 'company' | 'individual') => {
-      await delay(300);
-      return {
-        id: 'user1',
-        email,
-        name: type === 'company' ? 'ООО «Ресторанъ»' : 'Иван Петров',
-        phone: '+7 (999) 123-45-67',
-        userType: type,
-        role: type === 'company' ? 'company_admin' : 'user',
-        ...(type === 'company' ? { companyId: 'comp1' } : {}),
-      };
+    login: async (email: string, password: string): Promise<{ user: any }> => {
+      return wrap(() => {
+        const user = mockDB.login(email, password);
+        return { user };
+      });
     },
-    register: async (data: { name: string; email: string; phone: string; password: string }) => {
-      await delay(300);
-      return { id: `user${Date.now()}`, ...data, userType: 'individual' as const, role: 'user' as const };
+    register: async (data: { name: string; email: string; phone: string; password: string; userType?: 'company' | 'individual' }): Promise<{ user: any }> => {
+      return wrap(() => {
+        const user = mockDB.register(data);
+        return { user };
+      });
     },
   },
 
   chat: {
     list: async (): Promise<ChatRoom[]> => {
-      await delay(100);
-      return chatsData as ChatRoom[];
+      return wrap(() => chatsData as ChatRoom[]);
     },
     getMessages: async (chatId: string) => {
-      await delay(100);
-      const chat = (chatsData as any[]).find((c) => c.id === chatId);
-      return chat?.messages || [];
+      return wrap(() => {
+        const chat = (chatsData as any[]).find((c) => c.id === chatId);
+        return chat?.messages || [];
+      });
     },
   },
 
   reviews: {
     list: async (): Promise<Review[]> => {
-      await delay(100);
-      return reviewsData as Review[];
+      return wrap(() => reviewsData as Review[]);
     },
     create: async (data: { bookingId: string; rating: number; text: string }) => {
-      await delay(150);
-      return { id: `r${Date.now()}`, ...data, date: new Date().toLocaleDateString('ru-RU') };
+      return wrap(() => ({ id: `r${Date.now()}`, ...data, date: new Date().toLocaleDateString('ru-RU') }));
     },
   },
 
   notifications: {
     channels: async (): Promise<NotificationSetting[]> => {
-      await delay(50);
-      return notifChannelsData as NotificationSetting[];
+      return wrap(() => notifChannelsData as NotificationSetting[]);
     },
     events: async (): Promise<NotificationEvent[]> => {
-      await delay(50);
-      return notifEventsData as NotificationEvent[];
+      return wrap(() => notifEventsData as NotificationEvent[]);
     },
   },
 
   admin: {
     dashboard: async (): Promise<AdminDashboard> => {
-      await delay(100);
-      const stats = adminStatsData as any;
-      return {
-        ...stats,
-        recentReviews: reviewsData as Review[],
-      };
+      return wrap(() => {
+        const stats = adminStatsData as any;
+        return { ...stats, recentReviews: reviewsData as Review[] };
+      });
     },
   },
 };
