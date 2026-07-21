@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Варианты — Инструкции</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f3f4f6; color: #111827; padding: 32px; }
+  h1 { font-size: 24px; margin-bottom: 8px; }
+  h2 { font-size: 18px; margin: 32px 0 16px; color: #374151; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
+  h3 { font-size: 14px; margin-bottom: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+  .note { font-size: 13px; color: #6b7280; margin-bottom: 20px; }
+  .row { display: flex; gap: 24px; flex-wrap: wrap; }
+  .col { flex: 1; min-width: 320px; max-width: 480px; }
+  .variant { background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 24px; }
+  .variant .label { font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+
+  /* Sidebar mock */
+  .sidebar { width: 100%; background: #fff; border-radius: 8px; overflow: hidden; font-size: 14px; }
+  .sidebar .header { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; display: flex; align-items: center; gap: 10px; }
+  .sidebar .header .logo { width: 28px; height: 28px; border-radius: 6px; background: linear-gradient(135deg,#1a56db,#0d9488); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 12px; }
+  .sidebar .header span { font-weight: 600; color: #111827; }
+  .sidebar nav { padding: 8px; }
+  .sidebar .item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 6px; cursor: default; color: #6b7280; }
+  .sidebar .item.active { background: rgba(26,86,219,0.08); color: #1a56db; font-weight: 600; }
+  .sidebar .item.dim { opacity: 0.5; }
+  .sidebar .item .icon { width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; flex-shrink: 0; }
+  .sidebar .item .icon.blue { background: #1a56db; }
+  .sidebar .item .icon.teal { background: #0d9488; }
+  .sidebar .item .icon.gray { background: #9ca3af; }
+  .sidebar .item .icon.amber { background: #d97706; }
+  .sidebar .item .icon.purple { background: #7c3aed; }
+  .sidebar .item .chevron { margin-left: auto; color: #d1d5db; font-size: 12px; }
+  .sidebar .divider { height: 1px; background: #e5e7eb; margin: 4px 8px; }
+  .sidebar .sub { margin-left: 32px; }
+  .sidebar .sub .item { font-size: 13px; padding: 6px 12px; }
+  .sidebar .group-label { font-size: 10px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 12px 4px; }
+
+  /* Cards */
+  .card-grid { display: grid; gap: 12px; }
+  .card-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .card-grid .card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; transition: box-shadow 0.15s; cursor: default; }
+  .card-grid .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .card-grid .card .ico { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #fff; margin-bottom: 10px; }
+  .card-grid .card .title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .card-grid .card .desc { font-size: 12px; color: #6b7280; margin-bottom: 8px; }
+  .card-grid .card .meta { font-size: 11px; color: #9ca3af; display: flex; gap: 8px; }
+  .card-grid .card .meta .tag { padding: 2px 8px; border-radius: 4px; background: #f3f4f6; }
+  .card-grid .card .meta .tag.new { background: #ecfdf5; color: #059669; }
+  .card-grid .card .meta .tag.soon { background: #fffbeb; color: #d97706; }
+  .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-left: auto; }
+  .badge.green { background: #ecfdf5; color: #059669; }
+  .badge.amber { background: #fffbeb; color: #d97706; }
+
+  /* List variant */
+  .list-vert { display: flex; flex-direction: column; gap: 8px; }
+  .list-vert .item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 8px; cursor: default; }
+  .list-vert .item .l-ico { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; flex-shrink: 0; }
+  .list-vert .item .l-body { flex: 1; }
+  .list-vert .item .l-body .l-title { font-weight: 600; font-size: 14px; }
+  .list-vert .item .l-body .l-desc { font-size: 12px; color: #6b7280; }
+  .list-vert .item .l-meta { font-size: 12px; color: #9ca3af; white-space: nowrap; }
+
+  /* Tabs variant */
+  .tabs { display: flex; gap: 0; border-bottom: 2px solid #e5e7eb; margin-bottom: 16px; }
+  .tabs .tab { padding: 10px 16px; font-size: 13px; font-weight: 500; color: #6b7280; border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: default; }
+  .tabs .tab.active { color: #1a56db; border-bottom-color: #1a56db; }
+  .tabs .tab.soon { opacity: 0.5; }
+  .tab-content { padding: 8px 0; }
+  .tab-content .scenario { padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 6px; margin-bottom: 8px; font-size: 13px; display: flex; align-items: center; gap: 10px; }
+  .tab-content .scenario .num { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg,#1a56db,#0d9488); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+  .tab-content .scenario .s-title { font-weight: 500; }
+  .tab-content .scenario .s-desc { font-size: 12px; color: #6b7280; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<h1>Варианты — Инструкции (rkeeper)</h1>
+<p class="note">5 веток: r_keeper 7 · StoreHouse Pro · Delivery · Event · Waiter & Cash Desk</p>
+
+<!-- ============ САЙДБАР ============ -->
+<h2>Сайдбар</h2>
+
+<div class="row">
+  <!-- Variant A -->
+  <div class="col">
+    <div class="variant">
+      <div class="label">Вариант A: Плоский список с иконками</div>
+      <div class="sidebar">
+        <div class="header"><div class="logo">U</div><span>UCS service</span></div>
+        <nav>
+          <div class="item"><span class="icon blue">⌂</span> Главная <span class="chevron">›</span></div>
+          <div class="item" style="background:rgba(26,86,219,0.06);color:#1a56db;font-weight:600;">
+            <span class="icon blue">📘</span> Инструкции <span class="chevron">▼</span>
+          </div>
+          <div class="sub">
+            <div class="item active"><span class="icon blue">7</span> r_keeper 7 <span class="badge green">3</span></div>
+            <div class="item"><span class="icon teal">S</span> StoreHouse Pro <span class="badge green">3</span></div>
+            <div class="item"><span class="icon amber">D</span> Delivery <span class="badge green">3</span></div>
+            <div class="item dim"><span class="icon gray">E</span> Event <span class="badge amber">скоро</span></div>
+            <div class="item"><span class="icon purple">W</span> Waiter & Cash Desk <span class="badge green">3</span></div>
+          </div>
+          <div class="divider"></div>
+          <div class="item"><span class="icon gray">☰</span> Услуги <span class="chevron">›</span></div>
+          <div class="item"><span class="icon gray">💬</span> Чат с отделом</div>
+          <div class="item"><span class="icon gray">🎮</span> Викторина</div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant B -->
+  <div class="col">
+    <div class="variant">
+      <div class="label">Вариант B: С группировкой по типам</div>
+      <div class="sidebar">
+        <div class="header"><div class="logo">U</div><span>UCS service</span></div>
+        <nav>
+          <div class="item"><span class="icon blue">⌂</span> Главная</div>
+          <div class="divider"></div>
+          <div class="group-label">Инструкции rkeeper</div>
+          <div class="item" style="background:rgba(26,86,219,0.06);color:#1a56db;font-weight:600;">
+            <span class="icon blue">📘</span> Все инструкции <span class="badge green">12</span>
+          </div>
+          <div class="divider"></div>
+          <div class="group-label">Десктоп</div>
+          <div class="sub">
+            <div class="item active"><span class="icon blue">7</span> r_keeper 7</div>
+            <div class="item"><span class="icon teal">S</span> StoreHouse Pro</div>
+          </div>
+          <div class="group-label">Облачные сервисы</div>
+          <div class="sub">
+            <div class="item"><span class="icon amber">D</span> Delivery</div>
+            <div class="item dim"><span class="icon gray">E</span> Event</div>
+          </div>
+          <div class="group-label">Мобильные</div>
+          <div class="sub">
+            <div class="item"><span class="icon purple">W</span> Waiter & Cash Desk</div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant C -->
+  <div class="col">
+    <div class="variant">
+      <div class="label">Вариант C: Компактный (клик на "Инструкции" → переход в /instructions)</div>
+      <div class="sidebar">
+        <div class="header"><div class="logo">U</div><span>UCS service</span></div>
+        <nav>
+          <div class="item"><span class="icon blue">⌂</span> Главная</div>
+          <div class="item" style="background:rgba(26,86,219,0.06);color:#1a56db;font-weight:600;">
+            <span class="icon blue">📘</span> <span>Инструкции</span>
+            <span style="margin-left:auto;font-size:11px;color:#9ca3af;">5 продуктов</span>
+          </div>
+          <div class="divider"></div>
+          <div class="item"><span class="icon gray">☰</span> Услуги</div>
+          <div class="item"><span class="icon gray">💬</span> Чат</div>
+          <div class="item"><span class="icon gray">👤</span> Профиль</div>
+        </nav>
+      </div>
+      <div style="margin-top:8px;font-size:12px;color:#6b7280;padding:8px;background:#f9fafb;border-radius:6px;">
+        Подпункты не раскрываются — клик ведёт на /instructions, где показаны все 5 продуктов
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============ СТРАНИЦА /INSTRUCTIONS ============ -->
+<h2>Страница /instructions (хаб)</h2>
+
+<div class="row">
+  <!-- Variant A -->
+  <div class="col">
+    <div class="variant">
+      <div class="label">Вариант A: Сетка 2-3 колонки (как сейчас в каталоге)</div>
+      <div style="background:#fff;border-radius:8px;padding:16px;border:1px solid #e5e7eb;">
+        <div style="font-size:18px;font-weight:700;margin-bottom:4px;">📘 Инструкции</div>
+        <div style="font-size:13px;color:#6b7280;margin-bottom:16px;">Документация по продуктам r_keeper</div>
+        <div style="position:relative;margin-bottom:16px;">
+          <span style="position:absolute;left:12px;top:8px;font-size:14px;color:#9ca3af;">🔍</span>
+          <input placeholder="Поиск по продуктам..." style="width:100%;padding:8px 12px 8px 36px;border:1px solid #e5e7eb;border-radius:8px;font-size:13px;outline:none;" readonly>
+        </div>
+        <div class="card-grid cols-2">
+          <div class="card">
+            <div class="ico" style="background:#1a56db;">7</div>
+            <div class="title">r_keeper 7</div>
+            <div class="desc">Кассовая станция, управление заказами, отчёты</div>
+            <div class="meta"><span class="tag">3 сценария</span></div>
+          </div>
+          <div class="card">
+            <div class="ico" style="background:#0d9488;">S</div>
+            <div class="title">StoreHouse Pro</div>
+            <div class="desc">Складской учёт, производство, инвентаризация</div>
+            <div class="meta"><span class="tag">3 сценария</span></div>
+          </div>
+          <div class="card">
+            <div class="ico" style="background:#d97706;">D</div>
+            <div class="title">Delivery</div>
+            <div class="desc">Приём заказов, работа курьеров, колл-центр</div>
+            <div class="meta"><span class="tag">3 сценария</span></div>
+          </div>
+          <div class="card" style="opacity:0.6;">
+            <div class="ico" style="background:#9ca3af;">E</div>
+            <div class="title">Event</div>
+            <div class="desc">Уведомления с кассы rk Cash Desk</div>
+            <div class="meta"><span class="tag soon">Скоро</span></div>
+          </div>
+          <div class="card">
+            <div class="ico" style="background:#7c3aed;">W</div>
+            <div class="title">Waiter & Cash Desk</div>
+            <div class="desc">Мобильные приложения для официантов и кассиров</div>
+            <div class="meta"><span class="tag">3 сценария</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant B -->
+  <div class="col">
+    <div class="variant">
+      <div class="label">Вариант B: Вертикальный список с детальным описанием</div>
+      <div style="background:#fff;border-radius:8px;padding:16px;border:1px solid #e5e7eb;">
+        <div style="font-size:18px;font-weight:700;margin-bottom:4px;">📘 Инструкции</div>
+        <div style="font-size:13px;color:#6b7280;margin-bottom:16px;">Документация по продуктам r_keeper</div>
+        <div style="position:relative;margin-bottom:16px;">
+          <span style="position:absolute;left:12px;top:8px;font-size:14px;color:#9ca3af;">🔍</span>
+          <input placeholder="Поиск по продуктам..." style="width:100%;padding:8px 12px 8px 36px;border:1px solid #e5e7eb;border-radius:8px;font-size:13px;outline:none;" readonly>
+        </div>
+        <div class="list-vert">
+          <div class="item">
+            <div class="l-ico" style="background:linear-gradient(135deg,#1a56db,#2563eb);">7</div>
+            <div class="l-body">
+              <div class="l-title">r_keeper 7</div>
+              <div class="l-desc">Кассовая и управленческая система: заказы, оплаты, смены, скидки</div>
+            </div>
+            <div class="l-meta">3 сценария ›</div>
+          </div>
+          <div class="item">
+            <div class="l-ico" style="background:linear-gradient(135deg,#0d9488,#14b8a6);">S</div>
+            <div class="l-body">
+              <div class="l-title">StoreHouse Pro</div>
+              <div class="l-desc">Складской учёт: списание, инвентаризация, оприходование товаров</div>
+            </div>
+            <div class="l-meta">3 сценария ›</div>
+          </div>
+          <div class="item">
+            <div class="l-ico" style="background:linear-gradient(135deg,#d97706,#f59e0b);">D</div>
+            <div class="l-body">
+              <div class="l-title">Delivery</div>
+              <div class="l-desc">Система доставки: заказы, курьерское приложение, колл-центр</div>
+            </div>
+            <div class="l-meta">3 сценария ›</div>
+          </div>
+          <div class="item" style="opacity:0.5;">
+            <div class="l-ico" style="background:#9ca3af;">E</div>
+            <div class="l-body">
+              <div class="l-title">Event <span style="font-size:11px;color:#d97706;font-weight:600;">(скоро)</span></div>
+              <div class="l-desc">Уведомления с кассы rk Cash Desk</div>
+            </div>
+            <div class="l-meta">—</div>
+          </div>
+          <div class="item">
+            <div class="l-ico" style="background:linear-gradient(135deg,#7c3aed,#8b5cf6);">W</div>
+            <div class="l-body">
+              <div class="l-title">Waiter & Cash Desk</div>
+              <div class="l-desc">Мобильные приложения: приём и оплата заказа у столика</div>
+            </div>
+            <div class="l-meta">3 сценария ›</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant C -->
+  <div class="col">
+    <div class="variant">
+      <div class="label">Вариант C: Табы (продукты) + список сценариев на странице</div>
+      <div style="background:#fff;border-radius:8px;padding:16px;border:1px solid #e5e7eb;">
+        <div style="font-size:18px;font-weight:700;margin-bottom:4px;">📘 Инструкции</div>
+        <div style="font-size:13px;color:#6b7280;margin-bottom:12px;">Выберите продукт, чтобы увидеть сценарии</div>
+        <div class="tabs">
+          <div class="tab active">r_keeper 7</div>
+          <div class="tab">StoreHouse</div>
+          <div class="tab">Delivery</div>
+          <div class="tab soon">Event</div>
+          <div class="tab">Waiter</div>
+        </div>
+        <div class="tab-content">
+          <div class="scenario">
+            <span class="num">1</span>
+            <div><div class="s-title">Создание и оплата заказа</div><div class="s-desc">Открытие смены → добавление позиций → оплата</div></div>
+          </div>
+          <div class="scenario">
+            <span class="num">2</span>
+            <div><div class="s-title">Управление сменами</div><div class="s-desc">Открытие, закрытие смены, сверка отчётов</div></div>
+          </div>
+          <div class="scenario">
+            <span class="num">3</span>
+            <div><div class="s-title">Скидки и возвраты</div><div class="s-desc">Применение скидок на позицию/чек, оформление возврата</div></div>
+          </div>
+        </div>
+        <div style="font-size:12px;color:#9ca3af;text-align:right;">Всего: 3 сценария · <a href="#" style="color:#1a56db;">Подробнее →</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr style="margin:40px 0;border:none;border-top:1px solid #e5e7eb;">
+<p class="note" style="text-align:center;font-size:13px;">
+  Выберите понравившиеся варианты, и я реализую код.
+</p>
+
+</body>
+</html>
