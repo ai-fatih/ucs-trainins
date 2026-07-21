@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
-      <body className={manrope.className}>
+      <body className={manrope.className} suppressHydrationWarning>
         <div className="flex min-h-screen">
           <SidebarLeft />
           <div className="flex-1 flex flex-col min-w-0">

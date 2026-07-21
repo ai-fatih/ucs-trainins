@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero — Sizing Hierarchy (v7)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--primary:#1a56db;--teal:#0d9488;--gray-400:#9ca3af;--gray-500:#6b7280;--radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Manrope',-apple-system,BlinkMacSystemFont,sans-serif;background:#f3f4f6;color:#111;line-height:1.5;-webkit-font-smoothing:antialiased}
+    .page-context{max-width:1200px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px}
+    .page-context .tag{background:#e8effa;color:#1a56db;padding:2px 8px;border-radius:100px;font-size:11px;text-transform:none}
+    .variant-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);padding:12px 24px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .variant-nav a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;font-size:13px;font-weight:600;text-decoration:none;color:var(--gray-500);background:#f3f4f6;transition:.2s}
+    .variant-nav a:hover{background:var(--primary);color:#fff}
+    .variant-label{font-size:12px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;padding:20px 24px 8px;max-width:1200px;margin:0 auto}
+    .hero-wrapper{max-width:1200px;margin:0 24px 32px;border-radius:var(--radius-xl);overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
+    .hero{min-height:560px;display:grid;grid-template-columns:1fr 1fr;background:#0f172a}
+    .hero-text{color:#fff;padding:64px 48px;display:flex;flex-direction:column;justify-content:center}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(13,148,136,0.2);color:#f8fafc;padding:6px 12px;border-radius:100px;font-size:12px;font-weight:600;width:fit-content;margin-bottom:20px}
+    .hero-text h1{font-size:40px;font-weight:800;line-height:1.15;margin-bottom:16px}
+    .hero-text h1 span{color:var(--teal)}
+    .hero-text p{font-size:16px;color:#94a3b8;margin-bottom:16px;max-width:420px}
+    .hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+    .hero-tags span{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:600;background:rgba(13,148,136,0.15);color:#5eead4}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#1a56db,#0d9488);color:#fff;border:none;border-radius:var(--radius-md);font-size:14px;font-weight:700;cursor:pointer;width:fit-content;transition:.2s;box-shadow:0 4px 15px rgba(26,86,219,0.3);text-decoration:none}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(26,86,219,0.5)}
+    .hero-visual{position:relative;overflow:hidden;padding:20px;display:flex;align-items:center;justify-content:center}
+    .glow{position:absolute;width:288px;height:288px;border-radius:50%;filter:blur(80px);pointer-events:none}
+    .glow-1{background:rgba(26,86,219,0.3);top:5%;left:5%}
+    .glow-2{background:rgba(13,148,136,0.25);bottom:5%;right:5%}
+    .dash{position:relative;z-index:10;width:100%;max-width:380px}
+    .gcard{background:rgba(15,23,42,0.45);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.08);border-radius:14px}
+    .pbar{height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+    .pbar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--primary),var(--teal))}
+    .scroll-down{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;color:#64748b;font-size:11px;text-decoration:none;transition:color.2s}
+    .scroll-down:hover{color:#94a3b8}
+    .chevron{width:16px;height:16px;animation:bounce 2s infinite}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+    @media(max-width:1024px){.hero{grid-template-columns:1fr}.hero-text{padding:40px 24px}.hero-visual{padding:16px;min-height:420px}}
+    @media(max-width:600px){.hero-text h1{font-size:28px}}
+
+    /* numbered grid */
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+    .cal-day{font-size:14px;font-weight:500;color:white;padding:4px 0}
+    .cal-day-sm{font-size:11px;font-weight:400;color:#94a3b8;padding:2px 0}
+    .cal-dot{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%}
+    .cal-today{width:30px;height:30px;display:flex;align-items:center;justify-content:center;margin:auto;background:linear-gradient(135deg,var(--primary),var(--teal));border-radius:50%;color:white;font-weight:700;font-size:14px;position:relative}
+    .cal-weekday{color:#64748b;font-weight:600;font-size:10px;padding:2px 0}
+    .cal-cell{position:relative;padding:3px 0;font-size:13px;font-weight:500;color:white}
+    .cal-cell-weekend{position:relative;padding:3px 0;font-size:13px;font-weight:400;color:#64748b}
+  </style>
+</head>
+<body>
+
+<nav class="variant-nav">
+  <a href="#v01">1</a><a href="#v02">2</a><a href="#v03">3</a><a href="#v04">4</a><a href="#v05">5</a>
+</nav>
+
+<div class="page-context"><span class="tag">hero block v7</span><span>→ Крупно: календарь + события | Средне: чат | Мелко: уведомления, метрики</span></div>
+
+<!-- ========================================================================
+     01 — Classic Split: календарь крупно + события крупно + чат + уведомл
+     ======================================================================== -->
+<div class="variant-label" id="v01">01 — Classic Split <span style="color:var(--gray-300);">| календарь + события (как сейчас) + чат + уведомления</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-tags"><span>rkeeper</span><span>storehouse</span><span>delivery</span></div>
+      <button class="btn-primary">Личный кабинет <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+    </div>
+
+    <div class="hero-visual" style="background:linear-gradient(135deg,#1e293b,#0f172a)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="dash" style="display:flex;flex-direction:column;gap:12px">
+
+        <!-- ROW 1: Calendar LARGE + Mini Metrics -->
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:12px">
+          <!-- Calendar large -->
+          <div class="gcard" style="padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <span style="font-size:13px;font-weight:700;color:white">Июль 2026</span>
+              <div style="display:flex;gap:6px;align-items:center">
+                <span style="font-size:10px;color:#64748b;cursor:pointer">‹</span>
+                <span style="font-size:10px;color:white;padding:2px 10px;border-radius:100px;background:rgba(13,148,136,0.15);font-weight:600">29</span>
+                <span style="font-size:10px;color:#64748b;cursor:pointer">›</span>
+              </div>
+            </div>
+            <div class="cal-grid">
+              <div class="cal-weekday">ПН</div><div class="cal-weekday">ВТ</div><div class="cal-weekday">СР</div><div class="cal-weekday">ЧТ</div><div class="cal-weekday">ПТ</div><div class="cal-weekday" style="color:#64748b">СБ</div><div class="cal-weekday" style="color:#64748b">ВС</div>
+              <div class="cal-cell-weekend">29</div><div class="cal-cell-weekend">30</div>
+              <div class="cal-cell">1</div><div class="cal-cell">2</div><div class="cal-cell">3</div>
+              <div class="cal-cell-weekend">4</div><div class="cal-cell-weekend">5</div>
+              <div class="cal-cell">6</div><div class="cal-cell">7</div>
+              <div class="cal-cell" style="position:relative">8<span class="cal-dot" style="background:var(--warning)"></span></div>
+              <div class="cal-cell">9</div><div class="cal-cell">10</div>
+              <div class="cal-cell-weekend">11</div><div class="cal-cell-weekend">12</div>
+              <div class="cal-cell">13</div>
+              <div class="cal-cell" style="position:relative">14<span class="cal-dot" style="background:var(--teal)"></span></div>
+              <div class="cal-cell">15</div><div class="cal-cell">16</div><div class="cal-cell">17</div>
+              <div class="cal-cell-weekend">18</div><div class="cal-cell-weekend">19</div>
+              <div class="cal-cell">20</div>
+              <div class="cal-cell" style="position:relative">21<span class="cal-dot" style="background:var(--teal)"></span></div>
+              <div class="cal-cell" style="position:relative">22<span class="cal-dot" style="background:var(--primary)"></span></div>
+              <div class="cal-cell">23</div><div class="cal-cell">24</div>
+              <div class="cal-cell-weekend">25</div><div class="cal-cell-weekend">26</div>
+              <div class="cal-cell">27</div><div class="cal-cell">28</div>
+              <div style="display:flex;align-items:center;justify-content:center;grid-column:span 1"><div class="cal-today">29</div></div>
+              <div class="cal-cell">30</div><div class="cal-cell">31</div>
+              <div class="cal-cell-weekend">1</div>
+            </div>
+          </div>
+          <!-- mini metrics column -->
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="gcard" style="flex:1;padding:10px 12px;display:flex;flex-direction:column;justify-content:center">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;text-align:center">
+                <div><span style="font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">12</span><div style="font-size:8px;color:#64748b">курсов</div></div>
+                <div><span style="font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">48ч</span><div style="font-size:8px;color:#64748b">обучения</div></div>
+                <div><span style="font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">3</span><div style="font-size:8px;color:#64748b">сертификата</div></div>
+                <div><span style="font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">4.8</div><div style="font-size:8px;color:#64748b">рейтинг</div></div>
+              </div>
+            </div>
+            <div class="gcard" style="padding:8px 10px;display:flex;align-items:center;justify-content:space-between">
+              <span style="font-size:8px;color:#64748b">прогресс</span>
+              <div class="pbar" style="flex:1;margin:0 8px;height:4px"><div class="pbar-fill" style="width:72%"></div></div>
+              <span style="font-size:8px;color:var(--teal);font-weight:600">72%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW 2: Events LARGE (как сейчас) + Chat MEDIUM + Notif SMALL -->
+        <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:12px">
+          <!-- Events large - like current booking cards -->
+          <div class="gcard" style="padding:12px 14px">
+            <div style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">События</div>
+            <!-- card 1 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+              <div style="text-align:center;min-width:44px">
+                <div style="font-size:18px;font-weight:700;color:var(--teal)">24</div>
+                <div style="font-size:9px;color:#94a3b8;text-transform:uppercase">июл</div>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13px;font-weight:600;color:white;line-height:1.2">Обучение по rkeeper</div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+                  <span style="width:5px;height:5px;border-radius:50%;background:var(--warning)"></span>
+                  <span style="font-size:10px;color:var(--warning);font-weight:600">На согласовании</span>
+                </div>
+              </div>
+              <span style="font-size:10px;color:#64748b">14:00</span>
+            </div>
+            <!-- card 2 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+              <div style="text-align:center;min-width:44px">
+                <div style="font-size:18px;font-weight:700;color:var(--teal)">14</div>
+                <div style="font-size:9px;color:#94a3b8;text-transform:uppercase">июл</div>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13px;font-weight:600;color:white;line-height:1.2">Консультация по StoreHouse</div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+                  <span style="width:5px;height:5px;border-radius:50%;background:var(--success)"></span>
+                  <span style="font-size:10px;color:var(--success);font-weight:600">Запланировано</span>
+                </div>
+              </div>
+              <span style="font-size:10px;color:#64748b">11:00</span>
+            </div>
+            <!-- card 3 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
+              <div style="text-align:center;min-width:44px">
+                <div style="font-size:18px;font-weight:700;color:#64748b">7</div>
+                <div style="font-size:9px;color:#64748b;text-transform:uppercase">июл</div>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13px;font-weight:600;color:white;line-height:1.2">Консультация по смене НДС</div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+                  <span style="width:5px;height:5px;border-radius:50%;background:#64748b"></span>
+                  <span style="font-size:10px;color:#64748b;font-weight:600">Проведено</span>
+                </div>
+              </div>
+              <span style="font-size:10px;color:#64748b">16:00</span>
+            </div>
+          </div>
+
+          <!-- right column: Chat MEDIUM + Notifications SMALL -->
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <!-- Chat medium -->
+            <div class="gcard" style="padding:10px 12px;flex:1">
+              <div style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Чат</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                <span style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#d97706,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:10px;color:white;font-weight:700;flex-shrink:0">ЕП</span>
+                <div style="min-width:0">
+                  <div style="font-size:12px;font-weight:600;color:white">Елена Попова</div>
+                  <div style="font-size:9px;color:var(--success);display:flex;align-items:center;gap:4px"><span style="width:4px;height:4px;border-radius:50%;background:var(--success)"></span>Онлайн</div>
+                </div>
+                <span style="font-size:9px;padding:2px 8px;border-radius:100px;background:rgba(13,148,136,0.12);color:#5eead4;font-weight:600;margin-left:auto">Обучение</span>
+              </div>
+              <div style="font-size:11px;color:#e2e8f0;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.06);margin-bottom:6px">Добрый день! Чем могу помочь?</div>
+              <div style="font-size:11px;color:#e2e8f0;padding:8px 10px;border-radius:8px;background:linear-gradient(135deg,rgba(26,86,219,0.25),rgba(13,148,136,0.2));margin-left:auto;max-width:85%;text-align:right">Нужно обучение персонала по StoreHouse Pro</div>
+            </div>
+
+            <!-- Notifications small -->
+            <div class="gcard" style="padding:8px 12px">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                <span style="font-size:9px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px">Уведомления</span>
+                <span style="font-size:8px;padding:1px 6px;border-radius:100px;background:rgba(13,148,136,0.12);color:#5eead4;font-weight:600">+2</span>
+              </div>
+              <div style="font-size:10px;color:white;display:flex;align-items:center;gap:5px;padding:3px 0"><span style="width:3px;height:3px;border-radius:50%;background:var(--teal);flex-shrink:0"></span>Новый курс «StoreHouse Pro»</div>
+              <div style="font-size:10px;color:white;display:flex;align-items:center;gap:5px;padding:3px 0"><span style="width:3px;height:3px;border-radius:50%;background:var(--success);flex-shrink:0"></span>Тест rkeeper — 92%</div>
+              <div style="font-size:10px;color:#64748b;display:flex;align-items:center;gap:5px;padding:3px 0"><span style="width:3px;height:3px;border-radius:50%;background:#64748b;flex-shrink:0"></span>Сертификат 1С доступен</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#about" class="scroll-down"><span>О нас</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+  </section>
+</div>
+
+<!-- ========================================================================
+     02 — Left Calendar + Right Events Split
+     ======================================================================== -->
+<div class="variant-label" id="v02">02 — Side-by-side <span style="color:var(--gray-300);">| календарь слева, события справа, снизу чат + уведомления + мини</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-tags"><span>rkeeper</span><span>storehouse</span><span>delivery</span></div>
+      <button class="btn-primary">Личный кабинет <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+    </div>
+
+    <div class="hero-visual" style="background:linear-gradient(145deg,#0f172a,#1e293b)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="dash" style="display:flex;flex-direction:column;gap:10px">
+
+        <!-- TOP: Calendar + Events side by side -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <!-- Calendar -->
+          <div class="gcard" style="padding:12px 14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <span style="font-size:12px;font-weight:700;color:white">Июль 2026</span>
+              <span style="font-size:9px;color:#64748b;padding:1px 8px;border-radius:100px;background:rgba(255,255,255,0.04);cursor:pointer">сегодня</span>
+            </div>
+            <div class="cal-grid" style="gap:3px">
+              <div class="cal-weekday" style="font-size:9px">ПН</div><div class="cal-weekday" style="font-size:9px">ВТ</div><div class="cal-weekday" style="font-size:9px">СР</div><div class="cal-weekday" style="font-size:9px">ЧТ</div><div class="cal-weekday" style="font-size:9px">ПТ</div><div class="cal-weekday" style="font-size:9px;color:#64748b">СБ</div><div class="cal-weekday" style="font-size:9px;color:#64748b">ВС</div>
+              <div class="cal-cell-weekend" style="font-size:11px">29</div><div class="cal-cell-weekend" style="font-size:11px">30</div>
+              <div class="cal-cell" style="font-size:11px">1</div><div class="cal-cell" style="font-size:11px">2</div><div class="cal-cell" style="font-size:11px">3</div>
+              <div class="cal-cell-weekend" style="font-size:11px">4</div><div class="cal-cell-weekend" style="font-size:11px">5</div>
+              <div class="cal-cell" style="font-size:11px">6</div><div class="cal-cell" style="font-size:11px">7</div>
+              <div class="cal-cell" style="font-size:11px;position:relative">8<span class="cal-dot" style="width:3px;height:3px;background:var(--warning)"></span></div>
+              <div class="cal-cell" style="font-size:11px">9</div><div class="cal-cell" style="font-size:11px">10</div>
+              <div class="cal-cell-weekend" style="font-size:11px">11</div><div class="cal-cell-weekend" style="font-size:11px">12</div>
+              <div class="cal-cell" style="font-size:11px">13</div>
+              <div class="cal-cell" style="font-size:11px;position:relative">14<span class="cal-dot" style="width:3px;height:3px;background:var(--teal)"></span></div>
+              <div class="cal-cell" style="font-size:11px">15</div><div class="cal-cell" style="font-size:11px">16</div><div class="cal-cell" style="font-size:11px">17</div>
+              <div class="cal-cell-weekend" style="font-size:11px">18</div><div class="cal-cell-weekend" style="font-size:11px">19</div>
+              <div class="cal-cell" style="font-size:11px">20</div>
+              <div class="cal-cell" style="font-size:11px;position:relative">21<span class="cal-dot" style="width:3px;height:3px;background:var(--teal)"></span></div>
+              <div class="cal-cell" style="font-size:11px;position:relative">22<span class="cal-dot" style="width:3px;height:3px;background:var(--primary)"></span></div>
+              <div class="cal-cell" style="font-size:11px">23</div><div class="cal-cell" style="font-size:11px">24</div>
+              <div class="cal-cell-weekend" style="font-size:11px">25</div><div class="cal-cell-weekend" style="font-size:11px">26</div>
+              <div class="cal-cell" style="font-size:11px">27</div><div class="cal-cell" style="font-size:11px">28</div>
+              <div style="display:flex;align-items:center;justify-content:center"><div class="cal-today" style="width:24px;height:24px;font-size:11px">29</div></div>
+              <div class="cal-cell" style="font-size:11px">30</div><div class="cal-cell" style="font-size:11px">31</div>
+              <div class="cal-cell-weekend" style="font-size:11px">1</div>
+            </div>
+          </div>
+          <!-- Events -->
+          <div class="gcard" style="padding:12px 14px">
+            <div style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">События</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+              <div style="text-align:center;min-width:36px"><div style="font-size:15px;font-weight:700;color:var(--teal)">24</div><div style="font-size:8px;color:#94a3b8;text-transform:uppercase">июл</div></div>
+              <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:white">Обучение rkeeper</div><div style="display:flex;align-items:center;gap:4px;margin-top:2px"><span style="width:4px;height:4px;border-radius:50%;background:var(--warning)"></span><span style="font-size:9px;color:var(--warning);font-weight:600">На согласовании</span></div></div>
+              <span style="font-size:9px;color:#64748b">14:00</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+              <div style="text-align:center;min-width:36px"><div style="font-size:15px;font-weight:700;color:var(--teal)">14</div><div style="font-size:8px;color:#94a3b8;text-transform:uppercase">июл</div></div>
+              <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:white">Консультация StoreHouse</div><div style="display:flex;align-items:center;gap:4px;margin-top:2px"><span style="width:4px;height:4px;border-radius:50%;background:var(--success)"></span><span style="font-size:9px;color:var(--success);font-weight:600">Запланировано</span></div></div>
+              <span style="font-size:9px;color:#64748b">11:00</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:6px 0">
+              <div style="text-align:center;min-width:36px"><div style="font-size:15px;font-weight:700;color:#64748b">7</div><div style="font-size:8px;color:#64748b;text-transform:uppercase">июл</div></div>
+              <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:white">Смена НДС</div><div style="display:flex;align-items:center;gap:4px;margin-top:2px"><span style="width:4px;height:4px;border-radius:50%;background:#64748b"></span><span style="font-size:9px;color:#64748b;font-weight:600">Проведено</span></div></div>
+              <span style="font-size:9px;color:#64748b">16:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM: Chat + Notifications + mini -->
+        <div style="display:grid;grid-template-columns:1.2fr 1fr 0.8fr;gap:10px">
+          <!-- Chat -->
+          <div class="gcard" style="padding:10px 12px">
+            <div style="font-size:9px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Чат</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+              <span style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#d97706,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:8px;color:white;font-weight:700;flex-shrink:0">ЕП</span>
+              <div style="min-width:0"><div style="font-size:11px;font-weight:600;color:white">Елена Попова</div><div style="font-size:8px;color:var(--success);display:flex;align-items:center;gap:3px"><span style="width:3px;height:3px;border-radius:50%;background:var(--success)"></span>Онлайн</div></div>
+            </div>
+            <div style="font-size:10px;color:#e2e8f0;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,0.06)">Добрый день! Чем могу помочь?</div>
+          </div>
+          <!-- Notifications -->
+          <div class="gcard" style="padding:8px 12px">
+            <div style="font-size:9px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Уведомления</div>
+            <div style="font-size:9px;color:white;display:flex;align-items:center;gap:4px;padding:2px 0"><span style="width:3px;height:3px;border-radius:50%;background:var(--teal);flex-shrink:0"></span>StoreHouse Pro</div>
+            <div style="font-size:9px;color:white;display:flex;align-items:center;gap:4px;padding:2px 0"><span style="width:3px;height:3px;border-radius:50%;background:var(--success);flex-shrink:0"></span>Тест rkeeper — 92%</div>
+            <div style="font-size:9px;color:#64748b;display:flex;align-items:center;gap:4px;padding:2px 0"><span style="width:3px;height:3px;border-radius:50%;background:#64748b;flex-shrink:0"></span>Сертификат 1С</div>
+          </div>
+          <!-- mini blocks -->
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div class="gcard" style="padding:6px 10px;display:flex;align-items:center;justify-content:space-between;flex:1">
+              <span style="font-size:8px;color:#64748b">прогресс</span>
+              <div style="display:flex;align-items:center;gap:6px"><div class="pbar" style="width:50px;height:3px"><div class="pbar-fill" style="width:72%"></div></div><span style="font-size:7px;color:var(--teal);font-weight:600">72%</span></div>
+            </div>
+            <div class="gcard" style="padding:6px;display:flex;align-items:center;justify-content:center;gap:6px;flex:1">
+              <div style="display:flex;gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:var(--success)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--teal)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--primary)"></span></div>
+              <span style="font-size:8px;color:#94a3b8">3 специалиста</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#about" class="scroll-down"><span>О нас</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+  </section>
+</div>
+
+<!-- ========================================================================
+     03 — Vertical Stack: Calendar → Events → Chat → Notifs + Mini
+     ======================================================================== -->
+<div class="variant-label" id="v03">03 — Vertical Stack <span style="color:var(--gray-300);">| календарь → события → чат → уведомления + мини</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-tags"><span>rkeeper</span><span>storehouse</span><span>delivery</span></div>
+      <button class="btn-primary">Личный кабинет <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+    </div>
+
+    <div class="hero-visual" style="background:linear-gradient(150deg,#1e293b,#0f172a)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="dash" style="display:flex;flex-direction:column;gap:8px">
+
+        <!-- Calendar LARGE -->
+        <div class="gcard" style="padding:12px 16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:13px;font-weight:700;color:white">Июль 2026</span>
+            <div style="display:flex;gap:8px;align-items:center">
+              <span style="font-size:10px;color:#64748b;cursor:pointer">‹</span>
+              <span style="font-size:10px;color:white;padding:2px 10px;border-radius:100px;background:rgba(13,148,136,0.12);font-weight:600">29</span>
+              <span style="font-size:10px;color:#64748b;cursor:pointer">›</span>
+            </div>
+          </div>
+          <div class="cal-grid">
+            <div class="cal-weekday">ПН</div><div class="cal-weekday">ВТ</div><div class="cal-weekday">СР</div><div class="cal-weekday">ЧТ</div><div class="cal-weekday">ПТ</div><div class="cal-weekday" style="color:#64748b">СБ</div><div class="cal-weekday" style="color:#64748b">ВС</div>
+            <div class="cal-cell-weekend">29</div><div class="cal-cell-weekend">30</div><div class="cal-cell">1</div><div class="cal-cell">2</div><div class="cal-cell">3</div><div class="cal-cell-weekend">4</div><div class="cal-cell-weekend">5</div>
+            <div class="cal-cell">6</div><div class="cal-cell">7</div><div class="cal-cell" style="position:relative">8<span class="cal-dot" style="background:var(--warning)"></span></div><div class="cal-cell">9</div><div class="cal-cell">10</div><div class="cal-cell-weekend">11</div><div class="cal-cell-weekend">12</div>
+            <div class="cal-cell">13</div><div class="cal-cell" style="position:relative">14<span class="cal-dot" style="background:var(--teal)"></span></div><div class="cal-cell">15</div><div class="cal-cell">16</div><div class="cal-cell">17</div><div class="cal-cell-weekend">18</div><div class="cal-cell-weekend">19</div>
+            <div class="cal-cell">20</div><div class="cal-cell" style="position:relative">21<span class="cal-dot" style="background:var(--teal)"></span></div><div class="cal-cell" style="position:relative">22<span class="cal-dot" style="background:var(--primary)"></span></div><div class="cal-cell">23</div><div class="cal-cell">24</div><div class="cal-cell-weekend">25</div><div class="cal-cell-weekend">26</div>
+            <div class="cal-cell">27</div><div class="cal-cell">28</div><div style="display:flex;align-items:center;justify-content:center"><div class="cal-today">29</div></div><div class="cal-cell">30</div><div class="cal-cell">31</div><div class="cal-cell-weekend">1</div>
+          </div>
+        </div>
+
+        <!-- Events LARGE + Chat MEDIUM + Notifs SMALL in row -->
+        <div style="display:grid;grid-template-columns:1.2fr 1fr 0.8fr;gap:8px">
+          <!-- Events -->
+          <div class="gcard" style="padding:10px 12px">
+            <div style="font-size:9px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">События</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+              <div style="text-align:center;min-width:36px"><div style="font-size:14px;font-weight:700;color:var(--teal)">24</div><div style="font-size:7px;color:#94a3b8;text-transform:uppercase">июл</div></div>
+              <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;color:white">Обучение rkeeper</div><div style="display:flex;align-items:center;gap:3px;margin-top:1px"><span style="width:3px;height:3px;border-radius:50%;background:var(--warning)"></span><span style="font-size:8px;color:var(--warning);font-weight:600">Новое</span></div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+              <div style="text-align:center;min-width:36px"><div style="font-size:14px;font-weight:700;color:var(--teal)">14</div><div style="font-size:7px;color:#94a3b8;text-transform:uppercase">июл</div></div>
+              <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;color:white">StoreHouse</div><div style="display:flex;align-items:center;gap:3px;margin-top:1px"><span style="width:3px;height:3px;border-radius:50%;background:var(--success)"></span><span style="font-size:8px;color:var(--success);font-weight:600">Готово</span></div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 0">
+              <div style="text-align:center;min-width:36px"><div style="font-size:14px;font-weight:700;color:#64748b">7</div><div style="font-size:7px;color:#64748b;text-transform:uppercase">июл</div></div>
+              <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;color:white">Смена НДС</div><div style="display:flex;align-items:center;gap:3px;margin-top:1px"><span style="width:3px;height:3px;border-radius:50%;background:#64748b"></span><span style="font-size:8px;color:#64748b">Архив</span></div></div>
+            </div>
+          </div>
+          <!-- Chat -->
+          <div class="gcard" style="padding:10px 12px">
+            <div style="font-size:9px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Чат</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+              <span style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#d97706,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:8px;color:white;font-weight:700;flex-shrink:0">ЕП</span>
+              <div><div style="font-size:11px;font-weight:600;color:white">Елена Попова</div><div style="font-size:8px;color:var(--success)">Онлайн</div></div>
+            </div>
+            <div style="font-size:10px;color:#e2e8f0;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,0.06)">Добрый день! Чем могу помочь?</div>
+          </div>
+          <!-- Notifications + mini -->
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div class="gcard" style="padding:8px 10px;flex:1">
+              <div style="font-size:8px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">Увед.</div>
+              <div style="font-size:8px;color:white;display:flex;align-items:center;gap:3px;padding:1px 0"><span style="width:2px;height:2px;border-radius:50%;background:var(--teal);flex-shrink:0"></span>StoreHouse Pro</div>
+              <div style="font-size:8px;color:white;display:flex;align-items:center;gap:3px;padding:1px 0"><span style="width:2px;height:2px;border-radius:50%;background:var(--success);flex-shrink:0"></span>Тест 92%</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+              <div class="gcard" style="padding:6px;text-align:center"><span style="font-size:12px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">72%</span><div style="font-size:6px;color:#64748b">прогресс</div></div>
+              <div class="gcard" style="padding:6px;text-align:center"><span style="font-size:12px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">3</span><div style="font-size:6px;color:#64748b">спец.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#about" class="scroll-down"><span>О нас</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+  </section>
+</div>
+
+<!-- ========================================================================
+     04 — Calendar wide + below 2-col: Events | Chat + Notifs
+     ======================================================================== -->
+<div class="variant-label" id="v04">04 — Wide Calendar <span style="color:var(--gray-300);">| календарь во всю ширину, под ним события + чат + уведомления</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-tags"><span>rkeeper</span><span>storehouse</span><span>delivery</span></div>
+      <button class="btn-primary">Личный кабинет <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+    </div>
+
+    <div class="hero-visual" style="background:linear-gradient(155deg,#0f172a,#1e293b)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="dash" style="display:flex;flex-direction:column;gap:10px">
+
+        <!-- Calendar FULL WIDTH -->
+        <div class="gcard" style="padding:12px 16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:14px;font-weight:700;color:white">Июль 2026</span>
+            <div style="display:flex;gap:8px;align-items:center">
+              <span style="font-size:10px;color:#64748b;padding:2px 10px;border-radius:100px;background:rgba(255,255,255,0.04);cursor:pointer">‹</span>
+              <span style="font-size:10px;color:white;padding:2px 10px;border-radius:100px;background:rgba(13,148,136,0.12);font-weight:600">сегодня 29</span>
+              <span style="font-size:10px;color:#64748b;padding:2px 10px;border-radius:100px;background:rgba(255,255,255,0.04);cursor:pointer">›</span>
+            </div>
+          </div>
+          <div class="cal-grid" style="gap:6px">
+            <div class="cal-weekday" style="font-size:11px">ПН</div><div class="cal-weekday" style="font-size:11px">ВТ</div><div class="cal-weekday" style="font-size:11px">СР</div><div class="cal-weekday" style="font-size:11px">ЧТ</div><div class="cal-weekday" style="font-size:11px">ПТ</div><div class="cal-weekday" style="font-size:11px;color:#64748b">СБ</div><div class="cal-weekday" style="font-size:11px;color:#64748b">ВС</div>
+            <div class="cal-cell-weekend">29</div><div class="cal-cell-weekend">30</div><div class="cal-cell">1</div><div class="cal-cell">2</div><div class="cal-cell">3</div><div class="cal-cell-weekend">4</div><div class="cal-cell-weekend">5</div>
+            <div class="cal-cell">6</div><div class="cal-cell">7</div><div class="cal-cell" style="position:relative">8<span class="cal-dot" style="background:var(--warning)"></span></div><div class="cal-cell">9</div><div class="cal-cell">10</div><div class="cal-cell-weekend">11</div><div class="cal-cell-weekend">12</div>
+            <div class="cal-cell">13</div><div class="cal-cell" style="position:relative">14<span class="cal-dot" style="background:var(--teal)"></span></div><div class="cal-cell">15</div><div class="cal-cell">16</div><div class="cal-cell">17</div><div class="cal-cell-weekend">18</div><div class="cal-cell-weekend">19</div>
+            <div class="cal-cell">20</div><div class="cal-cell" style="position:relative">21<span class="cal-dot" style="background:var(--teal)"></span></div><div class="cal-cell" style="position:relative">22<span class="cal-dot" style="background:var(--primary)"></span></div><div class="cal-cell">23</div><div class="cal-cell">24</div><div class="cal-cell-weekend">25</div><div class="cal-cell-weekend">26</div>
+            <div class="cal-cell">27</div><div class="cal-cell">28</div><div style="display:flex;align-items:center;justify-content:center"><div class="cal-today">29</div></div><div class="cal-cell">30</div><div class="cal-cell">31</div><div class="cal-cell-weekend">1</div>
+          </div>
+        </div>
+
+        <!-- Events LARGE + Chat + Notifs -->
+        <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:10px">
+          <!-- Events -->
+          <div class="gcard" style="padding:12px 14px">
+            <div style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">События</div>
+            <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+              <div style="text-align:center;min-width:40px"><div style="font-size:16px;font-weight:700;color:var(--teal)">24</div><div style="font-size:8px;color:#94a3b8;text-transform:uppercase">июл</div></div>
+              <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:white">Обучение по rkeeper</div><div style="font-size:9px;color:#64748b;margin-top:2px">Владислав Фатихов</div></div>
+              <div style="display:flex;align-items:center;gap:4px"><span style="width:4px;height:4px;border-radius:50%;background:var(--warning)"></span><span style="font-size:9px;color:var(--warning);font-weight:600">ждёт</span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+              <div style="text-align:center;min-width:40px"><div style="font-size:16px;font-weight:700;color:var(--teal)">14</div><div style="font-size:8px;color:#94a3b8;text-transform:uppercase">июл</div></div>
+              <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:white">Консультация StoreHouse</div><div style="font-size:9px;color:#64748b;margin-top:2px">Дмитрий Резников</div></div>
+              <div style="display:flex;align-items:center;gap:4px"><span style="width:4px;height:4px;border-radius:50%;background:var(--success)"></span><span style="font-size:9px;color:var(--success);font-weight:600">готово</span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:7px 0">
+              <div style="text-align:center;min-width:40px"><div style="font-size:16px;font-weight:700;color:#64748b">7</div><div style="font-size:8px;color:#64748b;text-transform:uppercase">июл</div></div>
+              <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:white">Консультация по смене НДС</div><div style="font-size:9px;color:#64748b;margin-top:2px">Елизавета Галаган</div></div>
+              <div style="display:flex;align-items:center;gap:4px"><span style="font-size:9px;color:#64748b">✓</span><span style="font-size:9px;color:#64748b">проведено</span></div>
+            </div>
+          </div>
+
+          <!-- right: Chat + Notifs + mini -->
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="gcard" style="padding:10px 12px;flex:1">
+              <div style="font-size:9px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Чат</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+                <span style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#d97706,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:9px;color:white;font-weight:700;flex-shrink:0">ЕП</span>
+                <div><div style="font-size:12px;font-weight:600;color:white">Елена Попова</div><div style="font-size:8px;color:var(--success);display:flex;align-items:center;gap:3px"><span style="width:3px;height:3px;border-radius:50%;background:var(--success)"></span>Онлайн</div></div>
+                <span style="font-size:8px;padding:2px 6px;border-radius:100px;background:rgba(13,148,136,0.1);color:#5eead4;margin-left:auto">Обучение</span>
+              </div>
+              <div style="font-size:10px;color:#e2e8f0;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,0.06);margin-bottom:4px">Добрый день! Чем могу помочь?</div>
+              <div style="font-size:10px;color:#e2e8f0;padding:6px 8px;border-radius:6px;background:linear-gradient(135deg,rgba(26,86,219,0.25),rgba(13,148,136,0.2));max-width:80%;margin-left:auto;text-align:right">Нужно обучение по StoreHouse</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:8px">
+              <div class="gcard" style="padding:6px 10px;display:flex;align-items:center;justify-content:space-between">
+                <span style="font-size:8px;color:#64748b">уведомления</span>
+                <span style="font-size:8px;padding:1px 6px;border-radius:100px;background:rgba(13,148,136,0.1);color:#5eead4">+2</span>
+                <div style="display:flex;gap:4px"><span style="width:3px;height:3px;border-radius:50%;background:var(--teal)"></span><span style="width:3px;height:3px;border-radius:50%;background:var(--success)"></span><span style="width:3px;height:3px;border-radius:50%;background:var(--warning)"></span></div>
+              </div>
+              <div class="gcard" style="padding:6px;display:flex;align-items:center;justify-content:center;gap:4px">
+                <span style="font-size:7px;color:#64748b">📊</span><div class="pbar" style="width:40px;height:3px"><div class="pbar-fill" style="width:72%"></div></div><span style="font-size:7px;color:var(--teal);font-weight:600">72%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#about" class="scroll-down"><span>О нас</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+  </section>
+</div>
+
+<!-- ========================================================================
+     05 — Dashboard Grid: Calendar LARGE + Events LARGE + Chat + Notifs + Mini
+     ======================================================================== -->
+<div class="variant-label" id="v05">05 — Full Dashboard Grid <span style="color:var(--gray-300);">| 2×2: календарь + события | чат + уведомления + мини</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-tags"><span>rkeeper</span><span>storehouse</span><span>delivery</span></div>
+      <button class="btn-primary">Личный кабинет <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+    </div>
+
+    <div class="hero-visual" style="background:linear-gradient(140deg,#1e293b,#0f172a)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="dash" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start">
+
+        <!-- CELL 1: Calendar LARGE -->
+        <div class="gcard" style="padding:12px 14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:13px;font-weight:700;color:white">Июль 2026</span>
+            <div style="display:flex;gap:6px"><span style="font-size:10px;color:#64748b;cursor:pointer">‹</span><span style="font-size:10px;color:#64748b;cursor:pointer">›</span></div>
+          </div>
+          <div class="cal-grid">
+            <div class="cal-weekday">ПН</div><div class="cal-weekday">ВТ</div><div class="cal-weekday">СР</div><div class="cal-weekday">ЧТ</div><div class="cal-weekday">ПТ</div><div class="cal-weekday" style="color:#64748b">СБ</div><div class="cal-weekday" style="color:#64748b">ВС</div>
+            <div class="cal-cell-weekend">29</div><div class="cal-cell-weekend">30</div><div class="cal-cell">1</div><div class="cal-cell">2</div><div class="cal-cell">3</div><div class="cal-cell-weekend">4</div><div class="cal-cell-weekend">5</div>
+            <div class="cal-cell">6</div><div class="cal-cell">7</div><div class="cal-cell" style="position:relative">8<span class="cal-dot" style="background:var(--warning)"></span></div><div class="cal-cell">9</div><div class="cal-cell">10</div><div class="cal-cell-weekend">11</div><div class="cal-cell-weekend">12</div>
+            <div class="cal-cell">13</div><div class="cal-cell" style="position:relative">14<span class="cal-dot" style="background:var(--teal)"></span></div><div class="cal-cell">15</div><div class="cal-cell">16</div><div class="cal-cell">17</div><div class="cal-cell-weekend">18</div><div class="cal-cell-weekend">19</div>
+            <div class="cal-cell">20</div><div class="cal-cell" style="position:relative">21<span class="cal-dot" style="background:var(--teal)"></span></div><div class="cal-cell" style="position:relative">22<span class="cal-dot" style="background:var(--primary)"></span></div><div class="cal-cell">23</div><div class="cal-cell">24</div><div class="cal-cell-weekend">25</div><div class="cal-cell-weekend">26</div>
+            <div class="cal-cell">27</div><div class="cal-cell">28</div><div style="display:flex;align-items:center;justify-content:center"><div class="cal-today">29</div></div><div class="cal-cell">30</div><div class="cal-cell">31</div><div class="cal-cell-weekend">1</div>
+          </div>
+        </div>
+
+        <!-- CELL 2: Events LARGE -->
+        <div class="gcard" style="padding:12px 14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px">События</span>
+            <span style="font-size:9px;padding:1px 8px;border-radius:100px;background:rgba(13,148,136,0.1);color:#5eead4;font-weight:600">3</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+            <div style="text-align:center;min-width:38px"><div style="font-size:15px;font-weight:700;color:var(--teal)">24</div><div style="font-size:8px;color:#94a3b8;text-transform:uppercase">июл</div></div>
+            <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:white">Обучение по rkeeper</div><div style="font-size:8px;color:#64748b">Владислав Фатихов</div></div>
+            <span style="width:5px;height:5px;border-radius:50%;background:var(--warning);flex-shrink:0"></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+            <div style="text-align:center;min-width:38px"><div style="font-size:15px;font-weight:700;color:var(--teal)">14</div><div style="font-size:8px;color:#94a3b8;text-transform:uppercase">июл</div></div>
+            <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:white">Консультация StoreHouse</div><div style="font-size:8px;color:#64748b">Дмитрий Резников</div></div>
+            <span style="width:5px;height:5px;border-radius:50%;background:var(--success);flex-shrink:0"></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 0">
+            <div style="text-align:center;min-width:38px"><div style="font-size:15px;font-weight:700;color:#64748b">7</div><div style="font-size:8px;color:#64748b;text-transform:uppercase">июл</div></div>
+            <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:white">Смена НДС</div><div style="font-size:8px;color:#64748b">Елизавета Галаган</div></div>
+            <span style="font-size:9px;color:#64748b">✓</span>
+          </div>
+        </div>
+
+        <!-- CELL 3: Chat MEDIUM -->
+        <div class="gcard" style="padding:10px 12px">
+          <div style="font-size:9px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Чат</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <span style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#d97706,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:8px;color:white;font-weight:700;flex-shrink:0">ЕП</span>
+            <div><div style="font-size:11px;font-weight:600;color:white">Елена Попова</div><div style="font-size:8px;color:var(--success);display:flex;align-items:center;gap:3px"><span style="width:3px;height:3px;border-radius:50%;background:var(--success)"></span>Онлайн</div></div>
+            <span style="font-size:8px;padding:2px 6px;border-radius:100px;background:rgba(13,148,136,0.1);color:#5eead4;margin-left:auto">чат</span>
+          </div>
+          <div style="font-size:10px;color:#e2e8f0;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,0.06)">Добрый день! Чем могу помочь?</div>
+        </div>
+
+        <!-- CELL 4: Notifications + mini -->
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="gcard" style="padding:8px 10px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+              <span style="font-size:9px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px">Уведомления</span>
+              <span style="font-size:8px;padding:1px 6px;border-radius:100px;background:rgba(13,148,136,0.1);color:#5eead4;font-weight:600">+2</span>
+            </div>
+            <div style="font-size:9px;color:white;display:flex;align-items:center;gap:4px;padding:2px 0"><span style="width:3px;height:3px;border-radius:50%;background:var(--teal);flex-shrink:0"></span>Новый курс StoreHouse Pro</div>
+            <div style="font-size:9px;color:white;display:flex;align-items:center;gap:4px;padding:2px 0"><span style="width:3px;height:3px;border-radius:50%;background:var(--success);flex-shrink:0"></span>Тест rkeeper — 92%</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div class="gcard" style="padding:6px;text-align:center"><span style="font-size:13px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">72%</span><div style="font-size:7px;color:#64748b">прогресс</div></div>
+            <div class="gcard" style="padding:6px;text-align:center"><div style="display:flex;gap:3px;justify-content:center"><span style="width:5px;height:5px;border-radius:50%;background:var(--success)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--teal)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--primary)"></span></div><span style="font-size:9px;color:white;font-weight:600;display:block;margin-top:2px">3 спец.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#about" class="scroll-down"><span>О нас</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+  </section>
+</div>
+
+</body>
+</html>
