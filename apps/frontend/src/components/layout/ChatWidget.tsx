@@ -46,7 +46,7 @@ export function ChatWidget({ onClose }: ChatWidgetProps) {
   };
 
   return (
-    <div className={`absolute bottom-20 right-0 w-[360px] transition-all duration-300 ${minimized ? 'h-14' : 'h-[520px]'}`}>
+    <div className={`absolute bottom-20 right-0 w-[360px] max-w-[calc(100vw-24px)] transition-all duration-300 ${minimized ? 'h-14' : 'h-[520px] max-h-[calc(100vh-120px)]'}`}>
       <div className="glass-bottom-panel rounded-2xl overflow-hidden flex flex-col h-full">
         <div className="flex items-center justify-between px-4 py-3 border-b border-white/20">
           <div className="flex items-center gap-2.5">

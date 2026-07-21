@@ -154,7 +154,7 @@ function BookingPageContent() {
                 <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-[#1a56db]" /> Доступное время — {selectedDate}
                 </h3>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                   {slotsLoading
                     ? Array.from({ length: 8 }).map((_, i) => <TableRowSkeleton key={i} cols={1} />)
                     : slots.length === 0
@@ -192,7 +192,7 @@ function BookingPageContent() {
                 </select>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 text-sm mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mb-4">
                 <div><span className="text-[#6b7280]">Услуга</span><div className="font-semibold">{store.selectedService?.name}</div></div>
                 <div><span className="text-[#6b7280]">Длительность</span><div className="font-semibold">{(store.selectedService?.durationMinutes ?? 0) > 0 ? `${store.selectedService?.durationMinutes} мин` : 'Видео'}</div></div>
                 <div><span className="text-[#6b7280]">Дата</span><div className="font-semibold">{selectedDate}</div></div>

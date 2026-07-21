@@ -70,7 +70,7 @@ export default function BookingsPage() {
               return (
                 <div
                   key={booking.id}
-                  className={`glass-card p-4 flex items-center gap-4 ${
+                  className={`glass-card p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 ${
                     booking.status === 'scheduled' ? 'ring-2 ring-[#1a56db]/20' : ''
                   }`}
                 >
@@ -85,9 +85,9 @@ export default function BookingsPage() {
                     {booking.topic && <div className="text-xs text-[#6b7280]">Тема: {booking.topic}</div>}
                     {booking.employeeName && <div className="text-xs text-[#6b7280]">Сотрудник: {booking.employeeName}</div>}
                   </div>
-                  <div className="text-right">
+                  <div className="text-left sm:text-right">
                     <Badge variant={status.variant}>{status.label}</Badge>
-                    {booking.rating && <div className="mt-1 flex items-center gap-1 justify-end"><span className="text-xs">⭐</span></div>}
+                    {booking.rating && <div className="mt-1 flex items-center gap-1 sm:justify-end"><span className="text-xs">⭐</span></div>}
                     <div className="flex gap-1 mt-2">
                       {booking.status === 'scheduled' && (
                         <>

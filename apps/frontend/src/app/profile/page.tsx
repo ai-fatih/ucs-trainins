@@ -96,7 +96,7 @@ export default function ProfilePage() {
                 </table>
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-3 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                 <div><span className="text-[#6b7280]">Имя</span><div className="font-semibold text-[#111827]">{effectiveUser.name.split(' ')[0]}</div></div>
                 <div><span className="text-[#6b7280]">Фамилия</span><div className="font-semibold text-[#111827]">{effectiveUser.name.split(' ')[1] || ''}</div></div>
                 <div><span className="text-[#6b7280]">Email</span><div className="font-semibold text-[#111827]">{effectiveUser.email}</div></div>
