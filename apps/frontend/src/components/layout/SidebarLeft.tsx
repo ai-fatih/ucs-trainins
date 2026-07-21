@@ -78,7 +78,7 @@ export function SidebarLeft() {
 
       <aside
         className={`
-          flex flex-col h-screen sticky top-0 z-50 transition-all duration-300 overflow-hidden
+          flex flex-col h-screen top-0 z-50 transition-all duration-300 overflow-hidden
           glass-sidebar border-r border-white/20
 
           fixed inset-y-0 left-0 w-60
