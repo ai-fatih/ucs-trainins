@@ -178,7 +178,7 @@ function EmployeeCarousel({ specialists }: { specialists: Specialist[] }) {
 
   return (
     <>
-      <div className="relative perspective-[1200px] flex items-center justify-center min-h-[360px] w-full">
+      <div className="relative perspective-[1200px] flex items-center justify-center min-h-[360px] w-full overflow-hidden">
         {specialists.map((spec, i) => {
           const pos = getPos(i);
           const elena = isElena(spec.name);
@@ -260,11 +260,11 @@ export default function HomePage() {
       {/* 0. Hero — Split Layout */}
       <div className="bg-[#0f172a]">
       <section id="hero" className="min-h-[520px] grid grid-cols-1 lg:grid-cols-2 relative max-w-[1440px] mx-auto">
-        <div className="text-white p-8 md:p-16 flex flex-col justify-center">
+        <div className="text-white p-6 md:p-16 flex flex-col justify-center">
           <div className="inline-flex items-center gap-2 bg-[rgba(13,148,136,0.2)] text-slate-50 px-3 py-1.5 rounded-full text-xs font-semibold w-fit mb-5">
             ✦ Консультации и обучение
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-4">
             Экспертная поддержка <span className="text-[#0d9488]">пользователей rkeeper</span>
           </h1>
           <p className="text-base text-[#94a3b8] mb-4 max-w-md">
@@ -281,8 +281,26 @@ export default function HomePage() {
         <div className="flex items-center justify-center bg-gradient-to-br from-[#1e293b] to-[#0f172a] relative overflow-hidden py-8 lg:py-0">
           <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(26,86,219,0.3)] top-[10%] left-[10%]" />
           <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(13,148,136,0.25)] bottom-[10%] right-[10%]" />
-          <div className="flex flex-col gap-5">
-            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-4">
+          <div className="flex flex-col gap-4">
+            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] border-[#0d9488]/30 rounded-2xl p-4 md:p-5 max-w-full">
+              <div className="flex items-start gap-3">
+                <div className="text-center min-w-[52px]">
+                  <div className="text-xl md:text-3xl font-bold text-[#0d9488]">{date4.getDate()}</div>
+                  <div className="text-[10px] text-[#94a3b8] uppercase">{months[date4.getMonth()]}</div>
+                  <div className="text-xs font-medium text-[#64748b] mt-0.5">11:00</div>
+                </div>
+                <div className="min-w-0">
+                  <div className="text-sm md:text-base font-semibold text-white leading-tight">Консультация по StoreHouse</div>
+                  <div className="text-xs text-[#94a3b8] mt-0.5 mb-1">Дмитрий Резников</div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+                    <span className="text-[11px] text-[#22c55e] font-semibold">Запланировано</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-4 hidden sm:block">
               <div className="flex items-start gap-3">
                 <div className="text-center min-w-[52px]">
                   <div className="text-lg font-bold text-[#0d9488]">{nextDate.getDate()}</div>
@@ -300,25 +318,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-5 scale-105 max-w-full">
-              <div className="flex items-start gap-3">
-                <div className="text-center min-w-[56px]">
-                  <div className="text-3xl font-bold text-[#0d9488]">{date4.getDate()}</div>
-                  <div className="text-xs text-[#94a3b8] uppercase">{months[date4.getMonth()]}</div>
-                  <div className="text-sm font-medium text-[#64748b] mt-1">11:00</div>
-                </div>
-                <div className="min-w-0">
-                  <div className="text-base font-semibold text-white leading-tight">Консультация по StoreHouse</div>
-                  <div className="text-xs text-[#94a3b8] mt-0.5 mb-1">Дмитрий Резников</div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
-                    <span className="text-[11px] text-[#22c55e] font-semibold">Запланировано</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-4">
+            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-4 hidden sm:block">
               <div className="flex items-start gap-3">
                 <div className="text-center min-w-[52px]">
                   <div className="text-lg font-bold text-[#64748b]">{datePast.getDate()}</div>

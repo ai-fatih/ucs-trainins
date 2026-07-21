@@ -18,7 +18,7 @@ export function Footer() {
   return (
     <footer className="glass-strong border-t border-white/20">
       <div className="max-w-[1200px] mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
           <div>
             <Link href="/" className="flex items-center gap-2 no-underline mb-4">
               <span className="text-xl font-bold text-[#1a56db]">UCS <span className="font-normal text-[#374151]">service</span></span>

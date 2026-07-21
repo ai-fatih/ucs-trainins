@@ -11,6 +11,7 @@ export default function ChatPage() {
   const [chats, setChats] = useState<ChatRoom[]>([]);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
+  const [showList, setShowList] = useState(false);
 
   useEffect(() => {
     api.chat.list().then(setChats);
@@ -25,7 +26,41 @@ export default function ChatPage() {
       <p className="section-subtitle">Диалог привязан к записи от 3 июля 2026</p>
 
       <div className="flex border border-[#e5e7eb] rounded-lg overflow-hidden bg-white" style={{ minHeight: '500px' }}>
-        {/* Chat list */}
+        {/* Chat list overlay on mobile */}
+        {showList && (
+          <div className="fixed inset-0 z-40 md:hidden" onClick={() => setShowList(false)}>
+            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute inset-y-0 left-0 w-72 bg-white shadow-xl overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+              <div className="p-4 border-b border-[#e5e7eb] flex items-center justify-between">
+                <input className="form-input text-xs flex-1" placeholder="Поиск чата..." />
+                <button onClick={() => setShowList(false)} className="ml-2 w-8 h-8 rounded-lg flex items-center justify-center text-[#6b7280] hover:text-[#dc2626] transition-all">✕</button>
+              </div>
+              <div className="text-[10px] font-semibold text-[#9ca3af] uppercase px-4 pt-3 pb-1">Активные</div>
+              {chats.map((chat) => (
+                <Link
+                  key={chat.id}
+                  href={`/chat/${chat.id}`}
+                  onClick={() => setShowList(false)}
+                  className={`flex items-start gap-3 px-4 py-3 transition-colors no-underline ${
+                    chat.id === id ? 'bg-[#e8effa] border-l-[3px] border-[#1a56db]' : 'border-l-[3px] border-transparent hover:bg-[#f9fafb]'
+                  }`}
+                >
+                  <span className="w-8 h-8 rounded-full bg-[#e8effa] text-[#1a56db] flex items-center justify-center text-xs font-bold shrink-0">{chat.specialistAvatar}</span>
+                  <span className="flex-1 min-w-0">
+                    <span className="flex justify-between items-center">
+                      <span className="text-sm font-medium text-[#111827]">{chat.specialistName}</span>
+                      <span className="text-[10px] text-[#6b7280]">{chat.lastMessageTime}</span>
+                    </span>
+                    <span className="text-xs text-[#6b7280] truncate block">{chat.lastMessage}</span>
+                    <Badge variant={chat.isOnline ? 'success' : 'gray'}>{chat.bookingRefLabel}</Badge>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Chat list desktop */}
         <div className="w-72 border-r border-[#e5e7eb] hidden md:block">
           <div className="p-4 border-b border-[#e5e7eb]">
             <input className="form-input text-xs" placeholder="Поиск чата..." />
@@ -56,6 +91,9 @@ export default function ChatPage() {
         <div className="flex-1 flex flex-col">
           {currentChat && (
             <div className="flex items-center gap-3 px-5 py-3 border-b border-[#e5e7eb]">
+              <button onClick={() => setShowList(true)} className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/10 transition-all" aria-label="Список чатов">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </button>
               <div className="w-9 h-9 rounded-full bg-[#e8effa] text-[#1a56db] flex items-center justify-center text-sm font-bold">{currentChat.specialistAvatar}</div>
               <div>
                 <div className="font-semibold text-sm">{currentChat.specialistName}</div>

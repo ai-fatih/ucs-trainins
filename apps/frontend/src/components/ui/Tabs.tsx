@@ -24,7 +24,7 @@ export function Tabs({ tabs, activeTab: controlledTab, onChange, className }: Ta
   };
 
   return (
-    <div className={cn('flex border-b border-[#e5e7eb] mb-6', className)}>
+    <div className={cn('flex border-b border-[#e5e7eb] mb-6 overflow-x-auto scrollbar-hide', className)}>
       {tabs.map((tab) => (
         <button
           key={tab.id}
