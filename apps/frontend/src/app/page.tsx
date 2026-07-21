@@ -15,20 +15,13 @@ import {
 import serviceCategoriesData from '@/data/service-categories.json';
 import reviewsData from '@/data/reviews.json';
 import newsData from '@/data/news.json';
+import faqData from '@/data/faq.json';
 
 const categoryMeta: Record<string, { icon: React.ElementType; badge: string; badgeVariant: string }> = {
   consultations: { icon: MessageCircle, badge: '30 мин', badgeVariant: 'bg-[#e8effa] text-[#1a56db]' },
   trainings: { icon: GraduationCap, badge: 'от 2 ч', badgeVariant: 'bg-[#fef3c7] text-[#d97706]' },
   directories: { icon: Database, badge: 'от 60 мин', badgeVariant: 'bg-[#ccfbf1] text-[#0d9488]' },
 };
-
-const faqData = [
-  { question: 'Как записаться на консультацию?', answer: 'Выберите услугу, укажите удобные дату и время — мы подберём свободный слот. После подтверждения вы получите уведомление.' },
-  { question: 'Сколько стоят услуги?', answer: 'Консультации — от 1500 ₽, обучение — от 5000 ₽. Стоимость зависит от формата и длительности.' },
-  { question: 'Работаете ли с ИП и ООО?', answer: 'Да, мы работаем с юрлицами и ИП. Заключаем договор, предоставляем закрывающие документы.' },
-  { question: 'Как отменить или перенести запись?', answer: 'В личном кабинете вы можете отменить запись не позднее чем за 2 часа до начала.' },
-  { question: 'Предоставляете ли документы для налоговой?', answer: 'Да, после оказания услуг мы предоставляем акт и чек. Для юрлиц — счёт-фактуру.' },
-];
 
 function ReviewsCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -82,28 +75,167 @@ function ReviewsCarousel() {
 }
 
 function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openCat, setOpenCat] = useState<number | null>(null);
+  const [openQ, setOpenQ] = useState<number | null>(null);
 
   return (
-    <div className="max-w-2xl mx-auto space-y-3">
-      {faqData.map((item, i) => {
-        const isOpen = openIndex === i;
+    <div className="max-w-2xl mx-auto space-y-2">
+      {faqData.map((cat, ci) => {
+        const isCatOpen = openCat === ci;
         return (
-          <div key={i} className="glass-card overflow-hidden">
+          <div key={ci} className="glass-card overflow-hidden">
             <button
-              onClick={() => setOpenIndex(isOpen ? null : i)}
-              className="w-full flex items-center justify-between px-6 py-4 text-left text-sm font-semibold text-[#111827] hover:bg-white/40 transition-all no-underline"
+              onClick={() => {
+                setOpenCat(isCatOpen ? null : ci);
+                setOpenQ(null);
+              }}
+              className="w-full flex items-center justify-between px-6 py-3.5 text-left text-sm font-semibold text-[#111827] hover:bg-white/40 transition-all no-underline"
             >
-              {item.question}
-              <ChevronDown className={`w-4 h-4 text-[#6b7280] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+              <span>{cat.category} <span className="font-normal text-[#6b7280]">({cat.items.length})</span></span>
+              <ChevronDown className={`w-4 h-4 text-[#6b7280] transition-transform shrink-0 ${isCatOpen ? 'rotate-180' : ''}`} />
             </button>
-            <div className={`px-6 transition-all ${isOpen ? 'pb-4' : 'max-h-0 pb-0'}`}>
-              {isOpen && <p className="text-sm text-[#6b7280] leading-relaxed">{item.answer}</p>}
-            </div>
+            {isCatOpen && (
+              <div className="border-t border-[#e5e7eb]">
+                {cat.items.map((item, qi) => {
+                  const isQOpen = openQ === qi;
+                  return (
+                    <div key={qi} className="border-b border-[#f3f4f6] last:border-b-0">
+                      <button
+                        onClick={() => setOpenQ(isQOpen ? null : qi)}
+                        className="w-full flex items-center justify-between px-6 py-3 text-left text-sm font-medium text-[#374151] hover:bg-[#f9fafb] transition-all no-underline"
+                      >
+                        {item.question}
+                        <ChevronDown className={`w-3.5 h-3.5 text-[#9ca3af] transition-transform shrink-0 ${isQOpen ? 'rotate-180' : ''}`} />
+                      </button>
+                      {isQOpen && (
+                        <div className="px-6 pb-4 space-y-2">
+                          <p className="text-xs text-[#6b7280] leading-relaxed">{item.description}</p>
+                          <ol className="space-y-1.5">
+                            {item.steps.map((step, si) => (
+                              <li key={si} className="text-sm text-[#4b5563] leading-relaxed pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-[#9ca3af]">
+                                {step}
+                              </li>
+                            ))}
+                          </ol>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         );
       })}
     </div>
+  );
+}
+
+function EmployeeCarousel({ specialists }: { specialists: Specialist[] }) {
+  const [active, setActive] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+  const total = specialists.length;
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 900px)');
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  const getPos = (i: number) => {
+    if (i === active) return 'active';
+    const prevI = (active - 1 + total) % total;
+    const nextI = (active + 1) % total;
+    if (i === prevI) return 'prev';
+    if (i === nextI) return 'next';
+    const dist = (i - active + total) % total;
+    return dist <= total / 2 ? 'hidden' : 'hidden-r';
+  };
+
+  const isElena = (name: string) => name.startsWith('Елена');
+
+  const d = isMobile ? 150 : 200;
+  const df = isMobile ? 280 : 380;
+  const cardW = isMobile ? 220 : 280;
+
+  const posStyles: Record<string, string> = {
+    active: 'z-30 opacity-100 shadow-[0_20px_60px_rgba(26,86,219,0.3)] border-[rgba(255,255,255,0.25)]',
+    prev: 'z-20 opacity-60',
+    next: 'z-20 opacity-60',
+    hidden: 'z-10 opacity-0 pointer-events-none',
+    'hidden-r': 'z-10 opacity-0 pointer-events-none',
+  };
+
+  const transforms: Record<string, string> = {
+    active: 'translateX(0) rotateY(0deg) scale(1)',
+    prev: `translateX(-${d}px) rotateY(15deg) scale(0.85)`,
+    next: `translateX(${d}px) rotateY(-15deg) scale(0.85)`,
+    hidden: `translateX(-${df}px) rotateY(30deg) scale(0.7)`,
+    'hidden-r': `translateX(${df}px) rotateY(-30deg) scale(0.7)`,
+  };
+
+  return (
+    <>
+      <div className="relative perspective-[1200px] flex items-center justify-center min-h-[360px] w-full">
+        {specialists.map((spec, i) => {
+          const pos = getPos(i);
+          const elena = isElena(spec.name);
+          return (
+            <div
+              key={spec.id}
+              className={`absolute rounded-2xl p-7 text-center text-white transition-all duration-[400ms] [transform-style:preserve-3d] cursor-default ${posStyles[pos]}`}
+              style={{
+                width: cardW,
+                background: 'rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                transform: transforms[pos],
+              }}
+            >
+              <div className="relative inline-block mb-3">
+                <Avatar src={spec.avatarUrl} name={spec.name} size="lg" bg={spec.avatarBg} color={spec.avatarColor} />
+                {elena && (
+                  <span className="absolute -top-2 -right-2 bg-gradient-to-br from-[#0d9488] to-[#059669] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-md">
+                    9+ лет в UCS
+                  </span>
+                )}
+              </div>
+              <h3 className="text-[16px] font-bold">{spec.name}</h3>
+              <p className="text-[13px] opacity-70">{spec.role}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="flex items-center justify-center gap-3 mt-6">
+        <button
+          onClick={() => setActive((active - 1 + total) % total)}
+          className="w-9 h-9 rounded-full border border-[rgba(255,255,255,0.15)] bg-[rgba(255,255,255,0.06)] text-white text-[15px] cursor-pointer flex items-center justify-center hover:bg-[rgba(255,255,255,0.12)] hover:border-[rgba(255,255,255,0.25)] transition-all"
+        >
+          ←
+        </button>
+        <div className="flex gap-1.5">
+          {specialists.map((_, i) => (
+            <span
+              key={i}
+              onClick={() => setActive(i)}
+              className={`h-[7px] rounded-full cursor-pointer transition-all ${
+                i === active ? 'w-[22px] bg-[#0d9488]' : 'w-[7px] bg-[rgba(255,255,255,0.2)]'
+              }`}
+            />
+          ))}
+        </div>
+        <button
+          onClick={() => setActive((active + 1) % total)}
+          className="w-9 h-9 rounded-full border border-[rgba(255,255,255,0.15)] bg-[rgba(255,255,255,0.06)] text-white text-[15px] cursor-pointer flex items-center justify-center hover:bg-[rgba(255,255,255,0.12)] hover:border-[rgba(255,255,255,0.25)] transition-all"
+        >
+          →
+        </button>
+      </div>
+    </>
   );
 }
 
@@ -114,10 +246,6 @@ export default function HomePage() {
   });
   const [authOpen, setAuthOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
-
-  const leader = specialists.find(s => s.role === 'Руководитель');
-  const managers = specialists.filter(s => s.role !== 'Руководитель');
-  const elena = managers.find(s => s.name.startsWith('Елена'));
 
   const nextDate = new Date();
   nextDate.setDate(nextDate.getDate() + 14);
@@ -217,130 +345,59 @@ export default function HomePage() {
       </section>
       </div>
 
-      {/* 1. About + Contacts merged */}
-      <section id="about" className="bg-white py-16 px-4">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
-            {/* Left: Info + Team */}
-            <div className="lg:col-span-3">
-              <h2 className="text-3xl font-bold mb-4">Отдел консультации и обучения</h2>
-              <p className="text-[#6b7280] mb-10 max-w-xl">
-                Помогаем ресторанам разобраться с rkeeper, StoreHouse и доставкой. В команде 5 специалистов. Проводим обучение персонала, заводим справочники, консультируем по любым вопросам.
-              </p>
-
-              {leader && (
-                <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide md:overflow-visible md:grid md:grid-cols-2 md:gap-5 md:pb-0 mb-5">
-                  <div className="snap-start shrink-0 w-[280px] md:w-auto">
-                    <div className="glass-card text-center p-6 h-full flex flex-col items-center">
-                      <Avatar src={leader.avatarUrl} name={leader.name} size="lg" bg={leader.avatarBg} color={leader.avatarColor} className="mb-3" />
-                      <h3 className="font-bold text-lg text-[#111827]">{leader.name}</h3>
-                      <p className="text-sm text-[#6b7280] mt-0.5">{leader.role}</p>
-                    </div>
-                  </div>
-
-                  {(() => {
-                    const others = managers.filter((s) => !s.name.startsWith('Елена'));
-                    const seniority = elena?.startDate
-                      ? 2026 - new Date(elena.startDate).getFullYear()
-                      : null;
-                    return (
-                      <>
-                        {elena && (
-                          <div className="snap-start shrink-0 w-[280px] md:w-auto">
-                            <div className="glass-card text-center p-6 h-full flex flex-col items-center">
-                              <div className="relative mb-3">
-                                <Avatar src={elena.avatarUrl} name={elena.name} size="lg" bg={elena.avatarBg} color={elena.avatarColor} />
-                                {seniority && (
-                                  <span className="absolute -top-1 -right-1 bg-gradient-to-br from-[#0d9488] to-[#059669] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-md">
-                                    {seniority}+ лет в UCS
-                                  </span>
-                                )}
-                              </div>
-                              <h3 className="font-bold text-lg text-[#111827]">{elena.name}</h3>
-                              <p className="text-sm text-[#6b7280] mt-0.5">{elena.role}</p>
-                            </div>
-                          </div>
-                        )}
-
-                        <div className="hidden md:grid md:grid-cols-3 md:gap-5 md:col-span-2 md:mt-5 md:w-full">
-                          {others.map((spec) => (
-                            <div key={spec.id} className="glass-card text-center p-5 flex flex-col items-center">
-                              <Avatar src={spec.avatarUrl} name={spec.name} size="lg" bg={spec.avatarBg} color={spec.avatarColor} className="mb-3" />
-                              <h3 className="font-semibold text-sm text-[#111827]">{spec.name}</h3>
-                              <p className="text-xs text-[#6b7280] mt-0.5">{spec.role}</p>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="md:hidden flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
-                          {others.map((spec) => (
-                            <div key={spec.id} className="snap-start shrink-0 w-[220px]">
-                              <div className="glass-card text-center p-5 h-full flex flex-col items-center">
-                                <Avatar src={spec.avatarUrl} name={spec.name} size="lg" bg={spec.avatarBg} color={spec.avatarColor} className="mb-3" />
-                                <h3 className="font-semibold text-sm text-[#111827]">{spec.name}</h3>
-                                <p className="text-xs text-[#6b7280] mt-0.5">{spec.role}</p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </>
-                    );
-                  })()}
-                </div>
-              )}
-
-              <div className="flex flex-wrap justify-center gap-2 mt-8 pt-6 border-t border-[#e5e7eb]">
-                {Array.from(new Set(specialists.flatMap((s) => s.skillTags ?? []))).map((tag) => (
-                  <span key={tag} className="text-[11px] px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 font-medium">
-                    {tag}
-                  </span>
-                ))}
+      {/* 1. About — Vertical Stack */}
+      <section id="about" className="bg-[#0f172a] py-16 px-4">
+        <div className="max-w-[1200px] mx-auto space-y-12">
+          {/* Header */}
+          <div className="text-center max-w-[600px] mx-auto">
+            <h2 className="text-3xl font-bold mb-2 text-white">Отдел консультации и обучения</h2>
+            <p className="text-sm text-[#94a3b8] mb-5 leading-relaxed">
+              Помогаем ресторанам разобраться с rkeeper, StoreHouse и доставкой. Проводим обучение, заводим справочники, консультируем по любым вопросам.
+            </p>
+            <div className="flex justify-center gap-3 flex-wrap">
+              <div className="bg-[rgba(255,255,255,0.06)] rounded-xl px-5 py-2.5 text-center min-w-[120px]">
+                <div className="text-lg font-extrabold text-[#0d9488]">500+</div>
+                <div className="text-[11px] text-[#94a3b8]">Клиентов</div>
+              </div>
+              <div className="bg-[rgba(255,255,255,0.06)] rounded-xl px-5 py-2.5 text-center min-w-[120px]">
+                <div className="text-lg font-extrabold text-[#0d9488]">15+</div>
+                <div className="text-[11px] text-[#94a3b8]">Лет опыта</div>
               </div>
             </div>
+          </div>
 
-            {/* Right: Contacts + Chat */}
-            <div className="lg:col-span-2">
-              <div className="glass-card p-6 space-y-5">
-                <h3 className="font-bold text-lg text-[#111827]">Контакты отдела обучения</h3>
+          {/* Carousel */}
+          <EmployeeCarousel specialists={specialists} />
 
-                <a href="mailto:school@ucs-service.ru" className="flex items-center gap-3 no-underline group">
-                  <div className="w-10 h-10 rounded-xl bg-[rgba(13,148,136,0.1)] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Mail className="w-4 h-4 text-[#0d9488]" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-[#6b7280] mb-0.5">Электронная почта</p>
-                    <p className="text-sm font-semibold text-[#111827] group-hover:text-[#0d9488] transition-colors">school@ucs-service.ru</p>
-                  </div>
-                </a>
+          {/* Contacts Row */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.08)] rounded-2xl px-6 py-5 text-white">
+            <a href="mailto:school@ucs-service.ru" className="flex items-center gap-2.5 no-underline text-white hover:translate-x-1 transition-all">
+              <span className="w-9 h-9 rounded-xl bg-[rgba(255,255,255,0.08)] flex items-center justify-center shrink-0">
+                <Mail className="w-4 h-4 text-[#0d9488]" />
+              </span>
+              <span className="text-[13px] font-semibold">school@ucs-service.ru</span>
+            </a>
 
-                <div className="border-t border-[#e5e7eb]" />
+            <a href="tel:+74959214770" className="flex items-center gap-2.5 no-underline text-white hover:translate-x-1 transition-all">
+              <span className="w-9 h-9 rounded-xl bg-[rgba(255,255,255,0.08)] flex items-center justify-center shrink-0">
+                <Phone className="w-4 h-4 text-[#0d9488]" />
+              </span>
+              <span className="text-[13px] font-semibold">
+                +7 (495) 921-47-70{' '}
+                <span className="text-[11px] opacity-50 font-normal">
+                  доб.{' '}
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[rgba(13,148,136,0.2)] text-[#0d9488] text-[10px] font-bold">2</span>
+                </span>
+              </span>
+            </a>
 
-                <a href="tel:+74959214770" className="flex items-center gap-3 no-underline group">
-                  <div className="w-10 h-10 rounded-xl bg-[rgba(13,148,136,0.1)] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Phone className="w-4 h-4 text-[#0d9488]" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-[#6b7280] mb-0.5">Телефон:</p>
-                    <p className="text-sm font-semibold text-[#111827] group-hover:text-[#0d9488] transition-colors">+7 (495) 921-47-70</p>
-                  </div>
-                </a>
-                <p className="text-[11px] text-[#6b7280] ml-[52px] -mt-2">
-                  добавочный{' '}
-                  <span className="inline-flex items-center justify-center w-4 h-4 rounded bg-[rgba(13,148,136,0.15)] text-[#0d9488] text-[10px] font-bold">2</span>
-                  {' '}— отдел консультации и обучения
-                </p>
-
-                <div className="border-t border-[#e5e7eb]" />
-
-                <button
-                  onClick={() => setChatOpen(true)}
-                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#1a56db] to-[#0d9488] text-white font-semibold text-sm hover:scale-[1.02] transition-all"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  Написать в чат
-                </button>
-              </div>
-            </div>
+            <button
+              onClick={() => setChatOpen(true)}
+              className="flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl bg-gradient-to-r from-[#1a56db] to-[#0d9488] text-white text-[13px] font-bold hover:scale-[1.02] hover:shadow-lg transition-all"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Написать в чат
+            </button>
           </div>
         </div>
       </section>
@@ -419,9 +476,9 @@ export default function HomePage() {
       {/* 5. FAQ — Accordion */}
       <section id="faq" className="bg-white py-16 px-4">
         <div className="max-w-[1200px] mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4">Частые вопросы</h2>
+          <h2 className="text-3xl font-bold text-center mb-4">Частые вопросы по StoreHouse Pro</h2>
           <p className="text-center text-[#6b7280] mb-10 max-w-xl mx-auto">
-            Всё, что нужно знать перед записью
+            Ответы на основе анализа обращений в Service Desk
           </p>
           <FAQSection />
         </div>

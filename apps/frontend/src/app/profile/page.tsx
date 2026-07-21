@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/stores/auth';
@@ -14,8 +14,12 @@ import toast from 'react-hot-toast';
 
 export default function ProfilePage() {
   const { user } = useAuthStore();
-  const isCompany = user?.userType === 'company';
+  const [hydrated, setHydrated] = useState(false);
+  const effectiveUser = hydrated ? user : null;
+  const isCompany = effectiveUser?.userType === 'company';
   const [authOpen, setAuthOpen] = useState(false);
+
+  useEffect(() => { setHydrated(true); }, []);
 
   const { data: employees = [], isLoading: employeesLoading } = useQuery<Employee[]>({
     queryKey: ['employees'],
@@ -23,7 +27,7 @@ export default function ProfilePage() {
     enabled: isCompany,
   });
 
-  if (!user) {
+  if (!effectiveUser) {
     return (
       <div className="max-w-[1200px] mx-auto px-4 py-16 text-center">
         <div className="glass-card max-w-md mx-auto p-8">
@@ -43,10 +47,10 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div>
           <div className="glass-card text-center p-6">
-            <Avatar name={user.name} size="lg" className="mx-auto mb-3" />
-            <h3 className="text-base font-semibold">{user.name}</h3>
-            <p className="text-xs text-[#6b7280]">{user.email}</p>
-            <p className="text-xs text-[#6b7280] mb-4">{user.phone}</p>
+            <Avatar name={effectiveUser.name} size="lg" className="mx-auto mb-3" />
+            <h3 className="text-base font-semibold">{effectiveUser.name}</h3>
+            <p className="text-xs text-[#6b7280]">{effectiveUser.email}</p>
+            <p className="text-xs text-[#6b7280] mb-4">{effectiveUser.phone}</p>
             {isCompany && (
               <div className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#d1fae5] text-[#059669] mb-4">
                 ✓ Договор активен до 31.12.2026
@@ -93,10 +97,10 @@ export default function ProfilePage() {
               </div>
             ) : (
               <div className="grid grid-cols-2 gap-3 text-sm">
-                <div><span className="text-[#6b7280]">Имя</span><div className="font-semibold text-[#111827]">{user.name.split(' ')[0]}</div></div>
-                <div><span className="text-[#6b7280]">Фамилия</span><div className="font-semibold text-[#111827]">{user.name.split(' ')[1] || ''}</div></div>
-                <div><span className="text-[#6b7280]">Email</span><div className="font-semibold text-[#111827]">{user.email}</div></div>
-                <div><span className="text-[#6b7280]">Телефон</span><div className="font-semibold text-[#111827]">{user.phone}</div></div>
+                <div><span className="text-[#6b7280]">Имя</span><div className="font-semibold text-[#111827]">{effectiveUser.name.split(' ')[0]}</div></div>
+                <div><span className="text-[#6b7280]">Фамилия</span><div className="font-semibold text-[#111827]">{effectiveUser.name.split(' ')[1] || ''}</div></div>
+                <div><span className="text-[#6b7280]">Email</span><div className="font-semibold text-[#111827]">{effectiveUser.email}</div></div>
+                <div><span className="text-[#6b7280]">Телефон</span><div className="font-semibold text-[#111827]">{effectiveUser.phone}</div></div>
               </div>
             )}
           </div>

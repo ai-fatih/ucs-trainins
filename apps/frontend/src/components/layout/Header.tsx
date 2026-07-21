@@ -14,8 +14,14 @@ export function Header() {
   const pathname = usePathname();
   const toggleSidebar = useUIStore((s) => s.toggleSidebar);
   const [authOpen, setAuthOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   const deferredPrompt = useRef<any>(null);
   const [installable, setInstallable] = useState(false);
+
+  useEffect(() => { setHydrated(true); }, []);
+
+  const effectiveAuth = hydrated && isAuthenticated;
+  const effectiveUser = hydrated ? user : null;
 
   useEffect(() => {
     const handleBeforeInstall = (e: Event) => {
@@ -46,7 +52,7 @@ export function Header() {
     });
   };
 
-  const isStaff = user?.role === 'admin' || user?.role === 'company_admin' || user?.role === 'specialist';
+  const isStaff = effectiveUser?.role === 'admin' || effectiveUser?.role === 'company_admin' || effectiveUser?.role === 'specialist';
 
   const isLanding = pathname === '/';
 
@@ -58,7 +64,7 @@ export function Header() {
     { href: '/#faq', label: 'Вопросы' },
   ] as const;
 
-  const avatarHref = !isAuthenticated ? '/' : isStaff ? '/admin/dashboard' : '/dashboard';
+  const avatarHref = !effectiveAuth ? '/' : isStaff ? '/admin/dashboard' : '/dashboard';
 
   const renderNavLinks = () => {
     if (isLanding) {
@@ -100,7 +106,7 @@ export function Header() {
           )}
 
           <div className="flex items-center gap-1">
-            {isAuthenticated && user ? (
+            {effectiveAuth && effectiveUser ? (
               <>
                 <Link
                   href="/notifications"
@@ -119,9 +125,9 @@ export function Header() {
                   className="hidden lg:flex items-center gap-2 no-underline"
                 >
                   <span className="w-9 h-9 rounded-full bg-gradient-to-br from-[#1a56db] to-[#0d9488] inline-flex items-center justify-center text-white font-semibold text-sm shrink-0">
-                    {user.name.charAt(0)}
+                    {effectiveUser.name.charAt(0)}
                   </span>
-                  <span className="text-sm font-medium text-[#374151] max-w-[100px] truncate">{user.name}</span>
+                  <span className="text-sm font-medium text-[#374151] max-w-[100px] truncate">{effectiveUser.name}</span>
                 </Link>
               </>
             ) : (

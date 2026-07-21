@@ -85,6 +85,8 @@ export interface Booking {
   rating?: number;
   reviewText?: string;
   isFree: boolean;
+  feedbackCompleted?: boolean;
+  tipAmount?: number;
   createdAt?: string;
 }
 
@@ -143,6 +145,19 @@ export interface AppNotification {
   type: 'booking' | 'message' | 'reminder' | 'review' | 'system';
   read: boolean;
   createdAt: string;
+}
+
+export interface QuizQuestion {
+  id: string;
+  question: string;
+  options: string[];
+  correct: number;
+}
+
+export interface QuizResult {
+  questionId: string;
+  selected: number;
+  correct: boolean;
 }
 
 export interface MonthlyStat {

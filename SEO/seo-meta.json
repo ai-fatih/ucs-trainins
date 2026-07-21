@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SEO мета-данные для страниц сайта",
+  "pages": [
+    {
+      "route": "/",
+      "title": "UCS Trainings — Курсы и тренинги",
+      "description": "Современные курсы и тренинги для профессионального развития.",
+      "ogImage": "/images/og-home.jpg",
+      "keywords": ["курсы", "тренинги", "обучение", "UCS"]
+    },
+    {
+      "route": "/trainings",
+      "title": "Все тренинги — UCS Trainings",
+      "description": "Каталог доступных тренингов и программ обучения.",
+      "ogImage": "/images/og-trainings.jpg",
+      "keywords": ["тренинги", "каталог", "программы обучения"]
+    },
+    {
+      "route": "/about",
+      "title": "О нас — UCS Trainings",
+      "description": "Информация о платформе UCS Trainings и команде.",
+      "ogImage": "/images/og-about.jpg",
+      "keywords": ["о нас", "команда", "UCS"]
+    }
+  ]
+}

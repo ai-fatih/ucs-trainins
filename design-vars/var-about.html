@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Section — Floating Sidebar • UCS-Service</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a56db;
+      --primary-light: #e8effa;
+      --teal: #0d9488;
+      --teal-light: #ccfbf1;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-900: #111827;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--gray-900);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding: 32px 16px;
+    }
+
+    /* ===== Shared ===== */
+    .avatar-circle {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      margin: 0 auto 10px;
+      box-shadow: 0 4px 12px rgba(26,86,219,0.2);
+    }
+
+    .tag-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 600;
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ===== Main section ===== */
+    .about {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: var(--radius-xl);
+      padding: 48px 40px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    /* ---- Top header ---- */
+    .about-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    .about-header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .about-header p {
+      font-size: 14px;
+      color: var(--gray-400);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .about-header .stats {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .about-header .stat {
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--radius-md);
+      padding: 10px 20px;
+      text-align: center;
+      min-width: 120px;
+    }
+
+    .about-header .stat .num {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--teal);
+    }
+
+    .about-header .stat .label {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 1px;
+    }
+
+    /* ---- Split body ---- */
+    .about-body {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 0;
+      align-items: center;
+    }
+
+    /* ---- Carousel ---- */
+    .carousel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .carousel-wrap {
+      perspective: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 300px;
+      width: 100%;
+    }
+
+    .car-card {
+      position: absolute;
+      width: 240px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-xl);
+      padding: 24px 20px;
+      text-align: center;
+      color: white;
+      transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transform-style: preserve-3d;
+      cursor: default;
+    }
+
+    .car-card h3 { font-size: 15px; font-weight: 700; }
+    .car-card .role { font-size: 12px; opacity: 0.7; }
+    .car-card .tags { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-top: 8px; }
+    .car-card .sen { margin-top: 8px; font-size: 11px; font-weight: 600; color: var(--teal); }
+
+    .car-card.active {
+      transform: translateX(0) rotateY(0deg) scale(1);
+      z-index: 3;
+      box-shadow: 0 20px 60px rgba(26,86,219,0.3);
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .car-card.prev {
+      transform: translateX(-180px) rotateY(15deg) scale(0.85);
+      z-index: 2;
+      opacity: 0.6;
+    }
+
+    .car-card.next {
+      transform: translateX(180px) rotateY(-15deg) scale(0.85);
+      z-index: 2;
+      opacity: 0.6;
+    }
+
+    .car-card.hidden {
+      transform: translateX(-340px) rotateY(30deg) scale(0.7);
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .car-card.hidden-r {
+      transform: translateX(340px) rotateY(-30deg) scale(0.7);
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .car-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .car-nav button {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .car-nav button:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); }
+
+    .car-dots { display: flex; gap: 6px; }
+
+    .car-dots span {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .car-dots span.active { background: var(--teal); width: 22px; border-radius: 4px; }
+
+    /* ---- Contacts card ---- */
+    .contacts-card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      color: white;
+      position: relative;
+      z-index: 2;
+      margin-left: -40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .contacts-card .c-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: white;
+      margin-bottom: 12px;
+      transition: 0.2s;
+    }
+
+    .contacts-card .c-item:hover { transform: translateX(4px); }
+
+    .contacts-card .c-icon {
+      width: 34px; height: 34px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 13px;
+    }
+
+    .contacts-card .c-label { font-size: 10px; opacity: 0.5; margin-bottom: 1px; }
+    .contacts-card .c-value { font-size: 13px; font-weight: 600; }
+
+    .contacts-card .c-item:hover .c-icon { background: rgba(13,148,136,0.2); transform: scale(1.1); transition: 0.2s; }
+
+    .contacts-card .c-ext {
+      font-size: 11px;
+      opacity: 0.5;
+      margin: -4px 0 14px 44px;
+    }
+
+    .contacts-card .c-ext .dot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: rgba(13,148,136,0.2);
+      color: var(--teal);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .contacts-card .chat-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 18px;
+      border: none;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--primary), var(--teal));
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+    }
+
+    .contacts-card .chat-btn:hover {
+      box-shadow: 0 4px 20px rgba(26,86,219,0.3);
+      transform: scale(1.02);
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 900px) {
+      .about { padding: 32px 20px; }
+      .about-body { grid-template-columns: 1fr; gap: 24px; }
+      .contacts-card { margin-left: 0; margin-top: -24px; }
+      .car-card { width: 200px; }
+      .car-card.prev { transform: translateX(-130px) rotateY(15deg) scale(0.85); }
+      .car-card.next { transform: translateX(130px) rotateY(-15deg) scale(0.85); }
+      .about-header .stats { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="about">
+  <div class="about-header">
+    <h2>Отдел консультации и обучения</h2>
+    <p>Помогаем ресторанам разобраться с rkeeper, StoreHouse и доставкой. Проводим обучение, заводим справочники, консультируем по любым вопросам.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="num">500+</div>
+        <div class="label">Клиентов</div>
+      </div>
+      <div class="stat">
+        <div class="num">15+</div>
+        <div class="label">Лет опыта</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-body">
+    <div class="carousel">
+      <div class="carousel-wrap" id="cw">
+        <div class="car-card prev" data-idx="0">
+          <div class="avatar-circle" style="background:rgba(255,255,255,0.15);">АМ</div>
+          <h3>Амир Мурзабеков</h3>
+          <p class="role">Руководитель</p>
+          <div class="tags">
+            <span class="tag-pill">НДС</span>
+            <span class="tag-pill">ЕГАИС</span>
+            <span class="tag-pill">Честный Знак</span>
+          </div>
+          <div class="sen">✦ 7+ лет</div>
+        </div>
+        <div class="car-card active" data-idx="1">
+          <div class="avatar-circle" style="background:rgba(255,255,255,0.15);">ЕЛ</div>
+          <h3>Елена Попова</h3>
+          <p class="role">Менеджер</p>
+          <div class="tags">
+            <span class="tag-pill">Консультации</span>
+            <span class="tag-pill">Обучение</span>
+            <span class="tag-pill">Отчёты</span>
+          </div>
+          <div class="sen">✦ 8+ лет</div>
+        </div>
+        <div class="car-card next" data-idx="2">
+          <div class="avatar-circle" style="background:rgba(255,255,255,0.15);">ВЛ</div>
+          <h3>Владислав Фатихов</h3>
+          <p class="role">Менеджер</p>
+          <div class="tags">
+            <span class="tag-pill">Выгрузка в 1C</span>
+            <span class="tag-pill">Номенклатура</span>
+          </div>
+          <div class="sen">✦ 1+ год</div>
+        </div>
+        <div class="car-card hidden" data-idx="3">
+          <div class="avatar-circle" style="background:rgba(255,255,255,0.15);">ДМ</div>
+          <h3>Дмитрий Резников</h3>
+          <p class="role">Менеджер</p>
+          <div class="tags">
+            <span class="tag-pill">Обучение персонала</span>
+            <span class="tag-pill">Консультации</span>
+          </div>
+          <div class="sen">✦ &lt; 1 год</div>
+        </div>
+        <div class="car-card hidden-r" data-idx="4">
+          <div class="avatar-circle" style="background:rgba(255,255,255,0.15);">ЕЛ</div>
+          <h3>Елизавета Галаган</h3>
+          <p class="role">Менеджер</p>
+          <div class="tags">
+            <span class="tag-pill">Консультации</span>
+            <span class="tag-pill">Отчёты</span>
+            <span class="tag-pill">1C</span>
+          </div>
+          <div class="sen">✦ &lt; 1 год</div>
+        </div>
+      </div>
+      <div class="car-nav">
+        <button onclick="carPrev()">←</button>
+        <div class="car-dots" id="dots">
+          <span onclick="carGo(0)"></span>
+          <span class="active" onclick="carGo(1)"></span>
+          <span onclick="carGo(2)"></span>
+          <span onclick="carGo(3)"></span>
+          <span onclick="carGo(4)"></span>
+        </div>
+        <button onclick="carNext()">→</button>
+      </div>
+    </div>
+
+    <div class="contacts-card">
+      <a href="mailto:school@ucs-service.ru" class="c-item">
+        <div class="c-icon">✉</div>
+        <div><div class="c-label">Электронная почта</div><div class="c-value">school@ucs-service.ru</div></div>
+      </a>
+      <a href="tel:+74959214770" class="c-item">
+        <div class="c-icon">📞</div>
+        <div><div class="c-label">Телефон:</div><div class="c-value">+7 (495) 921-47-70</div></div>
+      </a>
+      <p class="c-ext">добавочный <span class="dot">2</span> — отдел консультации и обучения</p>
+      <button class="chat-btn">💬 Написать в чат</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  let cards = [], active = 1;
+
+  function init() {
+    const wrap = document.getElementById('cw');
+    if (!wrap) return;
+    cards = wrap.querySelectorAll('.car-card');
+    render();
+  }
+
+  function render() {
+    const total = cards.length;
+    cards.forEach((c, i) => {
+      c.className = 'car-card';
+      if (i === active) c.classList.add('active');
+      else if (i === (active - 1 + total) % total) c.classList.add('prev');
+      else if (i === (active + 1) % total) c.classList.add('next');
+      else {
+        const dist = (i - active + total) % total;
+        c.classList.add(dist <= total / 2 ? 'hidden' : 'hidden-r');
+      }
+    });
+    document.querySelectorAll('.car-dots span').forEach((d, i) => d.classList.toggle('active', i === active));
+  }
+
+  function carNext() { active = (active + 1) % cards.length; render(); }
+  function carPrev() { active = (active - 1 + cards.length) % cards.length; render(); }
+  function carGo(i) { active = i; render(); }
+
+  document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

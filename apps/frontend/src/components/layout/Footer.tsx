@@ -1,14 +1,19 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuthStore } from '@/stores/auth';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
 export function Footer() {
   const { user, isAuthenticated } = useAuthStore();
+  const [hydrated, setHydrated] = useState(false);
 
-  const isStaff = user?.role === 'admin' || user?.role === 'company_admin' || user?.role === 'specialist';
-  const dashboardHref = !isAuthenticated ? '/' : isStaff ? '/admin/dashboard' : '/dashboard';
+  useEffect(() => { setHydrated(true); }, []);
+
+  const effectiveUser = hydrated ? user : null;
+  const effectiveAuth = hydrated && isAuthenticated;
+  const isStaff = effectiveUser?.role === 'admin' || effectiveUser?.role === 'company_admin' || effectiveUser?.role === 'specialist';
+  const dashboardHref = !effectiveAuth ? '/' : isStaff ? '/admin/dashboard' : '/dashboard';
 
   return (
     <footer className="glass-strong border-t border-white/20">

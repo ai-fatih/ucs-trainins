@@ -8,7 +8,9 @@ import { Badge } from '@/components/ui/Badge';
 import { Tabs } from '@/components/ui/Tabs';
 import { TableRowSkeleton } from '@/components/ui/Skeleton';
 import { getStatusLabel } from '@/lib/utils';
-import { Calendar, MessageCircle, XCircle, Star } from 'lucide-react';
+import { Calendar, MessageCircle, XCircle, Star, ClipboardList, HeartHandshake } from 'lucide-react';
+import { QualitySurveyModal } from '@/components/features/QualitySurveyModal';
+import { TipModal } from '@/components/features/TipModal';
 import toast from 'react-hot-toast';
 
 const tabs = [
@@ -20,6 +22,8 @@ const tabs = [
 
 export default function BookingsPage() {
   const [activeTab, setActiveTab] = useState('all');
+  const [surveyBooking, setSurveyBooking] = useState<Booking | null>(null);
+  const [tipBooking, setTipBooking] = useState<Booking | null>(null);
   const queryClient = useQueryClient();
 
   const { data: bookings = [], isLoading } = useQuery<Booking[]>({
@@ -98,10 +102,28 @@ export default function BookingsPage() {
                           </button>
                         </>
                       )}
-                      {booking.status === 'completed' && !booking.rating && (
-                        <Link href="/review" className="text-xs text-[#1a56db] hover:bg-[#e8effa] px-2 py-1 rounded-md transition-colors">
-                          <Star className="w-3 h-3 inline mr-1" /> Оценить
-                        </Link>
+                      {booking.status === 'completed' && (
+                        <>
+                          {!booking.rating && (
+                            <Link href="/review" className="text-xs text-[#1a56db] hover:bg-[#e8effa] px-2 py-1 rounded-md transition-colors">
+                              <Star className="w-3 h-3 inline mr-1" /> Оценить
+                            </Link>
+                          )}
+                          {!booking.feedbackCompleted && (
+                            <button
+                              onClick={() => setSurveyBooking(booking)}
+                              className="text-xs text-[#0d9488] hover:bg-[#ecfdf5] px-2 py-1 rounded-md transition-colors"
+                            >
+                              <ClipboardList className="w-3 h-3 inline mr-1" /> Опрос
+                            </button>
+                          )}
+                          <button
+                            onClick={() => setTipBooking(booking)}
+                            className="text-xs text-[#dc2626] hover:bg-[#fef2f2] px-2 py-1 rounded-md transition-colors"
+                          >
+                            <HeartHandshake className="w-3 h-3 inline mr-1" /> Чаевые
+                          </button>
+                        </>
                       )}
                     </div>
                   </div>
@@ -109,6 +131,22 @@ export default function BookingsPage() {
               );
             })}
       </div>
+
+      <QualitySurveyModal
+        open={!!surveyBooking}
+        onClose={() => setSurveyBooking(null)}
+        specialistName={surveyBooking?.specialistName}
+        onComplete={() => {
+          queryClient.invalidateQueries({ queryKey: ['bookings'] });
+        }}
+      />
+
+      <TipModal
+        open={!!tipBooking}
+        onClose={() => setTipBooking(null)}
+        specialistName={tipBooking?.specialistName}
+        bookingId={tipBooking?.id || ''}
+      />
     </div>
   );
 }
