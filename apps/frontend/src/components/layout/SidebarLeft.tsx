@@ -41,7 +41,7 @@ export function SidebarLeft() {
   const pathname = usePathname();
   const { user, isAuthenticated } = useAuthStore();
   const { sidebarOpen, setSidebarOpen } = useUIStore();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [servicesOpen, setServicesOpen] = useState(true);
   const [instructionsOpen, setInstructionsOpen] = useState(true);
   const [hydrated, setHydrated] = useState(false);
@@ -94,7 +94,7 @@ export function SidebarLeft() {
           <div className="flex items-center gap-2.5">
             <Link
               href="/"
-              className={`no-underline ${collapsed ? 'mx-auto' : 'md:hidden'}`}
+              className={`no-underline ${collapsed ? 'mx-auto' : 'md:hidden lg:block'}`}
               onClick={() => setSidebarOpen(false)}
             >
               <span className={`whitespace-nowrap flex items-center justify-center rounded-lg bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white text-sm font-bold ${collapsed ? 'w-8 h-8 mx-auto' : 'px-3 py-1.5'}`}>
@@ -103,7 +103,7 @@ export function SidebarLeft() {
             </Link>
             <button
               onClick={() => setSidebarOpen(false)}
-              className={`ml-auto md:hidden w-8 h-8 rounded-lg flex items-center justify-center text-[#6b7280] hover:text-[#dc2626] hover:bg-red-50 transition-all ${collapsed ? 'hidden' : ''}`}
+              className="ml-auto md:hidden w-8 h-8 rounded-lg flex items-center justify-center text-[#6b7280] hover:text-[#dc2626] hover:bg-red-50 transition-all"
             >
               <X className="w-4 h-4" />
             </button>
