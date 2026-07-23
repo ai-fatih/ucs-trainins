@@ -2,6 +2,8 @@ import { randomBytes, randomUUID } from 'node:crypto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { RequestStatus } from '@prisma/client';
+import { PinoLogger } from 'nestjs-pino';
+import { AuditService } from '../audit/audit.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateRequestCommentDto } from './dto/create-request-comment.dto';
 import { CreateRequestDto } from './dto/create-request.dto';
@@ -22,13 +24,17 @@ export class RequestsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly config: ConfigService,
-  ) {}
+    private readonly audit: AuditService,
+    private readonly logger: PinoLogger,
+  ) {
+    this.logger.setContext(RequestsService.name);
+  }
 
   async create(dto: CreateRequestDto) {
     const date = new Date().toISOString().slice(0, 10).replaceAll('-', '');
     const number = `REQ-${date}-${randomUUID().slice(0, 8).toUpperCase()}`;
 
-    return this.prisma.request.create({
+    const request = await this.prisma.request.create({
       data: {
         number,
         name: dto.name.trim(),
@@ -40,6 +46,16 @@ export class RequestsService {
         history: { create: { toStatus: RequestStatus.new } },
       },
     });
+
+    this.logger.info({ requestId: request.id, number }, 'request created');
+    await this.audit.log({
+      action: 'create',
+      entity: 'request',
+      entityId: request.id,
+      detail: `Request ${number} created (${dto.serviceType})`,
+    });
+
+    return request;
   }
 
   findAll() {
@@ -93,6 +109,19 @@ export class RequestsService {
         },
       }),
     ]);
+
+    this.logger.info(
+      { requestId: id, from: existing.status, to: status, adminId: adminUserId },
+      'request status changed',
+    );
+    await this.audit.log({
+      adminId: adminUserId,
+      action: 'update_status',
+      entity: 'request',
+      entityId: id,
+      detail: `Status changed ${existing.status} → ${status}`,
+    });
+
     return this.findOne(id);
   }
 
@@ -102,10 +131,22 @@ export class RequestsService {
     dto: CreateRequestCommentDto,
   ) {
     await this.ensureExists(id);
-    return this.prisma.requestComment.create({
+
+    const comment = await this.prisma.requestComment.create({
       data: { requestId: id, adminUserId, text: dto.text.trim() },
       include: { adminUser: { select: { id: true, email: true } } },
     });
+
+    this.logger.info({ requestId: id, adminId: adminUserId }, 'comment added');
+    await this.audit.log({
+      adminId: adminUserId,
+      action: 'add_comment',
+      entity: 'request',
+      entityId: id,
+      detail: `Comment added to request ${id}`,
+    });
+
+    return comment;
   }
 
   async createFeedbackLink(id: string): Promise<{ url: string; token: string }> {
@@ -132,7 +173,17 @@ export class RequestsService {
     }
 
     const frontendUrl = this.config.getOrThrow<string>('FRONTEND_URL').replace(/\/$/, '');
-    return { token, url: `${frontendUrl}/feedback/${token}` };
+    const url = `${frontendUrl}/feedback/${token}`;
+
+    this.logger.info({ requestId: id, token }, 'feedback link created');
+    await this.audit.log({
+      action: 'create_feedback_link',
+      entity: 'request',
+      entityId: id,
+      detail: `Feedback link created for request ${id}`,
+    });
+
+    return { token, url };
   }
 
   private async ensureExists(id: string): Promise<void> {

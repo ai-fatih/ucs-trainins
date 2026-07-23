@@ -50,6 +50,8 @@ export interface FeedbackRequestSummary {
   feedbackSubmitted: boolean;
 }
 
+import { logger } from './logger';
+
 export class ApiError extends Error {
   constructor(
     message: string,
@@ -62,29 +64,42 @@ export class ApiError extends Error {
 const apiUrl = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000').replace(/\/$/, '');
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const response = await fetch(`${apiUrl}${path}`, {
-    ...options,
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-  });
+  const method = options.method ?? 'GET';
+  logger.info(`API ${method} ${path}`);
 
-  if (!response.ok) {
-    const body = (await response.json().catch(() => null)) as
-      | { message?: string | string[] }
-      | null;
-    const message = Array.isArray(body?.message)
-      ? body.message.join(', ')
-      : body?.message ?? 'Ошибка запроса к серверу';
-    throw new ApiError(message, response.status);
-  }
+  try {
+    const response = await fetch(`${apiUrl}${path}`, {
+      ...options,
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+    });
 
-  if (response.status === 204) {
-    return undefined as T;
+    if (!response.ok) {
+      const body = (await response.json().catch(() => null)) as
+        | { message?: string | string[] }
+        | null;
+      const message = Array.isArray(body?.message)
+        ? body.message.join(', ')
+        : body?.message ?? 'Ошибка запроса к серверу';
+      logger.error(`API ${method} ${path} ${response.status} — ${message}`);
+      throw new ApiError(message, response.status);
+    }
+
+    if (response.status === 204) {
+      logger.info(`API ${method} ${path} 204`);
+      return undefined as T;
+    }
+
+    logger.info(`API ${method} ${path} ${response.status}`);
+    return response.json() as Promise<T>;
+  } catch (error) {
+    if (error instanceof ApiError) throw error;
+    logger.error(`API ${method} ${path} — ${(error as Error).message}`);
+    throw error;
   }
-  return response.json() as Promise<T>;
 }
 
 export const apiClient = {

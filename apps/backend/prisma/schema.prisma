@@ -29,6 +29,7 @@ model AdminUser {
   updatedAt    DateTime         @updatedAt
   comments     RequestComment[]
   history      RequestHistory[]
+  auditLogs    AdminAuditLog[]
 }
 
 model Request {
@@ -88,4 +89,21 @@ model RequestHistory {
   adminUser   AdminUser?     @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
 
   @@index([requestId, createdAt])
+}
+
+model AdminAuditLog {
+  id        String   @id @default(cuid())
+  adminId   String?
+  action    String
+  entity    String
+  entityId  String?
+  detail    String?
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  adminUser AdminUser? @relation(fields: [adminId], references: [id], onDelete: SetNull)
+
+  @@index([action, createdAt])
+  @@index([entity, entityId])
+  @@index([adminId, createdAt])
 }

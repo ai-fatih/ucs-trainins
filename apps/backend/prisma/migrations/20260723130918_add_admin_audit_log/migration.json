@@ -1,0 +1,37 @@
+{
+  "version": "6.19",
+  "steps": [
+    {
+      "tag": "CreateTable",
+      "model": "AdminAuditLog",
+      "columns": [
+        { "name": "id", "type": "TEXT", "isRequired": true, "isList": false, "isId": true, "default": { "name": "cuid", "args": [] } },
+        { "name": "adminId", "type": "TEXT", "isRequired": false, "isList": false },
+        { "name": "action", "type": "TEXT", "isRequired": true, "isList": false },
+        { "name": "entity", "type": "TEXT", "isRequired": true, "isList": false },
+        { "name": "entityId", "type": "TEXT", "isRequired": false, "isList": false },
+        { "name": "detail", "type": "TEXT", "isRequired": false, "isList": false },
+        { "name": "ip", "type": "TEXT", "isRequired": false, "isList": false },
+        { "name": "userAgent", "type": "TEXT", "isRequired": false, "isList": false },
+        { "name": "createdAt", "type": "DateTime", "isRequired": true, "isList": false, "default": { "name": "now" } }
+      ],
+      "primaryKey": { "name": "AdminAuditLog_pkey", "fields": ["id"] },
+      "uniqueConstraints": [],
+      "foreignKeys": [
+        {
+          "name": "AdminAuditLog_adminId_fkey",
+          "columns": ["adminId"],
+          "referencedTable": "AdminUser",
+          "referencedColumns": ["id"],
+          "onDelete": "SetNull",
+          "onUpdate": "Cascade"
+        }
+      ],
+      "indexes": [
+        { "name": "AdminAuditLog_action_createdAt_idx", "columns": ["action", "createdAt"] },
+        { "name": "AdminAuditLog_entity_entityId_idx", "columns": ["entity", "entityId"] },
+        { "name": "AdminAuditLog_adminId_createdAt_idx", "columns": ["adminId", "createdAt"] }
+      ]
+    }
+  ]
+}

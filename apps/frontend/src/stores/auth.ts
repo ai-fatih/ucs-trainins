@@ -1,6 +1,7 @@
 'use client';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { logger } from '@/lib/logger';
 import type { User } from '@/types';
 
 interface AuthState {
@@ -16,8 +17,14 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       isAuthenticated: false,
-      login: (user) => set({ user, isAuthenticated: true }),
-      logout: () => set({ user: null, isAuthenticated: false }),
+      login: (user) => {
+        logger.info(`auth: user logged in — ${user.email}`);
+        set({ user, isAuthenticated: true });
+      },
+      logout: () => {
+        logger.info('auth: user logged out');
+        set({ user: null, isAuthenticated: false });
+      },
       setUser: (user) => set({ user }),
     }),
     {

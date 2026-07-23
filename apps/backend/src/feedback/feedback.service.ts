@@ -3,12 +3,20 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { PinoLogger } from 'nestjs-pino';
+import { AuditService } from '../audit/audit.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { SubmitFeedbackDto } from './dto/submit-feedback.dto';
 
 @Injectable()
 export class FeedbackService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly audit: AuditService,
+    private readonly logger: PinoLogger,
+  ) {
+    this.logger.setContext(FeedbackService.name);
+  }
 
   async findByToken(token: string) {
     const request = await this.prisma.request.findUnique({
@@ -45,6 +53,12 @@ export class FeedbackService {
     });
 
     if (result.count === 1) {
+      this.logger.info({ token, rating: dto.rating }, 'feedback submitted');
+      await this.audit.log({
+        action: 'submit_feedback',
+        entity: 'feedback',
+        detail: `Feedback submitted for token ${token}, rating: ${dto.rating}`,
+      });
       return { success: true };
     }
 
@@ -55,6 +69,7 @@ export class FeedbackService {
     if (!request) {
       throw new NotFoundException('Feedback link not found');
     }
+    this.logger.warn({ token }, 'duplicate feedback attempt');
     throw new ConflictException('Feedback has already been submitted');
   }
 }

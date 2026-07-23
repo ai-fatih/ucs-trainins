@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuthStore } from '@/stores/auth';
@@ -9,6 +9,7 @@ import {
   UserCircle, ChevronLeft, ChevronRight, ChevronDown, X, Gamepad2,
   Monitor, Cloud, Smartphone,
 } from 'lucide-react';
+import { SidebarSearch } from './SidebarSearch';
 
 interface SidebarGroup {
   label: string;
@@ -59,6 +60,7 @@ const SIDEBAR_MAIN: SidebarSection[] = [
   {
     label: 'Услуги',
     icon: ListTree,
+    href: '/booking',
     children: [
       { href: '/booking', label: 'Консультации' },
       { href: '/booking', label: 'Обучение' },
@@ -79,14 +81,31 @@ export function SidebarLeft() {
   const { user, isAuthenticated } = useAuthStore();
   const { sidebarOpen, setSidebarOpen } = useUIStore();
   const [collapsed, setCollapsed] = useState(true);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [instructionsOpen, setInstructionsOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const [instructionsOpen, setInstructionsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const prevPathname = useRef('');
 
   useEffect(() => { setHydrated(true); }, []);
 
+  useEffect(() => {
+    const prev = prevPathname.current;
+    prevPathname.current = pathname;
+    if (!prev.startsWith('/instructions') && pathname.startsWith('/instructions')) {
+      setInstructionsOpen(true);
+    }
+    if (!prev.startsWith('/booking') && pathname.startsWith('/booking')) {
+      setServicesOpen(true);
+    }
+  }, [pathname]);
+
+  const toggleInstructions = () => setInstructionsOpen((v) => !v);
+  const toggleServices = () => setServicesOpen((v) => !v);
+
   const effectiveUser = hydrated ? user : null;
   const effectiveAuth = hydrated && isAuthenticated;
+
+  const showSearch = hydrated && (sidebarOpen || !collapsed);
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
@@ -103,6 +122,31 @@ export function SidebarLeft() {
         ? 'bg-gradient-to-r from-[#1a56db]/10 to-[#0d9488]/10 text-[#1a56db] font-semibold'
         : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
     }`;
+
+  /* ---- swipe to open (mobile) ---- */
+  const touchRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const onStart = (e: TouchEvent) => {
+      const t = e.touches[0];
+      touchRef.current = { x: t.clientX, y: t.clientY };
+    };
+    const onEnd = (e: TouchEvent) => {
+      if (sidebarOpen) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchRef.current.x;
+      const dy = Math.abs(t.clientY - touchRef.current.y);
+      if (touchRef.current.x < 30 && dx > 50 && dy < 30) {
+        setSidebarOpen(true);
+      }
+    };
+    document.addEventListener('touchstart', onStart, { passive: true });
+    document.addEventListener('touchend', onEnd, { passive: true });
+    return () => {
+      document.removeEventListener('touchstart', onStart);
+      document.removeEventListener('touchend', onEnd);
+    };
+  }, [sidebarOpen, setSidebarOpen]);
 
   return (
     <>
@@ -147,17 +191,18 @@ export function SidebarLeft() {
           </div>
         </div>
 
+        {showSearch && <SidebarSearch />}
+
         <nav className="flex-1 overflow-y-auto space-y-0.5 px-3 py-3">
           {SIDEBAR_MAIN.map((item) => {
             if ('groups' in item && item.groups) {
               const Icon = item.icon!;
               const open = instructionsOpen;
-              const toggle = () => setInstructionsOpen(!instructionsOpen);
               return (
                 <div key={item.label}>
                   <Link
                     href={item.href!}
-                    onClick={() => { setSidebarOpen(false); setInstructionsOpen(true); }}
+                    onClick={() => { setSidebarOpen(false); }}
                     className={labelClass(isActive(item.href!))}
                     title={item.label}
                   >
@@ -165,7 +210,7 @@ export function SidebarLeft() {
                     <span className={`flex-1 md:hidden ${!collapsed ? 'lg:block' : ''}`}>{item.label}</span>
                     <ChevronDown
                       className={`w-4 h-4 text-[#9ca3af] transition-transform ${open ? 'rotate-0' : '-rotate-90'} md:hidden ${!collapsed ? 'lg:block' : ''}`}
-                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(); }}
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleInstructions(); }}
                     />
                   </Link>
                   {open && (
@@ -204,20 +249,21 @@ export function SidebarLeft() {
             if ('children' in item && item.children) {
               const Icon = item.icon!;
               const open = servicesOpen;
-              const toggle = () => setServicesOpen(!servicesOpen);
               return (
                 <div key={item.label}>
-                  <div
-                    onClick={toggle}
-                    className={labelClass(false)}
+                  <Link
+                    href={item.href!}
+                    onClick={() => setSidebarOpen(false)}
+                    className={labelClass(isActive(item.href!))}
                     title={item.label}
                   >
                     <Icon className="w-5 h-5 shrink-0" />
                     <span className={`flex-1 md:hidden ${!collapsed ? 'lg:block' : ''}`}>{item.label}</span>
                     <ChevronDown
                       className={`w-4 h-4 text-[#9ca3af] transition-transform ${open ? 'rotate-0' : '-rotate-90'} md:hidden ${!collapsed ? 'lg:block' : ''}`}
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleServices(); }}
                     />
-                  </div>
+                  </Link>
                   {open && (
                     <div className={`ml-7 mt-0.5 space-y-0.5 border-l-2 border-[#e5e7eb] pl-2 md:hidden ${!collapsed ? 'lg:block' : ''}`}>
                       {item.children.map((child) => (
@@ -286,6 +332,10 @@ export function SidebarLeft() {
           </Link>
         </div>
       </aside>
+
+      {!sidebarOpen && (
+        <div className="fixed left-0 top-0 bottom-0 w-[3px] z-40 pointer-events-none md:hidden bg-gradient-to-b from-[#1a56db] to-[#0d9488] opacity-30" />
+      )}
     </>
   );
 }

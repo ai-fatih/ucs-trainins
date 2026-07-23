@@ -2,6 +2,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcryptjs';
+import { PinoLogger } from 'nestjs-pino';
+import { AuditService } from '../audit/audit.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { AUTH_COOKIE_MAX_AGE } from './auth.constants';
 
@@ -11,7 +13,11 @@ export class AuthService {
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
     private readonly config: ConfigService,
-  ) {}
+    private readonly audit: AuditService,
+    private readonly logger: PinoLogger,
+  ) {
+    this.logger.setContext(AuthService.name);
+  }
 
   async login(email: string, password: string): Promise<{
     token: string;
@@ -23,6 +29,12 @@ export class AuthService {
     });
 
     if (!admin || !(await compare(password, admin.passwordHash))) {
+      this.logger.warn({ email }, 'failed login attempt');
+      await this.audit.log({
+        action: 'login_failed',
+        entity: 'admin',
+        detail: `Failed login attempt for ${email}`,
+      });
       throw new UnauthorizedException('Invalid email or password');
     }
 
@@ -33,6 +45,15 @@ export class AuthService {
         expiresIn: '7d',
       },
     );
+
+    this.logger.info({ adminId: admin.id }, 'admin logged in');
+    await this.audit.log({
+      adminId: admin.id,
+      action: 'login',
+      entity: 'admin',
+      entityId: admin.id,
+      detail: `Admin ${admin.email} logged in`,
+    });
 
     return {
       token,
