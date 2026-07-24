@@ -4,7 +4,7 @@ import { Gamepad2, RefreshCw } from 'lucide-react';
 import type { QuizQuestion, QuizResult } from '@/types';
 import quizData from '@/data/quiz.json';
 
-const QUESTIONS_PER_ROUND = 5;
+const QUESTIONS_PER_ROUND = 10;
 
 export default function QuizPage() {
   const [started, setStarted] = useState(false);
@@ -116,9 +116,15 @@ export default function QuizPage() {
           })}
         </div>
         {selected !== null && (
-          <button onClick={next} className="glass-btn mt-6 w-full justify-center">
-            {current < QUESTIONS_PER_ROUND - 1 ? 'Следующий вопрос →' : 'Узнать результат'}
-          </button>
+          <>
+            <div className="mt-6 p-4 rounded-lg bg-[#f0f4ff] border border-[#bfdbfe] text-sm text-[#1e40af] leading-relaxed">
+              <span className="font-semibold">Пояснение: </span>
+              {q.commentary}
+            </div>
+            <button onClick={next} className="glass-btn mt-4 w-full justify-center">
+              {current < QUESTIONS_PER_ROUND - 1 ? 'Следующий вопрос →' : 'Узнать результат'}
+            </button>
+          </>
         )}
       </div>
     </div>

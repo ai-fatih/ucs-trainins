@@ -152,6 +152,7 @@ export interface QuizQuestion {
   question: string;
   options: string[];
   correct: number;
+  commentary: string;
 }
 
 export interface QuizResult {
