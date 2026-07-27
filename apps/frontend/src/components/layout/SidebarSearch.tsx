@@ -21,7 +21,7 @@ const ITEMS: Item[] = [
   { href: '/booking', label: 'Консультации', context: 'Услуги' },
   { href: '/booking', label: 'Обучение', context: 'Услуги' },
   { href: '/chat', label: 'Чат с отделом', context: '' },
-  { href: '/quiz', label: 'Викторина', context: '' },
+  { href: '/games', label: 'Игры и тренажёры', context: '' },
   { href: '/profile', label: 'Личный кабинет', context: '' },
   { href: '/notifications', label: 'Уведомления', context: '' },
   { href: '/booking', label: 'Записаться', context: '' },

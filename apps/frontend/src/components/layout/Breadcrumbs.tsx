@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -13,7 +13,11 @@ const LABEL_MAP: Record<string, string> = {
   waiter: 'Waiter & Cash Desk',
   booking: 'Услуги',
   chat: 'Чат с отделом',
-  quiz: 'Викторина',
+  games: 'Игры и тренажёры',
+  arena: 'Лига',
+  train: 'Тренажёр',
+  tracker: 'Мини-игры',
+  bubble: 'Bubble Pop',
   profile: 'Личный кабинет',
   notifications: 'Уведомления',
   admin: 'Панель управления',

@@ -161,6 +161,147 @@ export interface QuizResult {
   correct: boolean;
 }
 
+export interface MatchPair {
+  id: string;
+  term: string;
+  definition: string;
+}
+
+export interface Scenario {
+  id: string;
+  title: string;
+  steps: string[];
+}
+
+export interface MashaChoice {
+  text: string;
+  next: string;
+  correct: boolean;
+  hint: string;
+}
+
+export interface MashaStep {
+  id: string;
+  question: string;
+  choices: MashaChoice[];
+}
+
+export interface MashaCase {
+  id: string;
+  title: string;
+  description: string;
+  steps: MashaStep[];
+}
+
+export interface OrderItem {
+  name: string;
+  category: string;
+  price: number;
+  hasDiscount: boolean;
+  discount?: number;
+  isAlcohol?: boolean;
+  isDraft?: boolean;
+  needStamp?: boolean;
+}
+
+export interface Order {
+  id: string;
+  order: string;
+  items: OrderItem[];
+  payment: string;
+  difficulty: number;
+}
+
+export type ArenaRoundType = 'quiz' | 'sprint' | 'match' | 'chain';
+export type TrainRoundType = 'case' | 'chain';
+
+export interface ArenaRoundConfig {
+  title: string;
+  icon: string;
+  timeLimit: number | null;
+  maxScore: number;
+}
+
+export interface RankThreshold {
+  title: string;
+  minXp: number;
+  icon: string;
+}
+
+export interface ArenaConfig {
+  roundsPerSession: number;
+  roundPool: ArenaRoundType[];
+  roundTypes: Record<ArenaRoundType, ArenaRoundConfig>;
+  rankThresholds: RankThreshold[];
+  pickCount: number;
+  sessionsPerDay: number;
+}
+
+export interface TrainRoundConfig {
+  title: string;
+  icon: string;
+}
+
+export interface TrainerConfig {
+  casesPerSession: number;
+  casePool: TrainRoundType[];
+  caseTypes: Record<TrainRoundType, TrainRoundConfig>;
+  xpPerCase: number;
+  levelThreshold: number;
+}
+
+export interface GameConfig {
+  arena: ArenaConfig;
+  trainer: TrainerConfig;
+  questions: QuizQuestion[];
+  matchPairs: MatchPair[];
+  scenarios: Scenario[];
+  decisionTrees: DecisionTree[];
+}
+
+export interface DecisionTree {
+  id: string;
+  title: string;
+  description: string;
+  startStep: string;
+  steps: DecisionStep[];
+}
+
+export interface DecisionStep {
+  id: string;
+  question: string;
+  choices: DecisionChoice[];
+}
+
+export interface DecisionChoice {
+  text: string;
+  next: string;
+  correct: boolean;
+  hint: string;
+}
+
+export interface ArenaProgress {
+  xp: number;
+  bestScore: number;
+  sessionsPlayed: number;
+  dailyDate: string;
+  dailySessions: number;
+  streak: number;
+}
+
+export interface TrainProgress {
+  casesSolved: number;
+  level: number;
+  sessionsCompleted: number;
+}
+
+export interface RoundResult {
+  type: ArenaRoundType | TrainRoundType;
+  score: number;
+  maxScore: number;
+  label: string;
+}
+
 export interface MonthlyStat {
   total: number;
   completed: number;

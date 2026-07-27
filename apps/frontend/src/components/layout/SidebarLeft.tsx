@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -67,7 +67,16 @@ const SIDEBAR_MAIN: SidebarSection[] = [
     ],
   },
   { href: '/chat', label: 'Чат с отделом', icon: MessageCircle },
-  { href: '/quiz', label: 'Викторина (Игра)', icon: Gamepad2 },
+  {
+    label: 'Игры и тренажёры',
+    icon: Gamepad2,
+    href: '/games',
+    children: [
+      { href: '/games/arena', label: 'Лига' },
+      { href: '/games/train', label: 'Тренажёр' },
+      { href: '/games/tracker/bubble', label: 'Bubble Pop' },
+    ],
+  },
 ];
 
 function getAccountHref(user: { role: string } | null, isAuthenticated: boolean): string {
@@ -84,6 +93,7 @@ export function SidebarLeft() {
   const [hydrated, setHydrated] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [gamesOpen, setGamesOpen] = useState(false);
   const prevPathname = useRef('');
 
   useEffect(() => { setHydrated(true); }, []);
@@ -97,10 +107,14 @@ export function SidebarLeft() {
     if (!prev.startsWith('/booking') && pathname.startsWith('/booking')) {
       setServicesOpen(true);
     }
+    if (!prev.startsWith('/games') && pathname.startsWith('/games')) {
+      setGamesOpen(true);
+    }
   }, [pathname]);
 
   const toggleInstructions = () => setInstructionsOpen((v) => !v);
   const toggleServices = () => setServicesOpen((v) => !v);
+  const toggleGames = () => setGamesOpen((v) => !v);
 
   const effectiveUser = hydrated ? user : null;
   const effectiveAuth = hydrated && isAuthenticated;
@@ -248,7 +262,9 @@ export function SidebarLeft() {
 
             if ('children' in item && item.children) {
               const Icon = item.icon!;
-              const open = servicesOpen;
+              const isGames = item.label === 'Игры и тренажёры';
+              const open = isGames ? gamesOpen : servicesOpen;
+              const toggle = isGames ? toggleGames : toggleServices;
               return (
                 <div key={item.label}>
                   <Link
@@ -261,7 +277,7 @@ export function SidebarLeft() {
                     <span className={`flex-1 md:hidden ${!collapsed ? 'lg:block' : ''}`}>{item.label}</span>
                     <ChevronDown
                       className={`w-4 h-4 text-[#9ca3af] transition-transform ${open ? 'rotate-0' : '-rotate-90'} md:hidden ${!collapsed ? 'lg:block' : ''}`}
-                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleServices(); }}
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(); }}
                     />
                   </Link>
                   {open && (

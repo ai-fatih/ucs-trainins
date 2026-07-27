@@ -12,22 +12,24 @@ export function CookieBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(COOKIE_CONSENT_KEY) as ConsentChoice | null;
-    if (!stored) {
-      setVisible(true);
-    } else {
-      setChoice(stored);
-    }
+    try {
+      const stored = localStorage.getItem(COOKIE_CONSENT_KEY) as ConsentChoice | null;
+      if (!stored) {
+        setVisible(true);
+      } else {
+        setChoice(stored);
+      }
+    } catch {}
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
+    try { localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted'); } catch {}
     setChoice('accepted');
     setVisible(false);
   };
 
   const handleReject = () => {
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'rejected');
+    try { localStorage.setItem(COOKIE_CONSENT_KEY, 'rejected'); } catch {}
     setChoice('rejected');
     setVisible(false);
   };
