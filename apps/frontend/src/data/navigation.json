@@ -1,0 +1,141 @@
+﻿{
+  "sections": [
+    {
+      "id": "home",
+      "label": "Главная",
+      "icon": "Home",
+      "href": "/",
+      "headerNav": null
+    },
+    {
+      "id": "docs",
+      "label": "Документация",
+      "icon": "BookOpen",
+      "href": "/docs",
+      "groups": [
+        {
+          "label": "Десктоп",
+          "icon": "Monitor",
+          "items": [
+            { "href": "/docs/rkeeper/rk7", "label": "r_keeper 7" },
+            { "href": "/docs/rkeeper/storehouse", "label": "StoreHouse Pro" }
+          ]
+        },
+        {
+          "label": "Облачные сервисы",
+          "icon": "Cloud",
+          "items": [
+            { "href": "/docs/rkeeper/delivery", "label": "Delivery" },
+            { "href": "/docs/rkeeper/event", "label": "Event" }
+          ]
+        },
+        {
+          "label": "Мобильные",
+          "icon": "Smartphone",
+          "items": [
+            { "href": "/docs/rkeeper/waiter", "label": "Waiter & Cash Desk" }
+          ]
+        }
+      ],
+      "headerNav": [
+        { "href": "/docs", "label": "Все продукты" },
+        { "href": "/docs/rkeeper/rk7", "label": "r_keeper 7" },
+        { "href": "/docs/rkeeper/storehouse", "label": "StoreHouse Pro" },
+        { "href": "/docs/rkeeper/delivery", "label": "Delivery" },
+        { "href": "/docs/rkeeper/event", "label": "Event" },
+        { "href": "/docs/rkeeper/waiter", "label": "Waiter & Cash Desk" }
+      ]
+    },
+    {
+      "id": "services",
+      "label": "Услуги",
+      "icon": "ListTree",
+      "href": "/booking",
+      "headerNav": [
+        { "href": "/services", "label": "Каталог услуг" },
+        { "href": "/specialists", "label": "Специалисты" },
+        { "href": "/booking", "label": "Записаться" },
+        { "href": "/bookings", "label": "Мои записи" }
+      ]
+    },
+    {
+      "id": "dashboard",
+      "label": "Личный кабинет",
+      "icon": "User",
+      "href": "/dashboard",
+      "headerNav": [
+        { "href": "/dashboard", "label": "Дашборд" },
+        { "href": "/bookings", "label": "Записи" },
+        { "href": "/chat", "label": "Чат" },
+        { "href": "/school", "label": "Школа" },
+        { "href": "/profile", "label": "Профиль" }
+      ]
+    },
+    {
+      "id": "school",
+      "label": "Школа",
+      "icon": "GraduationCap",
+      "href": "/school",
+      "headerNav": [
+        { "href": "/school", "label": "Главная" },
+        { "href": "/school/courses", "label": "Мои курсы" },
+        { "href": "/school/leaderboard", "label": "Рейтинг" },
+        { "href": "/school/badges", "label": "Бейджи" },
+        { "href": "/school/certificates", "label": "Сертификаты" },
+        { "href": "/school/profile", "label": "Профиль" },
+        { "href": "/school/notifications", "label": "Уведомления" }
+      ]
+    }
+  ],
+  "routeLabels": {
+    "school": "Школа",
+    "courses": "Мои курсы",
+    "leaderboard": "Рейтинг",
+    "badges": "Бейджи",
+    "certificates": "Сертификаты",
+    "profile": "Профиль",
+    "notifications": "Уведомления",
+    "docs": "Документация",
+    "rk7": "r_keeper 7",
+    "storehouse": "StoreHouse Pro",
+    "delivery": "Delivery",
+    "event": "Event",
+    "waiter": "Waiter & Cash Desk",
+    "create-order": "Создание заказа",
+    "shift-management": "Управление сменой",
+    "discounts-returns": "Скидки и возвраты",
+    "write-off": "Списание",
+    "inventory": "Инвентаризация",
+    "arrival": "Поступление",
+    "courier-app": "Приложение курьера",
+    "call-center": "Колл-центр",
+    "take-order": "Приём заказа",
+    "payment": "Оплата",
+    "shift": "Начало и конец смены",
+    "booking": "Услуги",
+    "bookings": "Мои записи",
+    "chat": "Чат с отделом",
+    "privacy": "Политика конфиденциальности",
+    "terms": "Условия использования",
+    "offer": "Публичная оферта",
+    "consent": "Согласие",
+    "login": "Вход",
+    "register": "Регистрация",
+    "review": "Отзыв",
+    "feedback": "Обратная связь",
+    "request": "Заявка",
+    "services": "Услуги",
+    "specialists": "Специалисты",
+    "schedule": "Расписание",
+    "auth": "Авторизация",
+    "rkeeper": "r_keeper",
+    "dashboard": "Дашборд",
+    "admin": "Панель управления",
+    "requests": "Заявки",
+    "arena": "Лига",
+    "train": "Тренажёр",
+    "tracker": "Мини-игры",
+    "bubble": "Bubble Pop"
+  },
+  "skipSegments": ["[id]", "[lid]", "[token]"]
+}

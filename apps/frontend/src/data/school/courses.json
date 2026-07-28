@@ -1,0 +1,400 @@
+[
+  {
+    "id": "rk7-basics",
+    "title": "RK7: Основы работы",
+    "description": "Научись работать с кассовой системой RK7: открытие смены, работа с меню, базовые операции и типовые ошибки.",
+    "icon": "Monitor",
+    "iconBg": "#f0f4ff",
+    "colorFrom": "#1a56db",
+    "colorTo": "#2563eb",
+    "modules": [
+      {
+        "id": "rk7-mod1",
+        "title": "Работа со сменами",
+        "description": "Открытие, закрытие смены и Z-отчёты",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "rk7-open-shift",
+            "title": "Открытие смены в RK7",
+            "description": "Изучи последовательность открытия кассовой смены",
+            "activity": { "type": "chain", "scenarioId": "s1" },
+            "durationMinutes": 5,
+            "xpReward": 50
+          },
+          {
+            "id": "rk7-zreport",
+            "title": "Формирование Z-отчёта",
+            "description": "Разберись, почему не формируется Z-отчёт и как это исправить",
+            "activity": { "type": "quiz", "questionId": "q10" },
+            "durationMinutes": 5,
+            "xpReward": 50
+          }
+        ]
+      },
+      {
+        "id": "rk7-mod2",
+        "title": "Меню и блюда",
+        "description": "Почему блюдо не видно на кассе и как это починить",
+        "order": 2,
+        "lessons": [
+          {
+            "id": "rk7-dish-invisible",
+            "title": "Кейс: блюдо не отображается на кассе",
+            "description": "Помоги Маше разобраться, почему блюдо есть в меню, но не видно на кассе",
+            "activity": { "type": "case", "decisionTreeId": "c2" },
+            "durationMinutes": 10,
+            "xpReward": 100
+          },
+          {
+            "id": "rk7-dish-quiz",
+            "title": "Викторина: отображение блюд",
+            "description": "Проверь знания о причинах скрытия блюд на кассе",
+            "activity": { "type": "quiz", "questionId": "q2" },
+            "durationMinutes": 3,
+            "xpReward": 50
+          }
+        ]
+      },
+      {
+        "id": "rk7-mod3",
+        "title": "Выручка и отчёты",
+        "description": "Сверка Z-отчёта и расхода блюд",
+        "order": 3,
+        "lessons": [
+          {
+            "id": "rk7-revenue-mismatch",
+            "title": "Расхождение выручки",
+            "description": "Разберись, почему Z-отчёт и отчёт по расходу блюд показывают разные суммы",
+            "activity": { "type": "quiz", "questionId": "q9" },
+            "durationMinutes": 5,
+            "xpReward": 50
+          }
+        ]
+      }
+    ],
+    "totalLessons": 5,
+    "totalXp": 300,
+    "estimatedHours": 0.5
+  },
+  {
+    "id": "egais-accounting",
+    "title": "ЕГАИС: Учёт алкоголя",
+    "description": "Полный разбор работы с ЕГАИС: запросы остатков, прием накладных, инвентаризация и цветовая индикация марок.",
+    "icon": "Cloud",
+    "iconBg": "#fefce8",
+    "colorFrom": "#ca8a04",
+    "colorTo": "#eab308",
+    "modules": [
+      {
+        "id": "egais-mod1",
+        "title": "Основы ЕГАИС",
+        "description": "Запросы остатков и базовая терминология",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "egais-register-query",
+            "title": "Запрос остатков 1-го регистра",
+            "description": "Узнай, как смотреть баланс ЕГАИС по FSRAR_ID",
+            "activity": { "type": "quiz", "questionId": "q4" },
+            "durationMinutes": 5,
+            "xpReward": 50
+          },
+          {
+            "id": "egais-portion-query",
+            "title": "Запрос порционных остатков",
+            "description": "Разберись с остатками по Справке Б",
+            "activity": { "type": "quiz", "questionId": "q5" },
+            "durationMinutes": 5,
+            "xpReward": 50
+          },
+          {
+            "id": "egais-term-match",
+            "title": "Сопоставление: термины ЕГАИС",
+            "description": "Соедини термины ЕГАИС с их определениями",
+            "activity": { "type": "match", "matchPairIds": ["egais-core"] },
+            "durationMinutes": 5,
+            "xpReward": 80
+          }
+        ]
+      },
+      {
+        "id": "egais-mod2",
+        "title": "Приём накладных",
+        "description": "Как принять накладную ЕГАИС от А до Я",
+        "order": 2,
+        "lessons": [
+          {
+            "id": "egais-invoice",
+            "title": "Процедура: приём накладной ЕГАИС",
+            "description": "Собери правильную последовательность приёма накладной",
+            "activity": { "type": "chain", "scenarioId": "s2" },
+            "durationMinutes": 5,
+            "xpReward": 50
+          },
+          {
+            "id": "egais-invoice-activation",
+            "title": "Почему товары не активируются?",
+            "description": "Разберись с типовой проблемой активации накладной",
+            "activity": { "type": "quiz", "questionId": "q3" },
+            "durationMinutes": 5,
+            "xpReward": 50
+          }
+        ]
+      },
+      {
+        "id": "egais-mod3",
+        "title": "Цветовая индикация марок",
+        "description": "Что означают цвета марок в запросах и инвентаризации",
+        "order": 3,
+        "lessons": [
+          {
+            "id": "egais-color-sprint",
+            "title": "Спринт: цвета марок",
+            "description": "Быстро определи, верно ли утверждение о цветах марок",
+            "activity": { "type": "sprint", "sprintQuestionIds": ["q4", "q5", "q6", "q7"] },
+            "durationMinutes": 3,
+            "xpReward": 70
+          },
+          {
+            "id": "egais-red-line",
+            "title": "Красная строка в инвентаризации",
+            "description": "Что означает красный цвет при сканировании марок",
+            "activity": { "type": "quiz", "questionId": "q6" },
+            "durationMinutes": 3,
+            "xpReward": 50
+          },
+          {
+            "id": "egais-old-mark",
+            "title": "Флаг «Старая» у марки",
+            "description": "Что делать с марками, помеченными как «Старая»",
+            "activity": { "type": "quiz", "questionId": "q7" },
+            "durationMinutes": 3,
+            "xpReward": 50
+          }
+        ]
+      },
+      {
+        "id": "egais-mod4",
+        "title": "Инвентаризация",
+        "description": "Полная процедура инвентаризации алкоголя",
+        "order": 4,
+        "lessons": [
+          {
+            "id": "egais-inventory",
+            "title": "Процедура: инвентаризация алкоголя",
+            "description": "Собери правильную последовательность шагов",
+            "activity": { "type": "chain", "scenarioId": "s3" },
+            "durationMinutes": 5,
+            "xpReward": 50
+          }
+        ]
+      }
+    ],
+    "totalLessons": 9,
+    "totalXp": 500,
+    "estimatedHours": 1
+  },
+  {
+    "id": "storehouse-inventory",
+    "title": "StoreHouse Pro: Складской учёт",
+    "description": "Работа со складом в StoreHouse Pro: сопоставление товаров, инвентаризация, проверка лицензий.",
+    "icon": "Database",
+    "iconBg": "#ecfdf5",
+    "colorFrom": "#059669",
+    "colorTo": "#10b981",
+    "modules": [
+      {
+        "id": "sh-mod1",
+        "title": "Сопоставление товаров",
+        "description": "Сопоставление ЕГАИС и StoreHouse Pro",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "sh-mapping-quiz",
+            "title": "Сопоставление товаров ЕГАИС",
+            "description": "Проверь знания о сопоставлении справочников",
+            "activity": { "type": "quiz", "questionId": "q6" },
+            "durationMinutes": 5,
+            "xpReward": 50
+          },
+          {
+            "id": "sh-term-match",
+            "title": "Сопоставление: StoreHouse",
+            "description": "Соедини термины StoreHouse с определениями",
+            "activity": { "type": "match", "matchPairIds": ["storehouse-core"] },
+            "durationMinutes": 5,
+            "xpReward": 80
+          }
+        ]
+      },
+      {
+        "id": "sh-mod2",
+        "title": "Лицензии и служебные утилиты",
+        "description": "Проверка лицензий и работа с sdbman, QushSvc",
+        "order": 2,
+        "lessons": [
+          {
+            "id": "sh-license-quiz",
+            "title": "QushSvc и sdbman",
+            "description": "Проверь знание служебных утилит",
+            "activity": { "type": "quiz", "questionId": "q3" },
+            "durationMinutes": 5,
+            "xpReward": 50
+          }
+        ]
+      }
+    ],
+    "totalLessons": 3,
+    "totalXp": 180,
+    "estimatedHours": 0.3
+  },
+  {
+    "id": "error-resolution",
+    "title": "Решение ошибок RK7",
+    "description": "Практические кейсы-тренажёры: разбор реальных ситуаций в формате дерева решений. Прокачай навык диагностики!",
+    "icon": "Swords",
+    "iconBg": "#f5f3ff",
+    "colorFrom": "#7c3aed",
+    "colorTo": "#a855f7",
+    "modules": [
+      {
+        "id": "err-mod1",
+        "title": "Ошибка 8004",
+        "description": "Нет доступной вскрытой марки",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "err-8004",
+            "title": "Кейс: ошибка 8004",
+            "description": "Помоги Маше победить ошибку «Нет доступной вскрытой марки»",
+            "activity": { "type": "case", "decisionTreeId": "c1" },
+            "durationMinutes": 15,
+            "xpReward": 150
+          },
+          {
+            "id": "err-8004-quiz",
+            "title": "Викторина: ошибка 8004",
+            "description": "Закрепи знания об ошибке 8004",
+            "activity": { "type": "quiz", "questionId": "q1" },
+            "durationMinutes": 3,
+            "xpReward": 50
+          }
+        ]
+      },
+      {
+        "id": "err-mod2",
+        "title": "Блюдо не видно на кассе",
+        "description": "Диагностика скрытых объектов",
+        "order": 2,
+        "lessons": [
+          {
+            "id": "err-dish-not-visible",
+            "title": "Кейс: блюдо не видно на кассе",
+            "description": "Разберись с проблемой отображения блюда",
+            "activity": { "type": "case", "decisionTreeId": "c2" },
+            "durationMinutes": 10,
+            "xpReward": 100
+          }
+        ]
+      },
+      {
+        "id": "err-mod3",
+        "title": "Переход на GTIN",
+        "description": "Смена режима маркировки",
+        "order": 3,
+        "lessons": [
+          {
+            "id": "err-gtin",
+            "title": "Процедура: переход DataMatrix → GTIN",
+            "description": "Собери последовательность перехода на послабление маркировки",
+            "activity": { "type": "chain", "scenarioId": "s4" },
+            "durationMinutes": 5,
+            "xpReward": 50
+          },
+          {
+            "id": "err-gtin-quiz",
+            "title": "Режим GTIN",
+            "description": "Проверь знание перехода на GTIN",
+            "activity": { "type": "quiz", "questionId": "q8" },
+            "durationMinutes": 5,
+            "xpReward": 80
+          }
+        ]
+      },
+      {
+        "id": "err-mod4",
+        "title": "Спринт: решение ошибок",
+        "description": "Быстрая проверка знаний",
+        "order": 4,
+        "lessons": [
+          {
+            "id": "err-sprint",
+            "title": "Спринт: типовые ошибки",
+            "description": "Быстро отвечай «Верно» или «Неверно» по ситуациям",
+            "activity": { "type": "sprint", "sprintQuestionIds": ["q1", "q2", "q8", "q9", "q10"] },
+            "durationMinutes": 3,
+            "xpReward": 70
+          }
+        ]
+      }
+    ],
+    "totalLessons": 6,
+    "totalXp": 500,
+    "estimatedHours": 0.7
+  },
+  {
+    "id": "egaismatch",
+    "title": "Термины ЕГАИС: Сопоставление",
+    "description": "Тренажёр на знание терминологии ЕГАИС: цвета марок, утилиты, режимы — всё в формате сопоставлений.",
+    "icon": "Puzzle",
+    "iconBg": "#fef2f2",
+    "colorFrom": "#dc2626",
+    "colorTo": "#ef4444",
+    "modules": [
+      {
+        "id": "match-mod1",
+        "title": "Базовые термины",
+        "description": "Основные понятия ЕГАИС",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "match-basic",
+            "title": "Сопоставление: базовые термины ЕГАИС",
+            "description": "Соедини 8 базовых терминов с определениями",
+            "activity": { "type": "match", "matchPairIds": ["egais-core"] },
+            "durationMinutes": 5,
+            "xpReward": 80
+          },
+          {
+            "id": "match-colors",
+            "title": "Сопоставление: цвета марок",
+            "description": "Соедини цвета марок с их значением",
+            "activity": { "type": "match", "matchPairIds": ["egais-colors"] },
+            "durationMinutes": 5,
+            "xpReward": 80
+          }
+        ]
+      },
+      {
+        "id": "match-mod2",
+        "title": "Продвинутые термины",
+        "description": "Служебные утилиты и режимы",
+        "order": 2,
+        "lessons": [
+          {
+            "id": "match-advanced",
+            "title": "Сопоставление: утилиты и режимы",
+            "description": "QushSvc, sdbman, GTIN и другие",
+            "activity": { "type": "match", "matchPairIds": ["storehouse-core"] },
+            "durationMinutes": 5,
+            "xpReward": 80
+          }
+        ]
+      }
+    ],
+    "totalLessons": 3,
+    "totalXp": 240,
+    "estimatedHours": 0.3
+  }
+]

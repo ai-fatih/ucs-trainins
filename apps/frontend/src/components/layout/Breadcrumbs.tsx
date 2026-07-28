@@ -3,54 +3,16 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronRight } from 'lucide-react';
+import navConfig from '@/data/navigation.json';
 
-const LABEL_MAP: Record<string, string> = {
-  instructions: 'Инструкции',
-  rk7: 'r_keeper 7',
-  storehouse: 'StoreHouse Pro',
-  delivery: 'Delivery',
-  event: 'Event',
-  waiter: 'Waiter & Cash Desk',
-  booking: 'Услуги',
-  chat: 'Чат с отделом',
-  games: 'Игры и тренажёры',
-  arena: 'Лига',
-  train: 'Тренажёр',
-  tracker: 'Мини-игры',
-  bubble: 'Bubble Pop',
-  profile: 'Личный кабинет',
-  notifications: 'Уведомления',
-  admin: 'Панель управления',
-  dashboard: 'Дашборд',
-  requests: 'Заявки',
-  'create-order': 'Создание заказа',
-  'shift-management': 'Управление сменой',
-  'discounts-returns': 'Скидки и возвраты',
-  'write-off': 'Списание',
-  inventory: 'Инвентаризация',
-  arrival: 'Поступление',
-  'courier-app': 'Приложение курьера',
-  'call-center': 'Колл-центр',
-  'take-order': 'Приём заказа',
-  payment: 'Оплата',
-  shift: 'Начало и конец смены',
-  privacy: 'Политика конфиденциальности',
-  terms: 'Условия использования',
-  offer: 'Публичная оферта',
-  consent: 'Согласие',
-  login: 'Вход',
-  register: 'Регистрация',
-  review: 'Отзыв',
-  feedback: 'Обратная связь',
-  request: 'Заявка',
-  services: 'Услуги',
-  specialists: 'Специалисты',
-  schedule: 'Расписание',
-  auth: 'Авторизация',
-  rkeeper: 'r_keeper',
+type NavConfigType = {
+  routeLabels: Record<string, string>;
+  skipSegments: string[];
 };
 
-const SKIP_SEGMENTS = new Set<string>();
+const config = navConfig as unknown as NavConfigType;
+const LABEL_MAP = config.routeLabels;
+const SKIP_SEGMENTS = new Set<string>(config.skipSegments);
 
 function segmentLabel(segment: string): string {
   return LABEL_MAP[segment] ?? segment

@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/stores/auth';
 import { api } from '@/lib/api';
 import type { Booking, ChatRoom } from '@/types';
-import { ArrowRight, Calendar, MessageCircle, List, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { ArrowRight, Calendar, MessageCircle, List, Clock, CheckCircle, XCircle, AlertCircle, GraduationCap } from 'lucide-react';
 
 const statusMeta: Record<string, { label: string; icon: React.ElementType; color: string }> = {
   scheduled: { label: 'Предстоит', icon: Clock, color: 'text-[#1a56db] bg-[#e8effa]' },
@@ -159,6 +159,23 @@ export default function ClientDashboardPage() {
             <ArrowRight className="w-4 h-4 text-[#d1d5db] ml-auto group-hover:text-[#7c3aed] transition-colors" />
           </Link>
         </div>
+      </section>
+
+      {/* School Progress D */}
+      <section className="mb-10">
+        <Link
+          href="/school/courses"
+          className="glass-card p-5 flex items-center gap-4 no-underline group hover:bg-white"
+        >
+          <span className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#d97706] to-[#f59e0b] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <GraduationCap className="w-6 h-6" />
+          </span>
+          <span className="flex-1">
+            <span className="font-semibold text-sm text-[#111827] block">Продолжить обучение</span>
+            <span className="text-xs text-[#6b7280] block">Курсы, рейтинги, сертификаты</span>
+          </span>
+          <ArrowRight className="w-4 h-4 text-[#d1d5db] ml-auto group-hover:text-[#d97706] transition-colors" />
+        </Link>
       </section>
 
       {/* Recent Activity C */}

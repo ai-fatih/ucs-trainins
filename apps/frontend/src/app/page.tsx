@@ -9,8 +9,9 @@ import { useAuthStore } from '@/stores/auth';
 import { api } from '@/lib/api';
 import type { Specialist } from '@/types';
 import {
-  MessageCircle, GraduationCap, Database,
-  Star, ChevronDown, Mail, Phone, CheckCircle,
+  MessageCircle, GraduationCap, Database, Monitor,
+  Star, ChevronDown, ChevronRight, Mail, Phone, CheckCircle,
+  BookOpen, Users, Calendar, Truck,
 } from 'lucide-react';
 import serviceCategoriesData from '@/data/service-categories.json';
 import reviewsData from '@/data/reviews.json';
@@ -402,7 +403,68 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. Services — 3 cards */}
+      {/* 2. Docs — Documentation preview */}
+      <section id="docs" className="bg-white py-16 px-4">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-4">Документация</h2>
+          <p className="text-center text-[#6b7280] mb-10 max-w-xl mx-auto">
+            Полные инструкции по r_keeper, StoreHouse, Delivery, Event и Waiter
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <Link
+              href="/docs/rkeeper/rk7"
+              className="glass-card text-left p-6 no-underline group"
+            >
+              <span className="flex items-start gap-4">
+                <span className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Monitor className="w-7 h-7" />
+                </span>
+                <span className="min-w-0">
+                  <h3 className="text-lg font-semibold mb-1.5 text-[#111827] group-hover:text-[#1a56db] transition-colors">r_keeper 7</h3>
+                  <p className="text-sm text-[#6b7280] mb-3">Кассовые операции, смены, скидки и возвраты</p>
+                </span>
+              </span>
+            </Link>
+            <Link
+              href="/docs/rkeeper/storehouse"
+              className="glass-card text-left p-6 no-underline group"
+            >
+              <span className="flex items-start gap-4">
+                <span className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Database className="w-7 h-7" />
+                </span>
+                <span className="min-w-0">
+                  <h3 className="text-lg font-semibold mb-1.5 text-[#111827] group-hover:text-[#1a56db] transition-colors">StoreHouse Pro</h3>
+                  <p className="text-sm text-[#6b7280] mb-3">Складской учёт: списание, инвентаризация, оприходование</p>
+                </span>
+              </span>
+            </Link>
+            <Link
+              href="/docs/rkeeper/delivery"
+              className="glass-card text-left p-6 no-underline group"
+            >
+              <span className="flex items-start gap-4">
+                <span className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Truck className="w-7 h-7" />
+                </span>
+                <span className="min-w-0">
+                  <h3 className="text-lg font-semibold mb-1.5 text-[#111827] group-hover:text-[#1a56db] transition-colors">Delivery</h3>
+                  <p className="text-sm text-[#6b7280] mb-3">Приём заказов, колл-центр, приложение курьера</p>
+                </span>
+              </span>
+            </Link>
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/docs"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white no-underline transition-all bg-gradient-to-r from-[#1a56db] to-[#0d9488] hover:shadow-lg hover:-translate-y-0.5"
+            >
+              Вся документация
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
       <section id="services" className="bg-[#f9fafb] py-16 px-4">
         <div className="max-w-[1200px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Наши услуги</h2>
@@ -440,7 +502,70 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. News — Blog */}
+      {/* 3. School section */}
+      <section id="school" className="bg-white py-16 px-4">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-4">Школа UCS</h2>
+          <p className="text-center text-[#6b7280] mb-10 max-w-xl mx-auto">
+            Обучающие курсы, рейтинг, бейджи и сертификаты
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <Link
+              href="/school/courses"
+              className="glass-card text-left p-6 no-underline group"
+            >
+              <span className="flex items-start gap-4">
+                <span className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <GraduationCap className="w-7 h-7" />
+                </span>
+                <span className="min-w-0">
+                  <h3 className="text-lg font-semibold mb-1.5 text-[#111827] group-hover:text-[#1a56db] transition-colors">Мои курсы</h3>
+                  <p className="text-sm text-[#6b7280] mb-3">Учебные материалы, тесты, прогресс обучения</p>
+                </span>
+              </span>
+            </Link>
+            <Link
+              href="/school/leaderboard"
+              className="glass-card text-left p-6 no-underline group"
+            >
+              <span className="flex items-start gap-4">
+                <span className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Users className="w-7 h-7" />
+                </span>
+                <span className="min-w-0">
+                  <h3 className="text-lg font-semibold mb-1.5 text-[#111827] group-hover:text-[#1a56db] transition-colors">Рейтинг</h3>
+                  <p className="text-sm text-[#6b7280] mb-3">Таблица лидеров и достижения</p>
+                </span>
+              </span>
+            </Link>
+            <Link
+              href="/school"
+              className="glass-card text-left p-6 no-underline group"
+            >
+              <span className="flex items-start gap-4">
+                <span className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Star className="w-7 h-7" />
+                </span>
+                <span className="min-w-0">
+                  <h3 className="text-lg font-semibold mb-1.5 text-[#111827] group-hover:text-[#1a56db] transition-colors">Бейджи и сертификаты</h3>
+                  <p className="text-sm text-[#6b7280] mb-3">Награды и подтверждение квалификации</p>
+                </span>
+              </span>
+            </Link>
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/school"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white no-underline transition-all bg-gradient-to-r from-[#1a56db] to-[#0d9488] hover:shadow-lg hover:-translate-y-0.5"
+            >
+              Перейти в школу
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. News — Blog */}
       <section id="news" className="bg-[#f9fafb] py-16 px-4">
         <div className="max-w-[900px] mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Новости отдела</h2>

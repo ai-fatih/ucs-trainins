@@ -6,10 +6,26 @@ import { useAuthStore } from '@/stores/auth';
 import { useNotificationStore } from '@/stores/notifications';
 import { useUIStore } from '@/stores/ui';
 import { AuthModal } from '@/components/auth/AuthModal';
-import { Menu, X, Bell, LogOut, User, Download } from 'lucide-react';
+import { Menu, Bell, User, Download } from 'lucide-react';
+import { SidebarSearch } from './SidebarSearch';
+import navConfig from '@/data/navigation.json';
+
+interface NavTab {
+  href: string;
+  label: string;
+}
+
+type Section = {
+  id: string;
+  label: string;
+  icon: string;
+  href: string;
+  groups?: { label: string; icon: string; items: { href: string; label: string }[] }[];
+  headerNav?: NavTab[] | null;
+};
 
 export function Header() {
-  const { user, isAuthenticated, logout } = useAuthStore();
+  const { user, isAuthenticated } = useAuthStore();
   const unreadCount = useNotificationStore((s) => s.unreadCount);
   const pathname = usePathname();
   const toggleSidebar = useUIStore((s) => s.toggleSidebar);
@@ -56,15 +72,30 @@ export function Header() {
 
   const isLanding = pathname === '/';
 
-  const HEADER_NAV = [
+  const sections = navConfig.sections as Section[];
+
+  const currentSection = sections.find(
+    (s) => s.headerNav && s.href !== '/' && (pathname === s.href || pathname.startsWith(s.href + '/')),
+  );
+
+  const HEADER_NAV: NavTab[] = [
     { href: '/#about', label: 'О нас' },
+    { href: '/#docs', label: 'Документация' },
     { href: '/#services', label: 'Услуги' },
+    { href: '/#school', label: 'Школа' },
     { href: '/#news', label: 'Новости' },
     { href: '/#reviews', label: 'Отзывы' },
-    { href: '/#faq', label: 'Вопросы' },
-  ] as const;
+  ];
 
   const avatarHref = !effectiveAuth ? '/' : isStaff ? '/admin/dashboard' : '/dashboard';
+
+  const sectionTabs = currentSection?.headerNav;
+
+  const isActiveTab = (href: string) => {
+    if (href === pathname) return true;
+    if (href !== '/' && pathname.startsWith(href)) return true;
+    return false;
+  };
 
   const renderNavLinks = () => {
     if (isLanding) {
@@ -83,21 +114,49 @@ export function Header() {
       );
     }
 
+    if (sectionTabs) {
+      return (
+        <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
+          {sectionTabs.map((tab) => (
+            <Link
+              key={tab.href}
+              href={tab.href}
+              className={`text-sm font-medium px-3 py-2 rounded-lg no-underline whitespace-nowrap transition-all ${
+                isActiveTab(tab.href)
+                  ? 'text-[#1a56db] bg-[#1a56db]/10 font-semibold'
+                  : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
+              }`}
+            >
+              {tab.href === '/school/notifications' ? <Bell className="w-5 h-5" /> : tab.label}
+            </Link>
+          ))}
+        </div>
+      );
+    }
+
     return null;
   };
 
   return (
     <>
-      <header className="sticky top-0 z-50 glass-strong border-b border-white/20 h-16">
-        <div className="max-w-[1200px] mx-auto px-4 h-full flex items-center justify-between">
-          <nav className="hidden lg:flex items-center gap-1">
+      <header className="sticky top-0 z-50 glass-strong border-b border-white/20">
+        <div className="max-w-[1200px] mx-auto px-4 h-16 flex items-center justify-between gap-2">
+          <Link
+            href="/"
+            className="no-underline shrink-0 mr-4"
+          >
+            <span className="text-lg font-extrabold bg-gradient-to-r from-[#1a56db] to-[#0d9488] bg-clip-text text-transparent">
+              UCS service
+            </span>
+          </Link>
+          <nav className="flex-1 flex items-center gap-1 overflow-x-auto scrollbar-hide">
             {renderNavLinks()}
           </nav>
 
           {installable && (
             <button
               onClick={handleInstall}
-              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#0d9488] bg-[rgba(13,148,136,0.1)] hover:bg-[rgba(13,148,136,0.2)] transition-all border border-[rgba(13,148,136,0.2)]"
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#0d9488] bg-[rgba(13,148,136,0.1)] hover:bg-[rgba(13,148,136,0.2)] transition-all border border-[rgba(13,148,136,0.2)] shrink-0"
               title="Установить приложение"
             >
               <Download className="w-4 h-4" />
@@ -105,7 +164,11 @@ export function Header() {
             </button>
           )}
 
-          <div className="flex items-center gap-1">
+          <div className="hidden md:block shrink-0 max-w-[200px]">
+            <SidebarSearch />
+          </div>
+
+          <div className="flex items-center gap-1 shrink-0">
             {effectiveAuth && effectiveUser ? (
               <>
                 <Link

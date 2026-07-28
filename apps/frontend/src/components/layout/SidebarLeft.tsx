@@ -5,79 +5,44 @@ import { usePathname } from 'next/navigation';
 import { useAuthStore } from '@/stores/auth';
 import { useUIStore } from '@/stores/ui';
 import {
-  Home, BookOpen, ListTree, MessageCircle, PenSquare,
-  UserCircle, ChevronLeft, ChevronRight, ChevronDown, X, Gamepad2,
+  Home, BookOpen, ListTree, PenSquare,
+  UserCircle, ChevronLeft, ChevronRight, ChevronDown, X, GraduationCap,
   Monitor, Cloud, Smartphone,
 } from 'lucide-react';
-import { SidebarSearch } from './SidebarSearch';
+import navConfig from '@/data/navigation.json';
+
+interface NavTab {
+  href: string;
+  label: string;
+}
 
 interface SidebarGroup {
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: string;
   items: { href: string; label: string }[];
 }
 
 interface SidebarSection {
-  href?: string;
+  id: string;
   label: string;
-  icon?: React.ComponentType<{ className?: string }>;
+  icon: string;
+  href?: string;
   groups?: SidebarGroup[];
-  children?: { href: string; label: string }[];
+  headerNav?: NavTab[] | null;
 }
 
-const SIDEBAR_MAIN: SidebarSection[] = [
-  { href: '/', label: 'Главная', icon: Home },
-  {
-    label: 'Инструкции',
-    icon: BookOpen,
-    href: '/instructions',
-    groups: [
-      {
-        label: 'Десктоп',
-        icon: Monitor,
-        items: [
-          { href: '/instructions/rkeeper/rk7', label: 'r_keeper 7' },
-          { href: '/instructions/rkeeper/storehouse', label: 'StoreHouse Pro' },
-        ],
-      },
-      {
-        label: 'Облачные сервисы',
-        icon: Cloud,
-        items: [
-          { href: '/instructions/rkeeper/delivery', label: 'Delivery' },
-          { href: '/instructions/rkeeper/event', label: 'Event' },
-        ],
-      },
-      {
-        label: 'Мобильные',
-        icon: Smartphone,
-        items: [
-          { href: '/instructions/rkeeper/waiter', label: 'Waiter & Cash Desk' },
-        ],
-      },
-    ],
-  },
-  {
-    label: 'Услуги',
-    icon: ListTree,
-    href: '/booking',
-    children: [
-      { href: '/booking', label: 'Консультации' },
-      { href: '/booking', label: 'Обучение' },
-    ],
-  },
-  { href: '/chat', label: 'Чат с отделом', icon: MessageCircle },
-  {
-    label: 'Игры и тренажёры',
-    icon: Gamepad2,
-    href: '/games',
-    children: [
-      { href: '/games/arena', label: 'Лига' },
-      { href: '/games/train', label: 'Тренажёр' },
-      { href: '/games/tracker/bubble', label: 'Bubble Pop' },
-    ],
-  },
-];
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  Home,
+  BookOpen,
+  ListTree,
+  GraduationCap,
+};
+
+const GROUP_ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  Monitor,
+  Cloud,
+  Smartphone,
+};
 
 function getAccountHref(user: { role: string } | null, isAuthenticated: boolean): string {
   if (!isAuthenticated || !user) return '/';
@@ -92,34 +57,28 @@ export function SidebarLeft() {
   const [collapsed, setCollapsed] = useState(true);
   const [hydrated, setHydrated] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [gamesOpen, setGamesOpen] = useState(false);
   const prevPathname = useRef('');
+
+  const sections = navConfig.sections as SidebarSection[];
 
   useEffect(() => { setHydrated(true); }, []);
 
   useEffect(() => {
     const prev = prevPathname.current;
     prevPathname.current = pathname;
-    if (!prev.startsWith('/instructions') && pathname.startsWith('/instructions')) {
+    if (!prev.startsWith('/docs') && pathname.startsWith('/docs')) {
       setInstructionsOpen(true);
-    }
-    if (!prev.startsWith('/booking') && pathname.startsWith('/booking')) {
-      setServicesOpen(true);
-    }
-    if (!prev.startsWith('/games') && pathname.startsWith('/games')) {
-      setGamesOpen(true);
     }
   }, [pathname]);
 
   const toggleInstructions = () => setInstructionsOpen((v) => !v);
-  const toggleServices = () => setServicesOpen((v) => !v);
-  const toggleGames = () => setGamesOpen((v) => !v);
 
   const effectiveUser = hydrated ? user : null;
   const effectiveAuth = hydrated && isAuthenticated;
 
-  const showSearch = hydrated && (sidebarOpen || !collapsed);
+  const displaySections = sections.map((s) =>
+    s.id === 'home' ? { ...s, href: effectiveAuth ? '/dashboard' : '/' } : s
+  );
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
@@ -205,22 +164,21 @@ export function SidebarLeft() {
           </div>
         </div>
 
-        {showSearch && <SidebarSearch />}
-
         <nav className="flex-1 overflow-y-auto space-y-0.5 px-3 py-3">
-          {SIDEBAR_MAIN.map((item) => {
-            if ('groups' in item && item.groups) {
-              const Icon = item.icon!;
+          {displaySections.map((item) => {
+            const Icon = ICON_MAP[item.icon];
+
+            if (item.groups && item.groups.length > 0) {
               const open = instructionsOpen;
               return (
-                <div key={item.label}>
+                <div key={item.id}>
                   <Link
                     href={item.href!}
                     onClick={() => { setSidebarOpen(false); }}
                     className={labelClass(isActive(item.href!))}
                     title={item.label}
                   >
-                    <Icon className="w-5 h-5 shrink-0" />
+                    {Icon && <Icon className="w-5 h-5 shrink-0" />}
                     <span className={`flex-1 md:hidden ${!collapsed ? 'lg:block' : ''}`}>{item.label}</span>
                     <ChevronDown
                       className={`w-4 h-4 text-[#9ca3af] transition-transform ${open ? 'rotate-0' : '-rotate-90'} md:hidden ${!collapsed ? 'lg:block' : ''}`}
@@ -229,81 +187,40 @@ export function SidebarLeft() {
                   </Link>
                   {open && (
                     <div className={`ml-2 mt-0.5 space-y-1 md:hidden ${!collapsed ? 'lg:block' : ''}`}>
-                      {item.groups.map((group) => (
-                        <div key={group.label}>
-                          <div className="flex items-center gap-1.5 px-3 py-1 text-[10px] font-semibold text-[#9ca3af] uppercase tracking-wider">
-                            <group.icon className="w-3 h-3" />
-                            {group.label}
+                      {item.groups.map((group) => {
+                        const GroupIcon = GROUP_ICON_MAP[group.icon];
+                        return (
+                          <div key={group.label}>
+                            <div className="flex items-center gap-1.5 px-3 py-1 text-[10px] font-semibold text-[#9ca3af] uppercase tracking-wider">
+                              {GroupIcon && <GroupIcon className="w-3 h-3" />}
+                              {group.label}
+                            </div>
+                            <div className="ml-4 space-y-0.5 border-l-2 border-[#e5e7eb] pl-2">
+                              {group.items.map((child) => (
+                                <Link
+                                  key={child.label}
+                                  href={child.href}
+                                  onClick={() => setSidebarOpen(false)}
+                                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm no-underline transition-all ${
+                                    isActive(child.href)
+                                      ? 'text-[#1a56db] font-semibold bg-[#1a56db]/5'
+                                      : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
+                                  }`}
+                                >
+                                  <span className="w-1.5 h-1.5 rounded-full bg-current shrink-0" />
+                                  <span>{child.label}</span>
+                                </Link>
+                              ))}
+                            </div>
                           </div>
-                          <div className="ml-4 space-y-0.5 border-l-2 border-[#e5e7eb] pl-2">
-                            {group.items.map((child) => (
-                              <Link
-                                key={child.label}
-                                href={child.href}
-                                onClick={() => setSidebarOpen(false)}
-                                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm no-underline transition-all ${
-                                  isActive(child.href)
-                                    ? 'text-[#1a56db] font-semibold bg-[#1a56db]/5'
-                                    : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
-                                }`}
-                              >
-                                <span className="w-1.5 h-1.5 rounded-full bg-current shrink-0" />
-                                <span>{child.label}</span>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </div>
               );
             }
 
-            if ('children' in item && item.children) {
-              const Icon = item.icon!;
-              const isGames = item.label === 'Игры и тренажёры';
-              const open = isGames ? gamesOpen : servicesOpen;
-              const toggle = isGames ? toggleGames : toggleServices;
-              return (
-                <div key={item.label}>
-                  <Link
-                    href={item.href!}
-                    onClick={() => setSidebarOpen(false)}
-                    className={labelClass(isActive(item.href!))}
-                    title={item.label}
-                  >
-                    <Icon className="w-5 h-5 shrink-0" />
-                    <span className={`flex-1 md:hidden ${!collapsed ? 'lg:block' : ''}`}>{item.label}</span>
-                    <ChevronDown
-                      className={`w-4 h-4 text-[#9ca3af] transition-transform ${open ? 'rotate-0' : '-rotate-90'} md:hidden ${!collapsed ? 'lg:block' : ''}`}
-                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(); }}
-                    />
-                  </Link>
-                  {open && (
-                    <div className={`ml-7 mt-0.5 space-y-0.5 border-l-2 border-[#e5e7eb] pl-2 md:hidden ${!collapsed ? 'lg:block' : ''}`}>
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.label}
-                          href={child.href}
-                          onClick={() => setSidebarOpen(false)}
-                          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm no-underline transition-all ${
-                            isActive(child.href)
-                              ? 'text-[#1a56db] font-semibold bg-[#1a56db]/5'
-                              : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
-                          }`}
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-current shrink-0" />
-                          <span>{child.label}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            }
-
-            const Icon = item.icon!;
             return (
               <Link
                 key={item.href}
@@ -312,7 +229,7 @@ export function SidebarLeft() {
                 className={linkClass(isActive(item.href!))}
                 title={item.label}
               >
-                <Icon className="w-5 h-5 shrink-0" />
+                {Icon && <Icon className="w-5 h-5 shrink-0" />}
                 <span className={`md:hidden ${!collapsed ? 'lg:block' : ''}`}>{item.label}</span>
               </Link>
             );

@@ -1,24 +1,30 @@
 'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { MessageCircle, Phone, CalendarCheck } from 'lucide-react';
+import { useRouter, usePathname } from 'next/navigation';
+import { MessageCircle, Phone, CalendarCheck, GraduationCap } from 'lucide-react';
 import { ChatWidget } from './ChatWidget';
 
 export function BottomActionBar() {
   const router = useRouter();
+  const pathname = usePathname();
   const [chatOpen, setChatOpen] = useState(false);
+
+  const isSchool = pathname.startsWith('/school');
+  const isBooking = pathname.startsWith('/booking');
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
       <div className="relative max-w-[1440px] mx-auto px-3 pb-3 md:px-4 md:pb-4 flex justify-end items-end gap-2 md:gap-3 pointer-events-auto">
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => router.push('/booking')}
-            className="w-10 h-10 md:w-11 md:h-11 rounded-full glass-bottom-btn text-[#1a56db] flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all"
-            title="Записаться"
-          >
-            <CalendarCheck className="w-4 h-4 md:w-5 md:h-5" />
-          </button>
+          {!isBooking && (
+            <button
+              onClick={() => router.push(isSchool ? '/school/courses' : '/booking')}
+              className="w-10 h-10 md:w-11 md:h-11 rounded-full glass-bottom-btn text-[#1a56db] flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+              title={isSchool ? 'Продолжить обучение' : 'Записаться'}
+            >
+              {isSchool ? <GraduationCap className="w-4 h-4 md:w-5 md:h-5" /> : <CalendarCheck className="w-4 h-4 md:w-5 md:h-5" />}
+            </button>
+          )}
 
           <button
             onClick={() => window.open('tel:+74959214770', '_self')}

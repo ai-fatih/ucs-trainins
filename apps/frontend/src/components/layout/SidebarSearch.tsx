@@ -12,19 +12,17 @@ interface Item {
 
 const ITEMS: Item[] = [
   { href: '/', label: 'Главная', context: '' },
-  { href: '/instructions', label: 'Инструкции', context: '' },
-  { href: '/instructions/rkeeper/rk7', label: 'r_keeper 7', context: 'Десктоп' },
-  { href: '/instructions/rkeeper/storehouse', label: 'StoreHouse Pro', context: 'Десктоп' },
-  { href: '/instructions/rkeeper/delivery', label: 'Delivery', context: 'Облачные сервисы' },
-  { href: '/instructions/rkeeper/event', label: 'Event', context: 'Облачные сервисы' },
-  { href: '/instructions/rkeeper/waiter', label: 'Waiter & Cash Desk', context: 'Мобильные' },
+  { href: '/docs', label: 'Документация', context: '' },
+  { href: '/docs/rkeeper/rk7', label: 'r_keeper 7', context: 'Десктоп' },
+  { href: '/docs/rkeeper/storehouse', label: 'StoreHouse Pro', context: 'Десктоп' },
+  { href: '/docs/rkeeper/delivery', label: 'Delivery', context: 'Облачные сервисы' },
+  { href: '/docs/rkeeper/event', label: 'Event', context: 'Облачные сервисы' },
+  { href: '/docs/rkeeper/waiter', label: 'Waiter & Cash Desk', context: 'Мобильные' },
   { href: '/booking', label: 'Консультации', context: 'Услуги' },
   { href: '/booking', label: 'Обучение', context: 'Услуги' },
-  { href: '/chat', label: 'Чат с отделом', context: '' },
-  { href: '/games', label: 'Игры и тренажёры', context: '' },
-  { href: '/profile', label: 'Личный кабинет', context: '' },
-  { href: '/notifications', label: 'Уведомления', context: '' },
+  { href: '/school', label: 'Школа', context: '' },
   { href: '/booking', label: 'Записаться', context: '' },
+  { href: '/notifications', label: 'Уведомления', context: '' },
 ];
 
 export function SidebarSearch() {
@@ -67,7 +65,7 @@ export function SidebarSearch() {
   };
 
   return (
-    <div className="relative px-3 pb-2">
+    <div className="relative">
       <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#f3f4f6] border border-transparent focus-within:border-[#1a56db] focus-within:bg-white transition-all">
         <Search className="w-4 h-4 text-[#9ca3af] shrink-0" />
         <input

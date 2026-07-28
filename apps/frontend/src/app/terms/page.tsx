@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Пользовательское соглашение — UCS service',
@@ -7,6 +9,10 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
+      <Link href="/" className="inline-flex items-center gap-1 text-sm text-[#6b7280] hover:text-[#1a56db] mb-6 transition-colors no-underline">
+        <ArrowLeft className="w-4 h-4" /> Вернуться на сайт
+      </Link>
+
       <h1 className="section-title">Пользовательское соглашение</h1>
       <p className="section-subtitle">Дата последнего обновления: 14 июля 2026 г.</p>
 

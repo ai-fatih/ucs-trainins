@@ -11,6 +11,25 @@ const nextConfig = {
     cpus: 1,
     workerThreads: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/games',
+        destination: '/school',
+        permanent: false,
+      },
+      {
+        source: '/instructions/:path*',
+        destination: '/docs/:path*',
+        permanent: true,
+      },
+      {
+        source: '/admin/schedule',
+        destination: '/admin/requests',
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
     return [
       {

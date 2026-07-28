@@ -1,5 +1,0 @@
-import { redirect } from 'next/navigation';
-
-export default function AdminSchedulePage() {
-  redirect('/admin/requests');
-}

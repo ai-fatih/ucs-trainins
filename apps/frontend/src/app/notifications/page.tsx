@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import type { NotificationSetting, NotificationEvent } from '@/types';
@@ -7,6 +8,7 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { TableRowSkeleton } from '@/components/ui/Skeleton';
 import toast from 'react-hot-toast';
+import { ArrowLeft } from 'lucide-react';
 
 export default function NotificationsPage() {
   const { data: channels = [], isLoading: channelsLoading } = useQuery<NotificationSetting[]>({
@@ -21,6 +23,10 @@ export default function NotificationsPage() {
 
   return (
     <div className="max-w-[800px] mx-auto px-4 py-8">
+      <Link href="/profile" className="inline-flex items-center gap-1 text-sm text-[#6b7280] hover:text-[#1a56db] mb-6 transition-colors no-underline">
+        <ArrowLeft className="w-4 h-4" /> Назад к профилю
+      </Link>
+
       <h1 className="section-title">Настройки уведомлений</h1>
       <p className="section-subtitle">Управляйте каналами и событиями для оповещений</p>
 

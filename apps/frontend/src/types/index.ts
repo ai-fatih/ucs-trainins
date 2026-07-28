@@ -319,3 +319,93 @@ export interface AdminDashboard {
   stats: MonthlyStat;
   recentReviews: Review[];
 }
+
+/* ===== School / Online Learning Types ===== */
+
+export type LessonActivityType = 'quiz' | 'sprint' | 'match' | 'chain' | 'case';
+
+export interface LessonActivity {
+  type: LessonActivityType;
+  questionId?: string;
+  matchPairIds?: string[];
+  scenarioId?: string;
+  decisionTreeId?: string;
+  sprintQuestionIds?: string[];
+}
+
+export interface Lesson {
+  id: string;
+  title: string;
+  description: string;
+  activity: LessonActivity;
+  durationMinutes: number;
+  xpReward: number;
+}
+
+export interface Module {
+  id: string;
+  title: string;
+  description: string;
+  lessons: Lesson[];
+  order: number;
+}
+
+export interface Course {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  iconBg: string;
+  colorFrom: string;
+  colorTo: string;
+  modules: Module[];
+  totalLessons: number;
+  totalXp: number;
+  estimatedHours: number;
+}
+
+export interface CourseProgress {
+  courseId: string;
+  completedLessons: string[];
+  totalScore: number;
+  startedAt: string;
+  completedAt: string | null;
+}
+
+export interface Badge {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  condition: string;
+  xpRequired?: number;
+  lessonsRequired?: string[];
+}
+
+export interface Certificate {
+  id: string;
+  title: string;
+  courseName: string;
+  issuedAt: string;
+  expiresAt: string | null;
+  imageUrl?: string;
+}
+
+export interface SchoolStats {
+  totalXp: number;
+  totalLessonsCompleted: number;
+  totalCoursesCompleted: number;
+  currentStreak: number;
+  badgesEarned: string[];
+  certificatesEarned: string[];
+  rankPosition: number;
+  level: number;
+}
+
+export interface LeaderboardEntry {
+  name: string;
+  xp: number;
+  streak: number;
+  rankIcon: string;
+  isYou?: boolean;
+}
