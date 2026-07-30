@@ -1,16 +1,13 @@
-const withPWA = require('next-pwa')({
-  dest: 'public',
+const withSerwist = require('@serwist/next').default({
+  swSrc: 'service-worker/index.ts',
+  swDest: 'public/sw.js',
+  disable: process.env.NODE_ENV === 'development',
   register: true,
-  skipWaiting: true,
-  disable: false,
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    cpus: 1,
-    workerThreads: true,
-  },
+  turbopack: {},
   async redirects() {
     return [
       {
@@ -31,6 +28,18 @@ const nextConfig = {
     ];
   },
   async headers() {
+    const isDev = process.env.NODE_ENV === 'development';
+    const csp = [
+      "default-src 'self'",
+      isDev ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'" : "script-src 'self'",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: https:",
+      "connect-src 'self' https://api.telegram.org",
+      "font-src 'self' data:",
+      "frame-ancestors 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+    ].join('; ');
     return [
       {
         source: '/(.*)',
@@ -38,15 +47,11 @@ const nextConfig = {
           { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-          {
-            key: 'Content-Security-Policy',
-            value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.telegram.org; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
-          },
+          { key: 'Content-Security-Policy', value: csp },
         ],
       },
     ];
   },
 };
 
-module.exports = withPWA(nextConfig);
+module.exports = withSerwist(nextConfig);

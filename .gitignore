@@ -11,3 +11,6 @@ build/
 .npm-cache/
 *.tsbuildinfo
 tsconfig.tsbuildinfo
+*.pem
+*.key
+secrets/

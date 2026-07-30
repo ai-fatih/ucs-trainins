@@ -1,54 +1,52 @@
 'use client';
 import React, { useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import { MessageCircle, Phone, CalendarCheck, GraduationCap } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import { ChatWidget } from './ChatWidget';
+import { VoiceFloatingButton } from '@/components/voice/VoiceFloatingButton';
+import { VoiceAssistantModal } from '@/components/voice/VoiceAssistantModal';
 
 export function BottomActionBar() {
-  const router = useRouter();
-  const pathname = usePathname();
   const [chatOpen, setChatOpen] = useState(false);
 
-  const isSchool = pathname.startsWith('/school');
-  const isBooking = pathname.startsWith('/booking');
-
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
-      <div className="relative max-w-[1440px] mx-auto px-3 pb-3 md:px-4 md:pb-4 flex justify-end items-end gap-2 md:gap-3 pointer-events-auto">
-        <div className="flex items-center gap-2">
-          {!isBooking && (
-            <button
-              onClick={() => router.push(isSchool ? '/school/courses' : '/booking')}
-              className="w-10 h-10 md:w-11 md:h-11 rounded-full glass-bottom-btn text-[#1a56db] flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all"
-              title={isSchool ? 'Продолжить обучение' : 'Записаться'}
-            >
-              {isSchool ? <GraduationCap className="w-4 h-4 md:w-5 md:h-5" /> : <CalendarCheck className="w-4 h-4 md:w-5 md:h-5" />}
-            </button>
-          )}
+    <>
+      <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 pointer-events-none">
+        {chatOpen && (
+          <div className="absolute bottom-full right-0 mb-2 pointer-events-auto">
+            <ChatWidget onClose={() => setChatOpen(false)} />
+          </div>
+        )}
 
+        <div className="rounded-2xl flex items-center gap-3 px-5 py-3 pointer-events-auto" style={{
+          background: 'rgba(255,255,255,0.95)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          border: '1px solid rgba(255,255,255,0.4)',
+          boxShadow: '0 -4px 32px rgba(0,0,0,0.1), 0 8px 48px rgba(26,86,219,0.08)',
+        }}>
           <button
-            onClick={() => window.open('tel:+74959214770', '_self')}
-            className="w-10 h-10 md:w-11 md:h-11 rounded-full glass-bottom-btn text-[#0d9488] flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all"
-            title="Позвонить"
+            onClick={() => setChatOpen((p) => !p)}
+            className="w-9 h-9 rounded-full flex items-center justify-center text-[#6b7280] hover:text-[#1a56db] transition-all relative shrink-0"
+            style={{
+              background: 'rgba(255,255,255,0.85)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255,255,255,0.4)',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
+            }}
+            aria-label="Чат с поддержкой"
           >
-            <Phone className="w-4 h-4 md:w-5 md:h-5" />
-          </button>
-        </div>
-
-        <div className="relative">
-          {chatOpen && <ChatWidget onClose={() => setChatOpen(false)} />}
-          <button
-            onClick={() => setChatOpen(!chatOpen)}
-            className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all"
-            title="Чат с поддержкой"
-          >
-            <MessageCircle className="w-6 h-6 md:w-7 md:h-7" />
-            <span className="absolute -top-1 -right-1 w-4 h-4 md:w-5 md:h-5 bg-[#dc2626] text-white text-[9px] md:text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">
+            <MessageCircle className="w-4 h-4" />
+            <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-[#dc2626] text-white text-[8px] font-bold rounded-full flex items-center justify-center border-2 border-white">
               1
             </span>
           </button>
+
+          <VoiceFloatingButton />
         </div>
       </div>
-    </div>
+
+      <VoiceAssistantModal />
+    </>
   );
 }

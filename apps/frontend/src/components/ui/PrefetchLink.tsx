@@ -10,7 +10,7 @@ interface PrefetchLinkProps {
   onMouseEnter?: () => void;
 }
 
-export function PrefetchLink({ href, children, className, onMouseEnter, ...props }: PrefetchLinkProps) {
+export function PrefetchLink({ href, children, className, onMouseEnter }: PrefetchLinkProps) {
   const router = useRouter();
 
   const handleMouseEnter = () => {
@@ -19,7 +19,7 @@ export function PrefetchLink({ href, children, className, onMouseEnter, ...props
   };
 
   return (
-    <Link href={href} className={className} onMouseEnter={handleMouseEnter} {...props}>
+    <Link href={href} className={className} onMouseEnter={handleMouseEnter}>
       {children}
     </Link>
   );

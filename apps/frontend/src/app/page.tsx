@@ -5,12 +5,13 @@ import { useQuery } from '@tanstack/react-query';
 import { Avatar } from '@/components/ui/Avatar';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { ChatWidget } from '@/components/layout/ChatWidget';
+import { PhoneLink } from '@/components/PhoneLink';
 import { useAuthStore } from '@/stores/auth';
 import { api } from '@/lib/api';
 import type { Specialist } from '@/types';
 import {
   MessageCircle, GraduationCap, Database, Monitor,
-  Star, ChevronDown, ChevronRight, Mail, Phone, CheckCircle,
+  Star, ChevronDown, ChevronRight, Mail, CheckCircle,
   BookOpen, Users, Calendar, Truck,
 } from 'lucide-react';
 import serviceCategoriesData from '@/data/service-categories.json';
@@ -379,18 +380,7 @@ export default function HomePage() {
               <span className="text-[13px] font-semibold">school@ucs-service.ru</span>
             </a>
 
-            <a href="tel:+74959214770" className="flex items-center gap-2.5 no-underline text-white hover:translate-x-1 transition-all">
-              <span className="w-9 h-9 rounded-xl bg-[rgba(255,255,255,0.08)] flex items-center justify-center shrink-0">
-                <Phone className="w-4 h-4 text-[#0d9488]" />
-              </span>
-              <span className="text-[13px] font-semibold">
-                +7 (495) 921-47-70{' '}
-                <span className="text-[11px] opacity-50 font-normal">
-                  доб.{' '}
-                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[rgba(13,148,136,0.2)] text-[#0d9488] text-[10px] font-bold">2</span>
-                </span>
-              </span>
-            </a>
+            <PhoneLink />
 
             <button
               onClick={() => setChatOpen(true)}

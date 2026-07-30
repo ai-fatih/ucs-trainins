@@ -5,16 +5,14 @@ import { Toaster } from 'react-hot-toast';
 import { logger } from '@/lib/logger';
 import { RouteTracker } from '@/components/layout/RouteTracker';
 
-interface ErrorBoundaryProps {
-  children: React.ReactNode;
-}
-
 interface ErrorBoundaryState {
   hasError: boolean;
 }
 
-class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
+class ErrorBoundary extends Component<{ children?: React.ReactNode }, ErrorBoundaryState> {
+  declare refs: Record<string, never>;
+
+  constructor(props: { children?: React.ReactNode }) {
     super(props);
     this.state = { hasError: false };
   }

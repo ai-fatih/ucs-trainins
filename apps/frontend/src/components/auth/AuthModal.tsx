@@ -53,7 +53,7 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
       const { user } = await api.auth.login(actualEmail, code);
       login(user);
       onClose();
-      redirectAfterLogin(user.role);
+      requestAnimationFrame(() => redirectAfterLogin(user.role));
     } catch (err: any) {
       setError(err.message || 'Ошибка входа');
     } finally {
@@ -69,7 +69,7 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
       const { user } = await api.auth.register({ name, email, phone, password, userType });
       login(user);
       onClose();
-      redirectAfterLogin(user.role);
+      requestAnimationFrame(() => redirectAfterLogin(user.role));
     } catch (err: any) {
       setError(err.message || 'Ошибка регистрации');
     } finally {
