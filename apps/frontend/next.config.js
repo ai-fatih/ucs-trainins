@@ -31,7 +31,7 @@ const nextConfig = {
     const isDev = process.env.NODE_ENV === 'development';
     const csp = [
       "default-src 'self'",
-      isDev ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'" : "script-src 'self'",
+      isDev ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'" : "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https:",
       "connect-src 'self' https://api.telegram.org",
