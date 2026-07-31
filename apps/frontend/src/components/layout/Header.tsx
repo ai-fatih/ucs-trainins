@@ -1,12 +1,12 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/auth';
-import { useNotificationStore } from '@/stores/notifications';
 import { useUIStore } from '@/stores/ui';
 import { AuthModal } from '@/components/auth/AuthModal';
-import { Menu, Bell, User, Download } from 'lucide-react';
+import { NotificationsDropdown } from './NotificationsDropdown';
+import { Menu, Bell, User, Download, ChevronDown, Settings, LogOut } from 'lucide-react';
 import { SidebarSearch } from './SidebarSearch';
 import navConfig from '@/data/navigation.json';
 
@@ -25,19 +25,49 @@ type Section = {
 };
 
 export function Header() {
-  const { user, isAuthenticated } = useAuthStore();
-  const unreadCount = useNotificationStore((s) => s.unreadCount);
+  const { user, isAuthenticated, logout } = useAuthStore();
   const pathname = usePathname();
+  const router = useRouter();
   const toggleSidebar = useUIStore((s) => s.toggleSidebar);
   const [authOpen, setAuthOpen] = useState(false);
-  const [hydrated, setHydrated] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
   const deferredPrompt = useRef<any>(null);
   const [installable, setInstallable] = useState(false);
 
-  useEffect(() => { setHydrated(true); }, []);
+  // Header обёрнут в ssr: false — компонент монтируется только на клиенте,
+  // useHydrated() не нужен, читаем стор напрямую.
 
-  const effectiveAuth = hydrated && isAuthenticated;
-  const effectiveUser = hydrated ? user : null;
+  // Закрывать дропдаун по клику вне, по Escape и при смене маршрута
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    };
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setUserMenuOpen(false);
+    };
+    if (userMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscape);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [userMenuOpen]);
+
+  useEffect(() => {
+    setUserMenuOpen(false);
+  }, [pathname]);
+
+  const handleLogout = () => {
+    console.info('[Header] logout');
+    setUserMenuOpen(false);
+    logout();
+    router.replace('/');
+  };
 
   useEffect(() => {
     const handleBeforeInstall = (e: Event) => {
@@ -68,15 +98,40 @@ export function Header() {
     });
   };
 
-  const isStaff = effectiveUser?.role === 'admin' || effectiveUser?.role === 'company_admin' || effectiveUser?.role === 'specialist';
+  const isStaff = user?.role === 'admin' || user?.role === 'company_admin' || user?.role === 'specialist';
 
   const isLanding = pathname === '/';
 
   const sections = navConfig.sections as Section[];
 
-  const currentSection = sections.find(
-    (s) => s.headerNav && s.href !== '/' && (pathname === s.href || pathname.startsWith(s.href + '/')),
-  );
+  const ADMIN_HEADER_NAV: NavTab[] = [
+    { href: '/admin/dashboard', label: 'KPI' },
+    { href: '/admin/requests', label: 'Заявки' },
+    { href: '/admin/services', label: 'Услуги' },
+    { href: '/admin/specialists', label: 'Специалисты' },
+    { href: '/admin/schedule', label: 'Расписание' },
+  ];
+
+  const isAdminArea = pathname === '/admin' || pathname.startsWith('/admin/');
+
+  // Section выбирается по самому длинному совпавшему URL (href раздела + его headerNav),
+  // чтобы табы корректно показывались на /services, /bookings, /chat, /profile и т.д.
+  const sectionTabs = isAdminArea && isStaff
+    ? ADMIN_HEADER_NAV
+    : (() => {
+        let best: { section: Section; len: number } | null = null;
+        for (const s of sections) {
+          if (!s.headerNav || s.headerNav.length === 0) continue;
+          const urls = [s.href, ...s.headerNav.map((t) => t.href)];
+          for (const u of urls) {
+            if (u === '/') continue;
+            if (pathname === u || pathname.startsWith(u + '/')) {
+              if (!best || u.length > best.len) best = { section: s, len: u.length };
+            }
+          }
+        }
+        return best?.section.headerNav ?? null;
+      })();
 
   const HEADER_NAV: NavTab[] = [
     { href: '/#about', label: 'О нас' },
@@ -86,10 +141,6 @@ export function Header() {
     { href: '/#news', label: 'Новости' },
     { href: '/#reviews', label: 'Отзывы' },
   ];
-
-  const avatarHref = !effectiveAuth ? '/' : isStaff ? '/admin/dashboard' : '/dashboard';
-
-  const sectionTabs = currentSection?.headerNav;
 
   const isActiveTab = (href: string) => {
     if (href === pathname) return true;
@@ -169,29 +220,53 @@ export function Header() {
           </div>
 
           <div className="flex items-center gap-1 shrink-0">
-            {effectiveAuth && effectiveUser ? (
+            {isAuthenticated && user ? (
               <>
-                <Link
-                  href="/notifications"
-                  className="relative w-9 h-9 rounded-lg flex items-center justify-center text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/10 transition-all no-underline"
-                >
-                  <Bell className="w-5 h-5" />
-                  {unreadCount > 0 && (
-                    <span className="absolute top-1 right-1 w-4 h-4 bg-[#dc2626] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                      {unreadCount}
-                    </span>
-                  )}
-                </Link>
+                <NotificationsDropdown />
 
-                <Link
-                  href={avatarHref}
-                  className="hidden lg:flex items-center gap-2 no-underline"
-                >
-                  <span className="w-9 h-9 rounded-full bg-gradient-to-br from-[#1a56db] to-[#0d9488] inline-flex items-center justify-center text-white font-semibold text-sm shrink-0">
-                    {effectiveUser.name.charAt(0)}
-                  </span>
-                  <span className="text-sm font-medium text-[#374151] max-w-[100px] truncate">{effectiveUser.name}</span>
-                </Link>
+                <div className="relative" ref={menuRef}>
+                  <button
+                    onClick={() => setUserMenuOpen((v) => !v)}
+                    className="flex items-center gap-2 rounded-lg p-1 hover:bg-[#1a56db]/5 transition-all cursor-pointer"
+                    aria-haspopup="menu"
+                    aria-expanded={userMenuOpen}
+                  >
+                    <span className="w-9 h-9 rounded-full bg-gradient-to-br from-[#1a56db] to-[#0d9488] inline-flex items-center justify-center text-white font-semibold text-sm shrink-0">
+                      {user.name.charAt(0)}
+                    </span>
+                    <span className="hidden lg:block text-sm font-medium text-[#374151] max-w-[100px] truncate">{user.name}</span>
+                    <ChevronDown className={`hidden lg:block w-3.5 h-3.5 text-[#6b7280] shrink-0 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {userMenuOpen && (
+                    <div
+                      role="menu"
+                      className="absolute right-0 top-full mt-2 w-52 glass-strong rounded-xl py-2 shadow-xl border border-white/20 z-50"
+                    >
+                      <Link
+                        href="/profile"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#374151] hover:bg-[#1a56db]/5 hover:text-[#1a56db] transition-colors no-underline"
+                      >
+                        <User className="w-4 h-4" /> Профиль
+                      </Link>
+                      <Link
+                        href="/settings"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#374151] hover:bg-[#1a56db]/5 hover:text-[#1a56db] transition-colors no-underline"
+                      >
+                        <Settings className="w-4 h-4" /> Настройки
+                      </Link>
+                      <div className="my-1 border-t border-[#e5e7eb]" />
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#dc2626] hover:bg-red-50 transition-colors cursor-pointer"
+                      >
+                        <LogOut className="w-4 h-4" /> Выход
+                      </button>
+                    </div>
+                  )}
+                </div>
               </>
             ) : (
               <button

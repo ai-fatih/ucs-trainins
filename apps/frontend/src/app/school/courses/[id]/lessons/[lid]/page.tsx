@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2, Home } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Home, MessageCircle } from 'lucide-react';
 import type { Course, Lesson } from '@/types';
 import coursesData from '@/data/school/courses.json';
 import { saveCourseProgress, getAllCourseProgress, getSchoolStats, saveSchoolStats, checkAndAwardBadges, checkAndAwardCertificates } from '@/lib/school/storage';
@@ -69,6 +69,15 @@ export default function LessonPage() {
               <Home className="w-4 h-4" /> На главную
             </Link>
           </div>
+          <div className="mt-6 pt-6 border-t border-[#e5e7eb]/50">
+            <Link
+              href={`/booking?topic=${encodeURIComponent(course.title)}`}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-white no-underline transition-all bg-gradient-to-r from-[#1a56db] to-[#0d9488] hover:shadow-lg hover:-translate-y-0.5 text-sm"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Записаться на консультацию по теме урока
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -86,6 +95,20 @@ export default function LessonPage() {
       </div>
 
       <LessonView lesson={lesson} onComplete={handleComplete} />
+
+      <div className="mt-6 glass-card p-4 flex flex-col sm:flex-row sm:items-center gap-3">
+        <div className="flex-1">
+          <div className="text-sm font-semibold text-[#111827]">Нужна помощь с этой темой?</div>
+          <div className="text-xs text-[#6b7280]">Запишитесь на консультацию — специалист разберёт вопросы лично</div>
+        </div>
+        <Link
+          href={`/booking?topic=${encodeURIComponent(course.title)}`}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-white no-underline transition-all bg-gradient-to-r from-[#1a56db] to-[#0d9488] hover:shadow-lg hover:-translate-y-0.5 text-sm shrink-0"
+        >
+          <MessageCircle className="w-4 h-4" />
+          Консультация по теме
+        </Link>
+      </div>
     </div>
   );
 }

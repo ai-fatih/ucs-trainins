@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   X, Mic, Volume2,
-  CalendarCheck, GraduationCap, UserCircle, MessageCircle,
+  CalendarCheck, CalendarClock, GraduationCap, UserCircle, MessageCircle,
   FileText, Briefcase, Home, Bell, LayoutDashboard,
 } from 'lucide-react';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
@@ -13,7 +13,7 @@ import { VOICE_COMMANDS, SYNONYM_MAP } from '@/data/voice-commands';
 import type { VoiceCommand } from '@/data/voice-commands';
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  CalendarCheck, GraduationCap, UserCircle, MessageCircle,
+  CalendarCheck, CalendarClock, GraduationCap, UserCircle, MessageCircle,
   FileText, Briefcase, Home, Bell, LayoutDashboard,
 };
 

@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import { Modal } from '@/components/ui/Modal';
 import { Stars } from '@/components/ui/Stars';
 import toast from 'react-hot-toast';
+import { saveSurvey } from '@/lib/feedback/storage';
 
 interface QualitySurveyModalProps {
   open: boolean;
   onClose: () => void;
   specialistName?: string;
+  bookingId?: string;
   onComplete: () => void;
 }
 
@@ -17,7 +19,7 @@ const QUESTIONS = [
   { id: 'overall', label: 'Общая оценка' },
 ];
 
-export function QualitySurveyModal({ open, onClose, specialistName, onComplete }: QualitySurveyModalProps) {
+export function QualitySurveyModal({ open, onClose, specialistName, bookingId, onComplete }: QualitySurveyModalProps) {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
 
@@ -26,6 +28,7 @@ export function QualitySurveyModal({ open, onClose, specialistName, onComplete }
 
   const handleSubmit = () => {
     if (!allAnswered) { toast.error('Ответьте на все вопросы'); return; }
+    saveSurvey({ bookingId: bookingId || '', specialistName: specialistName || 'Специалист', answers, comment });
     setSubmitted(true);
     toast.success('Спасибо за обратную связь!');
     onComplete();

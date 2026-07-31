@@ -43,10 +43,10 @@ export default function CourseDetailPage() {
 
       <div className="mt-8 pt-6 border-t border-[#e5e7eb]/50">
         <Link
-          href="/booking"
+          href={`/booking?topic=${encodeURIComponent(course.title)}`}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-white no-underline transition-all bg-gradient-to-r from-[#1a56db] to-[#0d9488] hover:shadow-lg hover:-translate-y-0.5 text-sm"
         >
-          Записаться на консультацию
+          Записаться на консультацию по теме курса
           <ArrowRight className="w-4 h-4" />
         </Link>
       </div>

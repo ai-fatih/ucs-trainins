@@ -16,6 +16,7 @@
 ```
 UCS service | О нас | Документация | Услуги | Школа | Новости | Отзывы | 🔍 | 👤
 ```
+> Авторизованный пользователь на `/` сразу редиректится в личный кабинет: `/dashboard` (staff → `/admin/dashboard`). Все редиректы — в едином конфиге `lib/auth/route-access.ts` + центральном guard `components/layout/AuthRouter.tsx` (см. `docs/auth-redirects.md`): клиентский `router.replace()`, только после гидрации (`useHydrated`) — SSR-контент лендинга для SEO не ломается, циклов при «Назад» нет.
 
 ### Документация (`/docs/*`)
 ```
@@ -36,11 +37,20 @@ UCS service | Услуги | Мои записи | Записаться | 🔍 |
 ```
 UCS service | Дашборд | Записи | Чат | Школа | 🔍 | 🔔 | 👤
 ```
+> Клик по аватару/имени открывает дропдаун: **Профиль** (`/profile`) · **Настройки** (`/settings`) · **Выход** (logout → `/`). Колокол → дропдаун уведомлений (`NotificationsDropdown`, заглушка) + «Все уведомления» → `/notifications`. Закрытие по клику вне, Escape и смене маршрута. `/settings` — заглушка (разделы «скоро»).
+
+### Школа (`/school/*`) — защищена
+```
+UCS service | Главная | Курсы | Рейтинг | Бейджи | Сертификаты | 🔍 | 🔔 | 👤
+```
+> `/school/*` — protected (гость → `/auth/login?redirect=…`), соответствует `docs/touchpoints.md`.
 
 ### Admin (`/admin/*`)
 ```
-UCS service | KPI | Заявки | Расписание | 🔍 | 🔔 | 👤
+UCS service | KPI | Заявки | Услуги | Специалисты | Расписание | 🔍 | 🔔 | 👤
 ```
+
+> Табы показываются только у staff. Расписание восстановлено (mock: переключение доступности слотов), добавлены CRUD-разделы «Услуги» и «Специалисты» (mock, in-memory).
 
 ---
 
@@ -144,7 +154,7 @@ UCS service | KPI | Заявки | Расписание | 🔍 | 🔔 | 👤
 | `/school/profile` | Ссылка на редактирование + "← Назад" | `<Link href="/school">← Школа</Link>` |
 | `/school/notifications` | "← Назад в школу" + пометить "прочитанным" | `<Link href="/school">← Школа</Link>` |
 | `/notifications` | "← Назад к профилю" | `<Link href="/profile">← Профиль</Link>` |
-| `/admin/schedule` | Удалить или реализовать | Предлагаю удалить |
+| `/admin/schedule` | Реализован (mock) | ✅ переключение доступности слотов |
 | `/specialists` | Ссылка из `/services` и из `/booking` | Добавить |
 | `/request` | Ссылка из Hero блока лендинга | Добавить |
 
@@ -152,17 +162,29 @@ UCS service | KPI | Заявки | Расписание | 🔍 | 🔔 | 👤
 
 ## 6. Приоритет реализации
 
-| # | Задача | Сложность | Страниц |
-|---|--------|-----------|---------|
-| 1 | Cross-links: dashboard ↔ school | Малая | 2 |
-| 2 | Cross-links: school/courses ↔ booking | Малая | 2 |
-| 3 | "Назад" ссылки на мёртвых страницах | Малая | 7 |
-| 4 | Header навигация для /services, /dashboard | Средняя | 3 |
-| 5 | Breadcrumbs: "Главная" + обновить labels | Малая | 2 |
-| 6 | Удалить admin/schedule | Малая | 1 |
-| 7 | Выбор специалиста в booking | Средняя | 1 |
-| 8 | Связь register → dashboard вместо / | Малая | 1 |
-| 9 | Добавить ссылки на specialists и request | Малая | 2 |
-| 10 | Header навигация для admin | Средняя | 3 |
+Статусы: ✅ сделано · 🔧 в работе · ⏳ не начато
+
+| # | Задача | Сложность | Страниц | Статус |
+|---|--------|-----------|---------|--------|
+| 1 | Cross-links: dashboard ↔ school | Малая | 2 | ✅ виджет «Продолжить обучение» на `/dashboard` |
+| 2 | Cross-links: school/courses ↔ booking | Малая | 2 | ✅ CTA «Записаться на консультацию» на детали курса |
+| 3 | "Назад" ссылки на мёртвых страницах | Малая | 7 | ✅ юр. страницы, `/notifications`, школа |
+| 4 | Header навигация для /services, /dashboard | Средняя | 3 | ✅ починено (совпадение по headerNav, см. §1) |
+| 5 | Breadcrumbs: "Главная" + обновить labels | Малая | 2 | ✅ «Главная» добавлена, routeLabels обновлены |
+| 6 | Удалить admin/schedule | Малая | 1 | ✅ роут удалён ранее, затем восстановлен как mock |
+| 7 | Выбор специалиста в booking | Средняя | 1 | ✅ шаг «Специалист» в визарде, пресет из `/specialists`, фильтр слотов по специалисту |
+| 8 | Связь register → dashboard вместо / | Малая | 1 | ✅ register/login → `/dashboard` (staff → `/admin/dashboard`) |
+| 9 | Добавить ссылки на specialists и request | Малая | 2 | ✅ `/specialists` в footer + header; `/request` в footer, Hero-CTA |
+| 10 | Header навигация для admin | Средняя | 3 | ✅ KPI / Заявки / Услуги / Специалисты / Расписание (staff) |
+
+**Примечания к реализации:**
+
+- **Header §1:** секция выбирается по самому длинному совпавшему URL (href раздела **+** его `headerNav`), поэтому табы корректно показываются на `/services`, `/bookings`, `/chat`, `/profile`, `/notifications`, `/school/*`. Логика в `components/layout/Header.tsx`.
+- **Admin header:** у staff на `/admin/*` показываются табы `KPI` (`/admin/dashboard`), `Заявки` (`/admin/requests`), `Услуги` (`/admin/services`), `Специалисты` (`/admin/specialists`), `Расписание` (`/admin/schedule`).
+- **Дашборд-секция headerNav:** добавлен таб «Уведомления» → `/notifications` (`src/data/navigation.json`).
+- **Booking §7:** визард теперь 4 шага (Услуга → Специалист → Дата и время → Подтверждение). `specialistId` из URL пресетит специалиста без перехода шага; слоты фильтруются по выбранному специалисту; `specialistId`/`specialistName` уходят в `POST /bookings`. `src/stores/booking.ts` (actions `setSelectedSpecialist`/`selectSpecialist`), `src/app/booking/page.tsx`, `src/data/slots.json` (слоты добавлены для всех 5 специалистов).
+- **Связь школа↔консультации:** CTA «Записаться на консультацию по теме» на детали курса и на странице урока → `/booking?topic=<курс>` (тема пресетится в шаге подтверждения визарда).
+- **Отзыв (`/review`):** вход из `/bookings` (completed) со ссылкой `/review?bookingId=`. Специалист, услуга и дата берутся из записи; отзыв сохраняется (rating/feedbackCompleted в `mock-db`, localStorage).
+- **Осталось (backend):** авторизация (мок→JWT), чат (мок→backend), защита от double-booking, ITSM-вход, реальные чаевые (НетМонет/СберЧаевые), Telegram/SMS, аналитика.
 
 **Итого:** ~20 файлов затронуто, большинство — малые правки (ссылки/навигация).

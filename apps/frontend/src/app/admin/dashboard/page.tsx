@@ -106,6 +106,24 @@ export default function StaffDashboardPage() {
       {/* Requests — гибрид A+B+C */}
       <section className="mb-10">
         <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-bold text-[#111827]">Управление</h2>
+          <div className="flex gap-2">
+            <Link href="/admin/services" className="text-sm font-semibold text-[#1a56db] hover:text-[#1648c0] no-underline inline-flex items-center gap-1">
+              Услуги <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link href="/admin/specialists" className="text-sm font-semibold text-[#1a56db] hover:text-[#1648c0] no-underline inline-flex items-center gap-1">
+              Специалисты <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link href="/admin/schedule" className="text-sm font-semibold text-[#1a56db] hover:text-[#1648c0] no-underline inline-flex items-center gap-1">
+              Расписание <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Requests — гибрид A+B+C */}
+      <section className="mb-10">
+        <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-[#111827]">Последние заявки</h2>
           <Link href="/admin/requests" className="text-sm font-semibold text-[#1a56db] hover:text-[#1648c0] no-underline inline-flex items-center gap-1">
             Все заявки <ArrowRight className="w-3.5 h-3.5" />

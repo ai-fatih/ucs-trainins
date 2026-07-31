@@ -8,13 +8,14 @@ import badgesData from '@/data/school/badges.json';
 import { getSchoolStats, saveSchoolStats, getAllCourseProgress, getEarnedBadges, getEarnedBadgeIds, getEarnedCertificates, checkAndAwardBadges, checkAndAwardCertificates, getArenaProgress } from '@/lib/school/storage';
 import DashboardHeader from '@/components/school/DashboardHeader';
 import CourseCard from '@/components/school/CourseCard';
+import { useHydrated } from '@/lib/hooks/useHydrated';
 
 
 const courses = coursesData as unknown as Course[];
 const allBadges = badgesData as unknown as Badge[];
 
 export default function SchoolDashboard() {
-  const [hydrated, setHydrated] = useState(false);
+  const hydrated = useHydrated();
   const [stats, setStats] = useState<SchoolStats>(getSchoolStats());
   const [courseProgress, setCourseProgress] = useState<Record<string, CourseProgress>>({});
   const [earnedBadges, setEarnedBadges] = useState<Badge[]>([]);
@@ -22,8 +23,6 @@ export default function SchoolDashboard() {
   const [certs, setCerts] = useState<Certificate[]>([]);
   const [newBadges, setNewBadges] = useState<Badge[]>([]);
   const [newCerts, setNewCerts] = useState<Certificate[]>([]);
-
-  useEffect(() => { setHydrated(true); }, []);
 
   useEffect(() => {
     const arenaProgress = getArenaProgress();

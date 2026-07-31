@@ -9,6 +9,40 @@ const SCHOOL_STATS_KEY = 'school_stats';
 const COURSE_PROGRESS_KEY = 'school_course_progress';
 const BADGES_EARNED_KEY = 'school_badges_earned';
 const CERTIFICATES_EARNED_KEY = 'school_certificates_earned';
+const SCHOOL_PROFILE_KEY = 'school_profile';
+
+export interface SchoolProfile {
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+  company: string;
+}
+
+const defaultProfile: SchoolProfile = {
+  name: 'Фатихов Владислав',
+  role: 'Обучающийся',
+  email: 'vladislav@example.com',
+  phone: '+7 (999) 123-45-67',
+  company: 'ООО «УЮТНАЯ КОМПАНИЯ СЕРВИС»',
+};
+
+export function getSchoolProfile(): SchoolProfile {
+  if (typeof window === 'undefined') return defaultProfile;
+  try {
+    const raw = localStorage.getItem(SCHOOL_PROFILE_KEY);
+    return { ...defaultProfile, ...(raw ? JSON.parse(raw) : {}) };
+  } catch {}
+  return defaultProfile;
+}
+
+export function saveSchoolProfile(p: SchoolProfile) {
+  try { localStorage.setItem(SCHOOL_PROFILE_KEY, JSON.stringify(p)); } catch {}
+}
+
+export function profileInitials(name: string): string {
+  return name.trim().split(/\s+/).slice(0, 2).map((w) => w[0]?.toUpperCase() || '').join('') || 'У';
+}
 
 export function getTodayDate(): string {
   return new Date().toISOString().slice(0, 10);

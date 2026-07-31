@@ -1,6 +1,4 @@
 import { mockDB, MockApiError } from '@/lib/mock-db';
-import specialistsData from '@/data/specialists.json';
-import slotsData from '@/data/slots.json';
 import bookingsData from '@/data/bookings.json';
 import chatsData from '@/data/chats.json';
 import reviewsData from '@/data/reviews.json';
@@ -21,19 +19,22 @@ async function wrap<T>(fn: () => T): Promise<T> {
 export const api = {
   services: {
     list: async (): Promise<Service[]> => {
-      return wrap(() => mockDB.services);
+      return wrap(() => mockDB.listServices());
     },
   },
 
   specialists: {
     list: async (): Promise<Specialist[]> => {
-      return wrap(() => specialistsData as Specialist[]);
+      return wrap(() => mockDB.listSpecialists());
     },
   },
 
   slots: {
+    list: async (): Promise<Slot[]> => {
+      return wrap(() => mockDB.listAllSlots());
+    },
     getByDate: async (date: string): Promise<Slot[]> => {
-      return wrap(() => (slotsData as Record<string, Slot[]>)[date] || []);
+      return wrap(() => mockDB.listAllSlots().filter((s) => s.date === date));
     },
   },
 
@@ -50,6 +51,15 @@ export const api = {
     },
     cancel: async (id: string): Promise<void> => {
       return wrap(() => { mockDB.cancelBooking(id); });
+    },
+    reschedule: async (id: string, data: { date: string; time: string }): Promise<void> => {
+      return wrap(() => { mockDB.rescheduleBooking(id, data); });
+    },
+    submitReview: async (id: string, data: { rating: number; text: string }): Promise<void> => {
+      return wrap(() => { mockDB.submitReview(id, data); });
+    },
+    markSurveyDone: async (id: string): Promise<void> => {
+      return wrap(() => { mockDB.markSurveyDone(id); });
     },
   },
 
@@ -110,6 +120,22 @@ export const api = {
         const stats = adminStatsData as any;
         return { ...stats, recentReviews: reviewsData as Review[] };
       });
+    },
+    services: {
+      list: async (): Promise<Service[]> => wrap(() => mockDB.listServices()),
+      create: async (data: Omit<Service, 'id'>): Promise<Service> => wrap(() => mockDB.createService(data)),
+      update: async (id: string, data: Partial<Service>): Promise<Service> => wrap(() => mockDB.updateService(id, data)),
+      remove: async (id: string): Promise<void> => wrap(() => { mockDB.deleteService(id); }),
+    },
+    specialists: {
+      list: async (): Promise<Specialist[]> => wrap(() => mockDB.listSpecialists()),
+      create: async (data: Omit<Specialist, 'id'>): Promise<Specialist> => wrap(() => mockDB.createSpecialist(data)),
+      update: async (id: string, data: Partial<Specialist>): Promise<Specialist> => wrap(() => mockDB.updateSpecialist(id, data)),
+      remove: async (id: string): Promise<void> => wrap(() => { mockDB.deleteSpecialist(id); }),
+    },
+    schedule: {
+      list: async (): Promise<Slot[]> => wrap(() => mockDB.listAllSlots()),
+      setSlot: async (id: string, isAvailable: boolean): Promise<void> => wrap(() => { mockDB.setSlotAvailability(id, isAvailable); }),
     },
   },
 };

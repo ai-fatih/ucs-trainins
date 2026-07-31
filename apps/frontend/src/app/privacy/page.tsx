@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { ContactPhone } from '@/components/ContactPhone';
 
 export const metadata: Metadata = {
   title: 'Политика конфиденциальности — UCS service',
@@ -36,7 +37,7 @@ export default function PrivacyPage() {
             <li><strong>ИНН:</strong> 7723347991 / <strong>ОГРН:</strong> 1037723040871</li>
             <li><strong>Юридический адрес:</strong> 105120, г. Москва, вн.тер.г. муниципальный округ Таганский, пер. Большой Полуярославский, д. 10 стр. 1</li>
             <li><strong>Фактический адрес:</strong> 105120, г. Москва, вн.тер.г. муниципальный округ Таганский, пер. Большой Полуярославский, д. 10 стр. 1</li>
-            <li><strong>Телефон:</strong> +7 (495) 777-01-20</li>
+            <li><strong>Телефон:</strong> <ContactPhone /></li>
           </ul>
         </section>
 

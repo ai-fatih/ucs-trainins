@@ -32,10 +32,6 @@
   --radius-lg: 12px;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 /* Preloader */
 #preloader {
   position: fixed;

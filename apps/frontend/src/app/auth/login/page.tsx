@@ -1,14 +1,14 @@
 'use client';
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useAuthStore } from '@/stores/auth';
 import { api } from '@/lib/api';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 
-export default function LoginPage() {
+function LoginForm() {
   const [tab, setTab] = useState<'company' | 'individual'>('company');
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
@@ -17,6 +17,8 @@ export default function LoginPage() {
   const [accessCode, setAccessCode] = useState('');
   const login = useAuthStore((s) => s.login);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,11 +28,17 @@ export default function LoginPage() {
       const secret = tab === 'company' ? accessCode : password;
       if (!identifier) { toast.error('Заполните обязательные поля'); setLoading(false); return; }
       const actualEmail = tab === 'company' ? `${contract}@company` : email || 'root@ucs.ru';
+      console.info(`[Auth/login] attempt: ${actualEmail}, redirect: ${redirectTo}`);
       const { user } = await api.auth.login(actualEmail, secret);
+      console.info(`[Auth/login] success → ${user.role} (${user.name})`);
       login(user);
       toast.success('Вы успешно вошли!');
-      router.push('/');
+      const isStaff = user.role === 'admin' || user.role === 'company_admin' || user.role === 'specialist';
+      const target = redirectTo || (isStaff ? '/admin/dashboard' : '/dashboard');
+      console.info(`[Auth/login] navigate → ${target}`);
+      router.replace(target);
     } catch (err: any) {
+      console.error('[Auth/login] error:', err.message);
       toast.error(err.message || 'Ошибка входа');
     } finally {
       setLoading(false);
@@ -80,5 +88,13 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginForm />
+    </Suspense>
   );
 }

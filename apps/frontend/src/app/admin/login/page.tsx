@@ -1,13 +1,15 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { FormEvent, Suspense, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { apiClient } from '@/lib/api-client';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 
-export default function AdminLoginPage() {
+function AdminLoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -19,7 +21,7 @@ export default function AdminLoginPage() {
     setError('');
     try {
       await apiClient.auth.login(email, password);
-      router.replace('/admin/requests');
+      router.replace(redirectTo || '/admin/requests');
     } catch (loginError) {
       setError(loginError instanceof Error ? loginError.message : 'Не удалось войти');
     } finally {
@@ -37,5 +39,13 @@ export default function AdminLoginPage() {
         <Button type="submit" loading={loading} className="w-full">Войти</Button>
       </form>
     </div>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <AdminLoginForm />
+    </Suspense>
   );
 }

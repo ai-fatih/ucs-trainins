@@ -27,7 +27,7 @@ export function Breadcrumbs() {
   if (pathname === '/') return null;
 
   const segments = pathname.split('/').filter(Boolean);
-  const crumbs: { href: string; label: string }[] = [];
+  const crumbs: { href: string; label: string }[] = [{ href: '/', label: 'Главная' }];
   let acc = '';
 
   for (const seg of segments) {

@@ -11,3 +11,8 @@ export const ClientFooter = dynamic(
   () => import('./Footer').then((mod) => mod.Footer),
   { ssr: false }
 );
+
+export const ClientSidebar = dynamic(
+  () => import('./SidebarLeft').then((mod) => mod.SidebarLeft),
+  { ssr: false }
+);

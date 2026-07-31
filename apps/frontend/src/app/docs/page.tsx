@@ -71,7 +71,11 @@ const products: Product[] = [
     color: '#9ca3af',
     bgGradient: 'from-[#9ca3af] to-[#b0b7c3]',
     group: 'cloud',
-    scenarios: [],
+    scenarios: [
+      { title: 'Настройка оповещений с кассы', desc: 'Выбор типов событий, каналы оповещения, звук и приоритет', href: '/docs/rkeeper/event/notifications' },
+      { title: 'Экран событий', desc: 'Просмотр ленты событий, фильтры, подтверждение и история', href: '/docs/rkeeper/event/event-screen' },
+      { title: 'Подключение внешних устройств', desc: 'Табло заказов и звуковые оповещения, проверка подключения', href: '/docs/rkeeper/event/devices' },
+    ],
   },
   {
     id: 'waiter',

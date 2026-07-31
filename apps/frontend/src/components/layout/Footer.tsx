@@ -1,19 +1,15 @@
 'use client';
-import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuthStore } from '@/stores/auth';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
 export function Footer() {
   const { user, isAuthenticated } = useAuthStore();
-  const [hydrated, setHydrated] = useState(false);
 
-  useEffect(() => { setHydrated(true); }, []);
-
-  const effectiveUser = hydrated ? user : null;
-  const effectiveAuth = hydrated && isAuthenticated;
-  const isStaff = effectiveUser?.role === 'admin' || effectiveUser?.role === 'company_admin' || effectiveUser?.role === 'specialist';
-  const dashboardHref = !effectiveAuth ? '/' : isStaff ? '/admin/dashboard' : '/dashboard';
+  // Footer обёрнут в ssr: false — компонент монтируется только на клиенте,
+  // useHydrated() не нужен, читаем стор напрямую.
+  const isStaff = user?.role === 'admin' || user?.role === 'company_admin' || user?.role === 'specialist';
+  const dashboardHref = !isAuthenticated ? '/' : isStaff ? '/admin/dashboard' : '/dashboard';
 
   return (
     <footer className="glass-strong border-t border-white/20">
@@ -42,6 +38,7 @@ export function Footer() {
             <h4 className="font-semibold text-sm mb-3 text-[#111827]">Навигация</h4>
             <ul className="space-y-2">
               <li><Link href="/specialists" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Специалисты</Link></li>
+              <li><Link href="/request" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Оставить заявку</Link></li>
               <li><Link href={dashboardHref} className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Личный кабинет</Link></li>
               <li><Link href="/bookings" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Мои записи</Link></li>
             </ul>

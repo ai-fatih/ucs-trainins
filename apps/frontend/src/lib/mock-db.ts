@@ -1,5 +1,7 @@
-import type { User, Booking, Service } from '@/types';
+import type { User, Booking, Service, Specialist, Slot } from '@/types';
 import servicesData from '@/data/services.json';
+import specialistsData from '@/data/specialists.json';
+import slotsData from '@/data/slots.json';
 
 const seedUsers: User[] = [
   { id: 'u1', name: 'Амир', email: 'root@ucs.ru', phone: '+7 (999) 000-00-00', userType: 'company', role: 'company_admin' },
@@ -24,12 +26,18 @@ class MockDB {
   private users: Map<string, User>;
   private passwords: Map<string, string>;
   private bookings: Map<string, Booking>;
+  private serviceMap: Map<string, Service>;
+  private specialistMap: Map<string, Specialist>;
+  private slotMap: Map<string, Slot>;
   private nextBookingId = 0;
 
   constructor() {
     this.users = new Map();
     this.passwords = new Map();
     this.bookings = new Map();
+    this.serviceMap = new Map();
+    this.specialistMap = new Map();
+    this.slotMap = new Map();
     this.seed();
   }
 
@@ -39,6 +47,16 @@ class MockDB {
     }
     for (const [email, pw] of Object.entries(seedPasswords)) {
       this.passwords.set(email, pw);
+    }
+    for (const s of servicesData as Service[]) {
+      this.serviceMap.set(s.id, s);
+    }
+    for (const s of specialistsData as Specialist[]) {
+      this.specialistMap.set(s.id, s);
+    }
+    const allSlots = Object.values(slotsData as Record<string, Slot[]>).flat();
+    for (const s of allSlots) {
+      this.slotMap.set(s.id, s);
     }
   }
 
@@ -107,12 +125,88 @@ class MockDB {
     b.status = 'cancelled';
   }
 
+  rescheduleBooking(id: string, data: { date: string; time: string }): void {
+    const b = this.bookings.get(id);
+    if (!b) throw new MockApiError('Бронирование не найдено', 404);
+    b.date = data.date;
+    b.time = data.time;
+    b.status = 'rescheduled';
+  }
+
   getBookingById(id: string): Booking | undefined {
     return this.bookings.get(id);
   }
 
+  submitReview(id: string, data: { rating: number; text: string }): void {
+    const b = this.bookings.get(id);
+    if (!b) throw new MockApiError('Бронирование не найдено', 404);
+    b.rating = data.rating;
+    b.feedbackCompleted = true;
+    b.reviewText = data.text;
+  }
+
+  markSurveyDone(id: string): void {
+    const b = this.bookings.get(id);
+    if (!b) throw new MockApiError('Бронирование не найдено', 404);
+    b.feedbackCompleted = true;
+  }
+
   get services(): Service[] {
-    return servicesData as Service[];
+    return Array.from(this.serviceMap.values());
+  }
+
+  listServices(): Service[] {
+    return Array.from(this.serviceMap.values());
+  }
+
+  createService(data: Omit<Service, 'id'>): Service {
+    const service: Service = { ...data, id: `svc${Date.now()}-${Math.random().toString(36).slice(2, 6)}` };
+    this.serviceMap.set(service.id, service);
+    return service;
+  }
+
+  updateService(id: string, data: Partial<Service>): Service {
+    const existing = this.serviceMap.get(id);
+    if (!existing) throw new MockApiError('Услуга не найдена', 404);
+    const updated = { ...existing, ...data, id };
+    this.serviceMap.set(id, updated);
+    return updated;
+  }
+
+  deleteService(id: string): void {
+    if (!this.serviceMap.delete(id)) throw new MockApiError('Услуга не найдена', 404);
+  }
+
+  listSpecialists(): Specialist[] {
+    return Array.from(this.specialistMap.values());
+  }
+
+  createSpecialist(data: Omit<Specialist, 'id'>): Specialist {
+    const specialist: Specialist = { ...data, id: `spc${Date.now()}-${Math.random().toString(36).slice(2, 6)}` };
+    this.specialistMap.set(specialist.id, specialist);
+    return specialist;
+  }
+
+  updateSpecialist(id: string, data: Partial<Specialist>): Specialist {
+    const existing = this.specialistMap.get(id);
+    if (!existing) throw new MockApiError('Специалист не найден', 404);
+    const updated = { ...existing, ...data, id };
+    this.specialistMap.set(id, updated);
+    return updated;
+  }
+
+  deleteSpecialist(id: string): void {
+    if (!this.specialistMap.delete(id)) throw new MockApiError('Специалист не найден', 404);
+  }
+
+  listAllSlots(): Slot[] {
+    return Array.from(this.slotMap.values());
+  }
+
+  setSlotAvailability(id: string, isAvailable: boolean): void {
+    const slot = this.slotMap.get(id);
+    if (!slot) throw new MockApiError('Слот не найден', 404);
+    slot.isAvailable = isAvailable;
   }
 }
 

@@ -21,6 +21,7 @@ Frontend и backend запускаются и деплоятся отдельн�
 - `/admin/login` — вход администратора;
 - `/admin/requests` — защищённый список;
 - `/admin/requests/[id]` — защищённая карточка, статус, комментарии, история и feedback-ссылка;
+- `/admin/services`, `/admin/specialists`, `/admin/schedule` — защищённые mock-CRUD разделы (услуги, специалисты, расписание);
 - `/feedback/[token]` — публичная одноразовая форма отзыва.
 
 JWT недоступен JavaScript и не хранится в localStorage. Frontend проверяет сессию через `GET /auth/me`, но окончательная защита каждого административного действия выполняется backend guard.

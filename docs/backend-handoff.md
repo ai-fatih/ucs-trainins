@@ -30,13 +30,13 @@
 |----------|-----------|------------------------|
 | `/services` — каталог услуг | `GET /services` | статический JSON |
 | `/specialists` — специалисты | `GET /specialists` | статический JSON |
-| `/booking` — запись (3 шага) | `GET /services`, `GET /slots`, `POST /bookings` | статический JSON |
-| `/bookings` — мои записи | `GET /bookings`, `PATCH /bookings/:id/cancel` | статический JSON |
+| `/booking` — запись (4 шага: услуга → специалист → дата/время → подтверждение) | `GET /services`, `GET /specialists`, `GET /slots`, `POST /bookings` | mock in-memory |
+| `/bookings` — мои записи | `GET /bookings`, `PATCH /bookings/:id/cancel`, `PATCH /bookings/:id/reschedule` | mock in-memory |
 | `/chat/[id]` — чат со специалистом | `GET /chat/rooms`, `GET /chat/rooms/:id/messages`, `POST .../messages` | статический JSON |
 | `/notifications` — настройки уведомлений | `GET/PUT /notifications/settings` | статический JSON |
 | `/profile` — профиль | `GET/PUT /auth/profile`, `GET /employees` | мок (hardcoded) |
 | `/dashboard` — личный кабинет | `GET /bookings`, `GET /chat/rooms` | статический JSON |
-| `/review` — отзыв | `POST /reviews` | нет API |
+| `/review` — отзыв | `POST /reviews`, `PATCH /bookings/:id/review` | mock in-memory (специалист из записи, rating/feedbackCompleted) |
 | `/auth/login` — вход пользователя | `POST /auth/login` | мок (hardcoded) |
 | `/auth/register` — регистрация | `POST /auth/register` | мок (hardcoded) |
 | `/admin/dashboard` — дашборд админа | `GET /admin/dashboard` | статический JSON |

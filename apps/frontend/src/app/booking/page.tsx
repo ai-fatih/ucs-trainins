@@ -1,18 +1,20 @@
 'use client';
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { api } from '@/lib/api';
-import type { Service, Slot } from '@/types';
+import type { Service, Slot, Specialist } from '@/types';
 import { useBookingStore } from '@/stores/booking';
 import { useNotificationStore } from '@/stores/notifications';
 import { TableRowSkeleton } from '@/components/ui/Skeleton';
+import { Avatar } from '@/components/ui/Avatar';
+import { Stars } from '@/components/ui/Stars';
 import { ArrowLeft, ArrowRight, Check, Clock, Calendar } from 'lucide-react';
 
 function StepIndicator({ step }: { step: number }) {
-  const steps = ['Услуга', 'Дата и время', 'Подтверждение'];
+  const steps = ['Услуга', 'Специалист', 'Дата и время', 'Подтверждение'];
   return (
     <div className="flex justify-center items-center gap-2 mb-8 text-sm">
       {steps.map((label, i) => (
@@ -38,23 +40,99 @@ function BookingPageContent() {
   const store = useBookingStore();
   const addNotification = useNotificationStore((s) => s.addNotification);
   const queryClient = useQueryClient();
-  const [selectedDate, setSelectedDate] = useState('2026-07-03');
+  const [selectedDate, setSelectedDate] = useState<string>('');
 
   const { data: services = [], isLoading: servicesLoading } = useQuery<Service[]>({
     queryKey: ['services'],
     queryFn: api.services.list,
   });
 
+  const { data: specialists = [], isLoading: specialistsLoading } = useQuery<Specialist[]>({
+    queryKey: ['specialists'],
+    queryFn: api.specialists.list,
+  });
+
+  const { data: allSlots = [] } = useQuery<Slot[]>({
+    queryKey: ['slots', 'all'],
+    queryFn: api.slots.list,
+  });
+
   const { data: slots = [], isLoading: slotsLoading } = useQuery<Slot[]>({
     queryKey: ['slots', selectedDate],
     queryFn: () => api.slots.getByDate(selectedDate),
+    enabled: !!selectedDate,
   });
+
+  const today = useMemo(() => {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }, []);
+  const [viewMonth, setViewMonth] = useState<Date>(() => {
+    const d = new Date();
+    d.setDate(1);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  });
+
+  useEffect(() => {
+    if (!selectedDate && allSlots.length) {
+      const available = allSlots.filter((s) => s.isAvailable).sort((a, b) => a.date.localeCompare(b.date));
+      if (available.length) setSelectedDate(available[0].date);
+    }
+  }, [allSlots, selectedDate]);
+
+  const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
+  const availableDates = useMemo(() => {
+    const set = new Set<string>();
+    allSlots.forEach((s) => { if (s.isAvailable) set.add(s.date); });
+    return set;
+  }, [allSlots]);
+
+  const calendarCells = useMemo(() => {
+    const year = viewMonth.getFullYear();
+    const month = viewMonth.getMonth();
+    const firstWeekday = (new Date(year, month, 1).getDay() + 6) % 7;
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const cells: (string | null)[] = [];
+    for (let i = 0; i < firstWeekday; i++) cells.push(null);
+    for (let d = 1; d <= daysInMonth; d++) cells.push(`${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`);
+    return cells;
+  }, [viewMonth]);
+
+  const goToMonth = (delta: number) => {
+    setViewMonth((prev) => {
+      const next = new Date(prev.getFullYear(), prev.getMonth() + delta, 1);
+      next.setHours(0, 0, 0, 0);
+      return next;
+    });
+  };
+
+  const selectDate = (date: string) => {
+    setSelectedDate(date);
+  };
 
   const preselectedServiceId = searchParams.get('serviceId');
   if (preselectedServiceId && services.length && !store.selectedService) {
     const s = services.find((sv) => sv.id === preselectedServiceId);
     if (s) store.selectService(s);
   }
+
+  const preselectedSpecialistId = searchParams.get('specialistId');
+  if (preselectedSpecialistId && specialists.length && !store.selectedSpecialist) {
+    const sp = specialists.find((x) => x.id === preselectedSpecialistId);
+    if (sp) store.setSelectedSpecialist(sp);
+  }
+
+  const preselectedTopic = searchParams.get('topic');
+  if (preselectedTopic && !store.topic) {
+    store.setTopic(preselectedTopic);
+  }
+
+  const filteredSlots = store.selectedSpecialist
+    ? slots.filter((s) => s.specialistId === store.selectedSpecialist?.id)
+    : slots;
 
   const createBooking = useMutation({
     mutationFn: api.bookings.create,
@@ -65,7 +143,10 @@ function BookingPageContent() {
 
   const handleConfirm = async () => {
     await createBooking.mutateAsync({
+      serviceId: store.selectedService?.id,
       serviceName: store.selectedService?.name || '',
+      specialistId: store.selectedSpecialist?.id,
+      specialistName: store.selectedSpecialist?.name,
       date: selectedDate,
       time: store.selectedSlot?.time || '',
       durationMinutes: store.selectedService?.durationMinutes || 30,
@@ -123,28 +204,67 @@ function BookingPageContent() {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <button onClick={() => store.setStep(0)} className="glass-card p-2 hover:bg-[#f3f4f6] transition-colors"><ArrowLeft className="w-4 h-4" /></button>
-                <span className="font-semibold text-sm">Июль 2026</span>
-                <button className="glass-card p-2 hover:bg-[#f3f4f6] transition-colors"><ArrowRight className="w-4 h-4" /></button>
+                <span className="font-semibold text-sm">Выберите специалиста</span>
+              </div>
+              <div className="space-y-3">
+                {specialistsLoading
+                  ? Array.from({ length: 3 }).map((_, i) => <TableRowSkeleton key={i} cols={2} />)
+                  : specialists.map((sp) => (
+                    <div
+                      key={sp.id}
+                      onClick={() => { store.selectSpecialist(sp); toast.success(`Выбран специалист: ${sp.name}`); }}
+                      className={`glass-card p-4 flex items-center gap-4 cursor-pointer transition-all ${
+                        store.selectedSpecialist?.id === sp.id ? 'ring-2 ring-[#1a56db]/30' : ''
+                      }`}
+                    >
+                      <Avatar src={sp.avatarUrl} name={sp.name} size="md" bg={sp.avatarBg} color={sp.avatarColor} />
+                      <div className="flex-1">
+                        <div className="font-semibold text-sm text-[#111827]">{sp.name}</div>
+                        <div className="text-xs text-[#6b7280]">{sp.role}</div>
+                        <Stars rating={sp.rating} size="sm" />
+                      </div>
+                    </div>
+                  ))
+              }
+              </div>
+            </div>
+          )}
+
+          {store.step === 2 && (
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <button onClick={() => goToMonth(-1)} aria-label="Предыдущий месяц" className="glass-card p-2 hover:bg-[#f3f4f6] transition-colors cursor-pointer"><ArrowLeft className="w-4 h-4" /></button>
+                <span className="font-semibold text-sm">{monthNames[viewMonth.getMonth()]} {viewMonth.getFullYear()}</span>
+                <button onClick={() => goToMonth(1)} aria-label="Следующий месяц" className="glass-card p-2 hover:bg-[#f3f4f6] transition-colors cursor-pointer"><ArrowRight className="w-4 h-4" /></button>
               </div>
               <div className="grid grid-cols-7 gap-1 mb-4">
                 {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d) => (
                   <div key={d} className="text-center text-xs font-semibold text-[#6b7280] py-2 uppercase">{d}</div>
                 ))}
-                {[29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((d, i) => {
-                  const date = `2026-07-${String(d).padStart(2, '0')}`;
+                {calendarCells.map((date, i) => {
+                  if (!date) return <div key={`blank-${i}`} />;
+                  const day = Number(date.slice(-2));
                   const isSelected = date === selectedDate;
-                  const isToday = d === 3;
-                  const disabled = i < 2 || d === 5 || d === 12;
+                  const isToday = date === today.toISOString().slice(0, 10);
+                  const hasSlots = availableDates.has(date);
+                  const isPast = date < today.toISOString().slice(0, 10);
+                  const disabled = !hasSlots || isPast;
                   return (
                     <button
-                      key={d}
+                      key={date}
                       disabled={disabled}
-                      onClick={() => setSelectedDate(date)}
-                      className={`text-center py-2.5 text-sm rounded-lg transition-all border-none cursor-pointer ${
-                        isSelected ? 'bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white font-bold shadow-md' : isToday ? 'font-bold text-[#1a56db] glass-card' : disabled ? 'text-[#d1d5db] cursor-not-allowed' : 'hover:bg-[#f3f4f6]'
-                      } ${d >= 1 && d <= 4 ? 'bg-[#d1fae5] text-[#059669] font-medium' : ''} ${isSelected && d >= 1 && d <= 4 ? '!bg-gradient-to-br !from-[#1a56db] !to-[#0d9488] !text-white' : ''}`}
+                      onClick={() => selectDate(date)}
+                      className={`relative text-center py-2.5 text-sm rounded-lg transition-all border-none cursor-pointer ${
+                        isSelected ? 'bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white font-bold shadow-md' :
+                        isToday ? 'font-bold text-[#1a56db] glass-card' :
+                        disabled ? 'text-[#d1d5db] cursor-not-allowed' :
+                        'hover:bg-[#f3f4f6] font-medium'
+                      }`}
                     >
-                      {d}
+                      {day}
+                      {hasSlots && !isSelected && (
+                        <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#0d9488]" />
+                      )}
                     </button>
                   );
                 })}
@@ -157,9 +277,9 @@ function BookingPageContent() {
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                   {slotsLoading
                     ? Array.from({ length: 8 }).map((_, i) => <TableRowSkeleton key={i} cols={1} />)
-                    : slots.length === 0
-                      ? <p className="text-sm text-[#6b7280] col-span-4">Нет доступных слотов</p>
-                      : slots.map((slot) => (
+                    : filteredSlots.length === 0
+                      ? <p className="text-sm text-[#6b7280] col-span-4">Нет доступных слотов{store.selectedSpecialist ? ` у специалиста ${store.selectedSpecialist.name}` : ''}</p>
+                      : filteredSlots.map((slot) => (
                           <button
                             key={slot.id}
                             disabled={!slot.isAvailable}
@@ -178,7 +298,7 @@ function BookingPageContent() {
             </div>
           )}
 
-          {store.step === 2 && (
+          {store.step === 3 && (
             <div className="glass-card p-6">
               <h3 className="font-semibold mb-4">Детали записи</h3>
 
@@ -194,6 +314,7 @@ function BookingPageContent() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mb-4">
                 <div><span className="text-[#6b7280]">Услуга</span><div className="font-semibold">{store.selectedService?.name}</div></div>
+                <div><span className="text-[#6b7280]">Специалист</span><div className="font-semibold">{store.selectedSpecialist?.name}</div></div>
                 <div><span className="text-[#6b7280]">Длительность</span><div className="font-semibold">{(store.selectedService?.durationMinutes ?? 0) > 0 ? `${store.selectedService?.durationMinutes} мин` : 'Видео'}</div></div>
                 <div><span className="text-[#6b7280]">Дата</span><div className="font-semibold">{selectedDate}</div></div>
                 <div><span className="text-[#6b7280]">Время</span><div className="font-semibold">{store.selectedSlot?.time}</div></div>
@@ -219,6 +340,7 @@ function BookingPageContent() {
             <h3 className="font-semibold mb-3">Выбранное</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between"><span className="text-[#6b7280]">Услуга:</span><span className="font-medium">{store.selectedService?.name || '—'}</span></div>
+              <div className="flex justify-between"><span className="text-[#6b7280]">Специалист:</span><span className="font-medium">{store.selectedSpecialist?.name || '—'}</span></div>
               <div className="flex justify-between"><span className="text-[#6b7280]">Дата:</span><span className="font-medium">{store.selectedSlot ? `${selectedDate} ${store.selectedSlot.time}` : '—'}</span></div>
               <div className="flex justify-between"><span className="text-[#6b7280]">Стоимость:</span><span className="font-medium text-[#059669]">{store.selectedService?.isFree ? 'Бесплатно' : `${store.selectedService?.priceRub} ₽`}</span></div>
             </div>
@@ -231,12 +353,13 @@ function BookingPageContent() {
                   <ArrowLeft className="w-4 h-4" /> Назад
                 </button>
               )}
-              {store.step < 2 ? (
+              {store.step < 3 ? (
                 <button
                   className="glass-btn flex-1"
                   disabled={
                     (store.step === 0 && !store.selectedService) ||
-                    (store.step === 1 && !store.selectedSlot)
+                    (store.step === 1 && !store.selectedSpecialist) ||
+                    (store.step === 2 && !store.selectedSlot)
                   }
                   onClick={() => store.setStep(store.step + 1)}
                 >

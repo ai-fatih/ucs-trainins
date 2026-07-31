@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/stores/auth';
@@ -11,15 +11,14 @@ import { AuthModal } from '@/components/auth/AuthModal';
 import { Badge } from '@/components/ui/Badge';
 import { Bell, Download, Edit3, Trash2, ArrowRight } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useHydrated } from '@/lib/hooks/useHydrated';
 
 export default function ProfilePage() {
   const { user } = useAuthStore();
-  const [hydrated, setHydrated] = useState(false);
+  const hydrated = useHydrated();
   const effectiveUser = hydrated ? user : null;
   const isCompany = effectiveUser?.userType === 'company';
   const [authOpen, setAuthOpen] = useState(false);
-
-  useEffect(() => { setHydrated(true); }, []);
 
   const { data: employees = [], isLoading: employeesLoading } = useQuery<Employee[]>({
     queryKey: ['employees'],

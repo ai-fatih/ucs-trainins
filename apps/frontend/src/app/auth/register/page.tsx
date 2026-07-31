@@ -1,14 +1,14 @@
 'use client';
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/stores/auth';
 
-export default function RegisterPage() {
+function RegisterForm() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
@@ -19,6 +19,8 @@ export default function RegisterPage() {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [agreeMarketing, setAgreeMarketing] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect');
   const login = useAuthStore((s) => s.login);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,11 +34,16 @@ export default function RegisterPage() {
     }
     setLoading(true);
     try {
+      console.info(`[Auth/register] attempt: ${email}, redirect: ${redirectTo}`);
       const { user } = await api.auth.register({ name: `${name} ${surname}`.trim(), email, phone, password, userType: 'individual' });
+      console.info(`[Auth/register] success → ${user.role} (${user.name})`);
       login(user);
       toast.success('Регистрация завершена! Добро пожаловать.');
-      router.push('/');
+      const target = redirectTo || '/dashboard';
+      console.info(`[Auth/register] navigate → ${target}`);
+      router.replace(target);
     } catch (err: any) {
+      console.error('[Auth/register] error:', err.message);
       toast.error(err.message || 'Ошибка регистрации');
     } finally {
       setLoading(false);
@@ -98,5 +105,13 @@ export default function RegisterPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={null}>
+      <RegisterForm />
+    </Suspense>
   );
 }

@@ -10,6 +10,7 @@ import {
   Monitor, Cloud, Smartphone,
 } from 'lucide-react';
 import navConfig from '@/data/navigation.json';
+import { useHydrated } from '@/lib/hooks/useHydrated';
 
 interface NavTab {
   href: string;
@@ -55,13 +56,11 @@ export function SidebarLeft() {
   const { user, isAuthenticated } = useAuthStore();
   const { sidebarOpen, setSidebarOpen } = useUIStore();
   const [collapsed, setCollapsed] = useState(true);
-  const [hydrated, setHydrated] = useState(false);
+  const hydrated = useHydrated();
   const [instructionsOpen, setInstructionsOpen] = useState(false);
   const prevPathname = useRef('');
 
   const sections = navConfig.sections as SidebarSection[];
-
-  useEffect(() => { setHydrated(true); }, []);
 
   useEffect(() => {
     const prev = prevPathname.current;

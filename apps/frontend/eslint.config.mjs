@@ -1,16 +1,14 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
+import tseslint from 'typescript-eslint';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-export default [
+export default tseslint.config(
+  { ignores: ['.next/**', 'public/**', 'service-worker/**', 'next-env.d.ts'] },
   {
-    ignores: ['.next/**', 'public/**', 'service-worker/**'],
-  },
-  {
+    files: ['src/**/*.{ts,tsx}'],
+    languageOptions: {
+      parser: tseslint.parser,
+    },
     rules: {
       'no-console': ['warn', { allow: ['debug', 'info', 'warn', 'error'] }],
     },
   },
-];
+);

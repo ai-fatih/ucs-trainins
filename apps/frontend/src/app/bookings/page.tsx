@@ -8,9 +8,10 @@ import { Badge } from '@/components/ui/Badge';
 import { Tabs } from '@/components/ui/Tabs';
 import { TableRowSkeleton } from '@/components/ui/Skeleton';
 import { getStatusLabel } from '@/lib/utils';
-import { Calendar, MessageCircle, XCircle, Star, ClipboardList, HeartHandshake } from 'lucide-react';
+import { Calendar, MessageCircle, XCircle, Star, ClipboardList, HeartHandshake, CalendarClock } from 'lucide-react';
 import { QualitySurveyModal } from '@/components/features/QualitySurveyModal';
 import { TipModal } from '@/components/features/TipModal';
+import { RescheduleModal } from '@/components/features/RescheduleModal';
 import toast from 'react-hot-toast';
 
 const tabs = [
@@ -24,6 +25,7 @@ export default function BookingsPage() {
   const [activeTab, setActiveTab] = useState('all');
   const [surveyBooking, setSurveyBooking] = useState<Booking | null>(null);
   const [tipBooking, setTipBooking] = useState<Booking | null>(null);
+  const [rescheduleBooking, setRescheduleBooking] = useState<Booking | null>(null);
   const queryClient = useQueryClient();
 
   const { data: bookings = [], isLoading } = useQuery<Booking[]>({
@@ -38,6 +40,27 @@ export default function BookingsPage() {
       toast.success('Запись отменена');
     },
   });
+
+  const rescheduleMutation = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: { date: string; time: string } }) => api.bookings.reschedule(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
+      toast.success('Запись перенесена');
+    },
+  });
+
+  const surveyMutation = useMutation({
+    mutationFn: (id: string) => api.bookings.markSurveyDone(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
+    },
+  });
+
+  const handleCancel = (booking: Booking) => {
+    if (confirm(`Отменить запись «${booking.serviceName}» на ${booking.date} в ${booking.time}?`)) {
+      cancelMutation.mutate(booking.id);
+    }
+  };
 
   const filtered = activeTab === 'all' ? bookings : bookings.filter((b) => b.status === activeTab);
 
@@ -95,7 +118,13 @@ export default function BookingsPage() {
                             <MessageCircle className="w-3 h-3" /> Чат
                           </Link>
                           <button
-                            onClick={() => cancelMutation.mutate(booking.id)}
+                            onClick={() => setRescheduleBooking(booking)}
+                            className="text-xs text-[#1a56db] hover:bg-[#e8effa] px-2 py-1 rounded-md transition-colors"
+                          >
+                            <CalendarClock className="w-3 h-3 inline mr-1" /> Перенести
+                          </button>
+                          <button
+                            onClick={() => handleCancel(booking)}
                             className="text-xs text-[#dc2626] hover:bg-red-50 px-2 py-1 rounded-md transition-colors"
                           >
                             <XCircle className="w-3 h-3 inline mr-1" /> Отменить
@@ -105,7 +134,7 @@ export default function BookingsPage() {
                       {booking.status === 'completed' && (
                         <>
                           {!booking.rating && (
-                            <Link href="/review" className="text-xs text-[#1a56db] hover:bg-[#e8effa] px-2 py-1 rounded-md transition-colors">
+                            <Link href={`/review?bookingId=${booking.id}`} className="text-xs text-[#1a56db] hover:bg-[#e8effa] px-2 py-1 rounded-md transition-colors">
                               <Star className="w-3 h-3 inline mr-1" /> Оценить
                             </Link>
                           )}
@@ -136,7 +165,9 @@ export default function BookingsPage() {
         open={!!surveyBooking}
         onClose={() => setSurveyBooking(null)}
         specialistName={surveyBooking?.specialistName}
+        bookingId={surveyBooking?.id}
         onComplete={() => {
+          if (surveyBooking) surveyMutation.mutate(surveyBooking.id);
           queryClient.invalidateQueries({ queryKey: ['bookings'] });
         }}
       />
@@ -146,6 +177,15 @@ export default function BookingsPage() {
         onClose={() => setTipBooking(null)}
         specialistName={tipBooking?.specialistName}
         bookingId={tipBooking?.id || ''}
+      />
+
+      <RescheduleModal
+        open={!!rescheduleBooking}
+        onClose={() => setRescheduleBooking(null)}
+        booking={rescheduleBooking}
+        onConfirm={(date, time) => {
+          if (rescheduleBooking) rescheduleMutation.mutate({ id: rescheduleBooking.id, data: { date, time } });
+        }}
       />
     </div>
   );

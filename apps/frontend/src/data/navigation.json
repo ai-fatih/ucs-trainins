@@ -68,7 +68,8 @@
         { "href": "/bookings", "label": "Записи" },
         { "href": "/chat", "label": "Чат" },
         { "href": "/school", "label": "Школа" },
-        { "href": "/profile", "label": "Профиль" }
+        { "href": "/profile", "label": "Профиль" },
+        { "href": "/notifications", "label": "Уведомления" }
       ]
     },
     {

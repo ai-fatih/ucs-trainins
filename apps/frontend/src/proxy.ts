@@ -1,33 +1,33 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { matchRule } from './lib/auth/route-access';
 
-const protectedRoutes = ['/booking', '/bookings', '/profile', '/chat', '/notifications', '/review'];
-const adminRoutes = ['/admin'];
-
+/**
+ * Серверный слой авторизации (L1, см. docs/auth-redirects.md).
+ * Защищает ТОЛЬКО /admin/* по cookie `ucs-auth` (backend-сессия).
+ * Все не-admin роуты обрабатывает клиентский `AuthRouter` (localStorage).
+ */
 export function proxy(request: NextRequest) {
-  const token = request.cookies.get('ucs-auth')?.value;
-  const isAuthenticated = !!token;
   const pathname = request.nextUrl.pathname;
+  const rule = matchRule(pathname);
 
-  if (protectedRoutes.some((route) => pathname.startsWith(route))) {
-    if (!isAuthenticated) {
-      const loginUrl = new URL('/auth/login', request.url);
-      loginUrl.searchParams.set('redirect', pathname);
-      return NextResponse.redirect(loginUrl);
-    }
+  if (!rule || rule.layer !== 'server') {
+    return NextResponse.next();
+  }
+  if (rule.access === 'public') {
+    return NextResponse.next();
   }
 
-  if (adminRoutes.some((route) => pathname.startsWith(route))) {
-    if (!isAuthenticated) {
-      const loginUrl = new URL('/auth/login', request.url);
-      loginUrl.searchParams.set('redirect', pathname);
-      return NextResponse.redirect(loginUrl);
-    }
+  const token = request.cookies.get('ucs-auth')?.value;
+  if (token) {
+    return NextResponse.next();
   }
 
-  return NextResponse.next();
+  const loginUrl = new URL(rule.guestRedirect || '/admin/login', request.url);
+  loginUrl.searchParams.set('redirect', pathname);
+  return NextResponse.redirect(loginUrl);
 }
 
 export const config = {
-  matcher: ['/booking/:path*', '/bookings/:path*', '/profile/:path*', '/chat/:path*', '/notifications/:path*', '/review/:path*', '/admin/:path*'],
+  matcher: ['/admin/:path*'],
 };

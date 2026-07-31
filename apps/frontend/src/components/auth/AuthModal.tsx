@@ -1,10 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/auth';
 import { api } from '@/lib/api';
-import type { UserRole } from '@/types';
 import { X, Mail, Lock, Building2, User, Phone, Loader2 } from 'lucide-react';
 
 type Tab = 'login' | 'register';
@@ -27,16 +25,17 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const login = useAuthStore((s) => s.login);
-  const router = useRouter();
 
-  const redirectAfterLogin = (role: UserRole) => {
-    const isStaff = role === 'admin' || role === 'company_admin' || role === 'specialist';
-    router.push(isStaff ? '/admin/dashboard' : '/dashboard');
-  };
+  // Куда идти после входа — решает центральный AuthRouter (docs/auth-redirects.md):
+  // лендинг и /auth/* — guest-only → авторизованного уводит на дашборд роли.
 
   useEffect(() => {
-    if (open) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = '';
+    if (open) {
+      console.info('[AuthModal] opened');
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
@@ -50,11 +49,13 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
       const code = userType === 'company' ? accessCode : password;
       if (!identifier) { setError('Введите email или номер договора'); setLoading(false); return; }
       const actualEmail = userType === 'company' ? `${contract}@company` : email;
+      console.info(`[AuthModal] login: ${actualEmail}`);
       const { user } = await api.auth.login(actualEmail, code);
+      console.info(`[AuthModal] success → ${user.role} (${user.name})`);
       login(user);
       onClose();
-      requestAnimationFrame(() => redirectAfterLogin(user.role));
     } catch (err: any) {
+      console.error('[AuthModal] error:', err.message);
       setError(err.message || 'Ошибка входа');
     } finally {
       setLoading(false);
@@ -69,7 +70,6 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
       const { user } = await api.auth.register({ name, email, phone, password, userType });
       login(user);
       onClose();
-      requestAnimationFrame(() => redirectAfterLogin(user.role));
     } catch (err: any) {
       setError(err.message || 'Ошибка регистрации');
     } finally {

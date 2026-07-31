@@ -16,7 +16,7 @@ export default function CertificatesPage() {
   return (
     <div className="max-w-[800px] mx-auto px-4 py-8">
       <Link href="/school" className="inline-flex items-center gap-1 text-sm text-[#6b7280] hover:text-[#1a56db] mb-6 transition-colors">
-        <ArrowLeft className="w-4 h-4" /> На главную
+        <ArrowLeft className="w-4 h-4" /> В школу
       </Link>
 
       <h1 className="text-2xl font-bold mb-6">Мои сертификаты</h1>
