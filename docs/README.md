@@ -38,6 +38,7 @@
 | Файл | Описание |
 |------|----------|
 | [`code-conventions.md`](code-conventions.md) | Стандарты кода (гидрация, Zustand + SSR, паттерны) |
+| [`local-storage.md`](local-storage.md) | **Дизайн системы localStorage**: ключи, потоки данных, версионирование, квоты, очистка |
 | [`content-guide.md`](content-guide.md) | Правила написания текстов |
 | [`tools-and-resources.md`](tools-and-resources.md) | Инструменты и ресурсы |
 
