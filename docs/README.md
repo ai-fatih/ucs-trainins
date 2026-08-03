@@ -38,7 +38,7 @@
 | Файл | Описание |
 |------|----------|
 | [`code-conventions.md`](code-conventions.md) | Стандарты кода (гидрация, Zustand + SSR, паттерны) |
-| [`local-storage.md`](local-storage.md) | **localStorage**: единственный ключ `ucs_cookie_consent` (после удаления ЛК/прогресса школы) |
+| [`local-storage.md`](local-storage.md) | **localStorage**: ключи `ucs_cookie_consent`, `ucs_school_progress` (прогресс школы), `ucs_theme` (тема) |
 | [`content-guide.md`](content-guide.md) | Правила написания текстов |
 | [`tools-and-resources.md`](tools-and-resources.md) | Инструменты и ресурсы |
 

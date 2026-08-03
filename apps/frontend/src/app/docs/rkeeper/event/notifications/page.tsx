@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import InstructionPager from '@/components/docs/InstructionPager';
+import DocPageToolbar from '@/components/docs/DocPageToolbar';
 
 const steps = [
   {
@@ -66,24 +67,19 @@ export default function EventNotificationsPage() {
   return (
     <div className="max-w-[800px] mx-auto px-4 py-12">
       <div className="mb-10">
-        <div className="flex items-center gap-2 text-sm text-[#6b7280] mb-3">
-          <Link href="/docs" className="text-[#1a56db] hover:underline no-underline">Документация</Link>
-          <span>/</span>
-          <Link href="/docs/rkeeper/event" className="text-[#1a56db] hover:underline no-underline">Event</Link>
-          <span>/</span>
-          <span className="text-[#111827]">Настройка оповещений с кассы</span>
-        </div>
-        <h1 className="text-3xl font-bold text-[#111827] mb-3">Настройка оповещений с кассы</h1>
+                <h1 className="text-3xl font-bold text-[#111827] mb-3">Настройка оповещений с кассы</h1>
         <p className="text-[#6b7280] text-base leading-relaxed">
           Консультация: как настроить приложение Event — выбрать типы событий, каналы оповещения и проверить работу на тестовом событии.
         </p>
       </div>
 
+      <DocPageToolbar steps={steps} />
+
       <div className="glass-card p-6 mb-10">
-        <h2 className="text-xl font-semibold text-[#111827] mb-6">Пошаговая инструкция</h2>
+        <h2 id="steps" className="text-xl font-semibold text-[#111827] mb-6">Пошаговая инструкция</h2>
         <ol className="space-y-6">
           {steps.map((step, i) => (
-            <li key={i} className="pl-2">
+            <li key={i} id={`step-${i}`} className="pl-2">
               <div className="flex gap-4">
                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center text-sm font-semibold">
                   {i + 1}
@@ -99,7 +95,7 @@ export default function EventNotificationsPage() {
       </div>
 
       <div className="glass-card p-6">
-        <h2 className="text-xl font-semibold text-[#111827] mb-6">Типовые ошибки</h2>
+        <h2 id="errors" className="text-xl font-semibold text-[#111827] mb-6">Типовые ошибки</h2>
         <div className="space-y-4">
           {errors.map((err, i) => (
             <div key={i} className="border border-[#e5e7eb] rounded-lg p-4">
@@ -118,17 +114,7 @@ export default function EventNotificationsPage() {
         </div>
       </div>
 
-      <div className="mt-8 pt-6 border-t border-[#e5e7eb]">
-        <h3 className="text-sm font-semibold text-[#6b7280] mb-2">Связанные инструкции</h3>
-        <div className="flex flex-wrap gap-3">
-          <Link href="/docs/rkeeper/event" className="text-sm text-[#1a56db] hover:underline no-underline">
-            &larr; Все инструкции Event
-          </Link>
-          <Link href="/docs/rkeeper/event/event-screen" className="text-sm text-[#1a56db] hover:underline no-underline">
-            Экран событий &rarr;
-          </Link>
-        </div>
-      </div>
+      <InstructionPager productId="event" currentHref="/docs/rkeeper/event/notifications" />
     </div>
   );
 }

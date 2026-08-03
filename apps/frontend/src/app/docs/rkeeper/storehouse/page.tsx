@@ -1,16 +1,15 @@
-﻿'use client';
+'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
+import { docProducts } from '@/data/docs/catalog';
 
 const sections = [
   {
     title: 'Документы складского учёта',
-    items: [
-      { href: '/docs/rkeeper/storehouse/write-off', label: 'Списание товаров', desc: 'Создание и проведение документа списания' },
-      { href: '/docs/rkeeper/storehouse/inventory', label: 'Инвентаризация', desc: 'Проведение инвентаризации склада' },
-      { href: '/docs/rkeeper/storehouse/arrival', label: 'Оприходование товаров', desc: 'Оформление поступления товаров на склад' },
-    ],
+    items: docProducts
+      .find((p) => p.id === 'storehouse')!
+      .scenarios.map((s) => ({ href: s.href, label: s.label, desc: s.desc ?? '' })),
   },
 ];
 
@@ -29,12 +28,7 @@ export default function StoreHousePage() {
   return (
     <div className="max-w-[800px] mx-auto px-4 py-12">
       <div className="mb-10">
-        <div className="flex items-center gap-2 text-sm text-[#6b7280] mb-3">
-          <Link href="/docs" className="text-[#1a56db] hover:underline no-underline">Документация</Link>
-          <span>/</span>
-          <span className="text-[#111827]">StoreHouse Pro</span>
-        </div>
-        <h1 className="text-3xl font-bold text-[#111827] mb-3">StoreHouse Pro</h1>
+                <h1 className="text-3xl font-bold text-[#111827] mb-3">StoreHouse Pro</h1>
         <p className="text-[#6b7280] text-base leading-relaxed">
           Система управления складом, производством и кухней. В этом разделе &mdash; инструкции по основным операциям в приложении StoreHouse Pro.
         </p>

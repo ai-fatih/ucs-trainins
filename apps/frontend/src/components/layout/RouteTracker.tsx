@@ -11,6 +11,7 @@ export function RouteTracker() {
     if (prevPath.current !== pathname) {
       logger.info(`route: ${pathname}`);
       prevPath.current = pathname;
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
     }
   }, [pathname]);
 

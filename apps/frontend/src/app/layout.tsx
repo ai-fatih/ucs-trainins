@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import { Manrope } from 'next/font/google';
 import { Providers } from './providers';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { CookieBanner } from '@/components/layout/CookieBanner';
+import { Hotkeys } from '@/components/layout/Hotkeys';
+import { SearchDialog } from '@/components/layout/SearchDialog';
+import { SchoolProgressBridge } from '@/components/school/SchoolProgressBridge';
 import { ClientHeader, ClientFooter } from '@/components/layout/ClientOnly';
 import './globals.css';
 
@@ -28,6 +32,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="ru" className={manrope.variable} data-scroll-behavior="smooth">
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(function(){try{var s=localStorage.getItem('ucs_theme');var t=s==='dark'||s==='light'?s:(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();`}
+        </Script>
       </head>
       <body className={manrope.className}>
         <div className="flex min-h-screen">
@@ -42,7 +49,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Providers>
           </div>
         </div>
+        <Hotkeys />
+        <SearchDialog />
         <CookieBanner />
+        <SchoolProgressBridge />
       </body>
     </html>
   );

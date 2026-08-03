@@ -1,30 +1,22 @@
-﻿'use client';
+'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
+import { docProducts } from '@/data/docs/catalog';
 
-const scenarios = [
-  { title: 'Приём заказа через Waiter', desc: 'Авторизация, создание заказа у столика, отправка на кухню', href: '/docs/rkeeper/waiter/take-order' },
-  { title: 'Оплата счета через Cash Desk', desc: 'Приём оплаты наличными и картой у столика, печать чека', href: '/docs/rkeeper/waiter/payment' },
-  { title: 'Выход на смену и завершение', desc: 'Начало смены в приложении, синхронизация, закрытие смены', href: '/docs/rkeeper/waiter/shift' },
-];
+const scenarios = docProducts.find((p) => p.id === 'waiter')!.scenarios;
 
 export default function WaiterPage() {
   const [query, setQuery] = useState('');
 
   const filtered = scenarios.filter(
-    (s) => s.title.toLowerCase().includes(query.toLowerCase()) || s.desc.toLowerCase().includes(query.toLowerCase()),
+    (s) => s.label.toLowerCase().includes(query.toLowerCase()) || s.desc?.toLowerCase().includes(query.toLowerCase()),
   );
 
   return (
     <div className="max-w-[800px] mx-auto px-4 py-12">
       <div className="mb-10">
-        <div className="flex items-center gap-2 text-sm text-[#6b7280] mb-3">
-          <Link href="/docs" className="text-[#1a56db] hover:underline no-underline">Документация</Link>
-          <span>/</span>
-          <span className="text-[#111827]">Waiter & Cash Desk</span>
-        </div>
-        <h1 className="text-3xl font-bold text-[#111827] mb-3">Waiter &amp; Cash Desk</h1>
+                <h1 className="text-3xl font-bold text-[#111827] mb-3">Waiter &amp; Cash Desk</h1>
         <p className="text-[#6b7280] text-base leading-relaxed">
           Мобильные приложения для официантов и кассиров: приём и оплата заказа прямо у столика гостя.
         </p>
@@ -51,7 +43,7 @@ export default function WaiterPage() {
               {i + 1}
             </span>
             <div className="flex-1 min-w-0">
-              <span className="text-base font-medium text-[#1a56db] block">{s.title}</span>
+              <span className="text-base font-medium text-[#1a56db] block">{s.label}</span>
               <span className="text-sm text-[#6b7280] mt-0.5 block">{s.desc}</span>
             </div>
           </Link>

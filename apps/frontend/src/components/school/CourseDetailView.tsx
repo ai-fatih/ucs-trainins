@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import type { Course } from '@/types';
 import ModuleBlock from './ModuleBlock';
+import CourseProgressPanel from './CourseProgressPanel';
+import { PageHelp } from '@/components/layout/PageHelp';
 
 interface Props {
   course: Course;
@@ -23,7 +25,28 @@ export default function CourseDetailView({ course }: Props) {
           <h1 className="text-2xl font-bold">{course.title}</h1>
           <p className="text-sm text-[#6b7280]">{course.description}</p>
         </div>
+        <PageHelp />
       </div>
+
+      {course.skills && course.skills.length > 0 && (
+        <div className="glass-card p-4 mb-6">
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af] mb-2">
+            Чему научишься
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {course.skills.map((skill) => (
+              <span
+                key={skill}
+                className="text-xs px-3 py-1.5 rounded-full bg-[#e8effa] text-[#1a56db] font-semibold"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <CourseProgressPanel course={course} />
 
       <div className="space-y-4">
         {course.modules

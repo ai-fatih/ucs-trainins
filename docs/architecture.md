@@ -16,7 +16,7 @@ Frontend и backend запускаются и деплоятся отдельн�
 
 Маршруты:
 
-- `/` — лендинг (Hero + О нас + Документация + Школа);
+- `/` — лендинг: полноэкранный Hero-хаб (0 скролла, CTA → `/docs`/`/school`);
 - `/docs`, `/docs/rkeeper/{product}`, `/docs/cases`, `/docs/cases/[id]` — документация и кейсы месяца;
 - `/school`, `/school/courses`, `/school/courses/[id]`, `/school/courses/[id]/lessons/[lid]` — открытая школа (без персонализации и сохранения прогресса);
 - `/terms`, `/privacy`, `/offer`, `/consent` — правовые страницы.

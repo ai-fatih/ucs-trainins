@@ -1,30 +1,22 @@
-﻿'use client';
+'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
+import { docProducts } from '@/data/docs/catalog';
 
-const scenarios = [
-  { title: 'Создание и оплата заказа', desc: 'Открытие смены, добавление позиций, приём оплаты наличными и картой', href: '/docs/rkeeper/rk7/create-order' },
-  { title: 'Управление сменами', desc: 'Открытие и закрытие кассовой смены, сверка отчётов, X- и Z-отчёты', href: '/docs/rkeeper/rk7/shift-management' },
-  { title: 'Скидки и возвраты', desc: 'Применение скидок на позицию или чек, оформление возврата по закрытому чеку', href: '/docs/rkeeper/rk7/discounts-returns' },
-];
+const scenarios = docProducts.find((p) => p.id === 'rk7')!.scenarios;
 
 export default function Rk7Page() {
   const [query, setQuery] = useState('');
 
   const filtered = scenarios.filter(
-    (s) => s.title.toLowerCase().includes(query.toLowerCase()) || s.desc.toLowerCase().includes(query.toLowerCase()),
+    (s) => s.label.toLowerCase().includes(query.toLowerCase()) || s.desc?.toLowerCase().includes(query.toLowerCase()),
   );
 
   return (
     <div className="max-w-[800px] mx-auto px-4 py-12">
       <div className="mb-10">
-        <div className="flex items-center gap-2 text-sm text-[#6b7280] mb-3">
-          <Link href="/docs" className="text-[#1a56db] hover:underline no-underline">Документация</Link>
-          <span>/</span>
-          <span className="text-[#111827]">r_keeper 7</span>
-        </div>
-        <h1 className="text-3xl font-bold text-[#111827] mb-3">r_keeper 7</h1>
+                <h1 className="text-3xl font-bold text-[#111827] mb-3">r_keeper 7</h1>
         <p className="text-[#6b7280] text-base leading-relaxed">
           Кассовая и управленческая система для автоматизации учёта в кафе, баре или ресторане любого формата.
         </p>
@@ -51,7 +43,7 @@ export default function Rk7Page() {
               {i + 1}
             </span>
             <div className="flex-1 min-w-0">
-              <span className="text-base font-medium text-[#1a56db] block">{s.title}</span>
+              <span className="text-base font-medium text-[#1a56db] block">{s.label}</span>
               <span className="text-sm text-[#6b7280] mt-0.5 block">{s.desc}</span>
             </div>
           </Link>

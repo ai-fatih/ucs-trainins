@@ -92,5 +92,6 @@
     "consent": "Согласие",
     "rkeeper": "r_keeper"
   },
-  "skipSegments": ["[id]", "[lid]", "[token]"]
+  "skipSegments": ["[id]", "[lid]", "[token]"],
+  "hiddenSegments": ["rkeeper", "lessons"]
 }

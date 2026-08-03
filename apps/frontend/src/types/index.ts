@@ -77,6 +77,7 @@ export interface Course {
   iconBg: string;
   colorFrom: string;
   colorTo: string;
+  skills?: string[];
   modules: Module[];
   totalLessons: number;
   totalXp: number;

@@ -1,21 +1,26 @@
-﻿'use client';
+'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
+import { docProducts } from '@/data/docs/catalog';
+
+const event = docProducts.find((p) => p.id === 'event')!;
+const toItem = (s: { href: string; label: string; desc?: string }) => ({
+  href: s.href,
+  label: s.label,
+  desc: s.desc ?? '',
+});
 
 const sections = [
   {
     title: 'Настройка и работа',
-    items: [
-      { href: '/docs/rkeeper/event/notifications', label: 'Настройка оповещений с кассы', desc: 'Выбор типов событий, каналы оповещения, звук и приоритет' },
-      { href: '/docs/rkeeper/event/event-screen', label: 'Экран событий', desc: 'Просмотр ленты событий, фильтры, подтверждение и история' },
-    ],
+    items: event.scenarios
+      .filter((s) => s.href.includes('notifications') || s.href.includes('event-screen'))
+      .map(toItem),
   },
   {
     title: 'Подключение устройств',
-    items: [
-      { href: '/docs/rkeeper/event/devices', label: 'Подключение внешних устройств', desc: 'Табло заказов, звуковые оповещения, проверка подключения' },
-    ],
+    items: event.scenarios.filter((s) => s.href.includes('devices')).map(toItem),
   },
 ];
 
@@ -34,12 +39,7 @@ export default function EventPage() {
   return (
     <div className="max-w-[800px] mx-auto px-4 py-12">
       <div className="mb-10">
-        <div className="flex items-center gap-2 text-sm text-[#6b7280] mb-3">
-          <Link href="/docs" className="text-[#1a56db] hover:underline no-underline">Документация</Link>
-          <span>/</span>
-          <span className="text-[#111827]">Event</span>
-        </div>
-        <h1 className="text-3xl font-bold text-[#111827] mb-3">Event</h1>
+                <h1 className="text-3xl font-bold text-[#111827] mb-3">Event</h1>
         <p className="text-[#6b7280] text-base leading-relaxed">
           Приложение для уведомлений с кассы rk Cash Desk. Инструкции по настройке оповещений, работе с экраном событий и подключению внешних устройств.
         </p>

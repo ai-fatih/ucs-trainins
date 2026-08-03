@@ -35,14 +35,7 @@ export default function CaseDetailPage() {
   return (
     <div className="max-w-[800px] mx-auto px-4 py-12">
       <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-[#6b7280] mb-3 flex-wrap">
-          <Link href="/docs" className="text-[#1a56db] hover:underline no-underline">Документация</Link>
-          <span>/</span>
-          <Link href="/docs/cases" className="text-[#1a56db] hover:underline no-underline">Кейсы месяца</Link>
-          <span>/</span>
-          <span className="text-[#111827]">{current.title}</span>
-        </div>
-        <div className="flex flex-wrap items-center gap-2 mb-3">
+                <div className="flex flex-wrap items-center gap-2 mb-3">
           <h1 className="text-2xl md:text-3xl font-bold text-[#111827]">{current.title}</h1>
           <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#f3f4f6] text-[#6b7280] font-semibold">
             {productLabels[current.product] || current.product}

@@ -2,28 +2,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Download } from 'lucide-react';
-import { SidebarSearch } from './SidebarSearch';
-import navConfig from '@/data/navigation.json';
+import { Download, Search } from 'lucide-react';
+import { useUIStore } from '@/stores/ui';
+import { Tooltip } from '@/components/ui/Tooltip';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
 
 interface NavTab {
   href: string;
   label: string;
 }
 
-type Section = {
-  id: string;
-  label: string;
-  icon: string;
-  href: string;
-  groups?: { label: string; icon: string; items: { href: string; label: string }[] }[];
-  headerNav?: NavTab[] | null;
-};
-
 export function Header() {
   const pathname = usePathname();
   const deferredPrompt = useRef<any>(null);
   const [installable, setInstallable] = useState(false);
+  const setSearchOpen = useUIStore((s) => s.setSearchOpen);
 
   // Header обёрнут в ssr: false — компонент монтируется только на клиенте
 
@@ -56,32 +49,15 @@ export function Header() {
     });
   };
 
-  const isLanding = pathname === '/';
-
-  const sections = navConfig.sections as Section[];
-
-  // Section выбирается по самому длинному совпавшему URL (href раздела + его headerNav),
-  // чтобы табы корректно показывались на /docs/*, /school/* и т.д.
-  const sectionTabs = (() => {
-    let best: { section: Section; len: number } | null = null;
-    for (const s of sections) {
-      if (!s.headerNav || s.headerNav.length === 0) continue;
-      const urls = [s.href, ...s.headerNav.map((t) => t.href)];
-      for (const u of urls) {
-        if (u === '/') continue;
-        if (pathname === u || pathname.startsWith(u + '/')) {
-          if (!best || u.length > best.len) best = { section: s, len: u.length };
-        }
-      }
-    }
-    return best?.section.headerNav ?? null;
-  })();
-
   const HEADER_NAV: NavTab[] = [
-    { href: '/#about', label: 'О нас' },
-    { href: '/#docs', label: 'Документация' },
-    { href: '/#school', label: 'Школа' },
+    { href: '/docs', label: 'Документация' },
+    { href: '/school', label: 'Школа' },
   ];
+
+  const TAB_HINTS: Record<string, string> = {
+    '/docs': 'Инструкции и пошаговые руководства по программам r_keeper',
+    '/school': 'Обучающие курсы и тренажёры на реальных кейсах',
+  };
 
   const isActiveTab = (href: string) => {
     if (href === pathname) return true;
@@ -90,43 +66,31 @@ export function Header() {
   };
 
   const renderNavLinks = () => {
-    if (isLanding) {
-      return (
-        <>
-          {HEADER_NAV.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium px-3 py-2 rounded-lg no-underline text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5 transition-all whitespace-nowrap"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </>
-      );
-    }
-
-    if (sectionTabs) {
-      return (
-        <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
-          {sectionTabs.map((tab) => (
-            <Link
-              key={tab.href}
-              href={tab.href}
-              className={`text-sm font-medium px-3 py-2 rounded-lg no-underline whitespace-nowrap transition-all ${
-                isActiveTab(tab.href)
-                  ? 'text-[#1a56db] bg-[#1a56db]/10 font-semibold'
-                  : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
-              }`}
-            >
-              {tab.label}
-            </Link>
-          ))}
-        </div>
-      );
-    }
-
-    return null;
+    return (
+      <>
+        {HEADER_NAV.map((link) => {
+          const active = isActiveTab(link.href);
+          return (
+            <Tooltip key={link.href} content={TAB_HINTS[link.href] ?? link.label} side="bottom">
+              <Link
+                href={link.href}
+                aria-current={active ? 'page' : undefined}
+                className={`text-sm font-medium px-3 py-2 rounded-lg no-underline whitespace-nowrap transition-all relative ${
+                  active
+                    ? 'text-[#1a56db] bg-[#1a56db]/10 font-semibold'
+                    : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5'
+                }`}
+              >
+                {link.label}
+                {active && (
+                  <span className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-gradient-to-r from-[#1a56db] to-[#0d9488]" />
+                )}
+              </Link>
+            </Tooltip>
+          );
+        })}
+      </>
+    );
   };
 
   return (
@@ -144,20 +108,38 @@ export function Header() {
           {renderNavLinks()}
         </nav>
 
-        {installable && (
-          <button
-            onClick={handleInstall}
-            className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#0d9488] bg-[rgba(13,148,136,0.1)] hover:bg-[rgba(13,148,136,0.2)] transition-all border border-[rgba(13,148,136,0.2)] shrink-0"
-            title="Установить приложение"
+        <div className="flex items-center gap-2 shrink-0">
+          <ThemeToggle />
+          <kbd className="hidden lg:inline-flex items-center px-1.5 h-6 rounded-md border border-[#d1d5db] bg-white/60 text-[10px] font-medium text-[#6b7280] select-none">
+            Ctrl + 5
+          </kbd>
+          <Tooltip
+            content="Поиск по сайту: инструкции, курсы, кейсы. Быстрый доступ — Ctrl + 5"
+            side="bottom"
           >
-            <Download className="w-4 h-4" />
-            Установить
-          </button>
-        )}
-
-        <div className="hidden md:block shrink-0 max-w-[200px]">
-          <SidebarSearch />
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="w-9 h-9 rounded-lg flex items-center justify-center text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/10 transition-all shrink-0"
+              aria-label="Поиск (Ctrl + 5)"
+              title="Поиск (Ctrl + 5)"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+          </Tooltip>
         </div>
+
+        {installable && (
+          <Tooltip content="Установить портал как приложение — инструкции и курсы будут доступны даже без интернета" side="bottom">
+            <button
+              onClick={handleInstall}
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#0d9488] bg-[rgba(13,148,136,0.1)] hover:bg-[rgba(13,148,136,0.2)] transition-all border border-[rgba(13,148,136,0.2)] shrink-0"
+              title="Установить приложение"
+            >
+              <Download className="w-4 h-4" />
+              Установить
+            </button>
+          </Tooltip>
+        )}
       </div>
     </header>
   );

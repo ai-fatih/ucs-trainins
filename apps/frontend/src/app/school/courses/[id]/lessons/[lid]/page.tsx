@@ -2,17 +2,22 @@
 import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2, Home } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Home } from 'lucide-react';
 import type { Course, Lesson } from '@/types';
 import coursesData from '@/data/school/courses.json';
 import LessonView from '@/components/school/LessonView';
+import { PageHelp } from '@/components/layout/PageHelp';
+import { useHydrated } from '@/lib/hooks/useHydrated';
+import { useSchoolProgress } from '@/stores/schoolProgress';
 
 const courses = coursesData as unknown as Course[];
 
 export default function LessonPage() {
   const { id, lid } = useParams<{ id: string; lid: string }>();
   const router = useRouter();
-  const [completed, setCompleted] = useState(false);
+  const hydrated = useHydrated();
+  const completed = useSchoolProgress((s) => s.completed);
+  const [justCompleted, setJustCompleted] = useState(false);
 
   const course = courses.find((c) => c.id === id);
   const lesson = course?.modules.flatMap((m) => m.lessons).find((l) => l.id === lid);
@@ -28,22 +33,26 @@ export default function LessonPage() {
     );
   }
 
+  const allLessons = course.modules.flatMap((m) => m.lessons);
+  const currentIdx = allLessons.findIndex((l) => l.id === lesson.id);
+  const hasNext = currentIdx < allLessons.length - 1;
+  const nextLesson = hasNext ? allLessons[currentIdx + 1] : undefined;
+  const alreadyDone = hydrated && !!completed[lesson.id];
+
   const handleComplete = () => {
-    setCompleted(true);
+    useSchoolProgress.getState().complete(lesson.id);
+    setJustCompleted(true);
   };
 
   const handleContinue = () => {
-    const allLessons = course.modules.flatMap((m) => m.lessons);
-    const currentIdx = allLessons.findIndex((l) => l.id === lesson.id);
-    if (currentIdx < allLessons.length - 1) {
-      const next = allLessons[currentIdx + 1];
-      router.push(`/school/courses/${course.id}/lessons/${next.id}`);
+    if (nextLesson) {
+      router.push(`/school/courses/${course.id}/lessons/${nextLesson.id}`);
     } else {
       router.push(`/school/courses/${course.id}`);
     }
   };
 
-  if (completed) {
+  if (justCompleted) {
     return (
       <div className="max-w-[800px] mx-auto px-4 py-8">
         <div className="glass-card p-8 text-center">
@@ -54,14 +63,10 @@ export default function LessonPage() {
           <p className="text-sm text-[#6b7280] mb-6">{lesson.title}</p>
           <div className="flex justify-center gap-3">
             <button onClick={handleContinue} className="glass-btn">
-              {(() => {
-                const allLessons = course.modules.flatMap((m) => m.lessons);
-                const currentIdx = allLessons.findIndex((l) => l.id === lesson.id);
-                return currentIdx < allLessons.length - 1 ? 'Следующий урок' : 'К курсу';
-              })()}
+              {hasNext ? 'Следующий урок' : 'К курсу'}
             </button>
             <Link href="/school" className="glass-btn">
-              <Home className="w-4 h-4" /> На главную
+              <Home className="w-4 h-4" /> В школу
             </Link>
           </div>
         </div>
@@ -75,9 +80,25 @@ export default function LessonPage() {
         <ArrowLeft className="w-4 h-4" /> {course.title}
       </Link>
 
-      <div className="mb-6">
-        <h1 className="text-xl font-bold">{lesson.title}</h1>
-        <p className="text-sm text-[#6b7280]">{lesson.description}</p>
+      {alreadyDone && (
+        <div className="glass-card p-4 mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2 text-sm font-semibold text-[#059669]">
+            <CheckCircle2 className="w-5 h-5" /> Урок уже пройден
+          </div>
+          {nextLesson && (
+            <button onClick={handleContinue} className="glass-btn">
+              Следующий урок <ArrowRight className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+      )}
+
+      <div className="mb-6 flex items-start gap-2">
+        <div>
+          <h1 className="text-xl font-bold">{lesson.title}</h1>
+          <p className="text-sm text-[#6b7280]">{lesson.description}</p>
+        </div>
+        <PageHelp />
       </div>
 
       <LessonView lesson={lesson} onComplete={handleComplete} />

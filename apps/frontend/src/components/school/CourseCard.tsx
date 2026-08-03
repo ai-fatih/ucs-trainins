@@ -28,8 +28,34 @@ export default function CourseCard({ course }: Props) {
           <Icon className="w-6 h-6" />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-bold text-base mb-1 group-hover:text-[#1a56db] transition-colors">{course.title}</h3>
+          <div className="flex items-center gap-2 mb-1">
+            <h3 className="font-bold text-base group-hover:text-[#1a56db] transition-colors">
+              {course.title}
+            </h3>
+            <span
+              className="shrink-0 text-[10px] px-2 py-0.5 rounded-full font-semibold uppercase tracking-wide"
+              style={{ background: `${course.colorFrom}1a`, color: course.colorFrom }}
+            >
+              Тренажёр
+            </span>
+          </div>
           <p className="text-xs text-[#6b7280] line-clamp-2 mb-3">{course.description}</p>
+
+          {course.skills && course.skills.length > 0 && (
+            <div className="mb-3">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-[#9ca3af] mb-1">
+                Научишься
+              </div>
+              <ul className="space-y-0.5">
+                {course.skills.map((skill) => (
+                  <li key={skill} className="text-xs text-[#374151] flex items-start gap-1.5">
+                    <span className="text-[#0d9488] shrink-0 mt-0.5">✓</span>
+                    <span>{skill}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="flex items-center justify-between text-xs text-[#9ca3af] mb-2">
             <span>{totalLessons} уроков</span>
@@ -37,7 +63,7 @@ export default function CourseCard({ course }: Props) {
           </div>
 
           <div className="flex items-center gap-1 text-xs font-semibold" style={{ color: course.colorFrom }}>
-            Открыть курс <ArrowRight className="w-3 h-3" />
+            Начать тренировку <ArrowRight className="w-3 h-3" />
           </div>
         </div>
       </div>

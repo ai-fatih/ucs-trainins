@@ -1,9 +1,11 @@
 'use client';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Search, TrendingUp, Swords } from 'lucide-react';
 import type { MonthlyCases } from '@/types';
 import casesData from '@/data/cases/monthly.json';
+import { PageHelp } from '@/components/layout/PageHelp';
 
 const monthly = casesData as unknown as MonthlyCases;
 
@@ -16,7 +18,22 @@ const productLabels: Record<string, string> = {
 };
 
 export default function CasesPage() {
+  const router = useRouter();
   const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get('q') ?? '';
+    setQuery(q);
+  }, []);
+
+  const updateQuery = (value: string) => {
+    setQuery(value);
+    const params = new URLSearchParams(window.location.search);
+    if (value) params.set('q', value);
+    else params.delete('q');
+    const qs = params.toString();
+    router.replace(qs ? `/docs/cases?${qs}` : '/docs/cases', { scroll: false });
+  };
 
   const filtered = useMemo(() => {
     if (!query.trim()) return monthly.cases;
@@ -33,12 +50,10 @@ export default function CasesPage() {
   return (
     <div className="max-w-[1000px] mx-auto px-4 py-12">
       <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-[#6b7280] mb-3">
-          <Link href="/docs" className="text-[#1a56db] hover:underline no-underline">Документация</Link>
-          <span>/</span>
-          <span className="text-[#111827]">Кейсы месяца</span>
+        <div className="flex items-center gap-2 mb-2">
+          <h1 className="text-3xl font-bold text-[#111827]">Кейсы месяца</h1>
+          <PageHelp />
         </div>
-        <h1 className="text-3xl font-bold text-[#111827] mb-2">Кейсы месяца</h1>
         <p className="text-[#6b7280]">Разбор реальных обращений за {monthly.monthLabel.toLowerCase()}: диагностика, причины и решения</p>
       </div>
 
@@ -75,7 +90,7 @@ export default function CasesPage() {
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#9ca3af]" />
         <input
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => updateQuery(e.target.value)}
           placeholder="Поиск по кейсам, темам, продуктам..."
           className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border border-[#e5e7eb] outline-none focus:border-[#1a56db] focus:shadow-[0_0_0_3px_rgba(26,86,219,0.1)] bg-white/80"
         />

@@ -2,17 +2,19 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Home } from 'lucide-react';
 import navConfig from '@/data/navigation.json';
 
 type NavConfigType = {
   routeLabels: Record<string, string>;
   skipSegments: string[];
+  hiddenSegments?: string[];
 };
 
 const config = navConfig as unknown as NavConfigType;
 const LABEL_MAP = config.routeLabels;
 const SKIP_SEGMENTS = new Set<string>(config.skipSegments);
+const HIDDEN_SEGMENTS = new Set<string>(config.hiddenSegments ?? []);
 
 function segmentLabel(segment: string): string {
   return LABEL_MAP[segment] ?? segment
@@ -32,34 +34,43 @@ export function Breadcrumbs() {
 
   for (const seg of segments) {
     acc += `/${seg}`;
-    if (SKIP_SEGMENTS.has(seg)) continue;
+    if (SKIP_SEGMENTS.has(seg) || HIDDEN_SEGMENTS.has(seg)) continue;
     crumbs.push({ href: acc, label: segmentLabel(seg) });
   }
 
-  if (crumbs.length === 0) return null;
-
   return (
-    <nav className="px-4 py-2.5 text-sm text-[#6b7280]" aria-label="Breadcrumb">
-      <ol className="flex items-center gap-1.5 flex-wrap">
-        {crumbs.map((cr, i) => {
-          const last = i === crumbs.length - 1;
-          return (
-            <li key={cr.href} className="flex items-center gap-1.5">
-              {i > 0 && <ChevronRight className="w-3.5 h-3.5 text-[#9ca3af]" />}
-              {last ? (
-                <span className="font-semibold text-[#374151]">{cr.label}</span>
-              ) : (
-                <Link
-                  href={cr.href}
-                  className="no-underline text-[#6b7280] hover:text-[#1a56db] transition-colors"
-                >
-                  {cr.label}
-                </Link>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-    </nav>
+    <div className="max-w-[1000px] mx-auto px-4 pt-3">
+      <nav
+        className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 bg-white/70 backdrop-blur border border-white/40 shadow-sm"
+        aria-label="Хлебные крошки"
+      >
+        <ol className="flex items-center gap-1 flex-wrap">
+          {crumbs.map((cr, i) => {
+            const last = i === crumbs.length - 1;
+            return (
+              <li key={cr.href} className="flex items-center gap-1">
+                {i > 0 && <ChevronRight className="w-3.5 h-3.5 text-[#9ca3af] shrink-0" />}
+                {last ? (
+                  <span
+                    aria-current="page"
+                    className="text-sm font-semibold text-[#111827] px-1.5 py-0.5"
+                  >
+                    {cr.label}
+                  </span>
+                ) : (
+                  <Link
+                    href={cr.href}
+                    className="no-underline text-sm text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/5 rounded-md px-1.5 py-0.5 transition-colors inline-flex items-center gap-1"
+                  >
+                    {i === 0 && <Home className="w-3.5 h-3.5 shrink-0" />}
+                    {cr.label}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+    </div>
   );
 }
