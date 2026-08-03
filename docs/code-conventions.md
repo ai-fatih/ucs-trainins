@@ -13,12 +13,12 @@ Expected server HTML to contain a matching <div> in <a>
 
 ```tsx
 // ❌ Плохо — div внутри a
-<Link href="/services">
+<Link href="/docs">
   <div className="flex items-center gap-2">...</div>
 </Link>
 
 // ✅ Хорошо — span вместо div
-<Link href="/services">
+<Link href="/docs">
   <span className="flex items-center gap-2">...</span>
 </Link>
 ```

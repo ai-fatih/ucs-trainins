@@ -2,15 +2,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useAuthStore } from '@/stores/auth';
 import { useUIStore } from '@/stores/ui';
 import {
-  Home, BookOpen, ListTree, PenSquare,
-  UserCircle, ChevronLeft, ChevronRight, ChevronDown, X, GraduationCap,
+  Home, BookOpen, ListTree,
+  ChevronLeft, ChevronRight, ChevronDown, X, GraduationCap,
   Monitor, Cloud, Smartphone,
 } from 'lucide-react';
 import navConfig from '@/data/navigation.json';
-import { useHydrated } from '@/lib/hooks/useHydrated';
 
 interface NavTab {
   href: string;
@@ -45,18 +43,10 @@ const GROUP_ICON_MAP: Record<string, React.ComponentType<{ className?: string }>
   Smartphone,
 };
 
-function getAccountHref(user: { role: string } | null, isAuthenticated: boolean): string {
-  if (!isAuthenticated || !user) return '/';
-  const staff = user.role === 'admin' || user.role === 'company_admin' || user.role === 'specialist';
-  return staff ? '/admin/dashboard' : '/profile';
-}
-
 export function SidebarLeft() {
   const pathname = usePathname();
-  const { user, isAuthenticated } = useAuthStore();
   const { sidebarOpen, setSidebarOpen } = useUIStore();
   const [collapsed, setCollapsed] = useState(true);
-  const hydrated = useHydrated();
   const [instructionsOpen, setInstructionsOpen] = useState(false);
   const prevPathname = useRef('');
 
@@ -71,13 +61,6 @@ export function SidebarLeft() {
   }, [pathname]);
 
   const toggleInstructions = () => setInstructionsOpen((v) => !v);
-
-  const effectiveUser = hydrated ? user : null;
-  const effectiveAuth = hydrated && isAuthenticated;
-
-  const displaySections = sections.map((s) =>
-    s.id === 'home' ? { ...s, href: effectiveAuth ? '/dashboard' : '/' } : s
-  );
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
@@ -164,7 +147,7 @@ export function SidebarLeft() {
         </div>
 
         <nav className="flex-1 overflow-y-auto space-y-0.5 px-3 py-3">
-          {displaySections.map((item) => {
+          {sections.map((item) => {
             const Icon = ICON_MAP[item.icon];
 
             if (item.groups && item.groups.length > 0) {
@@ -243,25 +226,6 @@ export function SidebarLeft() {
           >
             {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
           </button>
-
-          <Link
-            href="/booking"
-            onClick={() => setSidebarOpen(false)}
-            className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white no-underline transition-all bg-gradient-to-r from-[#1a56db] to-[#0d9488] shadow-md hover:shadow-lg hover:-translate-y-0.5 md:hidden ${!collapsed ? 'lg:flex' : ''}`}
-          >
-            <PenSquare className="w-4 h-4" />
-            Записаться
-          </Link>
-
-          <Link
-            href={getAccountHref(effectiveUser, effectiveAuth)}
-            onClick={() => setSidebarOpen(false)}
-            className={linkClass(isActive(getAccountHref(effectiveUser, effectiveAuth)))}
-            title="Личный кабинет"
-          >
-            <UserCircle className="w-5 h-5 shrink-0" />
-            <span className={`md:hidden ${!collapsed ? 'lg:block' : ''}`}>Личный кабинет</span>
-          </Link>
         </div>
       </aside>
 

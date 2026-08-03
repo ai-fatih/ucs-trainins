@@ -11,13 +11,10 @@
   },
   "dependencies": {
     "@serwist/next": "^9.5.12",
-    "@tanstack/react-query": "^5.101.4",
     "lucide-react": "^1.28.0",
     "next": "^16.2.12",
-    "phaser": "^4.2.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-hot-toast": "^2.6.0",
     "serwist": "^9.5.12",
     "zustand": "^5.0.14"
   },

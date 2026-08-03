@@ -17,10 +17,10 @@
 | Файл | Описание |
 |------|----------|
 | [`project-overview.md`](project-overview.md) | Полный обзор: миссия, задачи, USP, архитектура, статусы, дорожная карта |
-| [`brief-public-phase.md`](brief-public-phase.md) | **Справка на согласование**: информационно-обучающий портал без ЛК (новая реализация) |
+| [`brief-public-phase.md`](brief-public-phase.md) | **Справка на согласование**: информационно-обучающий портал без ЛК (текущая реализация) |
 | [`architecture.md`](architecture.md) | Архитектура проекта |
 | [`requirements.md`](requirements.md) | Функциональные и нефункциональные требования |
-| [`backend-handoff.md`](backend-handoff.md) | API-контракты frontend ↔ backend |
+| [`backend-handoff.md`](backend-handoff.md) | API-контракты frontend ↔ backend (архив: backend health-only) |
 | [`project-audit.md`](project-audit.md) | Аудит проекта |
 
 ### UX и пользовательские сценарии
@@ -29,9 +29,8 @@
 |------|----------|
 | [`touchpoints.md`](touchpoints.md) | **Правила точек входа/выхода касаний**: экран/модалка → вход, выход, авторизация, действия |
 | [`ux-page-inventory.md`](ux-page-inventory.md) | Инвентаризация всех страниц: цель, задачи, вход/выход, статус |
-| [`ux-user-flows.md`](ux-user-flows.md) | Сценарии по ролям (гость, сотрудник, руководитель, менеджер) |
+| [`ux-user-flows.md`](ux-user-flows.md) | Сценарии (все анонимные, без авторизации) |
 | [`ux-navigation-architecture.md`](ux-navigation-architecture.md) | Навигация: header, breadcrumbs, cross-links, navigation.json |
-| [`auth-redirects.md`](auth-redirects.md) | **Система редиректов по статусу авторизации**: слои, матрица роутов, localStorage, сценарии |
 | [`feature-inventory.md`](feature-inventory.md) | **Реестр функционала по модулям**: компонент → файл → статус → сценарии |
 
 ### Стандарты и правила
@@ -39,7 +38,7 @@
 | Файл | Описание |
 |------|----------|
 | [`code-conventions.md`](code-conventions.md) | Стандарты кода (гидрация, Zustand + SSR, паттерны) |
-| [`local-storage.md`](local-storage.md) | **Дизайн системы localStorage**: ключи, потоки данных, версионирование, квоты, очистка |
+| [`local-storage.md`](local-storage.md) | **localStorage**: единственный ключ `ucs_cookie_consent` (после удаления ЛК/прогресса школы) |
 | [`content-guide.md`](content-guide.md) | Правила написания текстов |
 | [`tools-and-resources.md`](tools-and-resources.md) | Инструменты и ресурсы |
 

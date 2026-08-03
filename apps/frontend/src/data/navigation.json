@@ -55,40 +55,19 @@
       ]
     },
     {
-      "id": "services",
-      "label": "Услуги",
-      "icon": "ListTree",
-      "href": "/services",
-      "headerNav": [
-        { "href": "/services", "label": "Каталог услуг" },
-        { "href": "/specialists", "label": "Специалисты" },
-        { "href": "/request", "label": "Оставить заявку" }
-      ]
-    },
-    {
       "id": "school",
       "label": "Школа",
       "icon": "GraduationCap",
       "href": "/school",
       "headerNav": [
         { "href": "/school", "label": "Главная" },
-        { "href": "/school/courses", "label": "Мои курсы" },
-        { "href": "/school/leaderboard", "label": "Рейтинг" },
-        { "href": "/school/badges", "label": "Бейджи" },
-        { "href": "/school/certificates", "label": "Сертификаты" },
-        { "href": "/school/profile", "label": "Профиль" },
-        { "href": "/school/notifications", "label": "Уведомления" }
+        { "href": "/school/courses", "label": "Курсы" }
       ]
     }
   ],
   "routeLabels": {
     "school": "Школа",
-    "courses": "Мои курсы",
-    "leaderboard": "Рейтинг",
-    "badges": "Бейджи",
-    "certificates": "Сертификаты",
-    "profile": "Профиль",
-    "notifications": "Уведомления",
+    "courses": "Курсы",
     "docs": "Документация",
     "cases": "Кейсы месяца",
     "rk7": "r_keeper 7",
@@ -107,30 +86,11 @@
     "take-order": "Приём заказа",
     "payment": "Оплата",
     "shift": "Начало и конец смены",
-    "booking": "Услуги",
-    "bookings": "Мои записи",
-    "chat": "Чат с отделом",
     "privacy": "Политика конфиденциальности",
     "terms": "Условия использования",
     "offer": "Публичная оферта",
     "consent": "Согласие",
-    "login": "Вход",
-    "register": "Регистрация",
-    "review": "Отзыв",
-    "feedback": "Обратная связь",
-    "request": "Заявка",
-    "services": "Услуги",
-    "specialists": "Специалисты",
-    "schedule": "Расписание",
-    "auth": "Авторизация",
-    "rkeeper": "r_keeper",
-    "dashboard": "Дашборд",
-    "admin": "Панель управления",
-    "requests": "Заявки",
-    "arena": "Лига",
-    "train": "Тренажёр",
-    "tracker": "Мини-игры",
-    "bubble": "Bubble Pop"
+    "rkeeper": "r_keeper"
   },
   "skipSegments": ["[id]", "[lid]", "[token]"]
 }

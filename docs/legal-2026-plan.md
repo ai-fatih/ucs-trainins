@@ -75,11 +75,10 @@
 
 | Форма | Файл | Статус |
 |-------|------|--------|
-| Регистрация (`/auth/register`) | `apps/frontend/src/app/auth/register/page.tsx` | ✅ Исправлены ссылки, `required`, убран `defaultChecked` |
 | Заявка (`/request`) | `apps/frontend/src/app/request/page.tsx` | ✅ Добавлен чекбокс с `required` |
 | Отзыв по ссылке (`/feedback/[token]`) | `apps/frontend/src/app/feedback/[token]/page.tsx` | ✅ Добавлен чекбокс |
-| Бронирование (`/booking`) | `apps/frontend/src/app/booking/page.tsx` | ✅ Добавлен чекбокс на шаге подтверждения |
-| Отзыв (`/review`) | `apps/frontend/src/app/review/page.tsx` | ✅ Добавлен чекбокс |
+
+> Формы регистрации (`/auth/register`), бронирования (`/booking`) и отзыва (`/review`) **удалены** вместе с ЛК (текущий контур — публичный портал без ЛК, см. `brief-public-phase.md`).
 
 **Требования к чекбоксу везде:**
 - Текст: «Даю согласие на обработку персональных данных в соответствии с Политикой конфиденциальности»

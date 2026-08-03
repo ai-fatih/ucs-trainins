@@ -1,7 +1,5 @@
 'use client';
-import { Component, useState } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from 'react-hot-toast';
+import { Component } from 'react';
 import { logger } from '@/lib/logger';
 import { RouteTracker } from '@/components/layout/RouteTracker';
 
@@ -34,27 +32,10 @@ class ErrorBoundary extends Component<{ children?: React.ReactNode }, ErrorBound
 }
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 60 * 1000,
-            gcTime: 5 * 60 * 1000,
-            refetchOnWindowFocus: false,
-            retry: 1,
-          },
-        },
-      })
-  );
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <ErrorBoundary>
-        <RouteTracker />
-        {children}
-      </ErrorBoundary>
-      <Toaster position="top-right" toastOptions={{ duration: 4000, style: { fontSize: '14px', borderRadius: '8px' } }} />
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <RouteTracker />
+      {children}
+    </ErrorBoundary>
   );
 }

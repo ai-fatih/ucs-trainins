@@ -1,8 +1,7 @@
-'use client';
 import React from 'react';
 import Link from 'next/link';
 import { Monitor, Cloud, Database, Swords, Puzzle, ArrowRight, BookOpen } from 'lucide-react';
-import type { Course, CourseProgress } from '@/types';
+import type { Course } from '@/types';
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Monitor, Cloud, Database, Swords, Puzzle,
@@ -10,14 +9,11 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
 
 interface Props {
   course: Course;
-  progress?: CourseProgress;
 }
 
-export default function CourseCard({ course, progress }: Props) {
+export default function CourseCard({ course }: Props) {
   const Icon = ICON_MAP[course.icon] || BookOpen;
   const totalLessons = course.modules.reduce((s, m) => s + m.lessons.length, 0);
-  const completedCount = progress?.completedLessons.length || 0;
-  const pct = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
   return (
     <Link
@@ -38,29 +34,11 @@ export default function CourseCard({ course, progress }: Props) {
           <div className="flex items-center justify-between text-xs text-[#9ca3af] mb-2">
             <span>{totalLessons} уроков</span>
             <span>~{course.estimatedHours} ч</span>
-            <span>{course.totalXp} XP</span>
           </div>
 
-          {progress && (
-            <div>
-              <div className="flex items-center justify-between text-xs mb-1">
-                <span className="text-[#6b7280]">{completedCount}/{totalLessons} уроков</span>
-                <span className="font-semibold" style={{ color: course.colorFrom }}>{pct}%</span>
-              </div>
-              <div className="w-full h-1.5 rounded-full bg-[#e5e7eb]">
-                <div
-                  className="h-1.5 rounded-full transition-all"
-                  style={{ width: `${pct}%`, background: `linear-gradient(to right, ${course.colorFrom}, ${course.colorTo})` }}
-                />
-              </div>
-            </div>
-          )}
-
-          {!progress && (
-            <div className="flex items-center gap-1 text-xs font-semibold" style={{ color: course.colorFrom }}>
-              Начать обучение <ArrowRight className="w-3 h-3" />
-            </div>
-          )}
+          <div className="flex items-center gap-1 text-xs font-semibold" style={{ color: course.colorFrom }}>
+            Открыть курс <ArrowRight className="w-3 h-3" />
+          </div>
         </div>
       </div>
     </Link>

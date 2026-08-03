@@ -5,7 +5,7 @@ import Link from 'next/link';
 import type { Lesson, QuizQuestion, MatchPair, Scenario, DecisionTree, DecisionChoice } from '@/types';
 import configData from '@/data/school/config.json';
 import matchGroupsData from '@/data/school/match-groups.json';
-import { shuffle } from '@/lib/school/storage';
+import { shuffle } from '@/lib/utils';
 
 const config = configData as unknown as { questions: QuizQuestion[]; scenarios: Scenario[]; decisionTrees: DecisionTree[] };
 const matchGroups = matchGroupsData as unknown as Record<string, MatchPair[]>;
@@ -14,7 +14,7 @@ type Phase = 'playing' | 'result';
 
 interface Props {
   lesson: Lesson;
-  onComplete: (score: number) => void;
+  onComplete: () => void;
 }
 
 export default function LessonView({ lesson, onComplete }: Props) {
@@ -63,12 +63,12 @@ export default function LessonView({ lesson, onComplete }: Props) {
 }
 
 /* ===== Quiz ===== */
-function QuizLesson({ question, onComplete }: { question: QuizQuestion; onComplete: (score: number) => void }) {
+function QuizLesson({ question, onComplete }: { question: QuizQuestion; onComplete: () => void }) {
   const [selected, setSelected] = useState<number | null>(null);
   const handleClick = (idx: number) => {
     if (selected !== null) return;
     setSelected(idx);
-    setTimeout(() => onComplete(idx === question.correct ? question.options.length * 10 : 0), 1500);
+    setTimeout(() => onComplete(), 1500);
   };
   return (
     <div className="glass-card p-6">
@@ -100,7 +100,7 @@ function QuizLesson({ question, onComplete }: { question: QuizQuestion; onComple
 }
 
 /* ===== Sprint ===== */
-function SprintLesson({ statements, onComplete }: { statements: { text: string; correct: boolean }[]; onComplete: (score: number) => void }) {
+function SprintLesson({ statements, onComplete }: { statements: { text: string; correct: boolean }[]; onComplete: () => void }) {
   const [idx, setIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
@@ -109,7 +109,7 @@ function SprintLesson({ statements, onComplete }: { statements: { text: string; 
     const newScore = score + (statements[idx].correct === answer ? 15 : 0);
     setScore(newScore);
     if (idx < statements.length - 1) setIdx(prev => prev + 1);
-    else { setDone(true); setTimeout(() => onComplete(newScore), 500); }
+    else { setDone(true); setTimeout(() => onComplete(), 500); }
   };
   if (done) return (
     <div className="glass-card p-6 text-center">
@@ -134,7 +134,7 @@ function SprintLesson({ statements, onComplete }: { statements: { text: string; 
 }
 
 /* ===== Match ===== */
-function MatchLesson({ pairs, onComplete }: { pairs: MatchPair[]; onComplete: (score: number) => void }) {
+function MatchLesson({ pairs, onComplete }: { pairs: MatchPair[]; onComplete: () => void }) {
   const [matched, setMatched] = useState<string[]>([]);
   const [selectedTerm, setSelectedTerm] = useState<string | null>(null);
   const [errors, setErrors] = useState(0);
@@ -149,7 +149,7 @@ function MatchLesson({ pairs, onComplete }: { pairs: MatchPair[]; onComplete: (s
       const newMatched = [...matched, selectedTerm, def];
       setMatched(newMatched);
       setSelectedTerm(null);
-      if (newMatched.length === pairs.length * 2) setTimeout(() => onComplete(Math.max(10, 100 - errors * 10)), 500);
+      if (newMatched.length === pairs.length * 2) setTimeout(() => onComplete(), 500);
     } else {
       setErrors(prev => prev + 1);
       setErrorDef(def);
@@ -184,7 +184,7 @@ function MatchLesson({ pairs, onComplete }: { pairs: MatchPair[]; onComplete: (s
 }
 
 /* ===== Chain ===== */
-function ChainLesson({ scenario, onComplete }: { scenario: Scenario; onComplete: (score: number) => void }) {
+function ChainLesson({ scenario, onComplete }: { scenario: Scenario; onComplete: () => void }) {
   const [ordered, setOrdered] = useState<string[]>([]);
   const [remaining, setRemaining] = useState<string[]>(shuffle(scenario.steps));
   const [errors, setErrors] = useState(0);
@@ -195,7 +195,7 @@ function ChainLesson({ scenario, onComplete }: { scenario: Scenario; onComplete:
       const newOrdered = [...ordered, step];
       setOrdered(newOrdered);
       setRemaining(prev => prev.filter(s => s !== step));
-      if (newOrdered.length === scenario.steps.length) setTimeout(() => onComplete(Math.max(10, 100 - errors * 15)), 500);
+      if (newOrdered.length === scenario.steps.length) setTimeout(() => onComplete(), 500);
     } else setErrors(prev => prev + 1);
   };
 
@@ -221,23 +221,17 @@ function ChainLesson({ scenario, onComplete }: { scenario: Scenario; onComplete:
 }
 
 /* ===== Case (Decision Tree) ===== */
-function CaseLesson({ tree, onComplete }: { tree: DecisionTree; onComplete: (score: number) => void }) {
+function CaseLesson({ tree, onComplete }: { tree: DecisionTree; onComplete: () => void }) {
   const [currentId, setCurrentId] = useState(tree.startStep);
-  const [steps, setSteps] = useState<{ id: string; choice: DecisionChoice }[]>([]);
-  const [score, setScore] = useState(0);
   const [phase, setPhase] = useState<'playing' | 'feedback' | 'done'>('playing');
   const [feedback, setFeedback] = useState<{ choice: DecisionChoice; isCorrect: boolean } | null>(null);
-  const [failCount, setFailCount] = useState(0);
 
   const currentStep = tree.steps.find(s => s.id === currentId);
   if (!currentStep) return <div className="glass-card p-6 text-center text-[#6b7280]">Кейс завершён</div>;
 
   const handleChoice = (choice: DecisionChoice) => {
     const isCorrect = choice.correct;
-    const newScore = score + (isCorrect ? 1 : 0);
-    if (!isCorrect) setFailCount(prev => prev + 1);
     setFeedback({ choice, isCorrect });
-    setScore(newScore);
     setPhase('feedback');
   };
 
@@ -246,8 +240,7 @@ function CaseLesson({ tree, onComplete }: { tree: DecisionTree; onComplete: (sco
     const nextId = feedback.choice.next;
     const nextStep = nextId ? tree.steps.find(s => s.id === nextId) : undefined;
     if (!nextStep || nextStep.choices.length === 0) {
-      const finalScore = Math.max(10, (tree.steps.filter(s => s.choices.length > 0).length - failCount) * 20);
-      onComplete(finalScore);
+      onComplete();
       setPhase('done');
       return;
     }
@@ -261,7 +254,7 @@ function CaseLesson({ tree, onComplete }: { tree: DecisionTree; onComplete: (sco
       <div className="glass-card p-6 text-center">
         <Check className="w-12 h-12 mx-auto text-[#059669] mb-4" />
         <p className="text-lg font-semibold mb-2">Кейс завершён!</p>
-        <p className="text-sm text-[#6b7280]">Получено {Math.max(10, (tree.steps.filter(s => s.choices.length > 0).length - failCount) * 20)} XP</p>
+        <p className="text-sm text-[#6b7280]">Вы прошли кейс-тренажёр до конца</p>
       </div>
     );
   }

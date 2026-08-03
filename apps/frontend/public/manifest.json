@@ -1,7 +1,7 @@
 {
   "name": "UCS service — Консультации и Обучения",
   "short_name": "UCS Service",
-  "description": "Запись на консультации и обучение по программам rkeeper",
+  "description": "Обучение и документация по программам rkeeper",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f9fafb",

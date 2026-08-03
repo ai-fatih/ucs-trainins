@@ -18,11 +18,9 @@ const ITEMS: Item[] = [
   { href: '/docs/rkeeper/delivery', label: 'Delivery', context: 'Облачные сервисы' },
   { href: '/docs/rkeeper/event', label: 'Event', context: 'Облачные сервисы' },
   { href: '/docs/rkeeper/waiter', label: 'Waiter & Cash Desk', context: 'Мобильные' },
-  { href: '/booking', label: 'Консультации', context: 'Услуги' },
-  { href: '/booking', label: 'Обучение', context: 'Услуги' },
+  { href: '/docs/cases', label: 'Кейсы месяца', context: 'Документация' },
   { href: '/school', label: 'Школа', context: '' },
-  { href: '/booking', label: 'Записаться', context: '' },
-  { href: '/notifications', label: 'Уведомления', context: '' },
+  { href: '/school/courses', label: 'Курсы', context: 'Школа' },
 ];
 
 export function SidebarSearch() {

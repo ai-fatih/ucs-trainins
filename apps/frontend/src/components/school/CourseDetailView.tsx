@@ -1,32 +1,14 @@
-'use client';
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import type { Course, CourseProgress } from '@/types';
+import type { Course } from '@/types';
 import ModuleBlock from './ModuleBlock';
 
 interface Props {
   course: Course;
-  progress: CourseProgress;
-  onStartLesson: (lessonId: string) => void;
 }
 
-export default function CourseDetailView({ course, progress, onStartLesson }: Props) {
-  const totalLessons = course.modules.reduce((s, m) => s + m.lessons.length, 0);
-  const completedCount = progress.completedLessons.length;
-  const pct = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
-
-  const allLessonIds = course.modules.flatMap(m => m.lessons.map(l => l.id));
-  let availableUpTo = -1;
-  for (const lesson of allLessonIds) {
-    if (progress.completedLessons.includes(lesson)) {
-      availableUpTo = allLessonIds.indexOf(lesson);
-    } else {
-      break;
-    }
-  }
-  const availableLessons = allLessonIds.slice(0, Math.max(availableUpTo + 2, 1));
-
+export default function CourseDetailView({ course }: Props) {
   return (
     <div>
       <Link href="/school/courses" className="inline-flex items-center gap-1 text-sm text-[#6b7280] hover:text-[#1a56db] mb-4 transition-colors">
@@ -43,33 +25,14 @@ export default function CourseDetailView({ course, progress, onStartLesson }: Pr
         </div>
       </div>
 
-      <div className="glass-card p-5 mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-semibold text-[#6b7280]">Прогресс курса</span>
-          <span className="text-sm font-bold" style={{ color: course.colorFrom }}>{pct}%</span>
-        </div>
-        <div className="w-full h-2 rounded-full bg-[#e5e7eb] mb-1">
-          <div
-            className="h-2 rounded-full transition-all"
-            style={{ width: `${pct}%`, background: `linear-gradient(to right, ${course.colorFrom}, ${course.colorTo})` }}
-          />
-        </div>
-        <div className="flex justify-between text-xs text-[#9ca3af]">
-          <span>{completedCount} / {totalLessons} уроков</span>
-          <span>{course.totalXp} XP</span>
-        </div>
-      </div>
-
       <div className="space-y-4">
         {course.modules
           .sort((a, b) => a.order - b.order)
           .map((mod) => (
             <ModuleBlock
               key={mod.id}
+              courseId={course.id}
               module={mod}
-              completedLessonIds={progress.completedLessons}
-              allLessons={availableLessons}
-              onStartLesson={onStartLesson}
             />
           ))}
       </div>

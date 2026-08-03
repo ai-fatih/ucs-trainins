@@ -20,11 +20,6 @@ const nextConfig = {
         destination: '/docs/:path*',
         permanent: true,
       },
-      {
-        source: '/admin/schedule',
-        destination: '/admin/requests',
-        permanent: false,
-      },
     ];
   },
   async headers() {
@@ -34,7 +29,7 @@ const nextConfig = {
       isDev ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'" : "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https:",
-      "connect-src 'self' https://api.telegram.org",
+      "connect-src 'self'",
       "font-src 'self' data:",
       "frame-ancestors 'none'",
       "base-uri 'self'",

@@ -1,20 +1,12 @@
 'use client';
 import Link from 'next/link';
-import { useAuthStore } from '@/stores/auth';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
 export function Footer() {
-  const { user, isAuthenticated } = useAuthStore();
-
-  // Footer обёрнут в ssr: false — компонент монтируется только на клиенте,
-  // useHydrated() не нужен, читаем стор напрямую.
-  const isStaff = user?.role === 'admin' || user?.role === 'company_admin' || user?.role === 'specialist';
-  const dashboardHref = !isAuthenticated ? '/' : isStaff ? '/admin/dashboard' : '/dashboard';
-
   return (
     <footer className="glass-strong border-t border-white/20">
       <div className="max-w-[1200px] mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div>
             <Link href="/" className="flex items-center gap-2 no-underline mb-4">
               <span className="text-xl font-bold text-[#1a56db]">UCS <span className="font-normal text-[#374151]">service</span></span>
@@ -25,22 +17,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-sm mb-3 text-[#111827]">Услуги</h4>
-            <ul className="space-y-2">
-              <li><Link href="/services" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Консультации</Link></li>
-              <li><Link href="/services" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Обучение</Link></li>
-              <li><Link href="/services" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Настройка</Link></li>
-              <li><Link href="/services" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Видеоконсультации</Link></li>
-            </ul>
-          </div>
-
-          <div>
             <h4 className="font-semibold text-sm mb-3 text-[#111827]">Навигация</h4>
             <ul className="space-y-2">
-              <li><Link href="/specialists" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Специалисты</Link></li>
-              <li><Link href="/request" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Оставить заявку</Link></li>
-              <li><Link href={dashboardHref} className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Личный кабинет</Link></li>
-              <li><Link href="/bookings" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Мои записи</Link></li>
+              <li><Link href="/school" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Школа UCS</Link></li>
+              <li><Link href="/school/courses" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Курсы</Link></li>
+              <li><Link href="/docs" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Документация</Link></li>
+              <li><Link href="/docs/cases" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Кейсы месяца</Link></li>
             </ul>
           </div>
 
