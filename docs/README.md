@@ -17,6 +17,7 @@
 | Файл | Описание |
 |------|----------|
 | [`project-overview.md`](project-overview.md) | Полный обзор: миссия, задачи, USP, архитектура, статусы, дорожная карта |
+| [`brief-public-phase.md`](brief-public-phase.md) | **Справка на согласование**: информационно-обучающий портал без ЛК (новая реализация) |
 | [`architecture.md`](architecture.md) | Архитектура проекта |
 | [`requirements.md`](requirements.md) | Функциональные и нефункциональные требования |
 | [`backend-handoff.md`](backend-handoff.md) | API-контракты frontend ↔ backend |
