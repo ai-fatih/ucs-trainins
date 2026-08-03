@@ -47,6 +47,10 @@ export default function LeaderboardPage() {
       <h1 className="text-2xl font-bold mb-2">Рейтинг</h1>
       <p className="text-sm text-[#6b7280] mb-6">Соревнуйся с коллегами и зарабатывай XP</p>
 
+      <div className="mb-6 p-3 rounded-lg bg-[#f0f4ff] border border-[#bfdbfe] text-xs text-[#1e40af]">
+        Демо-режим: список участников демонстрационный, ваш прогресс хранится на этом устройстве.
+      </div>
+
       <div className="glass-card p-5 mb-6 text-center">
         <div className="text-3xl mb-1">{rank.icon}</div>
         <div className="text-lg font-bold">{rank.title}</div>

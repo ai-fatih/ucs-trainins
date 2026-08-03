@@ -10,7 +10,7 @@
 
 1. **Каждый экран отвечает на 4 вопроса:** «Где я?» (breadcrumbs), «Откуда пришёл?» (назад), «Куда дальше?» (CTA), «Что ещё доступно?» (контекстная навигация).
 2. **Выход на мёртвую страницу запрещён** — у каждого экрана есть хотя бы один выход (назад или на главную). См. `ux-navigation-architecture.md` §5.
-3. **Авторизация:** маршруты `/dashboard`, `/booking`, `/bookings`, `/chat`, `/profile`, `/settings`, `/notifications`, `/review`, `/school/*` доступны только авторизованным. Гостя редиректит на `/auth/login?redirect=…` (центральный `AuthRouter`, см. `auth-redirects.md`); на лендинге для гостя доступен `AuthModal`.
+3. **Авторизация:** маршруты `/dashboard`, `/booking`, `/bookings`, `/chat`, `/profile`, `/settings`, `/notifications`, `/review` доступны только авторизованным. Гостя редиректит на `/auth/login?redirect=…` (центральный `AuthRouter`, см. `auth-redirects.md`); на лендинге для гостя доступен `AuthModal`. **`/school/*` открыт гостям** (информационно-обучающий контур, см. `brief-public-phase.md`).
 4. **Гостевые действия:** лендинг, документация, услуги, специалисты, заявка (`/request`), feedback — без авторизации.
 5. **Изменение навигации/точек входа** — согласуется с этой схемой и `ux-navigation-architecture.md`, иначе появляются «разрывы» (страницы, на которые нет ссылок).
 
@@ -38,13 +38,20 @@
 | Точка | Вход | Выход | Auth | Статус |
 |-------|------|-------|------|--------|
 | **`/` Лендинг** | Прямой вход, поисковик, реклама | Hero → `/request`, `/booking`; блоки → `/docs`, `/services`, `/school`; «Написать в чат» → `ChatWidget`; контакты → mailto/tel. **Авторизованный** → редирект на `/dashboard` (staff → `/admin/dashboard`) | нет | ✅ |
-| **`/docs` Каталог** | Лендинг, header | → `/docs/rkeeper/{product}` | нет | ✅ |
+| **`/docs` Каталог** | Лендинг, header | → `/docs/rkeeper/{product}`, → `/docs/cases` | нет | ✅ |
 | **`/docs/rkeeper/{product}`** | `/docs` | → детальные инструкции → prev/next → назад | нет | ✅ |
+| **`/docs/cases` Кейсы месяца** | `/docs`, header (таб «Кейсы месяца»), лендинг | → `/docs/cases/[id]`, → `/school/courses/cases-2026-07` | нет | ✅ |
+| **`/docs/cases/[id]`** | `/docs/cases` | → назад к кейсам, → тренажёр по кейсу (`/school/courses/cases-2026-07/lessons/…`) | нет | ✅ |
 | **`/services` Услуги** | Лендинг, header | → `/booking?serviceId=X`, → `/specialists` | нет | ✅ |
 | **`/specialists` Специалисты** | Footer, header (раздел «Услуги») | → `/booking?specialistId=X` | нет | ✅ |
 | **`/request` Заявка** | Footer, Hero-CTA лендинга | → `/` (успех) | нет | ✅ |
 | **`/feedback/[token]`** | Email/ссылка от менеджера | → экран «Спасибо» | нет (внешний) | ✅ |
 | **`/terms`, `/privacy`, `/offer`, `/consent`** | Footer, формы | → «← Вернуться на сайт» | нет | ✅ |
+| **`/school` Школа** | Лендинг, header (таб Школа) | → `/school/courses`, `/school/leaderboard`, `/school/badges`, `/school/certificates`, `/school/profile`, `/school/notifications` | нет | ✅ |
+| **`/school/courses`** | `/school` | → `/school/courses/[id]` | нет | ✅ |
+| **`/school/courses/[id]`** | `/school/courses` | → `/school/courses/[id]/lessons/[lid]`, → `/booking?topic=` (CTA по теме) | нет | ✅ |
+| **`/school/courses/[id]/lessons/[lid]`** | Деталь курса | → следующий урок, → назад к курсу, → `/booking?topic=` (консультация по теме) | нет | ✅ |
+| **`/school/leaderboard`**, **`/school/badges`**, **`/school/certificates`**, **`/school/profile`**, **`/school/notifications`** | `/school` | → `/school` (демо-данные, прогресс хранится локально) | нет | ✅ |
 
 > Входы на `/specialists` и `/request` добавлены в footer и лендинг (Hero-CTA). Header-табы для `/services`, `/bookings`, `/chat`, `/profile`, `/notifications` — починены (совпадение секции по headerNav).
 
@@ -58,31 +65,25 @@
 | **`/auth/register`** | `/auth/login`, AuthModal | → `?redirect=` или → `/dashboard` (после регистрации) | ✅ |
 | **`/admin/login`** | Прямой вход, middleware-редирект с `/admin/*` (`?redirect=`) | → `?redirect=` или → `/admin/requests` | ✅ |
 
-> После входа/регистрации пользователь попадает на персональный дашборд (или возвращается на защищённый роут, с которого его выкинуло). Полная матрица редиректов — `docs/auth-redirects.md`. Защищённые роуты для гостей: `/booking`, `/bookings`, `/chat`, `/profile`, `/settings`, `/notifications`, `/review`, `/school/*`, `/dashboard`.
+> После входа/регистрации пользователь попадает на персональный дашборд (или возвращается на защищённый роут, с которого его выкинуло). Полная матрица редиректов — `docs/auth-redirects.md`. Защищённые роуты для гостей: `/booking`, `/bookings`, `/chat`, `/profile`, `/settings`, `/notifications`, `/review`, `/dashboard`.
 
 ---
 
 ## Авторизованный пользователь
 
+> Информационно-обучающая фаза (см. `brief-public-phase.md`): ЛК-роуты ниже — **заглушки «Скоро»** (компонент `ui/ComingSoon`), полная реализация сохранена в ветке `main-arhive` и вернётся после одобрения/API. Авторизация остаётся активной (фunnel: гостя выкидывает на логин).
+
 | Точка | Вход | Выход | Auth | Статус |
 |-------|------|-------|------|--------|
-| **`/dashboard`** | После логина (login/register → дашборд), лендинг-редирект | «Новая запись» → `/booking`; виджеты → `/bookings`, `/chat`, `/school/courses` | да | ✅ |
-| **`/booking`** | `/services`, `/dashboard`, `/specialists`, школа (CTA по теме) | шаг 1 → шаг 2 → шаг 3 → шаг 4 → `/bookings` (успех) | да | ✅ выбор специалиста, динамический календарь, `?topic=` пресет |
-| **`/bookings`** | `/dashboard`, header (таб «Записи») | `upcoming` → `/chat/[id]`, «Перенести» (модалка), «Отменить» (подтверждение); `completed` → `/review?bookingId=`, опрос, TipModal | да | ✅ |
-| **`/chat`** | Header (таб «Чат») | → `/chat/[id]` | да | ✅ |
-| **`/chat/[id]`** | `/chat`, `/bookings` | → `/chat`, → `/bookings` | да | ✅ |
-| **`/review`** | `/bookings` (completed) | → `/bookings` | да | ✅ специалист/услуга из записи (`?bookingId=`), отзыв сохраняется |
-| **`/profile`** | Header (дропдаун «Профиль», таб «Профиль») | → `/notifications`, `/bookings` | да | ✅ |
-| **`/settings`** | Header (дропдаун «Настройки») | — (заглушка, разделы «скоро») | да | ⚠️ |
-| **`/notifications`** | Header (колокол, таб «Уведомления»), `/profile` | → `/profile` | да | ✅ |
-| **`/school`** | Лендинг, header (таб Школа) | → `/school/courses`, `/school/leaderboard`, `/school/badges`, `/school/certificates`, `/school/profile`, `/school/notifications` | да | ✅ |
-| **`/school/courses`** | `/school` | → `/school/courses/[id]` | да | ✅ |
-| **`/school/courses/[id]`** | `/school/courses` | → `/school/courses/[id]/lessons/[lid]`, → `/booking?topic=` (CTA по теме) | да | ✅ |
-| **`/school/courses/[id]/lessons/[lid]`** | Деталь курса | → следующий урок, → назад к курсу, → `/booking?topic=` (консультация по теме) | да | ✅ |
-| **`/school/leaderboard`**, **`/school/badges`** | `/school` | → `/school` | да | ✅ |
-| **`/school/certificates`** | `/school` | → «← В школу», скачать/печать, поделиться | да | ✅ |
-| **`/school/profile`** | `/school` | → «← В школу», редактирование данных | да | ✅ |
-| **`/school/notifications`** | `/school` | → «← В школу», прочитать/удалить уведомления | да | ✅ |
+| **`/dashboard`** | После логина (login/register → дашборд), лендинг-редирект | «Скоро» | да | ⚠️ заглушка |
+| **`/booking`** | `/services`, `/dashboard`, `/specialists`, школа (CTA по теме) | «Скоро» | да | ⚠️ заглушка |
+| **`/bookings`** | `/dashboard`, header (таб «Записи») | «Скоро» | да | ⚠️ заглушка |
+| **`/chat`** | Header (таб «Чат») | «Скоро» | да | ⚠️ заглушка |
+| **`/chat/[id]`** | `/chat`, `/bookings` | «Скоро» | да | ⚠️ заглушка |
+| **`/review`** | `/bookings` (completed) | «Скоро» | да | ⚠️ заглушка |
+| **`/profile`** | Header (дропдаун «Профиль», таб «Профиль») | «Скоро» | да | ⚠️ заглушка |
+| **`/settings`** | Header (дропдаун «Настройки») | «Скоро» | да | ⚠️ заглушка |
+| **`/notifications`** | Header (колокол, таб «Уведомления»), `/profile` | «Скоро» | да | ⚠️ заглушка |
 
 ---
 
@@ -102,7 +103,7 @@
 
 ## Проблемы (сводно)
 
-1. `/settings` — открытая заглушка (разделы «скоро»); уведомления — дропдаун-заглушка (`data/notifications.json`). Остальное уходит в backend: авторизация (мок→JWT), чат (мок→backend), double-booking, ITSM-вход, реальные НетМонет/СберЧаевые, Telegram/SMS, реальные уведомления.
+1. **Информационно-обучающая фаза:** ЛК-роуты (`/dashboard`, `/booking`, `/bookings`, `/chat`, `/profile`, `/settings`, `/notifications`, `/review`) — заглушки «Скоро» (`ui/ComingSoon`), уведомления и школьные данные — демо-мок/localStorage. Полная реализация (ЛК, запись, чат, отзывы, TipModal) в ветке `main-arhive` и вернётся после одобрения/API. Уведомления — дропдаун-заглушка (`data/notifications.json`).
 
 > Ранее выявленные разрывы (нет входа на `/specialists`, `/request`, `/chat`, `/notifications`; мёртвые юр. страницы; `/admin/schedule`; выбор специалиста в визарде `/booking`; календарь-заглушка; read-only страницы школы; связь «урок → консультация по теме»; отмена/перенос записей; Event-документация; специалист в `/review`; TipModal; чат-виджет) — **закрыты** в этом батче.
 

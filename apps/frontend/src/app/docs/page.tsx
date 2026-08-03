@@ -1,7 +1,7 @@
 ﻿'use client';
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Search, Monitor, Cloud, Smartphone, BookOpen } from 'lucide-react';
+import { Search, Monitor, Cloud, Smartphone, BookOpen, ArrowRight } from 'lucide-react';
 
 interface Scenario {
   title: string;
@@ -174,6 +174,18 @@ export default function InstructionsPage() {
           </button>
         ))}
       </div>
+
+      <Link
+        href="/docs/cases"
+        className="flex items-center gap-4 glass-card p-5 mb-8 no-underline transition-all hover:-translate-y-0.5"
+      >
+        <span className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[#1a56db] to-[#0d9488] flex items-center justify-center text-white text-lg">📊</span>
+        <div className="flex-1 min-w-0">
+          <div className="text-base font-semibold text-[#111827]">Кейсы месяца</div>
+          <div className="text-sm text-[#6b7280]">Разбор реальных обращений за прошлый месяц и тренажёр на их основе</div>
+        </div>
+        <ArrowRight className="w-5 h-5 text-[#1a56db] shrink-0" />
+      </Link>
 
       <div className="space-y-8">
         {filtered.map((product) => (

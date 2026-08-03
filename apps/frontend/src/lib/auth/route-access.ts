@@ -54,7 +54,8 @@ export const ROUTE_RULES: RouteRule[] = [
   { pattern: '/settings', access: 'protected', layer: 'client' },
   { pattern: '/notifications', access: 'protected', layer: 'client' },
   { pattern: '/review', access: 'protected', layer: 'client' },
-  { pattern: '/school/:path*', access: 'protected', layer: 'client' },
+  // /school/* — публичный (информационно-обучающий контур, см. docs/brief-public-phase.md)
+  { pattern: '/school/:path*', access: 'public', layer: 'client', note: 'школа и тренажёры — открыты без авторизации' },
 
   // ── Серверный слой (proxy.ts, cookie ucs-auth) ────────────────────────────
   { pattern: '/admin/login', access: 'public', layer: 'server', note: 'вход в админку (backend cookie)' },

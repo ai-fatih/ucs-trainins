@@ -35,6 +35,13 @@
           "items": [
             { "href": "/docs/rkeeper/waiter", "label": "Waiter & Cash Desk" }
           ]
+        },
+        {
+          "label": "Кейсы месяца",
+          "icon": "TrendingUp",
+          "items": [
+            { "href": "/docs/cases", "label": "Разбор обращений" }
+          ]
         }
       ],
       "headerNav": [
@@ -43,33 +50,19 @@
         { "href": "/docs/rkeeper/storehouse", "label": "StoreHouse Pro" },
         { "href": "/docs/rkeeper/delivery", "label": "Delivery" },
         { "href": "/docs/rkeeper/event", "label": "Event" },
-        { "href": "/docs/rkeeper/waiter", "label": "Waiter & Cash Desk" }
+        { "href": "/docs/rkeeper/waiter", "label": "Waiter & Cash Desk" },
+        { "href": "/docs/cases", "label": "Кейсы месяца" }
       ]
     },
     {
       "id": "services",
       "label": "Услуги",
       "icon": "ListTree",
-      "href": "/booking",
+      "href": "/services",
       "headerNav": [
         { "href": "/services", "label": "Каталог услуг" },
         { "href": "/specialists", "label": "Специалисты" },
-        { "href": "/booking", "label": "Записаться" },
-        { "href": "/bookings", "label": "Мои записи" }
-      ]
-    },
-    {
-      "id": "dashboard",
-      "label": "Личный кабинет",
-      "icon": "User",
-      "href": "/dashboard",
-      "headerNav": [
-        { "href": "/dashboard", "label": "Дашборд" },
-        { "href": "/bookings", "label": "Записи" },
-        { "href": "/chat", "label": "Чат" },
-        { "href": "/school", "label": "Школа" },
-        { "href": "/profile", "label": "Профиль" },
-        { "href": "/notifications", "label": "Уведомления" }
+        { "href": "/request", "label": "Оставить заявку" }
       ]
     },
     {
@@ -97,6 +90,7 @@
     "profile": "Профиль",
     "notifications": "Уведомления",
     "docs": "Документация",
+    "cases": "Кейсы месяца",
     "rk7": "r_keeper 7",
     "storehouse": "StoreHouse Pro",
     "delivery": "Delivery",

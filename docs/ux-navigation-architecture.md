@@ -1,5 +1,7 @@
 # Navigation Architecture — UCS Service Portal
 
+> **Текущая фаза — информационно-обучающий портал без ЛК** (см. `docs/brief-public-phase.md`). Открыты `/docs`, `/docs/cases`, `/school/*`; ЛК-роуты (`/dashboard`, `/booking`, `/bookings`, `/chat`, `/profile`, `/settings`, `/notifications`, `/review`) — заглушки «Скоро» (`ui/ComingSoon`). Полная реализация сохранена в ветке `main-arhive`.
+
 ## Принцип навигации
 
 Каждая страница должна отвечать на 4 вопроса:
@@ -20,30 +22,26 @@ UCS service | О нас | Документация | Услуги | Школа |
 
 ### Документация (`/docs/*`)
 ```
-UCS service | Каталог | r_keeper 7 | StoreHouse | Delivery | Event | Waiter | 🔍 | 🔔 | 👤
+UCS service | Каталог | r_keeper 7 | StoreHouse | Delivery | Event | Waiter | Кейсы месяца | 🔍 | 🔔 | 👤
 ```
 
-### Школа (`/school/*`)
+### Школа (`/school/*`) — публична
 ```
 UCS service | Главная | Курсы | Рейтинг | Бейджи | Сертификаты | 🔍 | 🔔 | 👤
 ```
+> `/school/*` — public (без авторизации), демо-данные, прогресс хранится в localStorage. См. `docs/touchpoints.md` и `docs/brief-public-phase.md`.
 
-### Услуги (`/services`, `/booking`, `/bookings`)
+### Услуги (`/services`, `/specialists`, `/request`)
 ```
-UCS service | Услуги | Мои записи | Записаться | 🔍 | 🔔 | 👤
+UCS service | Каталог услуг | Специалисты | Оставить заявку | 🔍 | 🔔 | 👤
 ```
+> Раздел «Услуги» ведёт на публичные `/services`, `/specialists`, `/request`. `/booking` и `/bookings` — заглушки «Скоро» (`ui/ComingSoon`), CTA из школы по теме по-прежнему ведёт на `/booking?topic=` (funnel авторизации).
 
-### Дашборд / Профиль / Чат
+### Дашборд / Профиль / Чат — заглушки «Скоро»
 ```
-UCS service | Дашборд | Записи | Чат | Школа | 🔍 | 🔔 | 👤
+UCS service | 🔍 | 🔔 | 👤
 ```
-> Клик по аватару/имени открывает дропдаун: **Профиль** (`/profile`) · **Настройки** (`/settings`) · **Выход** (logout → `/`). Колокол → дропдаун уведомлений (`NotificationsDropdown`, заглушка) + «Все уведомления» → `/notifications`. Закрытие по клику вне, Escape и смене маршрута. `/settings` — заглушка (разделы «скоро»).
-
-### Школа (`/school/*`) — защищена
-```
-UCS service | Главная | Курсы | Рейтинг | Бейджи | Сертификаты | 🔍 | 🔔 | 👤
-```
-> `/school/*` — protected (гость → `/auth/login?redirect=…`), соответствует `docs/touchpoints.md`.
+> ЛК-роуты (`/dashboard`, `/booking`, `/bookings`, `/chat`, `/profile`, `/settings`, `/notifications`, `/review`) — заглушки «Скоро» (`ui/ComingSoon`); полная реализация в ветке `main-arhive`. Клик по аватару/имени открывает дропдаун: **Профиль** (`/profile`) · **Настройки** (`/settings`) · **Выход** (logout → `/`). Колокол → дропдаун уведомлений (`NotificationsDropdown`, заглушка) + «Все уведомления» → `/notifications`. Закрытие по клику вне, Escape и смене маршрута.
 
 ### Admin (`/admin/*`)
 ```
@@ -91,6 +89,14 @@ UCS service | KPI | Заявки | Услуги | Специалисты | Ра�
 |---------|--------|----------|
 | Ссылка на специалистов | `/specialists` | Добавить |
 
+### Кейсы месяца ↔ тренажёр (публичный контур)
+| Откуда | Ссылка | Куда |
+|--------|--------|------|
+| `/docs` (блок «Кейсы месяца») | `/docs/cases` | хаб кейсов |
+| `/docs/cases` | `/school/courses/cases-2026-07` | курс-тренажёр |
+| `/docs/cases/[id]` | `/school/courses/cases-2026-07/lessons/{trainerLessonId}` | урок по кейсу |
+| урок кейса | `/booking?topic=…` | CTA консультации (funnel) |
+
 ---
 
 ## 3. Breadcrumbs — единый формат
@@ -119,15 +125,16 @@ UCS service | KPI | Заявки | Услуги | Специалисты | Ра�
 
 ## 4. Navigation JSON — структура
 
-### Текущая структура sections
+### Текущая структура sections (публичный контур)
 ```json
 [
   { id: "home", label: "Главная", href: "/" },
-  { id: "docs", label: "Документация", href: "/docs", headerNav: [...] },
-  { id: "services", label: "Услуги", href: "/booking" },
+  { id: "docs", label: "Документация", href: "/docs", groups: [..., { label: "Кейсы месяца", items: ["/docs/cases"] }], headerNav: [..., "/docs/cases"] },
+  { id: "services", label: "Услуги", href: "/services", headerNav: ["/services", "/specialists", "/request"] },
   { id: "school", label: "Школа", href: "/school", headerNav: [...] }
 ]
 ```
+> Секция «Личный кабинет» (`dashboard`) убрана — ЛК-роуты заглушены «Скоро» и вернутся с `main-arhive` после одобрения/API.
 
 ### Предлагаемая структура (без sidebar, для header)
 ```json
@@ -183,7 +190,8 @@ UCS service | KPI | Заявки | Услуги | Специалисты | Ра�
 - **Admin header:** у staff на `/admin/*` показываются табы `KPI` (`/admin/dashboard`), `Заявки` (`/admin/requests`), `Услуги` (`/admin/services`), `Специалисты` (`/admin/specialists`), `Расписание` (`/admin/schedule`).
 - **Дашборд-секция headerNav:** добавлен таб «Уведомления» → `/notifications` (`src/data/navigation.json`).
 - **Booking §7:** визард теперь 4 шага (Услуга → Специалист → Дата и время → Подтверждение). `specialistId` из URL пресетит специалиста без перехода шага; слоты фильтруются по выбранному специалисту; `specialistId`/`specialistName` уходят в `POST /bookings`. `src/stores/booking.ts` (actions `setSelectedSpecialist`/`selectSpecialist`), `src/app/booking/page.tsx`, `src/data/slots.json` (слоты добавлены для всех 5 специалистов).
-- **Связь школа↔консультации:** CTA «Записаться на консультацию по теме» на детали курса и на странице урока → `/booking?topic=<курс>` (тема пресетится в шаге подтверждения визарда).
+- **Связь школа↔консультации:** CTA «Записаться на консультацию по теме» на детали курса и на странице урока → `/booking?topic=<курс>` (тема пресетится в шаге подтверждения визарда; сейчас `/booking` — заглушка, гостя выкидывает на логин).
+- **Публичный контур (2026-08):** `/school/*` — public (`route-access.ts`); раздел «Кейсы месяца» (`/docs/cases`, `/docs/cases/[id]`) + курс-тренажёр `cases-2026-07`; терминальные шаги деревьев решений в `LessonView` — generic (шаг без `choices` = финал). ЛК-роуты заглушены `ui/ComingSoon`, секция `dashboard` убрана из `navigation.json`.
 - **Отзыв (`/review`):** вход из `/bookings` (completed) со ссылкой `/review?bookingId=`. Специалист, услуга и дата берутся из записи; отзыв сохраняется (rating/feedbackCompleted в `mock-db`, localStorage).
 - **Осталось (backend):** авторизация (мок→JWT), чат (мок→backend), защита от double-booking, ITSM-вход, реальные чаевые (НетМонет/СберЧаевые), Telegram/SMS, аналитика.
 

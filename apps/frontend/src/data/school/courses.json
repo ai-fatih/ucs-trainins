@@ -396,5 +396,51 @@
     "totalLessons": 3,
     "totalXp": 240,
     "estimatedHours": 0.3
+  },
+  {
+    "id": "cases-2026-07",
+    "title": "Кейсы месяца: июль 2026",
+    "description": "Тренажёр на реальных кейсах консультаций за июль 2026: разбор типовых обращений в формате деревьев решений.",
+    "icon": "Swords",
+    "iconBg": "#f0f4ff",
+    "colorFrom": "#0d9488",
+    "colorTo": "#14b8a6",
+    "modules": [
+      {
+        "id": "cases-mod1",
+        "title": "ЕГАИС и маркировка",
+        "description": "Типовые обращения с маркировкой алкоголя",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "case-8004-train",
+            "title": "Кейс: ошибка 8004 «Нет доступной вскрытой марки»",
+            "description": "Помоги кассиру разобраться, почему марка не списывается",
+            "activity": { "type": "case", "decisionTreeId": "c1" },
+            "durationMinutes": 15,
+            "xpReward": 150
+          }
+        ]
+      },
+      {
+        "id": "cases-mod2",
+        "title": "Отображение блюд",
+        "description": "Блюдо не видно на кассе",
+        "order": 2,
+        "lessons": [
+          {
+            "id": "case-dish-invisible-train",
+            "title": "Кейс: блюдо есть в меню, но не видно на кассе",
+            "description": "Найди причину, почему позиция не отображается",
+            "activity": { "type": "case", "decisionTreeId": "c2" },
+            "durationMinutes": 10,
+            "xpReward": 100
+          }
+        ]
+      }
+    ],
+    "totalLessons": 2,
+    "totalXp": 250,
+    "estimatedHours": 0.4
   }
 ]

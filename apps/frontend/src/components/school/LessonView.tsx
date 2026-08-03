@@ -244,13 +244,7 @@ function CaseLesson({ tree, onComplete }: { tree: DecisionTree; onComplete: (sco
   const handleNext = () => {
     if (!feedback) return;
     const nextId = feedback.choice.next;
-    if (nextId === 'c1_done' || nextId === 'c2_success' || nextId === 'c1_fail' || nextId === 'c2_fail' || !nextId) {
-      const finalScore = Math.max(10, (tree.steps.filter(s => s.choices.length > 0).length - failCount) * 20);
-      onComplete(finalScore);
-      setPhase('done');
-      return;
-    }
-    const nextStep = tree.steps.find(s => s.id === nextId);
+    const nextStep = nextId ? tree.steps.find(s => s.id === nextId) : undefined;
     if (!nextStep || nextStep.choices.length === 0) {
       const finalScore = Math.max(10, (tree.steps.filter(s => s.choices.length > 0).length - failCount) * 20);
       onComplete(finalScore);

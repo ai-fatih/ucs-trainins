@@ -31,6 +31,10 @@ export default function ProfilePage() {
         </button>
       </div>
 
+      <div className="mb-6 p-3 rounded-lg bg-[#f0f4ff] border border-[#bfdbfe] text-xs text-[#1e40af]">
+        Прогресс хранится локально на этом устройстве (демо-режим без личного кабинета).
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-1">
           <div className="glass-card p-6 text-center">

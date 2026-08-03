@@ -135,6 +135,7 @@ export default function SchoolDashboard() {
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold">Рейтинг</h2>
+              <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#f3f4f6] text-[#6b7280] font-semibold">демо</span>
               <Link href="/school/leaderboard" className="text-xs text-[#1a56db] font-semibold flex items-center gap-1 hover:underline">
                 Полный рейтинг <ArrowRight className="w-3 h-3" />
               </Link>

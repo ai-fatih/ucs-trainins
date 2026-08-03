@@ -409,3 +409,30 @@ export interface LeaderboardEntry {
   rankIcon: string;
   isYou?: boolean;
 }
+
+/* ===== Разбор кейсов месяца (docs/cases) ===== */
+
+export interface MonthlyCase {
+  id: string;
+  title: string;
+  product: string;
+  tags: string[];
+  situation: string;
+  symptoms: string[];
+  diagnostics: string[];
+  rootCause: string;
+  solution: string[];
+  prevention: string[];
+  decisionTreeId: string;
+  trainerLessonId: string;
+}
+
+export interface MonthlyCases {
+  month: string;
+  monthLabel: string;
+  summary: {
+    totalCases: number;
+    topTopics: { label: string; count: number }[];
+  };
+  cases: MonthlyCase[];
+}
