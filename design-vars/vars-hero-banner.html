@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Banner — Популярное месяца | UCS-Service</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a56db;
+      --primary-hover: #1648c0;
+      --primary-light: #e8effa;
+      --primary-dark: #1e40af;
+      --teal: #0d9488;
+      --teal-light: #ccfbf1;
+      --amber: #d97706;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--gray-900);
+      background: var(--gray-100);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .variant-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .variant-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--gray-500);
+      background: var(--gray-100);
+      transition: 0.2s;
+    }
+
+    .variant-nav a:hover { background: var(--primary); color: #fff; }
+
+    .page-context {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      flex-wrap: wrap;
+    }
+
+    .page-context .tag {
+      background: #e8effa;
+      color: #1a56db;
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 11px;
+      text-transform: none;
+    }
+
+    .variant-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 20px 24px 8px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .hero-wrapper {
+      max-width: 1240px;
+      margin: 0 24px 32px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    /* ===== Split hero base (left text = as on the live landing) ===== */
+    .hero {
+      min-height: 520px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #0f172a;
+    }
+
+    .hero-text {
+      color: #fff;
+      padding: 56px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(13,148,136,0.2);
+      color: #f8fafc;
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      width: fit-content;
+      margin-bottom: 18px;
+    }
+
+    .hero-text h1 { font-size: 38px; font-weight: 800; line-height: 1.15; margin-bottom: 14px; }
+    .hero-text h1 span { color: var(--teal); }
+    .hero-text p { font-size: 15px; color: #94a3b8; margin-bottom: 24px; max-width: 400px; }
+
+    .hero-cta { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #1a56db, #0d9488);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.2s;
+      box-shadow: 0 4px 15px rgba(26,86,219,0.3);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(26,86,219,0.5); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+
+    .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+
+    /* ===== Right visual area ===== */
+    .hero-visual {
+      position: relative;
+      overflow: hidden;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .glow { position: absolute; width: 260px; height: 260px; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+    .glow-1 { background: rgba(26,86,219,0.3); top: 5%; left: 5%; }
+    .glow-2 { background: rgba(13,148,136,0.25); bottom: 5%; right: 5%; }
+
+    /* ===== Panel ===== */
+    .panel {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 380px;
+      background: rgba(15,23,42,0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 18px 18px 14px;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .panel-ico {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #1a56db, #0d9488);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .panel-title { font-size: 13px; font-weight: 700; color: #fff; }
+    .panel-sub { font-size: 10px; color: #94a3b8; }
+
+    .panel-foot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 12px;
+      font-weight: 700;
+      color: #5eead4;
+      gap: 5px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .panel-foot:hover { color: #2dd4bf; gap: 8px; }
+
+    /* rows (variants 1, 6) */
+    .qrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .qrow:hover { background: rgba(255,255,255,0.05); }
+
+    .qrow .q-rank {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+
+    .qrow:nth-child(-n+3) .q-rank { background: linear-gradient(135deg, #1a56db, #0d9488); color: #fff; }
+
+    .qrow .q-body { flex: 1; min-width: 0; }
+    .qrow .q-title { font-size: 12.5px; font-weight: 600; color: #fff; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .qrow .q-tag { font-size: 9.5px; color: #94a3b8; margin-top: 2px; }
+
+    .qrow .q-count { font-size: 12px; font-weight: 700; color: #5eead4; flex-shrink: 0; }
+
+    /* bar rows (variant 3) */
+    .brow { margin-bottom: 10px; cursor: pointer; }
+    .brow .b-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+    .brow .b-title { font-size: 12.5px; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .brow .b-count { font-size: 11px; font-weight: 700; color: #5eead4; flex-shrink: 0; }
+    .brow .b-track { height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .brow .b-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #1a56db, #0d9488); }
+
+    /* pills */
+    .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .pill {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: rgba(13,148,136,0.15);
+      color: #5eead4;
+    }
+
+    /* big cards (variant 2) */
+    .big-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 12px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .big-card:hover { background: rgba(255,255,255,0.07); }
+    .big-card .bc-num { font-size: 20px; font-weight: 800; color: #fff; line-height: 1; }
+    .big-card .bc-label { font-size: 10.5px; font-weight: 600; color: #fff; margin: 3px 0 6px; }
+    .big-card .bc-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+    .big-card .bc-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #1a56db, #0d9488); }
+
+    /* stat tiles (variant 4) */
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .stat-tile {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .stat-tile .st-num {
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #60a5fa, #2dd4bf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
+
+    .stat-tile .st-label { font-size: 9.5px; color: #94a3b8; margin-top: 2px; }
+
+    /* variant 5 bento */
+    .bento-month { text-align: center; padding: 6px 0 10px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 12px; }
+    .bento-month .bm-month { font-size: 11px; font-weight: 700; color: #5eead4; text-transform: uppercase; letter-spacing: 1px; }
+    .bento-month .bm-num { font-size: 34px; font-weight: 800; color: #fff; line-height: 1.05; }
+    .bento-month .bm-label { font-size: 11px; color: #94a3b8; }
+
+    /* month comparison (variants 07, 08) */
+    .mc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .mc-cell {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .mc-cell.current { background: rgba(13,148,136,0.08); border-color: rgba(45,212,191,0.25); }
+    .mc-cell.dim { opacity: 0.45; }
+    .mc-cell .mc-month { font-size: 10px; font-weight: 700; color: #5eead4; text-transform: uppercase; letter-spacing: 0.5px; }
+    .mc-cell.dim .mc-month { color: #94a3b8; }
+    .mc-cell .mc-num { font-size: 22px; font-weight: 800; color: #fff; line-height: 1.1; margin-top: 2px; }
+    .mc-cell .mc-label { font-size: 9.5px; color: #94a3b8; }
+
+    .mc-cell .mc-delta {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-top: 6px;
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #34d399;
+      background: rgba(52,211,153,0.12);
+    }
+
+    .mc-cell .mc-track { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; margin-top: 8px; }
+    .mc-cell .mc-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #1a56db, #0d9488); }
+    .mc-cell.dim .mc-fill { background: rgba(148,163,184,0.4); }
+
+    /* variant 09 watermark */
+    .wm-wrap { position: relative; text-align: center; padding: 6px 0 12px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 12px; }
+    .wm { position: absolute; right: 6px; bottom: 8px; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.28); }
+    .wm .wm-num { font-size: 20px; font-weight: 800; }
+
+    /* variant 10 delta block */
+    .head-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .head-row .current .cur-num { font-size: 26px; font-weight: 800; color: #fff; line-height: 1; }
+    .head-row .current .cur-label { font-size: 10px; color: #94a3b8; margin-top: 2px; }
+    .delta-block { text-align: right; font-size: 10px; color: #94a3b8; opacity: 0.55; }
+    .delta-block .db-num { font-size: 14px; font-weight: 700; color: #fff; }
+
+    /* trend arrows (variant 6) */
+    .qrow .q-trend { font-size: 10px; font-weight: 700; flex-shrink: 0; width: 22px; text-align: center; }
+    .trend-up { color: #34d399; }
+    .trend-flat { color: #94a3b8; }
+    .trend-down { color: #f87171; }
+
+    /* comparison table */
+    .compare-wrap { max-width: 1240px; margin: 0 24px 28px; }
+    .compare {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      font-size: 13px;
+    }
+
+    .compare th, .compare td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--gray-100); }
+    .compare th { background: #f9fafb; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-500); }
+    .compare tr:last-child td { border-bottom: none; }
+    .compare td:first-child { font-weight: 700; color: var(--primary); white-space: nowrap; }
+    .compare .pick { text-align: center; font-size: 16px; }
+
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-text { padding: 36px 24px; }
+      .hero-visual { padding: 20px; min-height: 360px; }
+      .hero-text h1 { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="variant-nav">
+  <a href="#v01">1</a><a href="#v02">2</a><a href="#v03">3</a><a href="#v04">4</a><a href="#v05">5</a><a href="#v06">6</a>
+  <a href="#v07">7</a><a href="#v08">8</a><a href="#v09">9</a><a href="#v10">10</a>
+</nav>
+
+<div class="page-context">
+  <span class="tag">hero banner v1</span>
+  <span>→ Правая колонка hero: «Популярное текущего месяца». Без CTA-кнопок (слева уже «В школу» и «Инструкции»), внизу — текстовая ссылка «Смотреть все →».</span>
+</div>
+
+<!-- ============ СРАВНЕНИЕ ============ -->
+<div class="compare-wrap">
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Вариант</th>
+        <th>Композиция панели</th>
+        <th>Метрики</th>
+        <th>Список</th>
+        <th>Ссылка</th>
+        <th style="width:44px;">Выбор ✅</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>01 · Топ-5 список</td>
+        <td>Шапка → 5 строк (ранг, заголовок, тег) → «Смотреть все →»</td>
+        <td>Нет</td>
+        <td>5</td>
+        <td>Текстовая</td>
+        <td class="pick">☐</td>
+      </tr>
+      <tr>
+        <td>02 · Топ-3 крупно</td>
+        <td>Шапка → пилюли тем → 3 крупные карточки (счётчик + бар) → «Смотреть все →»</td>
+        <td>Да</td>
+        <td>3</td>
+        <td>Текстовая</td>
+        <td class="pick">☐</td>
+      </tr>
+      <tr>
+        <td>03 · Рейтинг-бары</td>
+        <td>Шапка → 5 строк с градиентным баром пропорционально количеству → «Смотреть все →»</td>
+        <td>Да</td>
+        <td>5</td>
+        <td>Текстовая</td>
+        <td class="pick">☐</td>
+      </tr>
+      <tr>
+        <td>04 · Мини-дашборд</td>
+        <td>Шапка → 2×2 стат-плитки → топ-3 компактно → «Смотреть все →»</td>
+        <td>Да</td>
+        <td>3</td>
+        <td>Текстовая</td>
+        <td class="pick">☐</td>
+      </tr>
+      <tr>
+        <td>05 · Бенто-месяц</td>
+        <td>Шапка → крупный месяц + счётчик → пилюля темы → 2 кейса → «Смотреть все →»</td>
+        <td>Да</td>
+        <td>2</td>
+        <td>Текстовая</td>
+        <td class="pick">☐</td>
+      </tr>
+      <tr>
+        <td>06 · Компакт + тренды</td>
+        <td>Шапка → 5 строк со стрелками тренда (▲/—/▼) → «Смотреть все →»</td>
+        <td>Да</td>
+        <td>5</td>
+        <td>Текстовая</td>
+        <td class="pick">☐</td>
+      </tr>
+      <tr>
+        <td>07 · Сравнение в шапке</td>
+        <td>Шапка: июнь ‖ июль (счётчики, ▲ +3) → пилюли тем → топ-3 → «Смотреть все →»</td>
+        <td>Да (2 месяца)</td>
+        <td>3</td>
+        <td>Текстовая</td>
+        <td class="pick">☐</td>
+      </tr>
+      <tr>
+        <td>08 · Сравнение с мини-барами</td>
+        <td>Как 07, но у каждого месяца градиентный мини-бар по количеству</td>
+        <td>Да (бары)</td>
+        <td>3</td>
+        <td>Текстовая</td>
+        <td class="pick">☐</td>
+      </tr>
+      <tr>
+        <td>09 · Призрачный фон</td>
+        <td>Крупное «8» + полупрозрачный watermark «июнь · 5» позади</td>
+        <td>Да (дельта)</td>
+        <td>3</td>
+        <td>Текстовая</td>
+        <td class="pick">☐</td>
+      </tr>
+      <tr>
+        <td>10 · Только дельта</td>
+        <td>Слева «июль · 8», справа полупрозрачный блок «июнь · 5 ▼»</td>
+        <td>Да (дельта)</td>
+        <td>3</td>
+        <td>Текстовая</td>
+        <td class="pick">☐</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ 01 — Топ-5 список ============ -->
+<div class="variant-label" id="v01">01 — Топ-5 список <span style="color:var(--gray-300);">| простой, читаемый, без метрик</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-cta">
+        <button class="btn-primary">В школу →</button>
+        <button class="btn-secondary">Инструкции</button>
+      </div>
+    </div>
+    <div class="hero-visual" style="background:linear-gradient(135deg,#1e293b,#0f172a)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-ico">📈</span>
+          <div>
+            <div class="panel-title">Популярное · Июль 2026</div>
+            <div class="panel-sub">топ запросов консультаций</div>
+          </div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">1</span>
+          <div class="q-body">
+            <div class="q-title">Ошибка 8004 «Нет доступной вскрытой марки»</div>
+            <div class="q-tag">ЕГАИС · маркировка</div>
+          </div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">2</span>
+          <div class="q-body">
+            <div class="q-title">Блюдо есть в меню, но не видно на кассе</div>
+            <div class="q-tag">Меню · отображение</div>
+          </div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">3</span>
+          <div class="q-body">
+            <div class="q-title">Приём накладной ЕГАИС</div>
+            <div class="q-tag">ЕГАИС · склад</div>
+          </div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">4</span>
+          <div class="q-body">
+            <div class="q-title">Инвентаризация алкоголя</div>
+            <div class="q-tag">Склад · маркировка</div>
+          </div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">5</span>
+          <div class="q-body">
+            <div class="q-title">Сверка выручки и Z-отчёта</div>
+            <div class="q-tag">Отчёты</div>
+          </div>
+        </div>
+        <div class="panel-foot">Смотреть все →</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 02 — Топ-3 крупно ============ -->
+<div class="variant-label" id="v02">02 — Топ-3 крупно <span style="color:var(--gray-300);">| пилюли тем + крупные карточки со счётчиком</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-cta">
+        <button class="btn-primary">В школу →</button>
+        <button class="btn-secondary">Инструкции</button>
+      </div>
+    </div>
+    <div class="hero-visual" style="background:linear-gradient(145deg,#0f172a,#1e293b)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-ico">🔥</span>
+          <div>
+            <div class="panel-title">Популярное · Июль 2026</div>
+            <div class="panel-sub">топ тем и запросов</div>
+          </div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">ЕГАИС и маркировка · 3</span>
+          <span class="pill">Отображение блюд · 1</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="big-card">
+            <div class="bc-num">3</div>
+            <div class="bc-label">Ошибка 8004 «Нет доступной вскрытой марки»</div>
+            <div class="bc-bar"><div class="bc-fill" style="width:100%"></div></div>
+          </div>
+          <div class="big-card">
+            <div class="bc-num">2</div>
+            <div class="bc-label">Приём накладной ЕГАИС</div>
+            <div class="bc-bar"><div class="bc-fill" style="width:66%"></div></div>
+          </div>
+          <div class="big-card">
+            <div class="bc-num">1</div>
+            <div class="bc-label">Блюдо есть в меню, но не видно на кассе</div>
+            <div class="bc-bar"><div class="bc-fill" style="width:33%"></div></div>
+          </div>
+        </div>
+        <div class="panel-foot">Смотреть все →</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 03 — Рейтинг-бары ============ -->
+<div class="variant-label" id="v03">03 — Рейтинг-бары <span style="color:var(--gray-300);">| визуальная пропорция через градиентные полосы</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-cta">
+        <button class="btn-primary">В школу →</button>
+        <button class="btn-secondary">Инструкции</button>
+      </div>
+    </div>
+    <div class="hero-visual" style="background:linear-gradient(150deg,#1e293b,#0f172a)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-ico">📊</span>
+          <div>
+            <div class="panel-title">Популярное · Июль 2026</div>
+            <div class="panel-sub">частота обращений</div>
+          </div>
+        </div>
+        <div class="brow">
+          <div class="b-top"><span class="b-title">Ошибка 8004 «Нет доступной вскрытой марки»</span><span class="b-count">3</span></div>
+          <div class="b-track"><div class="b-fill" style="width:100%"></div></div>
+        </div>
+        <div class="brow">
+          <div class="b-top"><span class="b-title">Приём накладной ЕГАИС</span><span class="b-count">2</span></div>
+          <div class="b-track"><div class="b-fill" style="width:66%"></div></div>
+        </div>
+        <div class="brow">
+          <div class="b-top"><span class="b-title">Блюдо есть в меню, но не видно на кассе</span><span class="b-count">1</span></div>
+          <div class="b-track"><div class="b-fill" style="width:33%"></div></div>
+        </div>
+        <div class="brow">
+          <div class="b-top"><span class="b-title">Инвентаризация алкоголя</span><span class="b-count">1</span></div>
+          <div class="b-track"><div class="b-fill" style="width:33%"></div></div>
+        </div>
+        <div class="brow">
+          <div class="b-top"><span class="b-title">Сверка выручки и Z-отчёта</span><span class="b-count">1</span></div>
+          <div class="b-track"><div class="b-fill" style="width:33%"></div></div>
+        </div>
+        <div class="panel-foot">Смотреть все →</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 04 — Мини-дашборд ============ -->
+<div class="variant-label" id="v04">04 — Мини-дашборд <span style="color:var(--gray-300);">| стат-плитки месяца + компактный топ-3</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-cta">
+        <button class="btn-primary">В школу →</button>
+        <button class="btn-secondary">Инструкции</button>
+      </div>
+    </div>
+    <div class="hero-visual" style="background:linear-gradient(155deg,#0f172a,#1e293b)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-ico">🗓️</span>
+          <div>
+            <div class="panel-title">Июль 2026</div>
+            <div class="panel-sub">популярные обращения</div>
+          </div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-tile"><div class="st-num">8</div><div class="st-label">обращений разобрано</div></div>
+          <div class="stat-tile"><div class="st-num">2</div><div class="st-label">темы месяца</div></div>
+          <div class="stat-tile"><div class="st-num">2</div><div class="st-label">тренажёра в школе</div></div>
+          <div class="stat-tile"><div class="st-num">5</div><div class="st-label">инструкций</div></div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">ЕГАИС и маркировка</span>
+          <span class="pill">Отображение блюд</span>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">1</span>
+          <div class="q-body">
+            <div class="q-title">Ошибка 8004 «Нет доступной вскрытой марки»</div>
+          </div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">2</span>
+          <div class="q-body">
+            <div class="q-title">Блюдо есть в меню, но не видно на кассе</div>
+          </div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">3</span>
+          <div class="q-body">
+            <div class="q-title">Приём накладной ЕГАИС</div>
+          </div>
+        </div>
+        <div class="panel-foot">Смотреть все →</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 05 — Бенто-месяц ============ -->
+<div class="variant-label" id="v05">05 — Бенто-месяц <span style="color:var(--gray-300);">| акцент на месяце, минимум списка</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-cta">
+        <button class="btn-primary">В школу →</button>
+        <button class="btn-secondary">Инструкции</button>
+      </div>
+    </div>
+    <div class="hero-visual" style="background:linear-gradient(140deg,#1e293b,#0f172a)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="panel">
+        <div class="bento-month">
+          <div class="bm-month">Популярное</div>
+          <div class="bm-num">8</div>
+          <div class="bm-label">обращений · июль 2026</div>
+        </div>
+        <div style="display:flex;justify-content:center;margin-bottom:12px">
+          <span class="pill">ЕГАИС и маркировка · 3</span>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">1</span>
+          <div class="q-body">
+            <div class="q-title">Ошибка 8004 «Нет доступной вскрытой марки»</div>
+          </div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">2</span>
+          <div class="q-body">
+            <div class="q-title">Блюдо есть в меню, но не видно на кассе</div>
+          </div>
+        </div>
+        <div class="panel-foot">Смотреть все →</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 06 — Компакт + тренды ============ -->
+<div class="variant-label" id="v06">06 — Компакт + тренды <span style="color:var(--gray-300);">| стрелки динамики по сравнению с прошлым месяцем</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-cta">
+        <button class="btn-primary">В школу →</button>
+        <button class="btn-secondary">Инструкции</button>
+      </div>
+    </div>
+    <div class="hero-visual" style="background:linear-gradient(145deg,#0f172a,#1e293b)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-ico">📈</span>
+          <div>
+            <div class="panel-title">Популярное · Июль 2026</div>
+            <div class="panel-sub">динамика к прошлому месяцу</div>
+          </div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">1</span>
+          <div class="q-body">
+            <div class="q-title">Ошибка 8004 «Нет доступной вскрытой марки»</div>
+          </div>
+          <span class="q-trend trend-up">▲</span>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">2</span>
+          <div class="q-body">
+            <div class="q-title">Приём накладной ЕГАИС</div>
+          </div>
+          <span class="q-trend trend-flat">—</span>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">3</span>
+          <div class="q-body">
+            <div class="q-title">Блюдо есть в меню, но не видно на кассе</div>
+          </div>
+          <span class="q-trend trend-down">▼</span>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">4</span>
+          <div class="q-body">
+            <div class="q-title">Инвентаризация алкоголя</div>
+          </div>
+          <span class="q-trend trend-flat">—</span>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">5</span>
+          <div class="q-body">
+            <div class="q-title">Сверка выручки и Z-отчёта</div>
+          </div>
+          <span class="q-trend trend-up">▲</span>
+        </div>
+        <div class="panel-foot">Смотреть все →</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 07 — Сравнение в шапке ============ -->
+<div class="variant-label" id="v07">07 — Сравнение в шапке <span style="color:var(--gray-300);">| июнь ‖ июль + пилюли тем + топ-3 текущего</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-cta">
+        <button class="btn-primary">В школу →</button>
+        <button class="btn-secondary">Инструкции</button>
+      </div>
+    </div>
+    <div class="hero-visual" style="background:linear-gradient(140deg,#1e293b,#0f172a)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-ico">📅</span>
+          <div>
+            <div class="panel-title">Популярное · Июль 2026</div>
+            <div class="panel-sub">сравнение с прошлым месяцем</div>
+          </div>
+        </div>
+        <div class="mc-grid">
+          <div class="mc-cell dim">
+            <div class="mc-month">Июнь</div>
+            <div class="mc-num">5</div>
+            <div class="mc-label">обращений</div>
+          </div>
+          <div class="mc-cell current">
+            <div class="mc-month">Июль</div>
+            <div class="mc-num">8</div>
+            <div class="mc-label">обращений</div>
+            <div class="mc-delta">▲ +3</div>
+          </div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">ЕГАИС и маркировка · 3</span>
+          <span class="pill">Отображение блюд · 1</span>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">1</span>
+          <div class="q-body"><div class="q-title">Ошибка 8004 «Нет доступной вскрытой марки»</div></div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">2</span>
+          <div class="q-body"><div class="q-title">Приём накладной ЕГАИС</div></div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">3</span>
+          <div class="q-body"><div class="q-title">Блюдо есть в меню, но не видно на кассе</div></div>
+        </div>
+        <div class="panel-foot">Смотреть все →</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 08 — Сравнение с мини-барами ============ -->
+<div class="variant-label" id="v08">08 — Сравнение с мини-барами <span style="color:var(--gray-300);">| пропорция месяцев видна сразу</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-cta">
+        <button class="btn-primary">В школу →</button>
+        <button class="btn-secondary">Инструкции</button>
+      </div>
+    </div>
+    <div class="hero-visual" style="background:linear-gradient(145deg,#0f172a,#1e293b)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-ico">📊</span>
+          <div>
+            <div class="panel-title">Популярное · Июль 2026</div>
+            <div class="panel-sub">сравнение с прошлым месяцем</div>
+          </div>
+        </div>
+        <div class="mc-grid">
+          <div class="mc-cell dim">
+            <div class="mc-month">Июнь</div>
+            <div class="mc-num">5</div>
+            <div class="mc-label">обращений</div>
+            <div class="mc-track"><div class="mc-fill" style="width:62%"></div></div>
+          </div>
+          <div class="mc-cell current">
+            <div class="mc-month">Июль</div>
+            <div class="mc-num">8</div>
+            <div class="mc-label">обращений</div>
+            <div class="mc-track"><div class="mc-fill" style="width:100%"></div></div>
+          </div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">ЕГАИС и маркировка · 3</span>
+          <span class="pill">Отображение блюд · 1</span>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">1</span>
+          <div class="q-body"><div class="q-title">Ошибка 8004 «Нет доступной вскрытой марки»</div></div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">2</span>
+          <div class="q-body"><div class="q-title">Приём накладной ЕГАИС</div></div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">3</span>
+          <div class="q-body"><div class="q-title">Блюдо есть в меню, но не видно на кассе</div></div>
+        </div>
+        <div class="panel-foot">Смотреть все →</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 09 — Призрачный фон ============ -->
+<div class="variant-label" id="v09">09 — Призрачный фон <span style="color:var(--gray-300);">| watermark «июнь · 5» позади крупного «8»</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-cta">
+        <button class="btn-primary">В школу →</button>
+        <button class="btn-secondary">Инструкции</button>
+      </div>
+    </div>
+    <div class="hero-visual" style="background:linear-gradient(140deg,#1e293b,#0f172a)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-ico">📈</span>
+          <div>
+            <div class="panel-title">Популярное · Июль 2026</div>
+            <div class="panel-sub">минимализм + дельта</div>
+          </div>
+        </div>
+        <div class="wm-wrap">
+          <div class="wm"><span class="wm-num">5</span> · июнь</div>
+          <div class="bm-month">Популярное</div>
+          <div style="font-size:34px;font-weight:800;color:#fff;line-height:1.05">8</div>
+          <div class="bm-label">обращений · июль 2026</div>
+        </div>
+        <div style="display:flex;justify-content:center;margin-bottom:12px">
+          <span class="pill">ЕГАИС и маркировка · 3</span>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">1</span>
+          <div class="q-body"><div class="q-title">Ошибка 8004 «Нет доступной вскрытой марки»</div></div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">2</span>
+          <div class="q-body"><div class="q-title">Приём накладной ЕГАИС</div></div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">3</span>
+          <div class="q-body"><div class="q-title">Блюдо есть в меню, но не видно на кассе</div></div>
+        </div>
+        <div class="panel-foot">Смотреть все →</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 10 — Только дельта ============ -->
+<div class="variant-label" id="v10">10 — Только дельта <span style="color:var(--gray-300);">| компактная дельта «июнь · 5 ▼» справа</span></div>
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">✦ Консультации и обучение</div>
+      <h1>Экспертная поддержка <span>пользователей rkeeper</span></h1>
+      <p>Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper</p>
+      <div class="hero-cta">
+        <button class="btn-primary">В школу →</button>
+        <button class="btn-secondary">Инструкции</button>
+      </div>
+    </div>
+    <div class="hero-visual" style="background:linear-gradient(145deg,#0f172a,#1e293b)">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-ico">🗓️</span>
+          <div>
+            <div class="panel-title">Популярное · Июль 2026</div>
+            <div class="panel-sub">динамика обращений</div>
+          </div>
+        </div>
+        <div class="head-row">
+          <div class="current">
+            <div class="cur-num">8</div>
+            <div class="cur-label">обращений в июле</div>
+          </div>
+          <div class="delta-block">
+            <div>июнь</div>
+            <div class="db-num">5 ▼</div>
+          </div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">ЕГАИС и маркировка · 3</span>
+          <span class="pill">Отображение блюд · 1</span>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">1</span>
+          <div class="q-body"><div class="q-title">Ошибка 8004 «Нет доступной вскрытой марки»</div></div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">2</span>
+          <div class="q-body"><div class="q-title">Приём накладной ЕГАИС</div></div>
+        </div>
+        <div class="qrow">
+          <span class="q-rank">3</span>
+          <div class="q-body"><div class="q-title">Блюдо есть в меню, но не видно на кассе</div></div>
+        </div>
+        <div class="panel-foot">Смотреть все →</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="variant-label" style="margin-bottom:40px;">Выберите понравившийся вариант (05–10 — «Бенто-месяц» с метриками прошлого месяца) — реализую его в лендинге и на /faq</div>
+
+</body>
+</html>

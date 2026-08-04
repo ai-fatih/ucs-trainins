@@ -34,7 +34,7 @@ export function Hotkeys() {
 
       if (e.key === '1') router.push('/docs');
       else if (e.key === '2') router.push('/school');
-      else if (e.key === '3') router.push('/docs/cases');
+      else if (e.key === '3') router.push('/faq');
     };
 
     window.addEventListener('keydown', onKeyDown);

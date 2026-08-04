@@ -84,27 +84,64 @@ export interface Course {
   estimatedHours: number;
 }
 
-export interface MonthlyCase {
-  id: string;
-  title: string;
-  product: string;
-  tags: string[];
-  situation: string;
-  symptoms: string[];
-  diagnostics: string[];
-  rootCause: string;
-  solution: string[];
-  prevention: string[];
-  decisionTreeId: string;
-  trainerLessonId: string;
+export interface YearTopic {
+  label: string;
+  count: number;
 }
 
-export interface MonthlyCases {
+export interface YearSummary {
+  totalCases: number;
+  topTopics: YearTopic[];
+}
+
+export interface YearlyCase {
+  id: string;
+  title: string;
+  request?: string;
+  product: string;
+  tags: string[];
+  count?: number;
+  instructionId?: string;
+  courseId?: string;
+  lessonId?: string;
+}
+
+export interface YearMonth {
   month: string;
-  monthLabel: string;
-  summary: {
-    totalCases: number;
-    topTopics: { label: string; count: number }[];
-  };
-  cases: MonthlyCase[];
+  label: string;
+  monthLabel?: string;
+  count: number;
+  planned?: boolean;
+  courseId?: string;
+  summary?: YearSummary;
+  cases?: YearlyCase[];
+}
+
+export interface YearlyCases {
+  year: number;
+  months: YearMonth[];
+}
+
+export interface InstructionStep {
+  title: string;
+  body: string;
+}
+
+export interface CommonError {
+  error: string;
+  reason: string;
+  solution: string;
+}
+
+export interface Instruction {
+  id: string;
+  title: string;
+  description: string;
+  product: string;
+  tags: string[];
+  steps: InstructionStep[];
+  commonErrors: CommonError[];
+  sourceCaseIds: string[];
+  courseId: string;
+  lessonId: string;
 }

@@ -7,12 +7,13 @@ import { searchIndex } from '@/data/search-index';
 
 function groupOf(href: string): string {
   if (href === '/') return 'Главная';
-  if (href.startsWith('/docs')) return 'Документация';
+  if (href.startsWith('/docs')) return 'Инструкции';
+  if (href.startsWith('/faq')) return 'Популярные обращения';
   if (href.startsWith('/school')) return 'Школа';
   return 'Разделы';
 }
 
-const GROUP_ORDER = ['Главная', 'Документация', 'Школа', 'Разделы'];
+const GROUP_ORDER = ['Главная', 'Инструкции', 'Популярные обращения', 'Школа', 'Разделы'];
 
 export function SearchDialog() {
   const open = useUIStore((s) => s.searchOpen);

@@ -36,7 +36,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Поиск по документации..."
+          placeholder="Поиск по инструкциям..."
           className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[#e5e7eb] outline-none focus:border-[#1a56db] focus:shadow-[0_0_0_3px_rgba(26,86,219,0.1)] bg-white/80"
         />
       </div>
@@ -128,7 +128,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
           />
           <div className="absolute inset-y-0 left-0 w-[280px] bg-white shadow-2xl p-4 overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-bold text-[#111827]">Документация</span>
+              <span className="text-sm font-bold text-[#111827]">Инструкции</span>
               <button
                 onClick={() => setDrawerOpen(false)}
                 className="w-8 h-8 rounded-lg flex items-center justify-center text-[#6b7280] hover:bg-[#f3f4f6]"
@@ -149,7 +149,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-[#1a56db] bg-[#1a56db]/10 hover:bg-[#1a56db]/15 transition-colors"
           >
             <Menu className="w-4 h-4" />
-            Навигация по документации
+            Навигация по инструкциям
           </button>
         </div>
         {children}

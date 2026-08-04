@@ -16,12 +16,13 @@ Frontend и backend запускаются и деплоятся отдельн�
 
 Маршруты:
 
-- `/` — лендинг: полноэкранный Hero-хаб (0 скролла, CTA → `/docs`/`/school`);
-- `/docs`, `/docs/rkeeper/{product}`, `/docs/cases`, `/docs/cases/[id]` — документация и кейсы месяца;
-- `/school`, `/school/courses`, `/school/courses/[id]`, `/school/courses/[id]/lessons/[lid]` — открытая школа (без персонализации и сохранения прогресса);
+- `/` — лендинг: полноэкранный Hero-хаб (0 скролла, CTA → `/docs`/`/school`), справа — панель «Популярное · месяц» (данные `data/cases/yearly.json`);
+- `/docs`, `/docs/[id]` — инструкции (полный процесс: шаги + типовые ошибки; данные `data/instructions.json`);
+- `/faq`, `/faq/[month]`, `/faq/[month]/[caseId]` — популярные обращения (годовой срез → месяц → обращение; данные `data/cases/yearly.json`);
+- `/school`, `/school/courses`, `/school/courses/[id]`, `/school/courses/[id]/lessons/[lid]` — открытая школа (тренажёр);
 - `/terms`, `/privacy`, `/offer`, `/consent` — правовые страницы.
 
-Все маршруты публичные, авторизация отсутствует.
+Старые `/docs/cases` и `/docs/cases/[id]` редиректят на `/faq/2026-07` и `/faq/2026-07/[id]`. Все маршруты публичные, авторизация отсутствует.
 
 ## Backend REST API
 

@@ -26,7 +26,7 @@ function applyTheme(theme: Theme) {
   }
 }
 
-export function ThemeToggle() {
+export function ThemeToggle({ onHero = false }: { onHero?: boolean }) {
   const [theme, setTheme] = useState<Theme>(() =>
     typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
       ? 'dark'
@@ -45,7 +45,11 @@ export function ThemeToggle() {
     <Tooltip content={isDark ? 'Светлая тема' : 'Тёмная тема'} side="bottom">
       <button
         onClick={toggle}
-        className="w-9 h-9 rounded-lg flex items-center justify-center text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/10 transition-all shrink-0"
+        className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all shrink-0 ${
+          onHero
+            ? 'text-[#94a3b8] hover:text-white hover:bg-white/10'
+            : 'text-[#6b7280] hover:text-[#1a56db] hover:bg-[#1a56db]/10'
+        }`}
         aria-label={isDark ? 'Включить светлую тему' : 'Включить тёмную тему'}
         title={isDark ? 'Светлая тема' : 'Тёмная тема'}
       >

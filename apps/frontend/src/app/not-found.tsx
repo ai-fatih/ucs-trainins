@@ -34,15 +34,15 @@ export default function NotFound() {
             </Link>
             <Link href="/docs" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left">
               <BookOpen className="w-4 h-4 text-[#1a56db] shrink-0" />
-              <span className="text-sm text-[#374151]">Документация</span>
+              <span className="text-sm text-[#374151]">Инструкции</span>
             </Link>
             <Link href="/school" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left">
               <GraduationCap className="w-4 h-4 text-[#0d9488] shrink-0" />
               <span className="text-sm text-[#374151]">Школа</span>
             </Link>
-            <Link href="/docs/cases" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left">
+            <Link href="/faq" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left">
               <FileText className="w-4 h-4 text-[#0d9488] shrink-0" />
-              <span className="text-sm text-[#374151]">Кейсы месяца</span>
+              <span className="text-sm text-[#374151]">Популярные обращения</span>
             </Link>
           </div>
         </div>

@@ -8,50 +8,23 @@
       "headerNav": null
     },
     {
+      "id": "faq",
+      "label": "Популярные обращения",
+      "icon": "TrendingUp",
+      "href": "/faq",
+      "headerNav": [
+        { "href": "/faq", "label": "Годовой срез" },
+        { "href": "/faq/2026-07", "label": "Июль 2026" }
+      ]
+    },
+    {
       "id": "docs",
-      "label": "Документация",
+      "label": "Инструкции",
       "icon": "BookOpen",
       "href": "/docs",
-      "groups": [
-        {
-          "label": "Десктоп",
-          "icon": "Monitor",
-          "items": [
-            { "href": "/docs/rkeeper/rk7", "label": "r_keeper 7" },
-            { "href": "/docs/rkeeper/storehouse", "label": "StoreHouse Pro" }
-          ]
-        },
-        {
-          "label": "Облачные сервисы",
-          "icon": "Cloud",
-          "items": [
-            { "href": "/docs/rkeeper/delivery", "label": "Delivery" },
-            { "href": "/docs/rkeeper/event", "label": "Event" }
-          ]
-        },
-        {
-          "label": "Мобильные",
-          "icon": "Smartphone",
-          "items": [
-            { "href": "/docs/rkeeper/waiter", "label": "Waiter & Cash Desk" }
-          ]
-        },
-        {
-          "label": "Кейсы месяца",
-          "icon": "TrendingUp",
-          "items": [
-            { "href": "/docs/cases", "label": "Разбор обращений" }
-          ]
-        }
-      ],
+      "groups": [],
       "headerNav": [
-        { "href": "/docs", "label": "Все продукты" },
-        { "href": "/docs/rkeeper/rk7", "label": "r_keeper 7" },
-        { "href": "/docs/rkeeper/storehouse", "label": "StoreHouse Pro" },
-        { "href": "/docs/rkeeper/delivery", "label": "Delivery" },
-        { "href": "/docs/rkeeper/event", "label": "Event" },
-        { "href": "/docs/rkeeper/waiter", "label": "Waiter & Cash Desk" },
-        { "href": "/docs/cases", "label": "Кейсы месяца" }
+        { "href": "/docs", "label": "Все инструкции" }
       ]
     },
     {
@@ -68,24 +41,8 @@
   "routeLabels": {
     "school": "Школа",
     "courses": "Курсы",
-    "docs": "Документация",
-    "cases": "Кейсы месяца",
-    "rk7": "r_keeper 7",
-    "storehouse": "StoreHouse Pro",
-    "delivery": "Delivery",
-    "event": "Event",
-    "waiter": "Waiter & Cash Desk",
-    "create-order": "Создание заказа",
-    "shift-management": "Управление сменой",
-    "discounts-returns": "Скидки и возвраты",
-    "write-off": "Списание",
-    "inventory": "Инвентаризация",
-    "arrival": "Поступление",
-    "courier-app": "Приложение курьера",
-    "call-center": "Колл-центр",
-    "take-order": "Приём заказа",
-    "payment": "Оплата",
-    "shift": "Начало и конец смены",
+    "docs": "Инструкции",
+    "faq": "Популярные обращения",
     "privacy": "Политика конфиденциальности",
     "terms": "Условия использования",
     "offer": "Публичная оферта",

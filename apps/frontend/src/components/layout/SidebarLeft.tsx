@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useUIStore } from '@/stores/ui';
 import {
-  Home, BookOpen, ListTree,
+  Home, BookOpen, ListTree, TrendingUp,
   ChevronLeft, ChevronRight, ChevronDown, X, GraduationCap,
   Monitor, Cloud, Smartphone,
 } from 'lucide-react';
@@ -34,6 +34,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Home,
   BookOpen,
   ListTree,
+  TrendingUp,
   GraduationCap,
 };
 

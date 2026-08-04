@@ -19,11 +19,11 @@
 
 | Элемент | Компонент | Вход/действие | Выход |
 |---------|-----------|---------------|-------|
-| **Header** | `components/layout/Header.tsx` | Лого → `/`; всегда два таба топ-уровня «Документация»/«Школа» (активный — подсвечен градиентом + `aria-current`); hover-тултипы; иконка поиска → `SearchDialog` (Ctrl + 5, kbd-чип на desktop); тумблер темы → `ThemeToggle`; PWA-установка | Внутри страниц |
+| **Header** | `components/layout/Header.tsx` | Лого → `/`; три таба топ-уровня «Инструкции»/«Школа»/«Популярное» (→ `/faq`; активный — подсвечен градиентом + `aria-current`); hover-тултипы; иконка поиска → `SearchDialog` (Ctrl + 5, kbd-чип на desktop); тумблер темы → `ThemeToggle`; PWA-установка. **На лендинге (`/`) header — оверлей поверх hero** (`fixed`, прозрачный, светлые табы/иконки); на остальных страницах — sticky glass | Внутри страниц |
 | **Хлебные крошки** | `components/layout/Breadcrumbs.tsx` | glass-капсула; «Главная» с иконкой Home; сегменты из `routeLabels`; скрытие `hiddenSegments` (`rkeeper`, `lessons`); `aria-current="page"` | На уровень выше / на главную |
 | **Система подсказок** | `components/ui/Tooltip.tsx`, `components/layout/PageHelp.tsx`, `data/help.ts` | Иконка «?» у заголовков главных страниц → «Что здесь» + «Что сделано» (статус портала; прогресс школы — с этапа 4); hover-тултипы на элементах | Карточка подсказки (Esc/клик вне закрывает) |
-| **404** | `app/not-found.tsx` | Любой несуществующий URL | Поиск (Ctrl + 5), → `/`, `/docs`, `/school`, `/docs/cases` |
-| **Footer** | `components/layout/Footer.tsx` | Ссылки на `/school`, `/school/courses`, `/docs`, `/docs/cases`, `/terms`, `/privacy`, `/offer`, `/consent`; контакты (тел., email, адреса) — только здесь | — |
+| **404** | `app/not-found.tsx` | Любой несуществующий URL | Поиск (Ctrl + 5), → `/`, `/docs`, `/school`, `/faq` |
+| **Footer** | `components/layout/Footer.tsx` | Ссылки на `/school`, `/school/courses`, `/docs`, `/faq`, `/terms`, `/privacy`, `/offer`, `/consent`; контакты (тел., email, адреса) — только здесь | — |
 | **CookieBanner** | `components/layout/CookieBanner.tsx` | Согласие на cookies | Кнопка «Принять» |
 
 ---
@@ -32,12 +32,14 @@
 
 | Точка | Вход | Выход | Статус |
 |-------|------|-------|--------|
-| **`/` Лендинг** | Прямой вход, поисковик, реклама | Hero-хаб (0 скролла): CTA → `/school`, `/docs`; хайлайты → `/docs`, `/school`, `/docs/cases` | ✅ |
-| **Поиск** | `components/layout/SearchDialog.tsx` | Иконка в header / Ctrl + 5; индекс `data/search-index.ts`; `↑/↓` + `Enter`, `Esc` | → `/docs`, `/school`, `/docs/cases`, `/school/courses/{id}` |
-| **`/docs` Каталог** | `app/docs/layout.tsx` (doc-центр) | Лендинг, header, сайдбар-дерево (все подразделы слева) | → `/docs/rkeeper/{product}`, → `/docs/cases` |
-| **`/docs/rkeeper/{product}`** | Сайдбар `/docs`, встроенный поиск по сценариям | → детальные инструкции → prev/next → назад | ✅ |
-| **`/docs/cases` Кейсы месяца** | `/docs`, сайдбар (группа «Кейсы месяца»), лендинг | → `/docs/cases/[id]`, → `/school/courses/cases-2026-07` | ✅ |
-| **`/docs/cases/[id]`** | `/docs/cases` | → назад к кейсам, → тренажёр по кейсу (`/school/courses/cases-2026-07/lessons/…`) | ✅ |
+| **`/` Лендинг** | Прямой вход, поисковик, реклама | Hero-хаб (0 скролла, header поверх): CTA → `/school`, `/docs`; справа панель «Популярное · месяц» → `/faq` | ✅ |
+| **Поиск** | `components/layout/SearchDialog.tsx` | Иконка в header / Ctrl + 5; индекс `data/search-index.ts`; `↑/↓` + `Enter`, `Esc` | → `/docs`, `/docs/[id]`, `/school`, `/faq`, `/faq/[month]`, `/school/courses/{id}` |
+| **`/docs` Инструкции** | `app/docs/page.tsx` (doc-центр) | Лендинг, header, сайдбар-дерево | → `/docs/[id]` (список инструкций), → `/faq`, → docs.rkeeper.ru |
+| **`/docs/[id]` Инструкция** | `app/docs/[id]/page.tsx` | `/docs`, сайдбар-дерево, поиск | → `/docs` (назад), → преж/след инструкция, → «из каких обращений» (`/faq/2026-07/[caseId]`), → тренажёр в школе |
+| **`/faq` Популярные обращения** | `app/faq/page.tsx` | `/docs` (карточка), header (таб «Популярное»), лендинг, footer, поиск | → `/faq/[month]` (сетка), → `/school/courses/cases-2026-07` |
+| **`/faq/[month]`** | `app/faq/[month]/page.tsx` | `/faq`, поиск | → `/faq/[month]/[caseId]`, → `/school/courses/{courseId}`, назад `/faq` |
+| **`/faq/[month]/[caseId]`** | `app/faq/[month]/[caseId]/page.tsx` | `/faq/[month]` | → `/docs/[instructionId]` («Читать инструкцию»), → `/school/courses/{courseId}/lessons/{lessonId}` («Потренироваться в школе»), назад |
+| **`/docs/cases` (redirect)** | `app/docs/cases/page.tsx` | старые ссылки | → `/faq/2026-07` (301-подобный редирект) |
 | **`/terms`, `/privacy`, `/offer`, `/consent`** | Footer, формы | → «← Вернуться на сайт» | ✅ |
 | **`/school` Школа (тренажёр)** | Лендинг, header (таб Школа) | Hero «Школа — это тренажёр», статы (курсы/уроки/XP), блок «Скоро» → курсы | ✅ |
 | **`/school/courses`** | `/school` | → `/school/courses/[id]`, назад «В школу» | ✅ |
@@ -51,8 +53,8 @@
 ## Проблемы (сводно)
 
 1. **Удалено в этом контуре:** авторизация, ЛК, админка, услуги/специалисты/заявка, отзывы/новости/FAQ, голосовой ассистент и весь персонализированный слой школы (см. `feature-inventory.md`). Реализация сохранена в ветке `main-arhive` и в текущем контуре не возвращается.
-2. **Лендинг** — полноэкранный Hero-хаб без скролла: CTA и хайлайты ведут на страницы `/school`, `/docs`, `/docs/cases`. Статы и строка горячих клавиш убраны, контакты — только в Footer. Секции О нас/Документация/Школа с лендинга удалены (контент живёт на своих страницах).
-3. **Навигация** — Header: только табы топ-уровня «Документация»/«Школа» (секционные headerNav из `navigation.json` больше не используются). Внутри `/docs/*` навигация — через **сайдбар-дерево** (`app/docs/layout.tsx`), мобильная версия — шторка. Глобальные горячие клавиши: `Ctrl + 5` — поиск на всех страницах; `1` → `/docs`, `2` → `/school`, `3` → `/docs/cases` — **только на лендинге** (чтобы не ломать выбор ответов в квизах/тренажёрах). `Ctrl+K` и `/` убраны (`Ctrl+K` — поиск браузера, `/` — печатается в полях ввода). При переходе между маршрутами — scroll-to-top (`RouteTracker`). Тема — тумблер `ThemeToggle` в Header (светлая/тёмная, сквозная, `ucs_theme`, без FOUC).
-4. **Документация `/docs/*`** — инструкции: prev/next между инструкциями продукта (`InstructionPager` из каталога), содержание страницы TOC (`DocPageToolbar`, якоря `#steps`/`#step-N`/`#errors`), кнопка «Печать / PDF» (`PrintButton` + `@media print` — шапка/сайдбар/футер/навигация скрываются). Поиск по кейсам месяца синхронизируется с URL (`?q=…`).
+2. **Лендинг** — полноэкранный Hero-хаб без скролла: CTA ведут на `/school`, `/docs`; справа — панель «Популярное · Июль 2026» (вариант 07 из `design-vars/vars-hero-banner.html`): сравнение июнь ‖ июль, дельта ▲, пилюли тем, топ-3 обращений, «Смотреть все →» `/faq`. Статы и строка горячих клавиш убраны, контакты — только в Footer.
+3. **Навигация** — Header: только табы топ-уровня «Инструкции»/«Школа»/«Популярное» (→ `/faq`; секционные headerNav из `navigation.json` больше не используются). Внутри `/docs/*` навигация — через **сайдбар-дерево** (`app/docs/layout.tsx`), мобильная версия — шторка. Глобальные горячие клавиши: `Ctrl + 5` — поиск на всех страницах; `1` → `/docs`, `2` → `/school`, `3` → `/faq` — **только на лендинге** (чтобы не ломать выбор ответов в квизах/тренажёрах). `Ctrl+K` и `/` убраны (`Ctrl+K` — поиск браузера, `/` — печатается в полях ввода). При переходе между маршрутами — scroll-to-top (`RouteTracker`). Тема — тумблер `ThemeToggle` в Header (светлая/тёмная, сквозная, `ucs_theme`, без FOUC).
+4. **Инструкции `/docs/*` и обращения `/faq/*`** — ядро «Обращение → Инструкция → Школа» (`docs/core-architecture.md`). `/docs` — живой список инструкций-процессов из `data/instructions.json` (шаги, типовые ошибки, «из каких обращений», prev/next, CTA в школу). `/faq` — годовой срез `data/cases/yearly.json` (сетка 12 месяцев с мини-барами, текущий месяц выделен, заглушки «запланировано»), `/faq/[month]` — итоги + поиск (`?q=…`) + карточки, `/faq/[month]/[caseId]` — краткая карточка + 2 экшена («Читать инструкцию», «Потренироваться в школе»). Старые `/docs/cases` и `/docs/cases/[id]` редиректят на `/faq/2026-07` и `/faq/2026-07/[id]`. `InstructionPager` удалён, `monthly.json` перенесён в `instructions.json` + `yearly.json`.
 
 Подробная инвентаризация всех страниц — `docs/ux-page-inventory.md`.

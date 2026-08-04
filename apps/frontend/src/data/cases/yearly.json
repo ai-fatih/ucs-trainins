@@ -1,0 +1,71 @@
+{
+  "year": 2026,
+  "months": [
+    { "month": "2026-01", "label": "Январь", "count": 3, "planned": true },
+    { "month": "2026-02", "label": "Февраль", "count": 4, "planned": true },
+    { "month": "2026-03", "label": "Март", "count": 5, "planned": true },
+    { "month": "2026-04", "label": "Апрель", "count": 4, "planned": true },
+    { "month": "2026-05", "label": "Май", "count": 6, "planned": true },
+    {
+      "month": "2026-06",
+      "label": "Июнь",
+      "count": 5,
+      "planned": false
+    },
+    {
+      "month": "2026-07",
+      "label": "Июль",
+      "monthLabel": "Июль 2026",
+      "count": 8,
+      "planned": false,
+      "courseId": "cases-2026-07",
+      "summary": {
+        "totalCases": 8,
+        "topTopics": [
+          { "label": "ЕГАИС и маркировка", "count": 3 },
+          { "label": "Отображение блюд", "count": 1 }
+        ]
+      },
+      "cases": [
+        {
+          "id": "case-8004",
+          "title": "Ошибка 8004 «Нет доступной вскрытой марки»",
+          "request": "Сканирую марку на кассе, а она выдаёт «Нет доступной вскрытой марки» — позицию пробить не получается.",
+          "product": "rk7",
+          "tags": ["ЕГАИС", "маркировка", "алкоголь"],
+          "count": 3,
+          "instructionId": "ins-8004",
+          "courseId": "cases-2026-07",
+          "lessonId": "case-8004-train"
+        },
+        {
+          "id": "case-egais-invoice",
+          "title": "Приём накладной ЕГАИС",
+          "request": "Не получается принять накладную ЕГАИС — товары не активируются в остатках.",
+          "product": "rk7",
+          "tags": ["ЕГАИС", "накладные"],
+          "count": 3,
+          "instructionId": "ins-egais-invoice",
+          "courseId": "egais-accounting",
+          "lessonId": "egais-invoice"
+        },
+        {
+          "id": "case-dish-invisible",
+          "title": "Блюдо есть в меню, но не видно на кассе",
+          "request": "Блюдо добавлено в меню, но на кассе его не видно — пробить позицию невозможно.",
+          "product": "rk7",
+          "tags": ["меню", "отображение"],
+          "count": 1,
+          "instructionId": "ins-dish-invisible",
+          "courseId": "cases-2026-07",
+          "lessonId": "case-dish-invisible-train"
+        }
+      ]
+    },
+    { "month": "2026-08", "label": "Август", "count": 4, "planned": true },
+    { "month": "2026-09", "label": "Сентябрь", "count": 5, "planned": true },
+    { "month": "2026-10", "label": "Октябрь", "count": 3, "planned": true },
+    { "month": "2026-11", "label": "Ноябрь", "count": 4, "planned": true },
+    { "month": "2026-12", "label": "Декабрь", "count": 5, "planned": true }
+  ]
+}

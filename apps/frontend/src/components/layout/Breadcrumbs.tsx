@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, Home } from 'lucide-react';
 import navConfig from '@/data/navigation.json';
+import casesYear from '@/data/cases/yearly.json';
+import type { YearlyCases } from '@/types';
 
 type NavConfigType = {
   routeLabels: Record<string, string>;
@@ -15,9 +17,16 @@ const config = navConfig as unknown as NavConfigType;
 const LABEL_MAP = config.routeLabels;
 const SKIP_SEGMENTS = new Set<string>(config.skipSegments);
 const HIDDEN_SEGMENTS = new Set<string>(config.hiddenSegments ?? []);
+const year = casesYear as YearlyCases;
 
 function segmentLabel(segment: string): string {
-  return LABEL_MAP[segment] ?? segment
+  const known = LABEL_MAP[segment];
+  if (known) return known;
+  if (/^\d{4}-\d{2}$/.test(segment)) {
+    const month = year.months.find((m) => m.month === segment);
+    if (month) return month.monthLabel ?? month.label;
+  }
+  return segment
     .split('-')
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');

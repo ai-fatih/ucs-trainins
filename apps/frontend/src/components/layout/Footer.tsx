@@ -21,8 +21,8 @@ export function Footer() {
             <ul className="space-y-2">
               <li><Link href="/school" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Школа UCS</Link></li>
               <li><Link href="/school/courses" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Курсы</Link></li>
-              <li><Link href="/docs" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Документация</Link></li>
-              <li><Link href="/docs/cases" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Кейсы месяца</Link></li>
+              <li><Link href="/docs" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Инструкции</Link></li>
+              <li><Link href="/faq" className="text-sm text-[#6b7280] hover:text-[#1a56db] no-underline transition-colors">Популярные обращения</Link></li>
             </ul>
           </div>
 
