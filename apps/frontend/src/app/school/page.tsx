@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import React from 'react';
 import { GraduationCap, Swords, Clock, Zap, Sparkles } from 'lucide-react';
 import type { Course } from '@/types';
@@ -6,6 +7,19 @@ import CourseCard from '@/components/school/CourseCard';
 import { PageHelp } from '@/components/layout/PageHelp';
 
 const courses = coursesData as unknown as Course[];
+
+export const metadata: Metadata = {
+  title: 'Школа rkeeper — Тренажёры и курсы',
+  description:
+    'Бесплатные тренажёры по rkeeper: квизы, спринты, сопоставления и деревья решений на реальных кейсах. Учись без регистрации.',
+  alternates: { canonical: 'https://ucs-service.vercel.app/school' },
+  openGraph: {
+    title: 'Школа rkeeper — Тренажёры и курсы',
+    description:
+      'Бесплатные тренажёры по rkeeper: квизы, спринты, сопоставления и деревья решений на реальных кейсах.',
+    url: 'https://ucs-service.vercel.app/school',
+  },
+};
 
 const totalLessons = courses.reduce((s, c) => s + c.modules.reduce((m, x) => m + x.lessons.length, 0), 0);
 const totalXp = courses.reduce((s, c) => s + c.totalXp, 0);
@@ -20,6 +34,27 @@ const upcoming = [
 export default function SchoolPage() {
   return (
     <div className="max-w-[1000px] mx-auto px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            courses.map((course) => ({
+              '@context': 'https://schema.org',
+              '@type': 'Course',
+              name: course.title,
+              description: course.description,
+              provider: {
+                '@type': 'Organization',
+                name: 'UCS Service',
+                url: 'https://ucs-service.vercel.app',
+              },
+              url: `https://ucs-service.vercel.app/school/courses/${course.id}`,
+              numberOfHours: course.estimatedHours,
+              coursePrerequisites: 'Без регистрации',
+            })),
+          ),
+        }}
+      />
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1a56db] to-[#0d9488] flex items-center justify-center text-white shadow-md">

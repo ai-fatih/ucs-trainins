@@ -4,7 +4,11 @@
     "title": "Ошибка 8004: нет доступной вскрытой марки",
     "description": "Кассир сканирует марку алкоголя, но касса выдаёт ошибку 8004 «Нет доступной вскрытой марки». Как распознать, продиагностировать и устранить проблему по шагам.",
     "product": "rk7",
-    "tags": ["ЕГАИС", "маркировка", "алкоголь"],
+    "tags": [
+      "ЕГАИС",
+      "маркировка",
+      "алкоголь"
+    ],
     "steps": [
       {
         "title": "Проверить привязку комплекта к блюду",
@@ -44,7 +48,9 @@
         "solution": "Назначить кран в настройках пивной позиции."
       }
     ],
-    "sourceCaseIds": ["case-8004"],
+    "sourceCaseIds": [
+      "case-8004"
+    ],
     "courseId": "cases-2026-07",
     "lessonId": "case-8004-train"
   },
@@ -53,7 +59,10 @@
     "title": "Блюдо есть в меню, но не видно на кассе",
     "description": "Позиция добавлена в меню RK7, но на кассе её не видно и пробить её невозможно. Пошаговая диагностика скрытых объектов и причин невидимости.",
     "product": "rk7",
-    "tags": ["меню", "отображение"],
+    "tags": [
+      "меню",
+      "отображение"
+    ],
     "steps": [
       {
         "title": "Проверить фильтр невидимых объектов",
@@ -88,7 +97,9 @@
         "solution": "Привязать GTIN к блюду и повторить поиск."
       }
     ],
-    "sourceCaseIds": ["case-dish-invisible"],
+    "sourceCaseIds": [
+      "case-dish-invisible"
+    ],
     "courseId": "cases-2026-07",
     "lessonId": "case-dish-invisible-train"
   },
@@ -97,7 +108,10 @@
     "title": "Приём накладной ЕГАИС",
     "description": "Порядок приёма накладной ЕГАИС: от поступления до активации товаров в остатках. Что проверить, если товары не активируются.",
     "product": "rk7",
-    "tags": ["ЕГАИС", "накладные"],
+    "tags": [
+      "ЕГАИС",
+      "накладные"
+    ],
     "steps": [
       {
         "title": "Получить накладную в ЕГАИС",
@@ -128,8 +142,174 @@
         "solution": "Проверить транспортное сообщение и выполнить запрос остатков."
       }
     ],
-    "sourceCaseIds": ["case-egais-invoice"],
+    "sourceCaseIds": [
+      "case-egais-invoice"
+    ],
     "courseId": "egais-accounting",
     "lessonId": "egais-invoice"
+  },
+  {
+    "id": "ins-gtin-add-aug",
+    "title": "GTIN как добавить",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "GTIN",
+      "маркировка"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-gtin-add-aug"
+    ],
+    "courseId": "cases-2026-08",
+    "lessonId": "case-gtin-add-aug-train",
+    "stub": true
+  },
+  {
+    "id": "ins-honest-mark-dish-aug",
+    "title": "Настройка блюд для Честного Знака",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "Честный Знак",
+      "маркировка",
+      "классификация"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-honest-mark-dish-aug"
+    ],
+    "courseId": "cases-2026-08",
+    "lessonId": "case-honest-mark-dish-aug-train",
+    "stub": true
+  },
+  {
+    "id": "ins-mark-open-aug",
+    "title": "Вскрытие марки",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "ЕГАИС",
+      "марки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-mark-open-aug"
+    ],
+    "courseId": "cases-2026-08",
+    "lessonId": "case-mark-open-aug-train",
+    "stub": true
+  },
+  {
+    "id": "ins-error-8004-ap-aug",
+    "title": "Ошибка 8004 АП",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "ЕГАИС",
+      "ошибки",
+      "алкоголь"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-error-8004-ap-aug"
+    ],
+    "courseId": "cases-2026-08",
+    "lessonId": "case-error-8004-ap-aug-train",
+    "stub": true
+  },
+  {
+    "id": "ins-z-report-mismatch-aug",
+    "title": "Расходится Z-отчет и отчеты RK",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "отчёты",
+      "касса"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-z-report-mismatch-aug"
+    ],
+    "courseId": "cases-2026-08",
+    "lessonId": "case-z-report-mismatch-aug-train",
+    "stub": true
+  },
+  {
+    "id": "ins-discount-surge-aug",
+    "title": "Работа скидок и наценок",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "скидки",
+      "наценки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-discount-surge-aug"
+    ],
+    "courseId": "cases-2026-08",
+    "lessonId": "case-discount-surge-aug-train",
+    "stub": true
+  },
+  {
+    "id": "ins-print-classification-aug",
+    "title": "Печать нового блюда",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "печать",
+      "классификация"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-print-classification-aug"
+    ],
+    "courseId": "cases-2026-08",
+    "lessonId": "case-print-classification-aug-train",
+    "stub": true
+  },
+  {
+    "id": "ins-receipt-close-aug",
+    "title": "Закрытие и формирование чека",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "чеки",
+      "касса"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-receipt-close-aug"
+    ],
+    "courseId": "cases-2026-08",
+    "lessonId": "case-receipt-close-aug-train",
+    "stub": true
+  },
+  {
+    "id": "ins-raw-writeoff-aug",
+    "title": "Не списывается сырье",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "списание",
+      "сырьё"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-raw-writeoff-aug"
+    ],
+    "courseId": "cases-2026-08",
+    "lessonId": "case-raw-writeoff-aug-train",
+    "stub": true
   }
 ]

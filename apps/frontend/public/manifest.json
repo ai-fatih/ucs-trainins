@@ -1,13 +1,16 @@
 {
-  "name": "UCS service — Консультации и Обучения",
+  "name": "UCS Service — Обучение и документация по rkeeper",
   "short_name": "UCS Service",
-  "description": "Обучение и документация по программам rkeeper",
+  "description": "Открытый портал: инструкции, тренажёры и курсы по rkeeper",
+  "id": "/",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#f9fafb",
   "theme_color": "#1a56db",
   "icons": [
     { "src": "/icons/icon-192x192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/icons/icon-512x512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/icons/icon-512x512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

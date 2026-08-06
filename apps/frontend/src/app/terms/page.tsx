@@ -4,7 +4,10 @@ import { ArrowLeft } from 'lucide-react';
 import { ContactPhone } from '@/components/ContactPhone';
 
 export const metadata: Metadata = {
-  title: 'Пользовательское соглашение — UCS service',
+  title: 'Пользовательское соглашение',
+  description:
+    'Условия использования сайта ucs-service.ru: права и обязанности сторон, регистрация, ответственность.',
+  alternates: { canonical: 'https://ucs-service.vercel.app/terms' },
 };
 
 export default function TermsPage() {

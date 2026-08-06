@@ -4,7 +4,10 @@ import { ArrowLeft } from 'lucide-react';
 import { ContactPhone } from '@/components/ContactPhone';
 
 export const metadata: Metadata = {
-  title: 'Публичная оферта — UCS service',
+  title: 'Публичная оферта на оказание услуг',
+  description:
+    'Публичная оферта ООО ЦТО «ЮСИЭС сервис» на оказание консультационных и обучающих услуг по работе с rkeeper.',
+  alternates: { canonical: 'https://ucs-service.vercel.app/offer' },
 };
 
 export default function OfferPage() {

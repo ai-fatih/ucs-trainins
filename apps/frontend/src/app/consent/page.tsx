@@ -3,7 +3,10 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Согласие на обработку персональных данных — UCS service',
+  title: 'Согласие на обработку персональных данных',
+  description:
+    'Отдельное согласие субъекта персональных данных в соответствии с частью 4 статьи 9 152-ФЗ. Цели, перечень данных, порядок отзыва.',
+  alternates: { canonical: 'https://ucs-service.vercel.app/consent' },
 };
 
 export default function ConsentPage() {

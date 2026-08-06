@@ -4,6 +4,7 @@ import { PageHelp } from '@/components/layout/PageHelp';
 import casesYear from '@/data/cases/yearly.json';
 import instructionsData from '@/data/instructions.json';
 import type { YearlyCases, Instruction } from '@/types';
+import { CATEGORY_LABELS, CATEGORY_COLORS } from '@/data/categories';
 
 const year = casesYear as YearlyCases;
 const instructions = instructionsData as unknown as Instruction[];
@@ -53,7 +54,16 @@ export default function FaqTopListPage() {
                         <div className="flex-1 min-w-0">
                           <h3 className="text-base font-medium text-[#111827] mb-1">{c.title}</h3>
                           <p className="text-sm text-[#6b7280] mb-2 line-clamp-3">{c.request || '—'}</p>
-                          <div className="flex flex-wrap gap-1.5 mb-2">
+                          <div className="flex flex-wrap items-center gap-1.5 mb-2">
+                            <span
+                              className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
+                              style={{
+                                backgroundColor: CATEGORY_COLORS[c.category].bg,
+                                color: CATEGORY_COLORS[c.category].text,
+                              }}
+                            >
+                              {CATEGORY_LABELS[c.category]}
+                            </span>
                             {c.tags.map((t) => (
                               <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-[#f0f4ff] text-[#1a56db]">{t}</span>
                             ))}

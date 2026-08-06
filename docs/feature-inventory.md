@@ -52,7 +52,7 @@
 | Фича | Файл | Данные | Статус |
 |------|------|--------|--------|
 | Полноэкранный Hero-хаб (min-h-svh, 0 скролла, header фиксирован поверх): CTA «В школу» и «Инструкции» (с hover-тултипами) | `app/page.tsx` | — | ✅ |
-| Панель «Популярное · месяц» в hero (вариант 07): июнь ‖ июль, дельта ▲, пилюли тем, топ-3, «Смотреть все →` `/faq` | `app/page.tsx` | `data/cases/yearly.json` | ✅ |
+| Панель «Популярное · месяц» в hero (бар-чарт за 3 месяца, пилюли тем, топ-3, «Смотреть все →» `/faq`) | `components/hero/HeroStatsCard.tsx` | `data/cases/yearly.json` | ✅ |
 | Тумблер темы на лендинге (светлые цвета иконки под тёмный hero) | `components/layout/ThemeToggle.tsx` | проп `onHero` | ✅ |
 
 > Секции О нас/Документация/Школа, Услуги, Новости, Отзывы и FAQ с лендинга убраны; страница — server-компонент без `useQuery`, контент живёт на своих страницах (`/docs`, `/school`).
@@ -64,7 +64,7 @@
 | Фича | Файл | Данные | Статус |
 |------|------|--------|--------|
 | Список инструкций-процессов (карточки: заголовок, описание, теги, число шагов) + карточки «Популярные обращения» (`/faq`) и «Официальная документация» (`docs.rkeeper.ru`, external) | `app/docs/page.tsx` | `data/instructions.json` | ✅ |
-| Страница инструкции: TOC (`DocPageToolbar`, якоря `#steps`/`#step-N`/`#errors`) → шаги → типовые ошибки → «из каких обращений» (`/faq/2026-07/[caseId]`) → prev/next → CTA «Потренироваться в школе» | `app/docs/[id]/page.tsx` | `data/instructions.json`, `data/cases/yearly.json` | ✅ |
+| Страница инструкции: TOC (`DocPageToolbar`, якоря `#steps`/`#step-N`/`#errors`) → шаги → типовые ошибки → «из каких обращений» (`/faq/2026-07/[caseId]`) → prev/next → CTA «Потренироваться в школе»; заглушки (`stub`) — блок «Скоро здесь будет инструкция» | `app/docs/[id]/page.tsx` | `data/instructions.json`, `data/cases/yearly.json` | ✅ |
 | Сайдбар-дерево документации (desktop) + шторка (mobile) + поиск по дереву | `app/docs/layout.tsx` | `data/docs/catalog.ts` (из `instructions.json`) | ✅ |
 | Примерные инструкции по продуктам (r_keeper 7 / StoreHouse / Delivery / Event / Waiter) | `app/docs/rkeeper/**` | — | 🗑 удалены (20 страниц) |
 | Prev/next между инструкциями | `components/docs/InstructionPager.tsx` | — | 🗑 удалён (на странице — нативные prev/next) |
@@ -74,7 +74,10 @@
 
 | Фича | Файл | Данные | Статус |
 |------|------|--------|--------|
-| Годовой срез: итоги (обращений, топ-темы, дельта) + сетка 12 месяцев с мини-барами; текущий месяц выделен градиентом, заглушки — «запланировано» | `app/faq/page.tsx` | `data/cases/yearly.json` | ✅ |
+| Годовой срез: блок текущего месяца (кол-во, дельта ▲/▼, топ-темы до 4, CTA «Потренироваться на кейсах» `/school/courses/{courseId}` + «Подробнее в инструкции» `/docs/[instructionId]` топ-кейса) + мини-чарт 12 месяцев | `app/faq/page.tsx`, `components/faq/FaqMonthChart.tsx` | `data/cases/yearly.json` | ✅ |
+| Мини-чарт активности: бары по месяцам (текущий — градиент+glow, запланированные — серые), клик → `/faq/[month]`, легенда | `components/faq/FaqMonthChart.tsx` | `data/cases/yearly.json`, `lib/months.ts` | ✅ |
+| Каталог «Все обращения»: кросс-месячный фильтр (категория/программа/диапазон месяцев), поиск, сортировка, состояние в URL (`?cat=&product=&from=&to=&q=&sort=`), плоский список с бейджами | `components/faq/FaqCatalog.tsx` | `data/cases/yearly.json`, `data/categories.ts`, `data/products.ts` | ✅ |
+| Категории обращений (обязательные: Маркировка/ЧЗ, ЕГАИС, Ошибки, Номенклатура, Касса, Отчёты, Скидки, Выгрузка) + бейджи | `data/categories.ts`, `data/cases/yearly.json` (`category` в `YearlyCase`) | — | ✅ |
 | Месяц: итоги (кол-во, топ-темы, дельта) + поиск (`?q=…`) + краткие карточки обращений + CTA к курсу-тренажёру | `app/faq/[month]/page.tsx` | `data/cases/yearly.json` | ✅ |
 | Обращение: краткая карточка + 2 экшена («Читать инструкцию» `/docs/[instructionId]`, «Потренироваться в школе» `/school/courses/{courseId}/lessons/{lessonId}`) | `app/faq/[month]/[caseId]/page.tsx` | `data/cases/yearly.json`, `data/instructions.json` | ✅ |
 | Редирект старых URL | `app/docs/cases/page.tsx`, `app/docs/cases/[id]/page.tsx` | — | ✅ `/docs/cases` → `/faq/2026-07`; `/docs/cases/[id]` → `/faq/2026-07/[id]` |

@@ -16,7 +16,7 @@
 
 | Звено | Сущность | Ключи связки |
 |-------|----------|--------------|
-| Обращение | `YearlyCase` (`data/cases/yearly.json`) | `instructionId`, `courseId`, `lessonId`, `id` |
+| Обращение | `YearlyCase` (`data/cases/yearly.json`) | `category`, `instructionId`, `courseId`, `lessonId`, `id` |
 | Инструкция | `Instruction` (`data/instructions.json`) | `sourceCaseIds[]`, `courseId`, `lessonId`, `id` |
 | Школа | урок курса (`data/school/courses.json`) | `id` (совпадает с `lessonId`), `decisionTreeId` |
 
@@ -38,7 +38,7 @@ data/school/courses.json → /school/** → урок ([[decisionTreeId] ↔ об
 
 ## Файлы данных
 
-- `src/data/cases/yearly.json` — год: `months[]` c `count`, `planned`, `summary`, `cases[]` (кратко: `id/title/product/tags/count/instructionId/courseId/lessonId`).
+- `src/data/cases/yearly.json` — год: `months[]` c `count`, `planned`, `summary`, `cases[]` (кратко: `id/title/product/category/tags/count/instructionId/courseId/lessonId`). Категории — справочник `src/data/categories.ts`; программы — `src/data/products.ts`.
 - `src/data/instructions.json` — база знаний: `steps[]`, `commonErrors[]`, `sourceCaseIds[]`, `courseId`, `lessonId`.
 - `src/data/school/courses.json` — школа (без изменений, источник «уроков-тренажёров»).
 

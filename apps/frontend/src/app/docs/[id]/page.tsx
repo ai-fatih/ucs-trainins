@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowRight, Swords, Link2, Wrench, AlertTriangle } from 'lucide-react';
@@ -6,17 +7,37 @@ import DocPageToolbar from '@/components/docs/DocPageToolbar';
 import instructionsData from '@/data/instructions.json';
 import casesYear from '@/data/cases/yearly.json';
 import type { Instruction, YearlyCases } from '@/types';
+import { PRODUCT_LABELS } from '@/data/products';
 
 const instructions = instructionsData as unknown as Instruction[];
 const year = casesYear as YearlyCases;
 
-const productLabels: Record<string, string> = {
-  rk7: 'r_keeper 7',
-  storehouse: 'StoreHouse Pro',
-  delivery: 'Delivery',
-  event: 'Event',
-  waiter: 'Waiter & Cash Desk',
-};
+export function generateStaticParams() {
+  return instructions.map((i) => ({ id: i.id }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const ins = instructions.find((i) => i.id === id);
+  if (!ins) return { title: 'Инструкция не найдена' };
+
+  const url = `https://ucs-service.vercel.app/docs/${ins.id}`;
+  return {
+    title: ins.title,
+    description: ins.description,
+    alternates: { canonical: url },
+    openGraph: {
+      title: ins.title,
+      description: ins.description,
+      url,
+      type: 'article',
+    },
+  };
+}
 
 export default async function InstructionPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -41,6 +62,23 @@ export default async function InstructionPage({ params }: { params: Promise<{ id
 
   return (
     <div className="max-w-[800px] mx-auto px-4 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'HowTo',
+            name: current.title,
+            description: current.description,
+            step: current.steps.map((step, i) => ({
+              '@type': 'HowToStep',
+              position: i + 1,
+              name: step.title,
+              text: step.body,
+            })),
+          }),
+        }}
+      />
       <div className="mb-8">
         <Link href="/docs" className="inline-flex items-center gap-1 text-sm text-[#1a56db] hover:underline no-underline mb-4">
           <ArrowLeft className="w-4 h-4" /> Все инструкции
@@ -51,7 +89,7 @@ export default async function InstructionPage({ params }: { params: Promise<{ id
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#f3f4f6] text-[#6b7280] font-semibold">
-            {productLabels[current.product] || current.product}
+            {PRODUCT_LABELS[current.product as keyof typeof PRODUCT_LABELS] || current.product}
           </span>
           {current.tags.map((t) => (
             <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-[#f0f4ff] text-[#1a56db] font-semibold">{t}</span>
@@ -60,6 +98,18 @@ export default async function InstructionPage({ params }: { params: Promise<{ id
         <p className="mt-3 text-[#6b7280] leading-relaxed">{current.description}</p>
       </div>
 
+      {current.stub ? (
+        <div className="glass-card p-6 mb-10">
+          <div className="flex items-center gap-2 mb-3">
+            <Wrench className="w-5 h-5 text-[#9ca3af]" />
+            <h2 className="text-xl font-semibold text-[#111827]">Инструкция</h2>
+          </div>
+          <p className="text-[#6b7280] leading-relaxed">
+            Скоро здесь будет инструкция. Мы готовим пошаговый разбор этого обращения.
+          </p>
+        </div>
+      ) : (
+        <>
       <DocPageToolbar steps={current.steps} />
 
       <div className="glass-card p-6 mb-10">
@@ -101,6 +151,8 @@ export default async function InstructionPage({ params }: { params: Promise<{ id
           ))}
         </div>
       </div>
+        </>
+      )}
 
       {sourceCases.length > 0 && (
         <div className="glass-card p-6 mb-10">

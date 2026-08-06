@@ -4,7 +4,10 @@ import { ArrowLeft } from 'lucide-react';
 import { ContactPhone } from '@/components/ContactPhone';
 
 export const metadata: Metadata = {
-  title: 'Политика конфиденциальности — UCS service',
+  title: 'Политика конфиденциальности',
+  description:
+    'Политика обработки персональных данных ООО ЦТО «ЮСИЭС сервис» в соответствии с 152-ФЗ. Категории данных, цели, сроки, права субъекта.',
+  alternates: { canonical: 'https://ucs-service.vercel.app/privacy' },
 };
 
 export default function PrivacyPage() {

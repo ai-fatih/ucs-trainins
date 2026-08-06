@@ -94,11 +94,22 @@ export interface YearSummary {
   topTopics: YearTopic[];
 }
 
+export type CaseCategory =
+  | 'marking'
+  | 'egais'
+  | 'errors'
+  | 'nomenclature'
+  | 'cash'
+  | 'reports'
+  | 'pricing'
+  | 'integration';
+
 export interface YearlyCase {
   id: string;
   title: string;
   request?: string;
   product: string;
+  category: CaseCategory;
   tags: string[];
   count?: number;
   instructionId?: string;
@@ -110,7 +121,8 @@ export interface YearMonth {
   month: string;
   label: string;
   monthLabel?: string;
-  count: number;
+  count?: number;
+  totalRequests?: number;
   planned?: boolean;
   courseId?: string;
   summary?: YearSummary;
@@ -144,4 +156,5 @@ export interface Instruction {
   sourceCaseIds: string[];
   courseId: string;
   lessonId: string;
+  stub?: boolean;
 }

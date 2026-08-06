@@ -37,6 +37,8 @@ const instructions = instructionsData as unknown as Instruction[];
 export const docSections: SidebarSection[] = [
   {
     label: 'Инструкции',
-    items: instructions.map((ins) => ({ href: `/docs/${ins.id}`, label: ins.title })),
+    items: instructions
+      .filter((ins) => !ins.stub)
+      .map((ins) => ({ href: `/docs/${ins.id}`, label: ins.title })),
   },
 ];

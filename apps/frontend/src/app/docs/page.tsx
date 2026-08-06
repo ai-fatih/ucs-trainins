@@ -1,17 +1,24 @@
-﻿import Link from 'next/link';
+﻿import type { Metadata } from 'next';
+import Link from 'next/link';
 import { ArrowRight, BookOpen, ExternalLink, ListChecks } from 'lucide-react';
 import { PageHelp } from '@/components/layout/PageHelp';
 import instructionsData from '@/data/instructions.json';
 import type { Instruction } from '@/types';
+import { PRODUCT_LABELS } from '@/data/products';
 
 const instructions = instructionsData as unknown as Instruction[];
 
-const productLabels: Record<string, string> = {
-  rk7: 'r_keeper 7',
-  storehouse: 'StoreHouse Pro',
-  delivery: 'Delivery',
-  event: 'Event',
-  waiter: 'Waiter & Cash Desk',
+export const metadata: Metadata = {
+  title: 'Инструкции',
+  description:
+    'Пошаговые инструкции-процессы по продуктам rkeeper: rKeeper 7, StoreHouse, ЕГАИС, Доставка. Как решить типовую задачу шаг за шагом.',
+  alternates: { canonical: 'https://ucs-service.vercel.app/docs' },
+  openGraph: {
+    title: 'Инструкции — UCS Service',
+    description:
+      'Пошаговые инструкции-процессы по продуктам rkeeper: rKeeper 7, StoreHouse, ЕГАИС, Доставка.',
+    url: 'https://ucs-service.vercel.app/docs',
+  },
 };
 
 export default function InstructionsPage() {
@@ -77,7 +84,7 @@ export default function InstructionsPage() {
                 <div className="flex flex-wrap items-center gap-2 mb-1">
                   <span className="text-base font-medium text-[#1a56db]">{ins.title}</span>
                   <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#f3f4f6] text-[#6b7280] font-semibold">
-                    {productLabels[ins.product] || ins.product}
+                    {PRODUCT_LABELS[ins.product as keyof typeof PRODUCT_LABELS] || ins.product}
                   </span>
                 </div>
                 <p className="text-sm text-[#6b7280] line-clamp-2">{ins.description}</p>
@@ -85,7 +92,11 @@ export default function InstructionsPage() {
                   {ins.tags.map((t) => (
                     <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-[#f0f4ff] text-[#1a56db]">{t}</span>
                   ))}
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#ecfdf5] text-[#059669]">{ins.steps.length} шагов</span>
+                  {ins.stub ? (
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#fef3c7] text-[#b45309]">скоро</span>
+                  ) : (
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#ecfdf5] text-[#059669]">{ins.steps.length} шагов</span>
+                  )}
                 </div>
               </div>
             </div>

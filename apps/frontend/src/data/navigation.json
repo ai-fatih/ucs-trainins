@@ -13,8 +13,7 @@
       "icon": "TrendingUp",
       "href": "/faq",
       "headerNav": [
-        { "href": "/faq", "label": "Годовой срез" },
-        { "href": "/faq/2026-07", "label": "Июль 2026" }
+        { "href": "/faq", "label": "Годовой срез" }
       ]
     },
     {

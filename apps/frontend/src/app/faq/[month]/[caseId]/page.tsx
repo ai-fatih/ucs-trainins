@@ -1,27 +1,53 @@
-'use client';
-import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { SearchX, ArrowLeft, BookOpen, Swords, TrendingUp } from 'lucide-react';
 import casesYear from '@/data/cases/yearly.json';
 import instructionsData from '@/data/instructions.json';
 import type { YearlyCases, Instruction } from '@/types';
+import { PRODUCT_LABELS } from '@/data/products';
+import { CATEGORY_LABELS, CATEGORY_COLORS } from '@/data/categories';
 
 const year = casesYear as YearlyCases;
 const instructions = instructionsData as unknown as Instruction[];
 
-const productLabels: Record<string, string> = {
-  rk7: 'r_keeper 7',
-  storehouse: 'StoreHouse Pro',
-  delivery: 'Delivery',
-  event: 'Event',
-  waiter: 'Waiter & Cash Desk',
-};
+export function generateStaticParams() {
+  return year.months.flatMap((m) =>
+    (m.cases ?? []).map((c) => ({ month: m.month, caseId: c.id })),
+  );
+}
 
-export default function FaqCasePage() {
-  const params = useParams<{ month: string; caseId: string }>();
-  const month = year.months.find((m) => m.month === params.month);
-  const current = month?.cases?.find((c) => c.id === params.caseId);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ month: string; caseId: string }>;
+}): Promise<Metadata> {
+  const { month: monthStr, caseId } = await params;
+  const month = year.months.find((m) => m.month === monthStr);
+  const current = month?.cases?.find((c) => c.id === caseId);
+  if (!current) return { title: 'Обращение не найдено' };
+
+  const url = `https://ucs-service.vercel.app/faq/${monthStr}/${caseId}`;
+  const title = current.title;
+  const description =
+    current.request || `Разбор обращения: ${title}. Инструкция и тренажёр по работе с rkeeper.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, type: 'article' },
+  };
+}
+
+export default async function FaqCasePage({
+  params,
+}: {
+  params: Promise<{ month: string; caseId: string }>;
+}) {
+  const { month: monthStr, caseId } = await params;
+  const month = year.months.find((m) => m.month === monthStr);
+  const current = month?.cases?.find((c) => c.id === caseId);
   const instruction = current?.instructionId
     ? instructions.find((i) => i.id === current.instructionId)
     : undefined;
@@ -31,7 +57,10 @@ export default function FaqCasePage() {
       <div className="max-w-[800px] mx-auto px-4 py-16 text-center">
         <SearchX className="w-12 h-12 mx-auto text-[#9ca3af] mb-4" />
         <p className="text-[#6b7280]">Обращение не найдено</p>
-        <Link href={`/faq/${params.month}`} className="text-[#1a56db] text-sm mt-2 inline-block hover:underline no-underline">
+        <Link
+          href={`/faq/${monthStr}`}
+          className="text-[#1a56db] text-sm mt-2 inline-block hover:underline no-underline"
+        >
           Вернуться к обращениям месяца
         </Link>
       </div>
@@ -40,17 +69,45 @@ export default function FaqCasePage() {
 
   return (
     <div className="max-w-[800px] mx-auto px-4 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: current.title,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: current.request || instruction?.description || current.title,
+                },
+              },
+            ],
+          }),
+        }}
+      />
       <div className="mb-8">
         <Link
-          href={`/faq/${params.month}`}
+          href={`/faq/${monthStr}`}
           className="inline-flex items-center gap-1 text-sm text-[#1a56db] hover:underline no-underline mb-4"
         >
           <ArrowLeft className="w-4 h-4" /> Обращения · {month.monthLabel}
         </Link>
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <h1 className="text-2xl md:text-3xl font-bold text-[#111827]">{current.title}</h1>
+          <span
+            className="text-[11px] px-2 py-0.5 rounded-full font-semibold"
+            style={{
+              backgroundColor: CATEGORY_COLORS[current.category].bg,
+              color: CATEGORY_COLORS[current.category].text,
+            }}
+          >
+            {CATEGORY_LABELS[current.category]}
+          </span>
           <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#f3f4f6] text-[#6b7280] font-semibold">
-            {productLabels[current.product] || current.product}
+            {PRODUCT_LABELS[current.product as keyof typeof PRODUCT_LABELS] || current.product}
           </span>
           {typeof current.count === 'number' && (
             <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#e8effa] text-[#1a56db] font-semibold">
@@ -60,7 +117,12 @@ export default function FaqCasePage() {
         </div>
         <div className="flex flex-wrap gap-1.5">
           {current.tags.map((t) => (
-            <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-[#f0f4ff] text-[#1a56db] font-semibold">{t}</span>
+            <span
+              key={t}
+              className="text-[10px] px-2 py-0.5 rounded-full bg-[#f0f4ff] text-[#1a56db] font-semibold"
+            >
+              {t}
+            </span>
           ))}
         </div>
       </div>
@@ -69,7 +131,9 @@ export default function FaqCasePage() {
         <div className="glass-card p-5 mb-6">
           <div className="flex items-center gap-2 mb-2">
             <TrendingUp className="w-4 h-4 text-[#1a56db]" />
-            <h2 className="text-sm font-semibold text-[#6b7280] uppercase tracking-wider">Обращение</h2>
+            <h2 className="text-sm font-semibold text-[#6b7280] uppercase tracking-wider">
+              Обращение
+            </h2>
           </div>
           <p className="text-[#374151] leading-relaxed">
             {current.request || instruction?.description}
@@ -87,8 +151,12 @@ export default function FaqCasePage() {
               <BookOpen className="w-5 h-5" />
             </span>
             <span className="min-w-0">
-              <span className="block text-base font-semibold text-[#111827]">Читать инструкцию</span>
-              <span className="block text-sm text-[#6b7280]">Полный процесс: шаги и типовые ошибки</span>
+              <span className="block text-base font-semibold text-[#111827]">
+                Читать инструкцию
+              </span>
+              <span className="block text-sm text-[#6b7280]">
+                Полный процесс: шаги и типовые ошибки
+              </span>
             </span>
           </Link>
         )}
@@ -101,7 +169,9 @@ export default function FaqCasePage() {
               <Swords className="w-5 h-5" />
             </span>
             <span className="min-w-0">
-              <span className="block text-base font-semibold text-[#111827]">Потренироваться в школе</span>
+              <span className="block text-base font-semibold text-[#111827]">
+                Потренироваться в школе
+              </span>
               <span className="block text-sm text-[#6b7280]">Тренажёр по этому кейсу</span>
             </span>
           </Link>
@@ -109,7 +179,10 @@ export default function FaqCasePage() {
       </div>
 
       <div className="mt-4 pt-6 border-t border-[#e5e7eb]">
-        <Link href="/faq" className="inline-flex items-center gap-1 text-sm text-[#1a56db] hover:underline no-underline">
+        <Link
+          href="/faq"
+          className="inline-flex items-center gap-1 text-sm text-[#1a56db] hover:underline no-underline"
+        >
           <ArrowLeft className="w-4 h-4" /> Все месяцы {year.year}
         </Link>
       </div>

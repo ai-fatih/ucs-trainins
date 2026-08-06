@@ -1,6 +1,17 @@
 import { redirect } from 'next/navigation';
+import casesYear from '@/data/cases/yearly.json';
+import type { YearlyCases } from '@/types';
 
-export default async function CaseDetailRedirect({ params }: { params: Promise<{ id: string }> }) {
+const year = casesYear as YearlyCases;
+
+export default async function CaseDetailRedirect({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
-  redirect(`/faq/2026-07/${id}`);
+  const current = year.months
+    .filter((m) => !m.planned && (m.totalRequests ?? 0) > 0)
+    .at(-1);
+  redirect(`/faq/${current?.month ?? '2026-01'}/${id}`);
 }

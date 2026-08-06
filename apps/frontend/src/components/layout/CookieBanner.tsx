@@ -34,6 +34,10 @@ export function CookieBanner() {
     setVisible(false);
   };
 
+  const handleDismiss = () => {
+    setVisible(false);
+  };
+
   if (!visible) return null;
 
   return (
@@ -69,7 +73,7 @@ export function CookieBanner() {
               Принять все
             </button>
             <button
-              onClick={handleReject}
+              onClick={handleDismiss}
               className="p-2 text-[#9ca3af] hover:text-[#374151] transition-colors border-none cursor-pointer bg-transparent"
               aria-label="Закрыть"
             >

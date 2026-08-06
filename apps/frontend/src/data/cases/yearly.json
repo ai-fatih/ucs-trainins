@@ -1,29 +1,849 @@
 {
   "year": 2026,
   "months": [
-    { "month": "2026-01", "label": "Январь", "count": 3, "planned": true },
-    { "month": "2026-02", "label": "Февраль", "count": 4, "planned": true },
-    { "month": "2026-03", "label": "Март", "count": 5, "planned": true },
-    { "month": "2026-04", "label": "Апрель", "count": 4, "planned": true },
-    { "month": "2026-05", "label": "Май", "count": 6, "planned": true },
+    {
+      "month": "2026-01",
+      "label": "Январь",
+      "monthLabel": "Январь 2026",
+      "totalRequests": 278,
+      "planned": false,
+      "courseId": "cases-2026-01",
+      "summary": {
+        "totalCases": 8,
+        "topTopics": [
+          {
+            "label": "GTIN / Маркировка",
+            "count": 2
+          },
+          {
+            "label": "ЕГАИС",
+            "count": 2
+          },
+          {
+            "label": "Скидки",
+            "count": 1
+          }
+        ]
+      },
+      "cases": [
+        {
+          "id": "case-gtin-transition-jan",
+          "title": "Переход на работу по GTIN",
+          "request": "Консультация по переходу с помарочного учета на GTIN и настройке режима реализации",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "GTIN",
+            "маркировка"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-01",
+          "lessonId": "case-gtin-transition-jan-train"
+        },
+        {
+          "id": "case-ts-piot-jan",
+          "title": "Использование ТС ПИОТ",
+          "request": "Разъяснение требований Честного Знака и режима послабления для HoReCa",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "Честный Знак",
+            "HoReCa"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-01",
+          "lessonId": "case-ts-piot-jan-train"
+        },
+        {
+          "id": "case-egais-invoice-load-jan",
+          "title": "Накладная ЕГАИС не загружается",
+          "request": "Проверка УТМ, запросов ЕГАИС и повторное получение накладной",
+          "product": "rk5",
+          "category": "egais",
+          "tags": [
+            "ЕГАИС",
+            "накладные"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-01",
+          "lessonId": "case-egais-invoice-load-jan-train"
+        },
+        {
+          "id": "case-alcohol-writeoff-jan",
+          "title": "Списание алкогольной продукции",
+          "request": "Консультация по актам списания и работе с остатками",
+          "product": "rk5",
+          "category": "egais",
+          "tags": [
+            "ЕГАИС",
+            "списание"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-01",
+          "lessonId": "case-alcohol-writeoff-jan-train"
+        },
+        {
+          "id": "case-discount-create-jan",
+          "title": "Создание скидки",
+          "request": "Настройка скидки и ограничений по категориям",
+          "product": "rk7",
+          "category": "pricing",
+          "tags": [
+            "скидки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-01",
+          "lessonId": "case-discount-create-jan-train"
+        },
+        {
+          "id": "case-vat-change-jan",
+          "title": "Изменение НДС",
+          "request": "Настройка налоговых групп и ставок НДС",
+          "product": "rk7",
+          "category": "pricing",
+          "tags": [
+            "НДС",
+            "налоги"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-01",
+          "lessonId": "case-vat-change-jan-train"
+        },
+        {
+          "id": "case-return-closed-shift-jan",
+          "title": "Возврат товара из закрытой смены",
+          "request": "Консультация по возвратам и коррекции чеков",
+          "product": "rk7",
+          "category": "cash",
+          "tags": [
+            "возвраты",
+            "чеки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-01",
+          "lessonId": "case-return-closed-shift-jan-train"
+        },
+        {
+          "id": "case-upload-issues-jan",
+          "title": "Не выгружаются заявки",
+          "request": "Проверка настроек Qush и повторная выгрузка",
+          "product": "rk5",
+          "category": "integration",
+          "tags": [
+            "выгрузка",
+            "заявки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-01",
+          "lessonId": "case-upload-issues-jan-train"
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "label": "Февраль",
+      "monthLabel": "Февраль 2026",
+      "totalRequests": 295,
+      "planned": false,
+      "courseId": "cases-2026-02",
+      "summary": {
+        "totalCases": 8,
+        "topTopics": [
+          {
+            "label": "Скидки",
+            "count": 3
+          },
+          {
+            "label": "ЕГАИС",
+            "count": 2
+          },
+          {
+            "label": "Маркировка",
+            "count": 1
+          }
+        ]
+      },
+      "cases": [
+        {
+          "id": "case-marking-setup-feb",
+          "title": "Настройка маркированной продукции",
+          "request": "Проверка карточек товаров и параметров маркировки",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "маркировка",
+            "товары"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-02",
+          "lessonId": "case-marking-setup-feb-train"
+        },
+        {
+          "id": "case-egais-reinvoice-feb",
+          "title": "Повторный запрос накладной ЕГАИС",
+          "request": "Консультация по повторному получению накладных",
+          "product": "rk5",
+          "category": "egais",
+          "tags": [
+            "ЕГАИС",
+            "накладные"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-02",
+          "lessonId": "case-egais-reinvoice-feb-train"
+        },
+        {
+          "id": "case-alcohol-writeoff-feb",
+          "title": "Списание алкогольной продукции",
+          "request": "Работа с актами списания и остатками ЕГАИС",
+          "product": "rk5",
+          "category": "egais",
+          "tags": [
+            "ЕГАИС",
+            "списание"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-02",
+          "lessonId": "case-alcohol-writeoff-feb-train"
+        },
+        {
+          "id": "case-discount-report-feb",
+          "title": "Отчет по скидкам",
+          "request": "Настройка и формирование отчетов по скидкам",
+          "product": "rk7",
+          "category": "reports",
+          "tags": [
+            "скидки",
+            "отчёты"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-02",
+          "lessonId": "case-discount-report-feb-train"
+        },
+        {
+          "id": "case-personal-discounts-feb",
+          "title": "Персональные скидки",
+          "request": "Настройка ограничений и применения скидок",
+          "product": "rk7",
+          "category": "pricing",
+          "tags": [
+            "скидки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-02",
+          "lessonId": "case-personal-discounts-feb-train"
+        },
+        {
+          "id": "case-receipt-delete-feb",
+          "title": "Удаление чека",
+          "request": "Консультация по аннулированию и возвратам",
+          "product": "rk7",
+          "category": "cash",
+          "tags": [
+            "чеки",
+            "касса"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-02",
+          "lessonId": "case-receipt-delete-feb-train"
+        },
+        {
+          "id": "case-order-categories-feb",
+          "title": "Категории заказа",
+          "request": "Настройка категорий заказа и мест реализации",
+          "product": "rk7",
+          "category": "nomenclature",
+          "tags": [
+            "категории",
+            "меню"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-02",
+          "lessonId": "case-order-categories-feb-train"
+        },
+        {
+          "id": "case-kits-setup-feb",
+          "title": "Настройка комплектов",
+          "request": "Работа с комплектами и списанием ингредиентов",
+          "product": "rk5",
+          "category": "integration",
+          "tags": [
+            "комплекты",
+            "списание"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-02",
+          "lessonId": "case-kits-setup-feb-train"
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "label": "Март",
+      "monthLabel": "Март 2026",
+      "totalRequests": 310,
+      "planned": false,
+      "courseId": "cases-2026-03",
+      "summary": {
+        "totalCases": 8,
+        "topTopics": [
+          {
+            "label": "Маркировка / GTIN",
+            "count": 3
+          },
+          {
+            "label": "ЕГАИС",
+            "count": 2
+          },
+          {
+            "label": "НДС",
+            "count": 1
+          }
+        ]
+      },
+      "cases": [
+        {
+          "id": "case-march-marking-mar",
+          "title": "Переход на маркировку с 1 марта",
+          "request": "Консультация по новым требованиям маркировки",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "маркировка",
+            "Честный Знак"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-03",
+          "lessonId": "case-march-marking-mar-train"
+        },
+        {
+          "id": "case-gtin-work-mar",
+          "title": "Работа по GTIN",
+          "request": "Настройка реализации продукции по GTIN",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "GTIN",
+            "маркировка"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-03",
+          "lessonId": "case-gtin-work-mar-train"
+        },
+        {
+          "id": "case-alcohol-receipt-mar",
+          "title": "Приемка алкогольной продукции",
+          "request": "Работа с накладными и сопоставлением товаров",
+          "product": "rk5",
+          "category": "egais",
+          "tags": [
+            "ЕГАИС",
+            "накладные"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-03",
+          "lessonId": "case-alcohol-receipt-mar-train"
+        },
+        {
+          "id": "case-egais-acts-mar",
+          "title": "Акты списания ЕГАИС",
+          "request": "Консультация по созданию и отправке актов",
+          "product": "rk5",
+          "category": "egais",
+          "tags": [
+            "ЕГАИС",
+            "списание"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-03",
+          "lessonId": "case-egais-acts-mar-train"
+        },
+        {
+          "id": "case-stock-report-mar",
+          "title": "Ведомость остатков",
+          "request": "Формирование отчетов по остаткам",
+          "product": "rk5",
+          "category": "reports",
+          "tags": [
+            "отчёты",
+            "остатки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-03",
+          "lessonId": "case-stock-report-mar-train"
+        },
+        {
+          "id": "case-vat-change-mar",
+          "title": "Изменение НДС",
+          "request": "Изменение налоговых настроек меню",
+          "product": "rk7",
+          "category": "pricing",
+          "tags": [
+            "НДС",
+            "налоги"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-03",
+          "lessonId": "case-vat-change-mar-train"
+        },
+        {
+          "id": "case-marked-sale-error-mar",
+          "title": "Ошибка продажи маркированной продукции",
+          "request": "Проверка настроек маркировки и типа товара",
+          "product": "rk7",
+          "category": "errors",
+          "tags": [
+            "маркировка",
+            "ошибки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-03",
+          "lessonId": "case-marked-sale-error-mar-train"
+        },
+        {
+          "id": "case-requests-work-mar",
+          "title": "Работа с заявками",
+          "request": "Корректировка и перерасчет заявок",
+          "product": "rk5",
+          "category": "integration",
+          "tags": [
+            "заявки",
+            "выгрузка"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-03",
+          "lessonId": "case-requests-work-mar-train"
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "label": "Апрель",
+      "monthLabel": "Апрель 2026",
+      "totalRequests": 285,
+      "planned": false,
+      "courseId": "cases-2026-04",
+      "summary": {
+        "totalCases": 7,
+        "topTopics": [
+          {
+            "label": "Скидки",
+            "count": 1
+          },
+          {
+            "label": "НДС",
+            "count": 1
+          },
+          {
+            "label": "Маркировка / GTIN",
+            "count": 1
+          }
+        ]
+      },
+      "cases": [
+        {
+          "id": "case-gtin-transition-apr",
+          "title": "Переход на GTIN",
+          "request": "Настройка товаров для работы по GTIN",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "GTIN",
+            "маркировка"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-04",
+          "lessonId": "case-gtin-transition-apr-train"
+        },
+        {
+          "id": "case-opened-marks-apr",
+          "title": "Вскрытые марки",
+          "request": "Сверка остатков и анализ марок",
+          "product": "rk5",
+          "category": "egais",
+          "tags": [
+            "ЕГАИС",
+            "марки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-04",
+          "lessonId": "case-opened-marks-apr-train"
+        },
+        {
+          "id": "case-revenue-reports-apr",
+          "title": "Отчеты по выручке",
+          "request": "Формирование отчетов и сверка данных",
+          "product": "rk7",
+          "category": "reports",
+          "tags": [
+            "отчёты",
+            "выручка"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-04",
+          "lessonId": "case-revenue-reports-apr-train"
+        },
+        {
+          "id": "case-category-discounts-apr",
+          "title": "Скидки по категориям блюд",
+          "request": "Настройка применения скидок",
+          "product": "rk7",
+          "category": "pricing",
+          "tags": [
+            "скидки",
+            "категории"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-04",
+          "lessonId": "case-category-discounts-apr-train"
+        },
+        {
+          "id": "case-bulk-vat-apr",
+          "title": "Массовая смена НДС",
+          "request": "Изменение налоговых групп",
+          "product": "rk7",
+          "category": "pricing",
+          "tags": [
+            "НДС",
+            "налоги"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-04",
+          "lessonId": "case-bulk-vat-apr-train"
+        },
+        {
+          "id": "case-receipt-correction-apr",
+          "title": "Коррекция чеков",
+          "request": "Настройка возвратов и исправления оплат",
+          "product": "rk7",
+          "category": "cash",
+          "tags": [
+            "чеки",
+            "возвраты"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-04",
+          "lessonId": "case-receipt-correction-apr-train"
+        },
+        {
+          "id": "case-request-upload-apr",
+          "title": "Выгрузка заявок",
+          "request": "Проверка выгрузки через Qush",
+          "product": "rk5",
+          "category": "integration",
+          "tags": [
+            "выгрузка",
+            "заявки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-04",
+          "lessonId": "case-request-upload-apr-train"
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "label": "Май",
+      "monthLabel": "Май 2026",
+      "totalRequests": 300,
+      "planned": false,
+      "courseId": "cases-2026-05",
+      "summary": {
+        "totalCases": 8,
+        "topTopics": [
+          {
+            "label": "Маркировка",
+            "count": 2
+          },
+          {
+            "label": "Скидки",
+            "count": 1
+          },
+          {
+            "label": "Чеки / Касса",
+            "count": 1
+          }
+        ]
+      },
+      "cases": [
+        {
+          "id": "case-receipt-marking-may",
+          "title": "Проверка маркировки в чеках",
+          "request": "Проверка передачи GTIN и кодов маркировки",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "маркировка",
+            "чеки",
+            "GTIN"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-05",
+          "lessonId": "case-receipt-marking-may-train"
+        },
+        {
+          "id": "case-error-8004-may",
+          "title": "Ошибка 8004 при продаже АП",
+          "request": "Проверка настроек АП и комплектов",
+          "product": "rk7",
+          "category": "errors",
+          "tags": [
+            "ЕГАИС",
+            "ошибки",
+            "алкоголь"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-05",
+          "lessonId": "case-error-8004-may-train"
+        },
+        {
+          "id": "case-draft-beer-may",
+          "title": "Продажа разливного пива",
+          "request": "Настройка реализации разливной продукции",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "маркировка",
+            "пиво"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-05",
+          "lessonId": "case-draft-beer-may-train"
+        },
+        {
+          "id": "case-cubic-reports-may",
+          "title": "Кубовые отчеты",
+          "request": "Создание и настройка пользовательских отчетов",
+          "product": "rk7",
+          "category": "reports",
+          "tags": [
+            "отчёты"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-05",
+          "lessonId": "case-cubic-reports-may-train"
+        },
+        {
+          "id": "case-new-discounts-may",
+          "title": "Создание новых скидок",
+          "request": "Настройка скидок и ограничений",
+          "product": "rk7",
+          "category": "pricing",
+          "tags": [
+            "скидки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-05",
+          "lessonId": "case-new-discounts-may-train"
+        },
+        {
+          "id": "case-new-dishes-may",
+          "title": "Создание новых блюд",
+          "request": "Настройка карточек блюд и меню",
+          "product": "rk7",
+          "category": "nomenclature",
+          "tags": [
+            "меню",
+            "блюда"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-05",
+          "lessonId": "case-new-dishes-may-train"
+        },
+        {
+          "id": "case-receipt-close-errors-may",
+          "title": "Ошибки закрытия чеков",
+          "request": "Диагностика работы кассы и оплат",
+          "product": "rk7",
+          "category": "errors",
+          "tags": [
+            "чеки",
+            "касса",
+            "ошибки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-05",
+          "lessonId": "case-receipt-close-errors-may-train"
+        },
+        {
+          "id": "case-kit-writeoff-may",
+          "title": "Комплекты и списание продукции",
+          "request": "Настройка комплектов и учета ингредиентов",
+          "product": "rk5",
+          "category": "integration",
+          "tags": [
+            "комплекты",
+            "списание"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-05",
+          "lessonId": "case-kit-writeoff-may-train"
+        }
+      ]
+    },
     {
       "month": "2026-06",
       "label": "Июнь",
-      "count": 5,
-      "planned": false
+      "monthLabel": "Июнь 2026",
+      "totalRequests": 270,
+      "planned": false,
+      "courseId": "cases-2026-06",
+      "summary": {
+        "totalCases": 8,
+        "topTopics": [
+          {
+            "label": "GTIN / Маркировка",
+            "count": 2
+          },
+          {
+            "label": "Скидки",
+            "count": 1
+          },
+          {
+            "label": "Чеки",
+            "count": 1
+          }
+        ]
+      },
+      "cases": [
+        {
+          "id": "case-gtin-assign-jun",
+          "title": "GTIN не назначается",
+          "request": "Проверка настроек маркировки",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "GTIN",
+            "маркировка"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-06",
+          "lessonId": "case-gtin-assign-jun-train"
+        },
+        {
+          "id": "case-marked-audit-jun",
+          "title": "Проверка маркированной продукции",
+          "request": "Аудит карточек товаров",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "маркировка",
+            "товары"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-06",
+          "lessonId": "case-marked-audit-jun-train"
+        },
+        {
+          "id": "case-mark-open-errors-jun",
+          "title": "Ошибки вскрытия марок",
+          "request": "Анализ остатков и данных ЕГАИС",
+          "product": "rk5",
+          "category": "errors",
+          "tags": [
+            "ЕГАИС",
+            "марки",
+            "ошибки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-06",
+          "lessonId": "case-mark-open-errors-jun-train"
+        },
+        {
+          "id": "case-revenue-mismatch-jun",
+          "title": "Не сходится выручка",
+          "request": "Сверка отчетов RK и ОФД",
+          "product": "rk7",
+          "category": "reports",
+          "tags": [
+            "отчёты",
+            "выручка",
+            "ОФД"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-06",
+          "lessonId": "case-revenue-mismatch-jun-train"
+        },
+        {
+          "id": "case-discount-fail-jun",
+          "title": "Скидка не применяется",
+          "request": "Проверка ограничений и детализации скидки",
+          "product": "rk7",
+          "category": "errors",
+          "tags": [
+            "скидки",
+            "ошибки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-06",
+          "lessonId": "case-discount-fail-jun-train"
+        },
+        {
+          "id": "case-combo-create-jun",
+          "title": "Создание комбо-блюд",
+          "request": "Настройка комбо и модификаторов",
+          "product": "rk7",
+          "category": "nomenclature",
+          "tags": [
+            "комбо",
+            "меню"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-06",
+          "lessonId": "case-combo-create-jun-train"
+        },
+        {
+          "id": "case-receipt-cancel-jun",
+          "title": "Аннулирование чеков",
+          "request": "Консультация по отмене и возвратам",
+          "product": "rk7",
+          "category": "cash",
+          "tags": [
+            "чеки",
+            "возвраты"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-06",
+          "lessonId": "case-receipt-cancel-jun-train"
+        },
+        {
+          "id": "case-qush-upload-jun",
+          "title": "Выгрузка заявок и Qush",
+          "request": "Настройка параметров выгрузки",
+          "product": "rk5",
+          "category": "integration",
+          "tags": [
+            "выгрузка",
+            "заявки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-06",
+          "lessonId": "case-qush-upload-jun-train"
+        }
+      ]
     },
     {
       "month": "2026-07",
       "label": "Июль",
       "monthLabel": "Июль 2026",
-      "count": 8,
+      "totalRequests": 290,
       "planned": false,
       "courseId": "cases-2026-07",
       "summary": {
-        "totalCases": 8,
+        "totalCases": 11,
         "topTopics": [
-          { "label": "ЕГАИС и маркировка", "count": 3 },
-          { "label": "Отображение блюд", "count": 1 }
+          {
+            "label": "GTIN / Маркировка",
+            "count": 3
+          },
+          {
+            "label": "ЕГАИС",
+            "count": 2
+          },
+          {
+            "label": "Касса / Чеки",
+            "count": 2
+          }
         ]
       },
       "cases": [
@@ -32,7 +852,12 @@
           "title": "Ошибка 8004 «Нет доступной вскрытой марки»",
           "request": "Сканирую марку на кассе, а она выдаёт «Нет доступной вскрытой марки» — позицию пробить не получается.",
           "product": "rk7",
-          "tags": ["ЕГАИС", "маркировка", "алкоголь"],
+          "category": "errors",
+          "tags": [
+            "ЕГАИС",
+            "маркировка",
+            "алкоголь"
+          ],
           "count": 3,
           "instructionId": "ins-8004",
           "courseId": "cases-2026-07",
@@ -43,7 +868,11 @@
           "title": "Приём накладной ЕГАИС",
           "request": "Не получается принять накладную ЕГАИС — товары не активируются в остатках.",
           "product": "rk7",
-          "tags": ["ЕГАИС", "накладные"],
+          "category": "egais",
+          "tags": [
+            "ЕГАИС",
+            "накладные"
+          ],
           "count": 3,
           "instructionId": "ins-egais-invoice",
           "courseId": "egais-accounting",
@@ -54,18 +883,319 @@
           "title": "Блюдо есть в меню, но не видно на кассе",
           "request": "Блюдо добавлено в меню, но на кассе его не видно — пробить позицию невозможно.",
           "product": "rk7",
-          "tags": ["меню", "отображение"],
+          "category": "nomenclature",
+          "tags": [
+            "меню",
+            "отображение"
+          ],
           "count": 1,
           "instructionId": "ins-dish-invisible",
           "courseId": "cases-2026-07",
           "lessonId": "case-dish-invisible-train"
+        },
+        {
+          "id": "case-gtin-mark-switch-jul",
+          "title": "Переход с марки на GTIN",
+          "request": "Настройка продукции для режима GTIN",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "GTIN",
+            "маркировка"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-07",
+          "lessonId": "case-gtin-mark-switch-jul-train"
+        },
+        {
+          "id": "case-ap-move-kpp-jul",
+          "title": "Перемещение АП между КПП",
+          "request": "Работа с расход-приходными операциями",
+          "product": "rk5",
+          "category": "egais",
+          "tags": [
+            "ЕГАИС",
+            "перемещения"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-07",
+          "lessonId": "case-ap-move-kpp-jul-train"
+        },
+        {
+          "id": "case-marks-blocked-jul",
+          "title": "Марки блокируются",
+          "request": "Сверка остатков SH и ЕГАИС",
+          "product": "rk5",
+          "category": "egais",
+          "tags": [
+            "ЕГАИС",
+            "марки",
+            "остатки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-07",
+          "lessonId": "case-marks-blocked-jul-train"
+        },
+        {
+          "id": "case-ofd-rk-mismatch-jul",
+          "title": "Не сходится отчет ОФД и RK",
+          "request": "Сравнение отчетности и фискальных данных",
+          "product": "rk7",
+          "category": "reports",
+          "tags": [
+            "отчёты",
+            "ОФД",
+            "касса"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-07",
+          "lessonId": "case-ofd-rk-mismatch-jul-train"
+        },
+        {
+          "id": "case-third-dish-discount-jul",
+          "title": "Скидка на каждое третье блюдо",
+          "request": "Настройка детализации скидки",
+          "product": "rk7",
+          "category": "pricing",
+          "tags": [
+            "скидки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-07",
+          "lessonId": "case-third-dish-discount-jul-train"
+        },
+        {
+          "id": "case-dish-weight-props-jul",
+          "title": "Вес упаковки и свойства блюд",
+          "request": "Настройка параметров весовых блюд",
+          "product": "rk7",
+          "category": "nomenclature",
+          "tags": [
+            "меню",
+            "блюда",
+            "вес"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-07",
+          "lessonId": "case-dish-weight-props-jul-train"
+        },
+        {
+          "id": "case-cash-error-jul",
+          "title": "Ошибка на кассе",
+          "request": "Проверка ограничений продажи и настроек кассы",
+          "product": "rk7",
+          "category": "errors",
+          "tags": [
+            "касса",
+            "ошибки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-07",
+          "lessonId": "case-cash-error-jul-train"
+        },
+        {
+          "id": "case-inventory-writeoff-jul",
+          "title": "Инвентаризация и списание сырья",
+          "request": "Консультация по складскому учету",
+          "product": "rk5",
+          "category": "integration",
+          "tags": [
+            "инвентаризация",
+            "списание"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-07",
+          "lessonId": "case-inventory-writeoff-jul-train"
         }
       ]
     },
-    { "month": "2026-08", "label": "Август", "count": 4, "planned": true },
-    { "month": "2026-09", "label": "Сентябрь", "count": 5, "planned": true },
-    { "month": "2026-10", "label": "Октябрь", "count": 3, "planned": true },
-    { "month": "2026-11", "label": "Ноябрь", "count": 4, "planned": true },
-    { "month": "2026-12", "label": "Декабрь", "count": 5, "planned": true }
+    {
+      "month": "2026-08",
+      "label": "Август",
+      "monthLabel": "Август 2026",
+      "totalRequests": 265,
+      "planned": false,
+      "courseId": "cases-2026-08",
+      "summary": {
+        "totalCases": 9,
+        "topTopics": [
+          {
+            "label": "GTIN / Честный Знак",
+            "count": 2
+          },
+          {
+            "label": "Касса / Чеки",
+            "count": 2
+          },
+          {
+            "label": "ЕГАИС",
+            "count": 1
+          }
+        ]
+      },
+      "cases": [
+        {
+          "id": "case-gtin-add-aug",
+          "title": "GTIN как добавить",
+          "request": "Настройка GTIN в карточке блюда",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "GTIN",
+            "маркировка"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-08",
+          "lessonId": "case-gtin-add-aug-train",
+          "instructionId": "ins-gtin-add-aug"
+        },
+        {
+          "id": "case-honest-mark-dish-aug",
+          "title": "Настройка блюд для Честного Знака",
+          "request": "Проверка классификации и типа товара",
+          "product": "rk7",
+          "category": "marking",
+          "tags": [
+            "Честный Знак",
+            "маркировка",
+            "классификация"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-08",
+          "lessonId": "case-honest-mark-dish-aug-train",
+          "instructionId": "ins-honest-mark-dish-aug"
+        },
+        {
+          "id": "case-mark-open-aug",
+          "title": "Вскрытие марки",
+          "request": "Проверка сопоставления алкогольной продукции",
+          "product": "rk5",
+          "category": "egais",
+          "tags": [
+            "ЕГАИС",
+            "марки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-08",
+          "lessonId": "case-mark-open-aug-train",
+          "instructionId": "ins-mark-open-aug"
+        },
+        {
+          "id": "case-error-8004-ap-aug",
+          "title": "Ошибка 8004 АП",
+          "request": "Анализ настроек продажи алкогольной продукции",
+          "product": "rk7",
+          "category": "errors",
+          "tags": [
+            "ЕГАИС",
+            "ошибки",
+            "алкоголь"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-08",
+          "lessonId": "case-error-8004-ap-aug-train",
+          "instructionId": "ins-error-8004-ap-aug"
+        },
+        {
+          "id": "case-z-report-mismatch-aug",
+          "title": "Расходится Z-отчет и отчеты RK",
+          "request": "Консультация по корректной сверке отчетов",
+          "product": "rk7",
+          "category": "reports",
+          "tags": [
+            "отчёты",
+            "касса"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-08",
+          "lessonId": "case-z-report-mismatch-aug-train",
+          "instructionId": "ins-z-report-mismatch-aug"
+        },
+        {
+          "id": "case-discount-surge-aug",
+          "title": "Работа скидок и наценок",
+          "request": "Настройка применения скидок и сервисных сборов",
+          "product": "rk7",
+          "category": "pricing",
+          "tags": [
+            "скидки",
+            "наценки"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-08",
+          "lessonId": "case-discount-surge-aug-train",
+          "instructionId": "ins-discount-surge-aug"
+        },
+        {
+          "id": "case-print-classification-aug",
+          "title": "Печать нового блюда",
+          "request": "Настройка классификаций сервис-печати",
+          "product": "rk7",
+          "category": "nomenclature",
+          "tags": [
+            "печать",
+            "классификация"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-08",
+          "lessonId": "case-print-classification-aug-train",
+          "instructionId": "ins-print-classification-aug"
+        },
+        {
+          "id": "case-receipt-close-aug",
+          "title": "Закрытие и формирование чека",
+          "request": "Диагностика кассовых операций",
+          "product": "rk7",
+          "category": "cash",
+          "tags": [
+            "чеки",
+            "касса"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-08",
+          "lessonId": "case-receipt-close-aug-train",
+          "instructionId": "ins-receipt-close-aug"
+        },
+        {
+          "id": "case-raw-writeoff-aug",
+          "title": "Не списывается сырье",
+          "request": "Проверка схемы списания и ручных заявок",
+          "product": "rk5",
+          "category": "integration",
+          "tags": [
+            "списание",
+            "сырьё"
+          ],
+          "count": 1,
+          "courseId": "cases-2026-08",
+          "lessonId": "case-raw-writeoff-aug-train",
+          "instructionId": "ins-raw-writeoff-aug"
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "label": "Сентябрь",
+      "totalRequests": 0,
+      "planned": true
+    },
+    {
+      "month": "2026-10",
+      "label": "Октябрь",
+      "totalRequests": 0,
+      "planned": true
+    },
+    {
+      "month": "2026-11",
+      "label": "Ноябрь",
+      "totalRequests": 0,
+      "planned": true
+    },
+    {
+      "month": "2026-12",
+      "label": "Декабрь",
+      "totalRequests": 0,
+      "planned": true
+    }
   ]
 }
