@@ -9,7 +9,18 @@ export function SchoolProgressBridge() {
       if (raw) {
         const data = JSON.parse(raw);
         if (data && typeof data === 'object') {
-          useSchoolProgress.getState().hydrate(data as Record<string, boolean>);
+          if ('completed' in data && typeof data.completed === 'object' && data.completed !== null) {
+            useSchoolProgress
+              .getState()
+              .hydrate(
+                data.completed as Record<string, boolean>,
+                data.positions && typeof data.positions === 'object'
+                  ? (data.positions as Record<string, number>)
+                  : undefined,
+              );
+          } else {
+            useSchoolProgress.getState().hydrate(data as Record<string, boolean>);
+          }
         }
       }
     } catch {
@@ -19,9 +30,15 @@ export function SchoolProgressBridge() {
 
   useEffect(() => {
     const unsubscribe = useSchoolProgress.subscribe((state, prev) => {
-      if (state.completed !== prev.completed) {
+      if (
+        state.completed !== prev.completed ||
+        state.positions !== prev.positions
+      ) {
         try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(state.completed));
+          localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({ completed: state.completed, positions: state.positions }),
+          );
         } catch {
           /* ignore quota errors */
         }

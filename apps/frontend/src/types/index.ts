@@ -8,48 +8,53 @@ export interface QuizQuestion {
   commentary: string;
 }
 
+export interface SprintStatement {
+  text: string;
+  isCorrect: boolean;
+  explanation: string;
+}
+
 export interface MatchPair {
   id: string;
   term: string;
   definition: string;
 }
 
-export interface Scenario {
-  id: string;
-  title: string;
-  steps: string[];
-}
-
-export interface DecisionTree {
-  id: string;
-  title: string;
-  description: string;
-  startStep: string;
-  steps: DecisionStep[];
-}
-
-export interface DecisionStep {
-  id: string;
-  question: string;
-  choices: DecisionChoice[];
-}
-
-export interface DecisionChoice {
+export interface ChainStep {
   text: string;
-  next: string;
+  explanation?: string;
+}
+
+export interface CaseOption {
+  text: string;
   correct: boolean;
-  hint: string;
+  hint?: string;
+}
+
+export interface CaseStep {
+  id: string;
+  situation: string;
+  question: string;
+  options: CaseOption[];
+  commentary: string;
 }
 
 export type LessonActivityType = 'quiz' | 'sprint' | 'match' | 'chain' | 'case';
 
 export interface LessonActivity {
   type: LessonActivityType;
-  questionId?: string;
-  matchPairIds?: string[];
-  scenarioId?: string;
-  decisionTreeId?: string;
-  sprintQuestionIds?: string[];
+  intro?: string;
+  quiz?: { questions: QuizQuestion[] };
+  sprint?: { statements: SprintStatement[] };
+  match?: { pairs: MatchPair[] };
+  chain?: { title: string; steps: ChainStep[] };
+  caseStudy?: { steps: CaseStep[] };
+}
+
+export interface TrainerResult {
+  score: number;
+  total: number;
+  misses: number;
 }
 
 export interface Lesson {
