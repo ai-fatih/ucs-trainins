@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { SearchX, ArrowLeft, BookOpen, Swords, TrendingUp } from 'lucide-react';
+import { SearchX, ArrowLeft, ArrowRight, BookOpen, Swords, TrendingUp } from 'lucide-react';
 import casesYear from '@/data/cases/yearly.json';
 import instructionsData from '@/data/instructions.json';
 import type { YearlyCases, Instruction } from '@/types';
@@ -145,12 +145,12 @@ export default async function FaqCasePage({
         {current.instructionId && (
           <Link
             href={`/docs/${current.instructionId}`}
-            className="flex items-center gap-4 glass-card p-5 no-underline transition-all hover:-translate-y-0.5"
+            className="flex items-center gap-4 glass-card p-5 no-underline transition-all hover:-translate-y-0.5 group"
           >
             <span className="flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-[#1a56db] to-[#0d9488] flex items-center justify-center text-white">
               <BookOpen className="w-5 h-5" />
             </span>
-            <span className="min-w-0">
+            <span className="min-w-0 flex-1">
               <span className="block text-base font-semibold text-[#111827]">
                 Читать инструкцию
               </span>
@@ -158,22 +158,24 @@ export default async function FaqCasePage({
                 Полный процесс: шаги и типовые ошибки
               </span>
             </span>
+            <ArrowRight className="w-4 h-4 text-[#9ca3af] shrink-0 transition-all group-hover:text-[#1a56db] group-hover:translate-x-0.5" />
           </Link>
         )}
         {current.courseId && current.lessonId && (
           <Link
             href={`/school/courses/${current.courseId}/lessons/${current.lessonId}`}
-            className="flex items-center gap-4 glass-card p-5 no-underline transition-all hover:-translate-y-0.5"
+            className="flex items-center gap-4 glass-card p-5 no-underline transition-all hover:-translate-y-0.5 group"
           >
             <span className="flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-[#0d9488] to-[#14b8a6] flex items-center justify-center text-white">
               <Swords className="w-5 h-5" />
             </span>
-            <span className="min-w-0">
+            <span className="min-w-0 flex-1">
               <span className="block text-base font-semibold text-[#111827]">
                 Потренироваться в школе
               </span>
               <span className="block text-sm text-[#6b7280]">Тренажёр по этому кейсу</span>
             </span>
+            <ArrowRight className="w-4 h-4 text-[#9ca3af] shrink-0 transition-all group-hover:text-[#1a56db] group-hover:translate-x-0.5" />
           </Link>
         )}
       </div>

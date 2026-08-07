@@ -14,6 +14,8 @@ interface Props {
 export default function CourseCard({ course }: Props) {
   const Icon = ICON_MAP[course.icon] || BookOpen;
   const totalLessons = course.modules.reduce((s, m) => s + m.lessons.length, 0);
+  const allLessons = course.modules.flatMap((m) => m.lessons);
+  const allStub = allLessons.length > 0 && allLessons.every((l) => l.stub);
 
   return (
     <Link
@@ -36,7 +38,7 @@ export default function CourseCard({ course }: Props) {
               className="shrink-0 text-[10px] px-2 py-0.5 rounded-full font-semibold uppercase tracking-wide"
               style={{ background: `${course.colorFrom}1a`, color: course.colorFrom }}
             >
-              Тренажёр
+              {allStub ? 'Скоро' : 'Тренажёр'}
             </span>
           </div>
           <p className="text-xs text-[#6b7280] line-clamp-2 mb-3">{course.description}</p>

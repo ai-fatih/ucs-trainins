@@ -38,7 +38,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-01",
-          "lessonId": "case-gtin-transition-jan-train"
+          "lessonId": "case-gtin-transition-jan-train",
+          "instructionId": "ins-gtin-transition-jan"
         },
         {
           "id": "case-ts-piot-jan",
@@ -52,7 +53,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-01",
-          "lessonId": "case-ts-piot-jan-train"
+          "lessonId": "case-ts-piot-jan-train",
+          "instructionId": "ins-ts-piot-jan"
         },
         {
           "id": "case-egais-invoice-load-jan",
@@ -66,7 +68,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-01",
-          "lessonId": "case-egais-invoice-load-jan-train"
+          "lessonId": "case-egais-invoice-load-jan-train",
+          "instructionId": "ins-egais-invoice-load-jan"
         },
         {
           "id": "case-alcohol-writeoff-jan",
@@ -80,7 +83,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-01",
-          "lessonId": "case-alcohol-writeoff-jan-train"
+          "lessonId": "case-alcohol-writeoff-jan-train",
+          "instructionId": "ins-alcohol-writeoff-jan"
         },
         {
           "id": "case-discount-create-jan",
@@ -93,7 +97,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-01",
-          "lessonId": "case-discount-create-jan-train"
+          "lessonId": "case-discount-create-jan-train",
+          "instructionId": "ins-discount-create-jan"
         },
         {
           "id": "case-vat-change-jan",
@@ -107,7 +112,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-01",
-          "lessonId": "case-vat-change-jan-train"
+          "lessonId": "case-vat-change-jan-train",
+          "instructionId": "ins-vat-change-jan"
         },
         {
           "id": "case-return-closed-shift-jan",
@@ -121,7 +127,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-01",
-          "lessonId": "case-return-closed-shift-jan-train"
+          "lessonId": "case-return-closed-shift-jan-train",
+          "instructionId": "ins-return-closed-shift-jan"
         },
         {
           "id": "case-upload-issues-jan",
@@ -135,7 +142,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-01",
-          "lessonId": "case-upload-issues-jan-train"
+          "lessonId": "case-upload-issues-jan-train",
+          "instructionId": "ins-upload-issues-jan"
         }
       ]
     },
@@ -176,7 +184,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-02",
-          "lessonId": "case-marking-setup-feb-train"
+          "lessonId": "case-marking-setup-feb-train",
+          "instructionId": "ins-marking-setup-feb"
         },
         {
           "id": "case-egais-reinvoice-feb",
@@ -190,7 +199,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-02",
-          "lessonId": "case-egais-reinvoice-feb-train"
+          "lessonId": "case-egais-reinvoice-feb-train",
+          "instructionId": "ins-egais-reinvoice-feb"
         },
         {
           "id": "case-alcohol-writeoff-feb",
@@ -204,7 +214,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-02",
-          "lessonId": "case-alcohol-writeoff-feb-train"
+          "lessonId": "case-alcohol-writeoff-feb-train",
+          "instructionId": "ins-alcohol-writeoff-feb"
         },
         {
           "id": "case-discount-report-feb",
@@ -218,7 +229,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-02",
-          "lessonId": "case-discount-report-feb-train"
+          "lessonId": "case-discount-report-feb-train",
+          "instructionId": "ins-discount-report-feb"
         },
         {
           "id": "case-personal-discounts-feb",
@@ -231,7 +243,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-02",
-          "lessonId": "case-personal-discounts-feb-train"
+          "lessonId": "case-personal-discounts-feb-train",
+          "instructionId": "ins-personal-discounts-feb"
         },
         {
           "id": "case-receipt-delete-feb",
@@ -245,7 +258,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-02",
-          "lessonId": "case-receipt-delete-feb-train"
+          "lessonId": "case-receipt-delete-feb-train",
+          "instructionId": "ins-receipt-delete-feb"
         },
         {
           "id": "case-order-categories-feb",
@@ -259,7 +273,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-02",
-          "lessonId": "case-order-categories-feb-train"
+          "lessonId": "case-order-categories-feb-train",
+          "instructionId": "ins-order-categories-feb"
         },
         {
           "id": "case-kits-setup-feb",
@@ -273,7 +288,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-02",
-          "lessonId": "case-kits-setup-feb-train"
+          "lessonId": "case-kits-setup-feb-train",
+          "instructionId": "ins-kits-setup-feb"
         }
       ]
     },
@@ -314,7 +330,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-03",
-          "lessonId": "case-march-marking-mar-train"
+          "lessonId": "case-march-marking-mar-train",
+          "instructionId": "ins-march-marking-mar"
         },
         {
           "id": "case-gtin-work-mar",
@@ -328,7 +345,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-03",
-          "lessonId": "case-gtin-work-mar-train"
+          "lessonId": "case-gtin-work-mar-train",
+          "instructionId": "ins-gtin-work-mar"
         },
         {
           "id": "case-alcohol-receipt-mar",
@@ -342,7 +360,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-03",
-          "lessonId": "case-alcohol-receipt-mar-train"
+          "lessonId": "case-alcohol-receipt-mar-train",
+          "instructionId": "ins-alcohol-receipt-mar"
         },
         {
           "id": "case-egais-acts-mar",
@@ -356,7 +375,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-03",
-          "lessonId": "case-egais-acts-mar-train"
+          "lessonId": "case-egais-acts-mar-train",
+          "instructionId": "ins-egais-acts-mar"
         },
         {
           "id": "case-stock-report-mar",
@@ -370,7 +390,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-03",
-          "lessonId": "case-stock-report-mar-train"
+          "lessonId": "case-stock-report-mar-train",
+          "instructionId": "ins-stock-report-mar"
         },
         {
           "id": "case-vat-change-mar",
@@ -384,7 +405,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-03",
-          "lessonId": "case-vat-change-mar-train"
+          "lessonId": "case-vat-change-mar-train",
+          "instructionId": "ins-vat-change-mar"
         },
         {
           "id": "case-marked-sale-error-mar",
@@ -398,7 +420,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-03",
-          "lessonId": "case-marked-sale-error-mar-train"
+          "lessonId": "case-marked-sale-error-mar-train",
+          "instructionId": "ins-marked-sale-error-mar"
         },
         {
           "id": "case-requests-work-mar",
@@ -412,7 +435,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-03",
-          "lessonId": "case-requests-work-mar-train"
+          "lessonId": "case-requests-work-mar-train",
+          "instructionId": "ins-requests-work-mar"
         }
       ]
     },
@@ -453,7 +477,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-04",
-          "lessonId": "case-gtin-transition-apr-train"
+          "lessonId": "case-gtin-transition-apr-train",
+          "instructionId": "ins-gtin-transition-apr"
         },
         {
           "id": "case-opened-marks-apr",
@@ -467,7 +492,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-04",
-          "lessonId": "case-opened-marks-apr-train"
+          "lessonId": "case-opened-marks-apr-train",
+          "instructionId": "ins-opened-marks-apr"
         },
         {
           "id": "case-revenue-reports-apr",
@@ -481,7 +507,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-04",
-          "lessonId": "case-revenue-reports-apr-train"
+          "lessonId": "case-revenue-reports-apr-train",
+          "instructionId": "ins-revenue-reports-apr"
         },
         {
           "id": "case-category-discounts-apr",
@@ -495,7 +522,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-04",
-          "lessonId": "case-category-discounts-apr-train"
+          "lessonId": "case-category-discounts-apr-train",
+          "instructionId": "ins-category-discounts-apr"
         },
         {
           "id": "case-bulk-vat-apr",
@@ -509,7 +537,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-04",
-          "lessonId": "case-bulk-vat-apr-train"
+          "lessonId": "case-bulk-vat-apr-train",
+          "instructionId": "ins-bulk-vat-apr"
         },
         {
           "id": "case-receipt-correction-apr",
@@ -523,7 +552,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-04",
-          "lessonId": "case-receipt-correction-apr-train"
+          "lessonId": "case-receipt-correction-apr-train",
+          "instructionId": "ins-receipt-correction-apr"
         },
         {
           "id": "case-request-upload-apr",
@@ -537,7 +567,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-04",
-          "lessonId": "case-request-upload-apr-train"
+          "lessonId": "case-request-upload-apr-train",
+          "instructionId": "ins-request-upload-apr"
         }
       ]
     },
@@ -579,7 +610,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-05",
-          "lessonId": "case-receipt-marking-may-train"
+          "lessonId": "case-receipt-marking-may-train",
+          "instructionId": "ins-receipt-marking-may"
         },
         {
           "id": "case-error-8004-may",
@@ -594,7 +626,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-05",
-          "lessonId": "case-error-8004-may-train"
+          "lessonId": "case-error-8004-may-train",
+          "instructionId": "ins-error-8004-may"
         },
         {
           "id": "case-draft-beer-may",
@@ -608,7 +641,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-05",
-          "lessonId": "case-draft-beer-may-train"
+          "lessonId": "case-draft-beer-may-train",
+          "instructionId": "ins-draft-beer-may"
         },
         {
           "id": "case-cubic-reports-may",
@@ -621,7 +655,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-05",
-          "lessonId": "case-cubic-reports-may-train"
+          "lessonId": "case-cubic-reports-may-train",
+          "instructionId": "ins-cubic-reports-may"
         },
         {
           "id": "case-new-discounts-may",
@@ -634,7 +669,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-05",
-          "lessonId": "case-new-discounts-may-train"
+          "lessonId": "case-new-discounts-may-train",
+          "instructionId": "ins-new-discounts-may"
         },
         {
           "id": "case-new-dishes-may",
@@ -648,7 +684,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-05",
-          "lessonId": "case-new-dishes-may-train"
+          "lessonId": "case-new-dishes-may-train",
+          "instructionId": "ins-new-dishes-may"
         },
         {
           "id": "case-receipt-close-errors-may",
@@ -663,7 +700,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-05",
-          "lessonId": "case-receipt-close-errors-may-train"
+          "lessonId": "case-receipt-close-errors-may-train",
+          "instructionId": "ins-receipt-close-errors-may"
         },
         {
           "id": "case-kit-writeoff-may",
@@ -677,7 +715,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-05",
-          "lessonId": "case-kit-writeoff-may-train"
+          "lessonId": "case-kit-writeoff-may-train",
+          "instructionId": "ins-kit-writeoff-may"
         }
       ]
     },
@@ -718,7 +757,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-06",
-          "lessonId": "case-gtin-assign-jun-train"
+          "lessonId": "case-gtin-assign-jun-train",
+          "instructionId": "ins-gtin-assign-jun"
         },
         {
           "id": "case-marked-audit-jun",
@@ -732,7 +772,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-06",
-          "lessonId": "case-marked-audit-jun-train"
+          "lessonId": "case-marked-audit-jun-train",
+          "instructionId": "ins-marked-audit-jun"
         },
         {
           "id": "case-mark-open-errors-jun",
@@ -747,7 +788,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-06",
-          "lessonId": "case-mark-open-errors-jun-train"
+          "lessonId": "case-mark-open-errors-jun-train",
+          "instructionId": "ins-mark-open-errors-jun"
         },
         {
           "id": "case-revenue-mismatch-jun",
@@ -762,7 +804,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-06",
-          "lessonId": "case-revenue-mismatch-jun-train"
+          "lessonId": "case-revenue-mismatch-jun-train",
+          "instructionId": "ins-revenue-mismatch-jun"
         },
         {
           "id": "case-discount-fail-jun",
@@ -776,7 +819,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-06",
-          "lessonId": "case-discount-fail-jun-train"
+          "lessonId": "case-discount-fail-jun-train",
+          "instructionId": "ins-discount-fail-jun"
         },
         {
           "id": "case-combo-create-jun",
@@ -790,7 +834,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-06",
-          "lessonId": "case-combo-create-jun-train"
+          "lessonId": "case-combo-create-jun-train",
+          "instructionId": "ins-combo-create-jun"
         },
         {
           "id": "case-receipt-cancel-jun",
@@ -804,7 +849,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-06",
-          "lessonId": "case-receipt-cancel-jun-train"
+          "lessonId": "case-receipt-cancel-jun-train",
+          "instructionId": "ins-receipt-cancel-jun"
         },
         {
           "id": "case-qush-upload-jun",
@@ -818,7 +864,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-06",
-          "lessonId": "case-qush-upload-jun-train"
+          "lessonId": "case-qush-upload-jun-train",
+          "instructionId": "ins-qush-upload-jun"
         }
       ]
     },
@@ -905,7 +952,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-07",
-          "lessonId": "case-gtin-mark-switch-jul-train"
+          "lessonId": "case-gtin-mark-switch-jul-train",
+          "instructionId": "ins-gtin-mark-switch-jul"
         },
         {
           "id": "case-ap-move-kpp-jul",
@@ -919,7 +967,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-07",
-          "lessonId": "case-ap-move-kpp-jul-train"
+          "lessonId": "case-ap-move-kpp-jul-train",
+          "instructionId": "ins-ap-move-kpp-jul"
         },
         {
           "id": "case-marks-blocked-jul",
@@ -934,7 +983,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-07",
-          "lessonId": "case-marks-blocked-jul-train"
+          "lessonId": "case-marks-blocked-jul-train",
+          "instructionId": "ins-marks-blocked-jul"
         },
         {
           "id": "case-ofd-rk-mismatch-jul",
@@ -949,7 +999,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-07",
-          "lessonId": "case-ofd-rk-mismatch-jul-train"
+          "lessonId": "case-ofd-rk-mismatch-jul-train",
+          "instructionId": "ins-ofd-rk-mismatch-jul"
         },
         {
           "id": "case-third-dish-discount-jul",
@@ -962,7 +1013,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-07",
-          "lessonId": "case-third-dish-discount-jul-train"
+          "lessonId": "case-third-dish-discount-jul-train",
+          "instructionId": "ins-third-dish-discount-jul"
         },
         {
           "id": "case-dish-weight-props-jul",
@@ -977,7 +1029,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-07",
-          "lessonId": "case-dish-weight-props-jul-train"
+          "lessonId": "case-dish-weight-props-jul-train",
+          "instructionId": "ins-dish-weight-props-jul"
         },
         {
           "id": "case-cash-error-jul",
@@ -991,7 +1044,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-07",
-          "lessonId": "case-cash-error-jul-train"
+          "lessonId": "case-cash-error-jul-train",
+          "instructionId": "ins-cash-error-jul"
         },
         {
           "id": "case-inventory-writeoff-jul",
@@ -1005,7 +1059,8 @@
           ],
           "count": 1,
           "courseId": "cases-2026-07",
-          "lessonId": "case-inventory-writeoff-jul-train"
+          "lessonId": "case-inventory-writeoff-jul-train",
+          "instructionId": "ins-inventory-writeoff-jul"
         }
       ]
     },

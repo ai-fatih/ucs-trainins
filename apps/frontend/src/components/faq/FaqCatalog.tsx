@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Search, SlidersHorizontal, RotateCcw } from 'lucide-react';
+import { Search, SlidersHorizontal, RotateCcw, ArrowRight } from 'lucide-react';
 import type { YearMonth, CaseCategory } from '@/types';
 import { CATEGORY_LABELS, CATEGORY_OPTIONS, CATEGORY_COLORS } from '@/data/categories';
 import { PRODUCT_LABELS, PRODUCT_OPTIONS } from '@/data/products';
@@ -337,7 +337,7 @@ export function FaqCatalog({ months }: Props) {
               <Link
                 key={`${monthKey}/${c.id}`}
                 href={`/faq/${monthKey}/${c.id}`}
-                className="glass-card p-5 no-underline transition-all hover:-translate-y-0.5 block"
+                className="glass-card p-5 no-underline transition-all hover:-translate-y-0.5 block group"
               >
                 <div className="flex items-start gap-4">
                   <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center text-sm font-semibold">
@@ -376,6 +376,7 @@ export function FaqCatalog({ months }: Props) {
                       ))}
                     </div>
                   </div>
+                  <ArrowRight className="w-4 h-4 text-[#9ca3af] shrink-0 mt-1 transition-all group-hover:text-[#1a56db] group-hover:translate-x-0.5" />
                 </div>
               </Link>
             );

@@ -44,7 +44,9 @@ export default function ModuleBlock({ courseId, module }: Props) {
                 )}
               </span>
               <span className="flex-1 text-left">{lesson.title}</span>
-              {done ? (
+              {lesson.stub ? (
+                <span className="text-[10px] font-semibold text-[#b45309]">скоро</span>
+              ) : done ? (
                 <span className="text-[10px] font-semibold text-[#059669]">Пройден</span>
               ) : (
                 <span className="text-[10px] text-[#9ca3af]">{lesson.durationMinutes} мин</span>

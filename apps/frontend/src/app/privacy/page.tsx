@@ -2,12 +2,19 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { ContactPhone } from '@/components/ContactPhone';
+import { buildOpenGraph } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Политика конфиденциальности',
   description:
     'Политика обработки персональных данных ООО ЦТО «ЮСИЭС сервис» в соответствии с 152-ФЗ. Категории данных, цели, сроки, права субъекта.',
   alternates: { canonical: 'https://ucs-service.vercel.app/privacy' },
+  openGraph: buildOpenGraph({
+    title: 'Политика конфиденциальности — UCS Service',
+    description:
+      'Политика обработки персональных данных ООО ЦТО «ЮСИЭС сервис» в соответствии с 152-ФЗ. Категории данных, цели, сроки, права субъекта.',
+    url: 'https://ucs-service.vercel.app/privacy',
+  }),
 };
 
 export default function PrivacyPage() {

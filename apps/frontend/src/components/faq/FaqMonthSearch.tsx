@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { Search } from 'lucide-react';
+import { Search, ArrowRight } from 'lucide-react';
 import type { YearlyCase } from '@/types';
 import { PRODUCT_LABELS } from '@/data/products';
 import { CATEGORY_LABELS, CATEGORY_COLORS } from '@/data/categories';
@@ -62,7 +62,7 @@ export function FaqMonthSearch({ monthStr, cases, isPlanned }: Props) {
           <Link
             key={c.id}
             href={`/faq/${monthStr}/${c.id}`}
-            className="glass-card p-5 no-underline transition-all hover:-translate-y-0.5 block"
+            className="glass-card p-5 no-underline transition-all hover:-translate-y-0.5 block group"
           >
             <div className="flex items-start gap-4">
               <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center text-sm font-semibold">
@@ -100,6 +100,7 @@ export function FaqMonthSearch({ monthStr, cases, isPlanned }: Props) {
                   ))}
                 </div>
               </div>
+              <ArrowRight className="w-4 h-4 text-[#9ca3af] shrink-0 mt-1 transition-all group-hover:text-[#1a56db] group-hover:translate-x-0.5" />
             </div>
           </Link>
         ))}

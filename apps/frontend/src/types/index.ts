@@ -59,6 +59,7 @@ export interface Lesson {
   activity: LessonActivity;
   durationMinutes: number;
   xpReward: number;
+  stub?: boolean;
 }
 
 export interface Module {

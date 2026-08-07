@@ -2,12 +2,19 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { ContactPhone } from '@/components/ContactPhone';
+import { buildOpenGraph } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Пользовательское соглашение',
   description:
     'Условия использования сайта ucs-service.ru: права и обязанности сторон, регистрация, ответственность.',
   alternates: { canonical: 'https://ucs-service.vercel.app/terms' },
+  openGraph: buildOpenGraph({
+    title: 'Пользовательское соглашение — UCS Service',
+    description:
+      'Условия использования сайта ucs-service.ru: права и обязанности сторон, регистрация, ответственность.',
+    url: 'https://ucs-service.vercel.app/terms',
+  }),
 };
 
 export default function TermsPage() {

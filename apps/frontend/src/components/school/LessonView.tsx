@@ -20,6 +20,17 @@ interface Props {
 export default function LessonView({ lesson, onComplete }: Props) {
   const activity = lesson.activity;
 
+  if (lesson.stub) {
+    return (
+      <div className="glass-card p-6 text-center">
+        <div className="text-3xl mb-2">🔜</div>
+        <p className="text-sm text-[#6b7280] leading-relaxed">
+          Скоро вы сможете потренироваться здесь.
+        </p>
+      </div>
+    );
+  }
+
   if (activity.type === 'quiz') {
     const question = config.questions.find(q => q.id === activity.questionId);
     if (!question) return <div className="glass-card p-6 text-center text-[#6b7280]">Вопрос не найден</div>;

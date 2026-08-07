@@ -5,6 +5,7 @@ import { PageHelp } from '@/components/layout/PageHelp';
 import instructionsData from '@/data/instructions.json';
 import type { Instruction } from '@/types';
 import { PRODUCT_LABELS } from '@/data/products';
+import { buildOpenGraph } from '@/lib/seo';
 
 const instructions = instructionsData as unknown as Instruction[];
 
@@ -13,12 +14,12 @@ export const metadata: Metadata = {
   description:
     'Пошаговые инструкции-процессы по продуктам rkeeper: rKeeper 7, StoreHouse, ЕГАИС, Доставка. Как решить типовую задачу шаг за шагом.',
   alternates: { canonical: 'https://ucs-service.vercel.app/docs' },
-  openGraph: {
+  openGraph: buildOpenGraph({
     title: 'Инструкции — UCS Service',
     description:
       'Пошаговые инструкции-процессы по продуктам rkeeper: rKeeper 7, StoreHouse, ЕГАИС, Доставка.',
     url: 'https://ucs-service.vercel.app/docs',
-  },
+  }),
 };
 
 export default function InstructionsPage() {
@@ -74,7 +75,7 @@ export default function InstructionsPage() {
           <Link
             key={ins.id}
             href={`/docs/${ins.id}`}
-            className="glass-card p-5 no-underline transition-all hover:-translate-y-0.5 block"
+            className="glass-card p-5 no-underline transition-all hover:-translate-y-0.5 block group"
           >
             <div className="flex items-start gap-4">
               <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#1a56db] to-[#0d9488] text-white flex items-center justify-center text-sm font-semibold">
@@ -99,6 +100,7 @@ export default function InstructionsPage() {
                   )}
                 </div>
               </div>
+              <ArrowRight className="w-4 h-4 text-[#9ca3af] shrink-0 mt-1 transition-all group-hover:text-[#1a56db] group-hover:translate-x-0.5" />
             </div>
           </Link>
         ))}

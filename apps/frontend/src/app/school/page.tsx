@@ -5,6 +5,7 @@ import type { Course } from '@/types';
 import coursesData from '@/data/school/courses.json';
 import CourseCard from '@/components/school/CourseCard';
 import { PageHelp } from '@/components/layout/PageHelp';
+import { buildOpenGraph } from '@/lib/seo';
 
 const courses = coursesData as unknown as Course[];
 
@@ -13,16 +14,22 @@ export const metadata: Metadata = {
   description:
     'Бесплатные тренажёры по rkeeper: квизы, спринты, сопоставления и деревья решений на реальных кейсах. Учись без регистрации.',
   alternates: { canonical: 'https://ucs-service.vercel.app/school' },
-  openGraph: {
+  openGraph: buildOpenGraph({
     title: 'Школа rkeeper — Тренажёры и курсы',
     description:
       'Бесплатные тренажёры по rkeeper: квизы, спринты, сопоставления и деревья решений на реальных кейсах.',
     url: 'https://ucs-service.vercel.app/school',
-  },
+  }),
 };
 
-const totalLessons = courses.reduce((s, c) => s + c.modules.reduce((m, x) => m + x.lessons.length, 0), 0);
-const totalXp = courses.reduce((s, c) => s + c.totalXp, 0);
+const realCourses = courses.filter((c) =>
+  c.modules.flatMap((m) => m.lessons).some((l) => !l.stub),
+);
+const totalLessons = realCourses.reduce(
+  (s, c) => s + c.modules.reduce((m, x) => m + x.lessons.filter((l) => !l.stub).length, 0),
+  0,
+);
+const totalXp = realCourses.reduce((s, c) => s + c.totalXp, 0);
 
 const upcoming = [
   'Создание и оплата заказа в Delivery',
@@ -38,7 +45,7 @@ export default function SchoolPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            courses.map((course) => ({
+            realCourses.map((course) => ({
               '@context': 'https://schema.org',
               '@type': 'Course',
               name: course.title,
@@ -102,7 +109,7 @@ export default function SchoolPage() {
       </div>
 
       <div className="flex flex-wrap items-center gap-4 mb-8 text-xs text-[#6b7280]">
-        <span className="px-3 py-1.5 rounded-full bg-[#e8effa] text-[#1a56db] font-semibold">{courses.length} курсов</span>
+        <span className="px-3 py-1.5 rounded-full bg-[#e8effa] text-[#1a56db] font-semibold">{realCourses.length} курсов</span>
         <span className="px-3 py-1.5 rounded-full bg-[#e8effa] text-[#1a56db] font-semibold">{totalLessons} уроков</span>
         <span className="px-3 py-1.5 rounded-full bg-[#e8effa] text-[#1a56db] font-semibold">до {totalXp} XP</span>
       </div>

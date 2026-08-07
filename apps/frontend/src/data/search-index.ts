@@ -26,14 +26,18 @@ export const searchIndex: SearchItem[] = [
       label: `Обращения · ${m.monthLabel ?? `${m.label} ${year.year}`}`,
       context: 'Популярные обращения',
     })),
-  ...instructions.map((ins) => ({
-    href: `/docs/${ins.id}`,
-    label: ins.title,
-    context: 'Инструкции',
-  })),
-  ...courses.map((c) => ({
-    href: `/school/courses/${c.id}`,
-    label: c.title,
-    context: 'Курсы',
-  })),
+  ...instructions
+    .filter((ins) => !ins.stub)
+    .map((ins) => ({
+      href: `/docs/${ins.id}`,
+      label: ins.title,
+      context: 'Инструкции',
+    })),
+  ...courses
+    .filter((c) => c.modules.some((m) => m.lessons.some((l) => !l.stub)))
+    .map((c) => ({
+      href: `/school/courses/${c.id}`,
+      label: c.title,
+      context: 'Курсы',
+    })),
 ];

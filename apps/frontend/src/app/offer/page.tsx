@@ -2,12 +2,19 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { ContactPhone } from '@/components/ContactPhone';
+import { buildOpenGraph } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Публичная оферта на оказание услуг',
   description:
     'Публичная оферта ООО ЦТО «ЮСИЭС сервис» на оказание консультационных и обучающих услуг по работе с rkeeper.',
   alternates: { canonical: 'https://ucs-service.vercel.app/offer' },
+  openGraph: buildOpenGraph({
+    title: 'Публичная оферта на оказание услуг — UCS Service',
+    description:
+      'Публичная оферта ООО ЦТО «ЮСИЭС сервис» на оказание консультационных и обучающих услуг по работе с rkeeper.',
+    url: 'https://ucs-service.vercel.app/offer',
+  }),
 };
 
 export default function OfferPage() {

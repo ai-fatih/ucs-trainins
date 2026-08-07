@@ -311,5 +311,998 @@
     "courseId": "cases-2026-08",
     "lessonId": "case-raw-writeoff-aug-train",
     "stub": true
+  },
+  {
+    "id": "ins-gtin-transition-jan",
+    "title": "Переход на работу по GTIN",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "GTIN",
+      "маркировка"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-gtin-transition-jan"
+    ],
+    "courseId": "cases-2026-01",
+    "lessonId": "case-gtin-transition-jan-train",
+    "stub": true
+  },
+  {
+    "id": "ins-ts-piot-jan",
+    "title": "Использование ТС ПИОТ",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "Честный Знак",
+      "HoReCa"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-ts-piot-jan"
+    ],
+    "courseId": "cases-2026-01",
+    "lessonId": "case-ts-piot-jan-train",
+    "stub": true
+  },
+  {
+    "id": "ins-egais-invoice-load-jan",
+    "title": "Накладная ЕГАИС не загружается",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "ЕГАИС",
+      "накладные"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-egais-invoice-load-jan"
+    ],
+    "courseId": "cases-2026-01",
+    "lessonId": "case-egais-invoice-load-jan-train",
+    "stub": true
+  },
+  {
+    "id": "ins-alcohol-writeoff-jan",
+    "title": "Списание алкогольной продукции",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "ЕГАИС",
+      "списание"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-alcohol-writeoff-jan"
+    ],
+    "courseId": "cases-2026-01",
+    "lessonId": "case-alcohol-writeoff-jan-train",
+    "stub": true
+  },
+  {
+    "id": "ins-discount-create-jan",
+    "title": "Создание скидки",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "скидки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-discount-create-jan"
+    ],
+    "courseId": "cases-2026-01",
+    "lessonId": "case-discount-create-jan-train",
+    "stub": true
+  },
+  {
+    "id": "ins-vat-change-jan",
+    "title": "Изменение НДС",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "НДС",
+      "налоги"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-vat-change-jan"
+    ],
+    "courseId": "cases-2026-01",
+    "lessonId": "case-vat-change-jan-train",
+    "stub": true
+  },
+  {
+    "id": "ins-return-closed-shift-jan",
+    "title": "Возврат товара из закрытой смены",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "возвраты",
+      "чеки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-return-closed-shift-jan"
+    ],
+    "courseId": "cases-2026-01",
+    "lessonId": "case-return-closed-shift-jan-train",
+    "stub": true
+  },
+  {
+    "id": "ins-upload-issues-jan",
+    "title": "Не выгружаются заявки",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "выгрузка",
+      "заявки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-upload-issues-jan"
+    ],
+    "courseId": "cases-2026-01",
+    "lessonId": "case-upload-issues-jan-train",
+    "stub": true
+  },
+  {
+    "id": "ins-marking-setup-feb",
+    "title": "Настройка маркированной продукции",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "маркировка",
+      "товары"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-marking-setup-feb"
+    ],
+    "courseId": "cases-2026-02",
+    "lessonId": "case-marking-setup-feb-train",
+    "stub": true
+  },
+  {
+    "id": "ins-egais-reinvoice-feb",
+    "title": "Повторный запрос накладной ЕГАИС",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "ЕГАИС",
+      "накладные"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-egais-reinvoice-feb"
+    ],
+    "courseId": "cases-2026-02",
+    "lessonId": "case-egais-reinvoice-feb-train",
+    "stub": true
+  },
+  {
+    "id": "ins-alcohol-writeoff-feb",
+    "title": "Списание алкогольной продукции",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "ЕГАИС",
+      "списание"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-alcohol-writeoff-feb"
+    ],
+    "courseId": "cases-2026-02",
+    "lessonId": "case-alcohol-writeoff-feb-train",
+    "stub": true
+  },
+  {
+    "id": "ins-discount-report-feb",
+    "title": "Отчет по скидкам",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "скидки",
+      "отчёты"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-discount-report-feb"
+    ],
+    "courseId": "cases-2026-02",
+    "lessonId": "case-discount-report-feb-train",
+    "stub": true
+  },
+  {
+    "id": "ins-personal-discounts-feb",
+    "title": "Персональные скидки",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "скидки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-personal-discounts-feb"
+    ],
+    "courseId": "cases-2026-02",
+    "lessonId": "case-personal-discounts-feb-train",
+    "stub": true
+  },
+  {
+    "id": "ins-receipt-delete-feb",
+    "title": "Удаление чека",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "чеки",
+      "касса"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-receipt-delete-feb"
+    ],
+    "courseId": "cases-2026-02",
+    "lessonId": "case-receipt-delete-feb-train",
+    "stub": true
+  },
+  {
+    "id": "ins-order-categories-feb",
+    "title": "Категории заказа",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "категории",
+      "меню"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-order-categories-feb"
+    ],
+    "courseId": "cases-2026-02",
+    "lessonId": "case-order-categories-feb-train",
+    "stub": true
+  },
+  {
+    "id": "ins-kits-setup-feb",
+    "title": "Настройка комплектов",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "комплекты",
+      "списание"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-kits-setup-feb"
+    ],
+    "courseId": "cases-2026-02",
+    "lessonId": "case-kits-setup-feb-train",
+    "stub": true
+  },
+  {
+    "id": "ins-march-marking-mar",
+    "title": "Переход на маркировку с 1 марта",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "маркировка",
+      "Честный Знак"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-march-marking-mar"
+    ],
+    "courseId": "cases-2026-03",
+    "lessonId": "case-march-marking-mar-train",
+    "stub": true
+  },
+  {
+    "id": "ins-gtin-work-mar",
+    "title": "Работа по GTIN",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "GTIN",
+      "маркировка"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-gtin-work-mar"
+    ],
+    "courseId": "cases-2026-03",
+    "lessonId": "case-gtin-work-mar-train",
+    "stub": true
+  },
+  {
+    "id": "ins-alcohol-receipt-mar",
+    "title": "Приемка алкогольной продукции",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "ЕГАИС",
+      "накладные"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-alcohol-receipt-mar"
+    ],
+    "courseId": "cases-2026-03",
+    "lessonId": "case-alcohol-receipt-mar-train",
+    "stub": true
+  },
+  {
+    "id": "ins-egais-acts-mar",
+    "title": "Акты списания ЕГАИС",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "ЕГАИС",
+      "списание"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-egais-acts-mar"
+    ],
+    "courseId": "cases-2026-03",
+    "lessonId": "case-egais-acts-mar-train",
+    "stub": true
+  },
+  {
+    "id": "ins-stock-report-mar",
+    "title": "Ведомость остатков",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "отчёты",
+      "остатки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-stock-report-mar"
+    ],
+    "courseId": "cases-2026-03",
+    "lessonId": "case-stock-report-mar-train",
+    "stub": true
+  },
+  {
+    "id": "ins-vat-change-mar",
+    "title": "Изменение НДС",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "НДС",
+      "налоги"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-vat-change-mar"
+    ],
+    "courseId": "cases-2026-03",
+    "lessonId": "case-vat-change-mar-train",
+    "stub": true
+  },
+  {
+    "id": "ins-marked-sale-error-mar",
+    "title": "Ошибка продажи маркированной продукции",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "маркировка",
+      "ошибки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-marked-sale-error-mar"
+    ],
+    "courseId": "cases-2026-03",
+    "lessonId": "case-marked-sale-error-mar-train",
+    "stub": true
+  },
+  {
+    "id": "ins-requests-work-mar",
+    "title": "Работа с заявками",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "заявки",
+      "выгрузка"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-requests-work-mar"
+    ],
+    "courseId": "cases-2026-03",
+    "lessonId": "case-requests-work-mar-train",
+    "stub": true
+  },
+  {
+    "id": "ins-gtin-transition-apr",
+    "title": "Переход на GTIN",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "GTIN",
+      "маркировка"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-gtin-transition-apr"
+    ],
+    "courseId": "cases-2026-04",
+    "lessonId": "case-gtin-transition-apr-train",
+    "stub": true
+  },
+  {
+    "id": "ins-opened-marks-apr",
+    "title": "Вскрытые марки",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "ЕГАИС",
+      "марки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-opened-marks-apr"
+    ],
+    "courseId": "cases-2026-04",
+    "lessonId": "case-opened-marks-apr-train",
+    "stub": true
+  },
+  {
+    "id": "ins-revenue-reports-apr",
+    "title": "Отчеты по выручке",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "отчёты",
+      "выручка"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-revenue-reports-apr"
+    ],
+    "courseId": "cases-2026-04",
+    "lessonId": "case-revenue-reports-apr-train",
+    "stub": true
+  },
+  {
+    "id": "ins-category-discounts-apr",
+    "title": "Скидки по категориям блюд",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "скидки",
+      "категории"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-category-discounts-apr"
+    ],
+    "courseId": "cases-2026-04",
+    "lessonId": "case-category-discounts-apr-train",
+    "stub": true
+  },
+  {
+    "id": "ins-bulk-vat-apr",
+    "title": "Массовая смена НДС",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "НДС",
+      "налоги"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-bulk-vat-apr"
+    ],
+    "courseId": "cases-2026-04",
+    "lessonId": "case-bulk-vat-apr-train",
+    "stub": true
+  },
+  {
+    "id": "ins-receipt-correction-apr",
+    "title": "Коррекция чеков",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "чеки",
+      "возвраты"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-receipt-correction-apr"
+    ],
+    "courseId": "cases-2026-04",
+    "lessonId": "case-receipt-correction-apr-train",
+    "stub": true
+  },
+  {
+    "id": "ins-request-upload-apr",
+    "title": "Выгрузка заявок",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "выгрузка",
+      "заявки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-request-upload-apr"
+    ],
+    "courseId": "cases-2026-04",
+    "lessonId": "case-request-upload-apr-train",
+    "stub": true
+  },
+  {
+    "id": "ins-receipt-marking-may",
+    "title": "Проверка маркировки в чеках",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "маркировка",
+      "чеки",
+      "GTIN"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-receipt-marking-may"
+    ],
+    "courseId": "cases-2026-05",
+    "lessonId": "case-receipt-marking-may-train",
+    "stub": true
+  },
+  {
+    "id": "ins-error-8004-may",
+    "title": "Ошибка 8004 при продаже АП",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "ЕГАИС",
+      "ошибки",
+      "алкоголь"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-error-8004-may"
+    ],
+    "courseId": "cases-2026-05",
+    "lessonId": "case-error-8004-may-train",
+    "stub": true
+  },
+  {
+    "id": "ins-draft-beer-may",
+    "title": "Продажа разливного пива",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "маркировка",
+      "пиво"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-draft-beer-may"
+    ],
+    "courseId": "cases-2026-05",
+    "lessonId": "case-draft-beer-may-train",
+    "stub": true
+  },
+  {
+    "id": "ins-cubic-reports-may",
+    "title": "Кубовые отчеты",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "отчёты"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-cubic-reports-may"
+    ],
+    "courseId": "cases-2026-05",
+    "lessonId": "case-cubic-reports-may-train",
+    "stub": true
+  },
+  {
+    "id": "ins-new-discounts-may",
+    "title": "Создание новых скидок",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "скидки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-new-discounts-may"
+    ],
+    "courseId": "cases-2026-05",
+    "lessonId": "case-new-discounts-may-train",
+    "stub": true
+  },
+  {
+    "id": "ins-new-dishes-may",
+    "title": "Создание новых блюд",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "меню",
+      "блюда"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-new-dishes-may"
+    ],
+    "courseId": "cases-2026-05",
+    "lessonId": "case-new-dishes-may-train",
+    "stub": true
+  },
+  {
+    "id": "ins-receipt-close-errors-may",
+    "title": "Ошибки закрытия чеков",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "чеки",
+      "касса",
+      "ошибки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-receipt-close-errors-may"
+    ],
+    "courseId": "cases-2026-05",
+    "lessonId": "case-receipt-close-errors-may-train",
+    "stub": true
+  },
+  {
+    "id": "ins-kit-writeoff-may",
+    "title": "Комплекты и списание продукции",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "комплекты",
+      "списание"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-kit-writeoff-may"
+    ],
+    "courseId": "cases-2026-05",
+    "lessonId": "case-kit-writeoff-may-train",
+    "stub": true
+  },
+  {
+    "id": "ins-gtin-assign-jun",
+    "title": "GTIN не назначается",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "GTIN",
+      "маркировка"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-gtin-assign-jun"
+    ],
+    "courseId": "cases-2026-06",
+    "lessonId": "case-gtin-assign-jun-train",
+    "stub": true
+  },
+  {
+    "id": "ins-marked-audit-jun",
+    "title": "Проверка маркированной продукции",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "маркировка",
+      "товары"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-marked-audit-jun"
+    ],
+    "courseId": "cases-2026-06",
+    "lessonId": "case-marked-audit-jun-train",
+    "stub": true
+  },
+  {
+    "id": "ins-mark-open-errors-jun",
+    "title": "Ошибки вскрытия марок",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "ЕГАИС",
+      "марки",
+      "ошибки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-mark-open-errors-jun"
+    ],
+    "courseId": "cases-2026-06",
+    "lessonId": "case-mark-open-errors-jun-train",
+    "stub": true
+  },
+  {
+    "id": "ins-revenue-mismatch-jun",
+    "title": "Не сходится выручка",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "отчёты",
+      "выручка",
+      "ОФД"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-revenue-mismatch-jun"
+    ],
+    "courseId": "cases-2026-06",
+    "lessonId": "case-revenue-mismatch-jun-train",
+    "stub": true
+  },
+  {
+    "id": "ins-discount-fail-jun",
+    "title": "Скидка не применяется",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "скидки",
+      "ошибки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-discount-fail-jun"
+    ],
+    "courseId": "cases-2026-06",
+    "lessonId": "case-discount-fail-jun-train",
+    "stub": true
+  },
+  {
+    "id": "ins-combo-create-jun",
+    "title": "Создание комбо-блюд",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "комбо",
+      "меню"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-combo-create-jun"
+    ],
+    "courseId": "cases-2026-06",
+    "lessonId": "case-combo-create-jun-train",
+    "stub": true
+  },
+  {
+    "id": "ins-receipt-cancel-jun",
+    "title": "Аннулирование чеков",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "чеки",
+      "возвраты"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-receipt-cancel-jun"
+    ],
+    "courseId": "cases-2026-06",
+    "lessonId": "case-receipt-cancel-jun-train",
+    "stub": true
+  },
+  {
+    "id": "ins-qush-upload-jun",
+    "title": "Выгрузка заявок и Qush",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "выгрузка",
+      "заявки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-qush-upload-jun"
+    ],
+    "courseId": "cases-2026-06",
+    "lessonId": "case-qush-upload-jun-train",
+    "stub": true
+  },
+  {
+    "id": "ins-gtin-mark-switch-jul",
+    "title": "Переход с марки на GTIN",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "GTIN",
+      "маркировка"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-gtin-mark-switch-jul"
+    ],
+    "courseId": "cases-2026-07",
+    "lessonId": "case-gtin-mark-switch-jul-train",
+    "stub": true
+  },
+  {
+    "id": "ins-ap-move-kpp-jul",
+    "title": "Перемещение АП между КПП",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "ЕГАИС",
+      "перемещения"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-ap-move-kpp-jul"
+    ],
+    "courseId": "cases-2026-07",
+    "lessonId": "case-ap-move-kpp-jul-train",
+    "stub": true
+  },
+  {
+    "id": "ins-marks-blocked-jul",
+    "title": "Марки блокируются",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "ЕГАИС",
+      "марки",
+      "остатки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-marks-blocked-jul"
+    ],
+    "courseId": "cases-2026-07",
+    "lessonId": "case-marks-blocked-jul-train",
+    "stub": true
+  },
+  {
+    "id": "ins-ofd-rk-mismatch-jul",
+    "title": "Не сходится отчет ОФД и RK",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "отчёты",
+      "ОФД",
+      "касса"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-ofd-rk-mismatch-jul"
+    ],
+    "courseId": "cases-2026-07",
+    "lessonId": "case-ofd-rk-mismatch-jul-train",
+    "stub": true
+  },
+  {
+    "id": "ins-third-dish-discount-jul",
+    "title": "Скидка на каждое третье блюдо",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "скидки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-third-dish-discount-jul"
+    ],
+    "courseId": "cases-2026-07",
+    "lessonId": "case-third-dish-discount-jul-train",
+    "stub": true
+  },
+  {
+    "id": "ins-dish-weight-props-jul",
+    "title": "Вес упаковки и свойства блюд",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "меню",
+      "блюда",
+      "вес"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-dish-weight-props-jul"
+    ],
+    "courseId": "cases-2026-07",
+    "lessonId": "case-dish-weight-props-jul-train",
+    "stub": true
+  },
+  {
+    "id": "ins-cash-error-jul",
+    "title": "Ошибка на кассе",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk7",
+    "tags": [
+      "касса",
+      "ошибки"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-cash-error-jul"
+    ],
+    "courseId": "cases-2026-07",
+    "lessonId": "case-cash-error-jul-train",
+    "stub": true
+  },
+  {
+    "id": "ins-inventory-writeoff-jul",
+    "title": "Инвентаризация и списание сырья",
+    "description": "Скоро здесь будет инструкция",
+    "product": "rk5",
+    "tags": [
+      "инвентаризация",
+      "списание"
+    ],
+    "steps": [],
+    "commonErrors": [],
+    "sourceCaseIds": [
+      "case-inventory-writeoff-jul"
+    ],
+    "courseId": "cases-2026-07",
+    "lessonId": "case-inventory-writeoff-jul-train",
+    "stub": true
   }
 ]

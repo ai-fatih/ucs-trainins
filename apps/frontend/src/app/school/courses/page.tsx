@@ -1,12 +1,27 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import type { Course } from '@/types';
 import coursesData from '@/data/school/courses.json';
 import CourseCard from '@/components/school/CourseCard';
 import { PageHelp } from '@/components/layout/PageHelp';
+import { buildOpenGraph } from '@/lib/seo';
 
 const courses = coursesData as unknown as Course[];
+
+export const metadata: Metadata = {
+  title: 'Курсы школы rkeeper',
+  description:
+    'Каталог открытых курсов по rkeeper: квизы, спринты, сопоставления и деревья решений на реальных кейсах. Обучение без регистрации.',
+  alternates: { canonical: 'https://ucs-service.vercel.app/school/courses' },
+  openGraph: buildOpenGraph({
+    title: 'Курсы школы rkeeper',
+    description:
+      'Каталог открытых курсов по rkeeper: квизы, спринты, сопоставления и деревья решений на реальных кейсах.',
+    url: 'https://ucs-service.vercel.app/school/courses',
+  }),
+};
 
 export default function CoursesPage() {
   return (

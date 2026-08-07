@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { Manrope } from 'next/font/google';
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SITE_KEYWORDS, OG_IMAGE, buildOpenGraph } from '@/lib/seo';
 import { Providers } from './providers';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { CookieBanner } from '@/components/layout/CookieBanner';
@@ -18,36 +19,30 @@ const manrope = Manrope({
   display: 'swap',
 });
 
-const SITE_URL = 'https://ucs-service.vercel.app';
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'UCS Service — Обучение и документация по rkeeper',
-    template: '%s — UCS Service',
+    default: `${SITE_NAME} — Обучение и документация по rkeeper`,
+    template: `%s — ${SITE_NAME}`,
   },
-  description:
-    'Открытый портал: инструкции, тренажёры и курсы по rkeeper. Обучение и документация без регистрации.',
+  description: SITE_DESCRIPTION,
+  keywords: SITE_KEYWORDS,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  other: { publisher: SITE_NAME },
   manifest: '/manifest.json',
-  appleWebApp: { capable: true, statusBarStyle: 'default', title: 'UCS Service' },
+  appleWebApp: { capable: true, statusBarStyle: 'default', title: SITE_NAME },
   robots: { index: true, follow: true },
-  alternates: { canonical: SITE_URL },
-  openGraph: {
-    type: 'website',
-    locale: 'ru_RU',
+  openGraph: buildOpenGraph({
+    title: `${SITE_NAME} — Обучение и документация по rkeeper`,
+    description: SITE_DESCRIPTION,
     url: SITE_URL,
-    siteName: 'UCS Service',
-    title: 'UCS Service — Обучение и документация по rkeeper',
-    description:
-      'Открытый портал: инструкции, тренажёры и курсы по rkeeper. Обучение и документация без регистрации.',
-    images: [{ url: '/images/og-default.png', width: 1200, height: 630 }],
-  },
+  }),
   twitter: {
     card: 'summary_large_image',
-    title: 'UCS Service — Обучение и документация по rkeeper',
-    description:
-      'Открытый портал: инструкции, тренажёры и курсы по rkeeper. Обучение и документация без регистрации.',
-    images: ['/images/og-default.png'],
+    title: `${SITE_NAME} — Обучение и документация по rkeeper`,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE.url],
   },
 };
 

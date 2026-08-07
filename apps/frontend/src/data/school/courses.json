@@ -23,7 +23,10 @@
             "id": "rk7-open-shift",
             "title": "Открытие смены в RK7",
             "description": "Изучи последовательность открытия кассовой смены",
-            "activity": { "type": "chain", "scenarioId": "s1" },
+            "activity": {
+              "type": "chain",
+              "scenarioId": "s1"
+            },
             "durationMinutes": 5,
             "xpReward": 50
           },
@@ -31,7 +34,10 @@
             "id": "rk7-zreport",
             "title": "Формирование Z-отчёта",
             "description": "Разберись, почему не формируется Z-отчёт и как это исправить",
-            "activity": { "type": "quiz", "questionId": "q10" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q10"
+            },
             "durationMinutes": 5,
             "xpReward": 50
           }
@@ -47,7 +53,10 @@
             "id": "rk7-dish-invisible",
             "title": "Кейс: блюдо не отображается на кассе",
             "description": "Помоги Маше разобраться, почему блюдо есть в меню, но не видно на кассе",
-            "activity": { "type": "case", "decisionTreeId": "c2" },
+            "activity": {
+              "type": "case",
+              "decisionTreeId": "c2"
+            },
             "durationMinutes": 10,
             "xpReward": 100
           },
@@ -55,7 +64,10 @@
             "id": "rk7-dish-quiz",
             "title": "Викторина: отображение блюд",
             "description": "Проверь знания о причинах скрытия блюд на кассе",
-            "activity": { "type": "quiz", "questionId": "q2" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q2"
+            },
             "durationMinutes": 3,
             "xpReward": 50
           }
@@ -71,7 +83,10 @@
             "id": "rk7-revenue-mismatch",
             "title": "Расхождение выручки",
             "description": "Разберись, почему Z-отчёт и отчёт по расходу блюд показывают разные суммы",
-            "activity": { "type": "quiz", "questionId": "q9" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q9"
+            },
             "durationMinutes": 5,
             "xpReward": 50
           }
@@ -107,7 +122,10 @@
             "id": "egais-register-query",
             "title": "Запрос остатков 1-го регистра",
             "description": "Узнай, как смотреть баланс ЕГАИС по FSRAR_ID",
-            "activity": { "type": "quiz", "questionId": "q4" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q4"
+            },
             "durationMinutes": 5,
             "xpReward": 50
           },
@@ -115,7 +133,10 @@
             "id": "egais-portion-query",
             "title": "Запрос порционных остатков",
             "description": "Разберись с остатками по Справке Б",
-            "activity": { "type": "quiz", "questionId": "q5" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q5"
+            },
             "durationMinutes": 5,
             "xpReward": 50
           },
@@ -123,7 +144,12 @@
             "id": "egais-term-match",
             "title": "Сопоставление: термины ЕГАИС",
             "description": "Соедини термины ЕГАИС с их определениями",
-            "activity": { "type": "match", "matchPairIds": ["egais-core"] },
+            "activity": {
+              "type": "match",
+              "matchPairIds": [
+                "egais-core"
+              ]
+            },
             "durationMinutes": 5,
             "xpReward": 80
           }
@@ -139,7 +165,10 @@
             "id": "egais-invoice",
             "title": "Процедура: приём накладной ЕГАИС",
             "description": "Собери правильную последовательность приёма накладной",
-            "activity": { "type": "chain", "scenarioId": "s2" },
+            "activity": {
+              "type": "chain",
+              "scenarioId": "s2"
+            },
             "durationMinutes": 5,
             "xpReward": 50
           },
@@ -147,7 +176,10 @@
             "id": "egais-invoice-activation",
             "title": "Почему товары не активируются?",
             "description": "Разберись с типовой проблемой активации накладной",
-            "activity": { "type": "quiz", "questionId": "q3" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q3"
+            },
             "durationMinutes": 5,
             "xpReward": 50
           }
@@ -163,7 +195,15 @@
             "id": "egais-color-sprint",
             "title": "Спринт: цвета марок",
             "description": "Быстро определи, верно ли утверждение о цветах марок",
-            "activity": { "type": "sprint", "sprintQuestionIds": ["q4", "q5", "q6", "q7"] },
+            "activity": {
+              "type": "sprint",
+              "sprintQuestionIds": [
+                "q4",
+                "q5",
+                "q6",
+                "q7"
+              ]
+            },
             "durationMinutes": 3,
             "xpReward": 70
           },
@@ -171,7 +211,10 @@
             "id": "egais-red-line",
             "title": "Красная строка в инвентаризации",
             "description": "Что означает красный цвет при сканировании марок",
-            "activity": { "type": "quiz", "questionId": "q6" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q6"
+            },
             "durationMinutes": 3,
             "xpReward": 50
           },
@@ -179,7 +222,10 @@
             "id": "egais-old-mark",
             "title": "Флаг «Старая» у марки",
             "description": "Что делать с марками, помеченными как «Старая»",
-            "activity": { "type": "quiz", "questionId": "q7" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q7"
+            },
             "durationMinutes": 3,
             "xpReward": 50
           }
@@ -195,7 +241,10 @@
             "id": "egais-inventory",
             "title": "Процедура: инвентаризация алкоголя",
             "description": "Собери правильную последовательность шагов",
-            "activity": { "type": "chain", "scenarioId": "s3" },
+            "activity": {
+              "type": "chain",
+              "scenarioId": "s3"
+            },
             "durationMinutes": 5,
             "xpReward": 50
           }
@@ -229,7 +278,10 @@
             "id": "sh-mapping-quiz",
             "title": "Сопоставление товаров ЕГАИС",
             "description": "Проверь знания о сопоставлении справочников",
-            "activity": { "type": "quiz", "questionId": "q6" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q6"
+            },
             "durationMinutes": 5,
             "xpReward": 50
           },
@@ -237,7 +289,12 @@
             "id": "sh-term-match",
             "title": "Сопоставление: StoreHouse",
             "description": "Соедини термины StoreHouse с определениями",
-            "activity": { "type": "match", "matchPairIds": ["storehouse-core"] },
+            "activity": {
+              "type": "match",
+              "matchPairIds": [
+                "storehouse-core"
+              ]
+            },
             "durationMinutes": 5,
             "xpReward": 80
           }
@@ -253,7 +310,10 @@
             "id": "sh-license-quiz",
             "title": "QushSvc и sdbman",
             "description": "Проверь знание служебных утилит",
-            "activity": { "type": "quiz", "questionId": "q3" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q3"
+            },
             "durationMinutes": 5,
             "xpReward": 50
           }
@@ -287,7 +347,10 @@
             "id": "err-8004",
             "title": "Кейс: ошибка 8004",
             "description": "Помоги Маше победить ошибку «Нет доступной вскрытой марки»",
-            "activity": { "type": "case", "decisionTreeId": "c1" },
+            "activity": {
+              "type": "case",
+              "decisionTreeId": "c1"
+            },
             "durationMinutes": 15,
             "xpReward": 150
           },
@@ -295,7 +358,10 @@
             "id": "err-8004-quiz",
             "title": "Викторина: ошибка 8004",
             "description": "Закрепи знания об ошибке 8004",
-            "activity": { "type": "quiz", "questionId": "q1" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q1"
+            },
             "durationMinutes": 3,
             "xpReward": 50
           }
@@ -311,7 +377,10 @@
             "id": "err-dish-not-visible",
             "title": "Кейс: блюдо не видно на кассе",
             "description": "Разберись с проблемой отображения блюда",
-            "activity": { "type": "case", "decisionTreeId": "c2" },
+            "activity": {
+              "type": "case",
+              "decisionTreeId": "c2"
+            },
             "durationMinutes": 10,
             "xpReward": 100
           }
@@ -327,7 +396,10 @@
             "id": "err-gtin",
             "title": "Процедура: переход DataMatrix → GTIN",
             "description": "Собери последовательность перехода на послабление маркировки",
-            "activity": { "type": "chain", "scenarioId": "s4" },
+            "activity": {
+              "type": "chain",
+              "scenarioId": "s4"
+            },
             "durationMinutes": 5,
             "xpReward": 50
           },
@@ -335,7 +407,10 @@
             "id": "err-gtin-quiz",
             "title": "Режим GTIN",
             "description": "Проверь знание перехода на GTIN",
-            "activity": { "type": "quiz", "questionId": "q8" },
+            "activity": {
+              "type": "quiz",
+              "questionId": "q8"
+            },
             "durationMinutes": 5,
             "xpReward": 80
           }
@@ -351,7 +426,16 @@
             "id": "err-sprint",
             "title": "Спринт: типовые ошибки",
             "description": "Быстро отвечай «Верно» или «Неверно» по ситуациям",
-            "activity": { "type": "sprint", "sprintQuestionIds": ["q1", "q2", "q8", "q9", "q10"] },
+            "activity": {
+              "type": "sprint",
+              "sprintQuestionIds": [
+                "q1",
+                "q2",
+                "q8",
+                "q9",
+                "q10"
+              ]
+            },
             "durationMinutes": 3,
             "xpReward": 70
           }
@@ -386,7 +470,12 @@
             "id": "match-basic",
             "title": "Сопоставление: базовые термины ЕГАИС",
             "description": "Соедини 8 базовых терминов с определениями",
-            "activity": { "type": "match", "matchPairIds": ["egais-core"] },
+            "activity": {
+              "type": "match",
+              "matchPairIds": [
+                "egais-core"
+              ]
+            },
             "durationMinutes": 5,
             "xpReward": 80
           },
@@ -394,7 +483,12 @@
             "id": "match-colors",
             "title": "Сопоставление: цвета марок",
             "description": "Соедини цвета марок с их значением",
-            "activity": { "type": "match", "matchPairIds": ["egais-colors"] },
+            "activity": {
+              "type": "match",
+              "matchPairIds": [
+                "egais-colors"
+              ]
+            },
             "durationMinutes": 5,
             "xpReward": 80
           }
@@ -410,7 +504,12 @@
             "id": "match-advanced",
             "title": "Сопоставление: утилиты и режимы",
             "description": "QushSvc, sdbman, GTIN и другие",
-            "activity": { "type": "match", "matchPairIds": ["storehouse-core"] },
+            "activity": {
+              "type": "match",
+              "matchPairIds": [
+                "storehouse-core"
+              ]
+            },
             "durationMinutes": 5,
             "xpReward": 80
           }
@@ -444,9 +543,100 @@
             "id": "case-8004-train",
             "title": "Кейс: ошибка 8004 «Нет доступной вскрытой марки»",
             "description": "Помоги кассиру разобраться, почему марка не списывается",
-            "activity": { "type": "case", "decisionTreeId": "c1" },
+            "activity": {
+              "type": "case",
+              "decisionTreeId": "c1"
+            },
             "durationMinutes": 15,
             "xpReward": 150
+          },
+          {
+            "id": "case-gtin-mark-switch-jul-train",
+            "title": "Переход с марки на GTIN",
+            "description": "Настройка продукции для режима GTIN",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-ap-move-kpp-jul-train",
+            "title": "Перемещение АП между КПП",
+            "description": "Работа с расход-приходными операциями",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-marks-blocked-jul-train",
+            "title": "Марки блокируются",
+            "description": "Сверка остатков SH и ЕГАИС",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-ofd-rk-mismatch-jul-train",
+            "title": "Не сходится отчет ОФД и RK",
+            "description": "Сравнение отчетности и фискальных данных",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-third-dish-discount-jul-train",
+            "title": "Скидка на каждое третье блюдо",
+            "description": "Настройка детализации скидки",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-dish-weight-props-jul-train",
+            "title": "Вес упаковки и свойства блюд",
+            "description": "Настройка параметров весовых блюд",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-cash-error-jul-train",
+            "title": "Ошибка на кассе",
+            "description": "Проверка ограничений продажи и настроек кассы",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-inventory-writeoff-jul-train",
+            "title": "Инвентаризация и списание сырья",
+            "description": "Консультация по складскому учету",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       },
@@ -460,15 +650,816 @@
             "id": "case-dish-invisible-train",
             "title": "Кейс: блюдо есть в меню, но не видно на кассе",
             "description": "Найди причину, почему позиция не отображается",
-            "activity": { "type": "case", "decisionTreeId": "c2" },
+            "activity": {
+              "type": "case",
+              "decisionTreeId": "c2"
+            },
             "durationMinutes": 10,
             "xpReward": 100
           }
         ]
       }
     ],
-    "totalLessons": 2,
+    "totalLessons": 10,
     "totalXp": 250,
     "estimatedHours": 0.4
+  },
+  {
+    "id": "cases-2026-01",
+    "title": "Популярные обращения: январь 2026",
+    "description": "Тренажёр на реальных кейсах консультаций за январь 2026: разбор типовых обращений. Содержимое скоро появится.",
+    "icon": "Swords",
+    "iconBg": "#f0f4ff",
+    "colorFrom": "#0d9488",
+    "colorTo": "#14b8a6",
+    "skills": [
+      "работе с кейсами-тренажёрами",
+      "типовым обращениям консультаций"
+    ],
+    "modules": [
+      {
+        "id": "cases-mod1",
+        "title": "Кейсы месяца",
+        "description": "Разборы типовых обращений",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "case-gtin-transition-jan-train",
+            "title": "Переход на работу по GTIN",
+            "description": "Консультация по переходу с помарочного учета на GTIN и настройке режима реализации",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-ts-piot-jan-train",
+            "title": "Использование ТС ПИОТ",
+            "description": "Разъяснение требований Честного Знака и режима послабления для HoReCa",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-egais-invoice-load-jan-train",
+            "title": "Накладная ЕГАИС не загружается",
+            "description": "Проверка УТМ, запросов ЕГАИС и повторное получение накладной",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-alcohol-writeoff-jan-train",
+            "title": "Списание алкогольной продукции",
+            "description": "Консультация по актам списания и работе с остатками",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-discount-create-jan-train",
+            "title": "Создание скидки",
+            "description": "Настройка скидки и ограничений по категориям",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-vat-change-jan-train",
+            "title": "Изменение НДС",
+            "description": "Настройка налоговых групп и ставок НДС",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-return-closed-shift-jan-train",
+            "title": "Возврат товара из закрытой смены",
+            "description": "Консультация по возвратам и коррекции чеков",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-upload-issues-jan-train",
+            "title": "Не выгружаются заявки",
+            "description": "Проверка настроек Qush и повторная выгрузка",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          }
+        ]
+      }
+    ],
+    "totalLessons": 8,
+    "totalXp": 0,
+    "estimatedHours": 0
+  },
+  {
+    "id": "cases-2026-02",
+    "title": "Популярные обращения: февраль 2026",
+    "description": "Тренажёр на реальных кейсах консультаций за февраль 2026: разбор типовых обращений. Содержимое скоро появится.",
+    "icon": "Swords",
+    "iconBg": "#f0f4ff",
+    "colorFrom": "#0d9488",
+    "colorTo": "#14b8a6",
+    "skills": [
+      "работе с кейсами-тренажёрами",
+      "типовым обращениям консультаций"
+    ],
+    "modules": [
+      {
+        "id": "cases-mod1",
+        "title": "Кейсы месяца",
+        "description": "Разборы типовых обращений",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "case-marking-setup-feb-train",
+            "title": "Настройка маркированной продукции",
+            "description": "Проверка карточек товаров и параметров маркировки",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-egais-reinvoice-feb-train",
+            "title": "Повторный запрос накладной ЕГАИС",
+            "description": "Консультация по повторному получению накладных",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-alcohol-writeoff-feb-train",
+            "title": "Списание алкогольной продукции",
+            "description": "Работа с актами списания и остатками ЕГАИС",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-discount-report-feb-train",
+            "title": "Отчет по скидкам",
+            "description": "Настройка и формирование отчетов по скидкам",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-personal-discounts-feb-train",
+            "title": "Персональные скидки",
+            "description": "Настройка ограничений и применения скидок",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-receipt-delete-feb-train",
+            "title": "Удаление чека",
+            "description": "Консультация по аннулированию и возвратам",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-order-categories-feb-train",
+            "title": "Категории заказа",
+            "description": "Настройка категорий заказа и мест реализации",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-kits-setup-feb-train",
+            "title": "Настройка комплектов",
+            "description": "Работа с комплектами и списанием ингредиентов",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          }
+        ]
+      }
+    ],
+    "totalLessons": 8,
+    "totalXp": 0,
+    "estimatedHours": 0
+  },
+  {
+    "id": "cases-2026-03",
+    "title": "Популярные обращения: март 2026",
+    "description": "Тренажёр на реальных кейсах консультаций за март 2026: разбор типовых обращений. Содержимое скоро появится.",
+    "icon": "Swords",
+    "iconBg": "#f0f4ff",
+    "colorFrom": "#0d9488",
+    "colorTo": "#14b8a6",
+    "skills": [
+      "работе с кейсами-тренажёрами",
+      "типовым обращениям консультаций"
+    ],
+    "modules": [
+      {
+        "id": "cases-mod1",
+        "title": "Кейсы месяца",
+        "description": "Разборы типовых обращений",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "case-march-marking-mar-train",
+            "title": "Переход на маркировку с 1 марта",
+            "description": "Консультация по новым требованиям маркировки",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-gtin-work-mar-train",
+            "title": "Работа по GTIN",
+            "description": "Настройка реализации продукции по GTIN",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-alcohol-receipt-mar-train",
+            "title": "Приемка алкогольной продукции",
+            "description": "Работа с накладными и сопоставлением товаров",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-egais-acts-mar-train",
+            "title": "Акты списания ЕГАИС",
+            "description": "Консультация по созданию и отправке актов",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-stock-report-mar-train",
+            "title": "Ведомость остатков",
+            "description": "Формирование отчетов по остаткам",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-vat-change-mar-train",
+            "title": "Изменение НДС",
+            "description": "Изменение налоговых настроек меню",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-marked-sale-error-mar-train",
+            "title": "Ошибка продажи маркированной продукции",
+            "description": "Проверка настроек маркировки и типа товара",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-requests-work-mar-train",
+            "title": "Работа с заявками",
+            "description": "Корректировка и перерасчет заявок",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          }
+        ]
+      }
+    ],
+    "totalLessons": 8,
+    "totalXp": 0,
+    "estimatedHours": 0
+  },
+  {
+    "id": "cases-2026-04",
+    "title": "Популярные обращения: апрель 2026",
+    "description": "Тренажёр на реальных кейсах консультаций за апрель 2026: разбор типовых обращений. Содержимое скоро появится.",
+    "icon": "Swords",
+    "iconBg": "#f0f4ff",
+    "colorFrom": "#0d9488",
+    "colorTo": "#14b8a6",
+    "skills": [
+      "работе с кейсами-тренажёрами",
+      "типовым обращениям консультаций"
+    ],
+    "modules": [
+      {
+        "id": "cases-mod1",
+        "title": "Кейсы месяца",
+        "description": "Разборы типовых обращений",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "case-gtin-transition-apr-train",
+            "title": "Переход на GTIN",
+            "description": "Настройка товаров для работы по GTIN",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-opened-marks-apr-train",
+            "title": "Вскрытые марки",
+            "description": "Сверка остатков и анализ марок",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-revenue-reports-apr-train",
+            "title": "Отчеты по выручке",
+            "description": "Формирование отчетов и сверка данных",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-category-discounts-apr-train",
+            "title": "Скидки по категориям блюд",
+            "description": "Настройка применения скидок",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-bulk-vat-apr-train",
+            "title": "Массовая смена НДС",
+            "description": "Изменение налоговых групп",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-receipt-correction-apr-train",
+            "title": "Коррекция чеков",
+            "description": "Настройка возвратов и исправления оплат",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-request-upload-apr-train",
+            "title": "Выгрузка заявок",
+            "description": "Проверка выгрузки через Qush",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          }
+        ]
+      }
+    ],
+    "totalLessons": 7,
+    "totalXp": 0,
+    "estimatedHours": 0
+  },
+  {
+    "id": "cases-2026-05",
+    "title": "Популярные обращения: май 2026",
+    "description": "Тренажёр на реальных кейсах консультаций за май 2026: разбор типовых обращений. Содержимое скоро появится.",
+    "icon": "Swords",
+    "iconBg": "#f0f4ff",
+    "colorFrom": "#0d9488",
+    "colorTo": "#14b8a6",
+    "skills": [
+      "работе с кейсами-тренажёрами",
+      "типовым обращениям консультаций"
+    ],
+    "modules": [
+      {
+        "id": "cases-mod1",
+        "title": "Кейсы месяца",
+        "description": "Разборы типовых обращений",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "case-receipt-marking-may-train",
+            "title": "Проверка маркировки в чеках",
+            "description": "Проверка передачи GTIN и кодов маркировки",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-error-8004-may-train",
+            "title": "Ошибка 8004 при продаже АП",
+            "description": "Проверка настроек АП и комплектов",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-draft-beer-may-train",
+            "title": "Продажа разливного пива",
+            "description": "Настройка реализации разливной продукции",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-cubic-reports-may-train",
+            "title": "Кубовые отчеты",
+            "description": "Создание и настройка пользовательских отчетов",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-new-discounts-may-train",
+            "title": "Создание новых скидок",
+            "description": "Настройка скидок и ограничений",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-new-dishes-may-train",
+            "title": "Создание новых блюд",
+            "description": "Настройка карточек блюд и меню",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-receipt-close-errors-may-train",
+            "title": "Ошибки закрытия чеков",
+            "description": "Диагностика работы кассы и оплат",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-kit-writeoff-may-train",
+            "title": "Комплекты и списание продукции",
+            "description": "Настройка комплектов и учета ингредиентов",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          }
+        ]
+      }
+    ],
+    "totalLessons": 8,
+    "totalXp": 0,
+    "estimatedHours": 0
+  },
+  {
+    "id": "cases-2026-06",
+    "title": "Популярные обращения: июнь 2026",
+    "description": "Тренажёр на реальных кейсах консультаций за июнь 2026: разбор типовых обращений. Содержимое скоро появится.",
+    "icon": "Swords",
+    "iconBg": "#f0f4ff",
+    "colorFrom": "#0d9488",
+    "colorTo": "#14b8a6",
+    "skills": [
+      "работе с кейсами-тренажёрами",
+      "типовым обращениям консультаций"
+    ],
+    "modules": [
+      {
+        "id": "cases-mod1",
+        "title": "Кейсы месяца",
+        "description": "Разборы типовых обращений",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "case-gtin-assign-jun-train",
+            "title": "GTIN не назначается",
+            "description": "Проверка настроек маркировки",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-marked-audit-jun-train",
+            "title": "Проверка маркированной продукции",
+            "description": "Аудит карточек товаров",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-mark-open-errors-jun-train",
+            "title": "Ошибки вскрытия марок",
+            "description": "Анализ остатков и данных ЕГАИС",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-revenue-mismatch-jun-train",
+            "title": "Не сходится выручка",
+            "description": "Сверка отчетов RK и ОФД",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-discount-fail-jun-train",
+            "title": "Скидка не применяется",
+            "description": "Проверка ограничений и детализации скидки",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-combo-create-jun-train",
+            "title": "Создание комбо-блюд",
+            "description": "Настройка комбо и модификаторов",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-receipt-cancel-jun-train",
+            "title": "Аннулирование чеков",
+            "description": "Консультация по отмене и возвратам",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-qush-upload-jun-train",
+            "title": "Выгрузка заявок и Qush",
+            "description": "Настройка параметров выгрузки",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          }
+        ]
+      }
+    ],
+    "totalLessons": 8,
+    "totalXp": 0,
+    "estimatedHours": 0
+  },
+  {
+    "id": "cases-2026-08",
+    "title": "Популярные обращения: август 2026",
+    "description": "Тренажёр на реальных кейсах консультаций за август 2026: разбор типовых обращений. Содержимое скоро появится.",
+    "icon": "Swords",
+    "iconBg": "#f0f4ff",
+    "colorFrom": "#0d9488",
+    "colorTo": "#14b8a6",
+    "skills": [
+      "работе с кейсами-тренажёрами",
+      "типовым обращениям консультаций"
+    ],
+    "modules": [
+      {
+        "id": "cases-mod1",
+        "title": "Кейсы месяца",
+        "description": "Разборы типовых обращений",
+        "order": 1,
+        "lessons": [
+          {
+            "id": "case-gtin-add-aug-train",
+            "title": "GTIN как добавить",
+            "description": "Настройка GTIN в карточке блюда",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-honest-mark-dish-aug-train",
+            "title": "Настройка блюд для Честного Знака",
+            "description": "Проверка классификации и типа товара",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-mark-open-aug-train",
+            "title": "Вскрытие марки",
+            "description": "Проверка сопоставления алкогольной продукции",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-error-8004-ap-aug-train",
+            "title": "Ошибка 8004 АП",
+            "description": "Анализ настроек продажи алкогольной продукции",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-z-report-mismatch-aug-train",
+            "title": "Расходится Z-отчет и отчеты RK",
+            "description": "Консультация по корректной сверке отчетов",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-discount-surge-aug-train",
+            "title": "Работа скидок и наценок",
+            "description": "Настройка применения скидок и сервисных сборов",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-print-classification-aug-train",
+            "title": "Печать нового блюда",
+            "description": "Настройка классификаций сервис-печати",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-receipt-close-aug-train",
+            "title": "Закрытие и формирование чека",
+            "description": "Диагностика кассовых операций",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          },
+          {
+            "id": "case-raw-writeoff-aug-train",
+            "title": "Не списывается сырье",
+            "description": "Проверка схемы списания и ручных заявок",
+            "activity": {
+              "type": "quiz"
+            },
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
+          }
+        ]
+      }
+    ],
+    "totalLessons": 9,
+    "totalXp": 0,
+    "estimatedHours": 0
   }
 ]

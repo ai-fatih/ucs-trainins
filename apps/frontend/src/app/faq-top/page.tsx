@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, ExternalLink, ListChecks, TrendingUp, CalendarDays } from 'lucide-react';
 import { PageHelp } from '@/components/layout/PageHelp';
@@ -5,9 +6,23 @@ import casesYear from '@/data/cases/yearly.json';
 import instructionsData from '@/data/instructions.json';
 import type { YearlyCases, Instruction } from '@/types';
 import { CATEGORY_LABELS, CATEGORY_COLORS } from '@/data/categories';
+import { buildOpenGraph } from '@/lib/seo';
 
 const year = casesYear as YearlyCases;
 const instructions = instructionsData as unknown as Instruction[];
+
+export const metadata: Metadata = {
+  title: 'Топ-5 обращений по месяцам',
+  description:
+    'Топ-5 популярных обращений пользователей rkeeper по каждому месяцу: кейсы, разборы и связанные инструкции.',
+  alternates: { canonical: 'https://ucs-service.vercel.app/faq-top' },
+  openGraph: buildOpenGraph({
+    title: 'Топ-5 обращений по месяцам',
+    description:
+      'Топ-5 популярных обращений пользователей rkeeper по каждому месяцу: кейсы, разборы и связанные инструкции.',
+    url: 'https://ucs-service.vercel.app/faq-top',
+  }),
+};
 
 export default function FaqTopListPage() {
   const topPerMonth = year.months.map((m) => {

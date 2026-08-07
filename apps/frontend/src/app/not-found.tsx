@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { Search, Home, BookOpen, GraduationCap, FileText } from 'lucide-react';
+import { Search, Home, BookOpen, GraduationCap, FileText, ArrowRight } from 'lucide-react';
 import { useUIStore } from '@/stores/ui';
 
 export default function NotFound() {
@@ -28,21 +28,25 @@ export default function NotFound() {
           </button>
 
           <div className="grid grid-cols-1 gap-2">
-            <Link href="/" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left">
+            <Link href="/" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left group">
               <Home className="w-4 h-4 text-[#1a56db] shrink-0" />
-              <span className="text-sm text-[#374151]">На главную</span>
+              <span className="text-sm text-[#374151] flex-1">На главную</span>
+              <ArrowRight className="w-4 h-4 text-[#9ca3af] shrink-0 transition-all group-hover:text-[#1a56db] group-hover:translate-x-0.5" />
             </Link>
-            <Link href="/docs" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left">
+            <Link href="/docs" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left group">
               <BookOpen className="w-4 h-4 text-[#1a56db] shrink-0" />
-              <span className="text-sm text-[#374151]">Инструкции</span>
+              <span className="text-sm text-[#374151] flex-1">Инструкции</span>
+              <ArrowRight className="w-4 h-4 text-[#9ca3af] shrink-0 transition-all group-hover:text-[#1a56db] group-hover:translate-x-0.5" />
             </Link>
-            <Link href="/school" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left">
+            <Link href="/school" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left group">
               <GraduationCap className="w-4 h-4 text-[#0d9488] shrink-0" />
-              <span className="text-sm text-[#374151]">Школа</span>
+              <span className="text-sm text-[#374151] flex-1">Школа</span>
+              <ArrowRight className="w-4 h-4 text-[#9ca3af] shrink-0 transition-all group-hover:text-[#1a56db] group-hover:translate-x-0.5" />
             </Link>
-            <Link href="/faq" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left">
+            <Link href="/faq" className="glass-card p-3 flex items-center gap-3 no-underline hover:-translate-y-0.5 transition-all text-left group">
               <FileText className="w-4 h-4 text-[#0d9488] shrink-0" />
-              <span className="text-sm text-[#374151]">Популярные обращения</span>
+              <span className="text-sm text-[#374151] flex-1">Популярные обращения</span>
+              <ArrowRight className="w-4 h-4 text-[#9ca3af] shrink-0 transition-all group-hover:text-[#1a56db] group-hover:translate-x-0.5" />
             </Link>
           </div>
         </div>

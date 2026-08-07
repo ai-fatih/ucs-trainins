@@ -33,22 +33,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     }));
 
-  const coursePages: MetadataRoute.Sitemap = courses.flatMap((course) => [
-    {
-      url: `${BASE_URL}/school/courses/${course.id}`,
-      lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    ...course.modules.flatMap((mod) =>
-      mod.lessons.map((lesson) => ({
-        url: `${BASE_URL}/school/courses/${course.id}/lessons/${lesson.id}`,
+  const coursePages: MetadataRoute.Sitemap = courses
+    .filter((course) => course.modules.some((mod) => mod.lessons.some((l) => !l.stub)))
+    .flatMap((course) => [
+      {
+        url: `${BASE_URL}/school/courses/${course.id}`,
         lastModified: now,
         changeFrequency: 'monthly' as const,
-        priority: 0.6,
-      })),
-    ),
-  ]);
+        priority: 0.7,
+      },
+      ...course.modules.flatMap((mod) =>
+        mod.lessons
+          .filter((lesson) => !lesson.stub)
+          .map((lesson) => ({
+            url: `${BASE_URL}/school/courses/${course.id}/lessons/${lesson.id}`,
+            lastModified: now,
+            changeFrequency: 'monthly' as const,
+            priority: 0.6,
+          })),
+      ),
+    ]);
 
   const faqPages: MetadataRoute.Sitemap = year.months.flatMap((month) => [
     {

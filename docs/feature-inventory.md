@@ -91,22 +91,25 @@
 
 | Фича | Файл | Данные | Статус |
 |------|------|--------|--------|
-| Школа-хаб: hero «тренажёр», статы (курсы/уроки/XP), блок «Скоро» | `app/school/page.tsx` | `data/school/courses.json` | ✅ |
+| Школа-хаб: hero «тренажёр», статы (курсы/уроки/XP — **только реальные, без заглушек**), блок «Скоро» | `app/school/page.tsx` | `data/school/courses.json` | ✅ |
 | Список курсов | `app/school/courses/page.tsx` | `data/school/courses.json` | ✅ назад «В школу» |
 | Деталь курса (skills «Чему научишься», модули/уроки, все открыты) | `app/school/courses/[id]/page.tsx` | `data/school/courses.json` | ✅ |
-| Карточка курса: бейдж «Тренажёр» + навыки «Научишься» | `components/school/CourseCard.tsx` | `courses.json` (`skills`) | ✅ |
-| Урок (завершение сохраняется локально, финальный экран) | `app/school/courses/[id]/lessons/[lid]/page.tsx` | `data/school/courses.json`, `data/school/lessons/*` | ✅ квизы, спринты, сопоставление, цепочки, кейсы |
+| Карточка курса: бейдж «Тренажёр» / «Скоро» (если все уроки — заглушки) + навыки «Научишься» | `components/school/CourseCard.tsx` | `courses.json` (`skills`, `Lesson.stub`) | ✅ |
+| Урок (завершение сохраняется локально, финальный экран; урок-заглушка `stub` — экран «🔜 Скоро вы сможете потренироваться здесь» вместо тренажёра) | `app/school/courses/[id]/lessons/[lid]/page.tsx`, `components/school/LessonView.tsx` | `data/school/courses.json`, `data/school/lessons/*` | ✅ квизы, спринты, сопоставление, цепочки, кейсы; заглушки |
 | Прогресс обучения (localStorage, без ЛК) | `stores/schoolProgress.ts` + `components/school/SchoolProgressBridge.tsx` | localStorage `ucs_school_progress` | ✅ |
 | Панель прогресса курса (бар %, «Продолжить урок», сброс) | `components/school/CourseProgressPanel.tsx` | store `schoolProgress` | ✅ |
-| Отметка пройденных уроков в модулях курса | `components/school/ModuleBlock.tsx` | store `schoolProgress` | ✅ |
+| Отметка пройденных уроков в модулях курса + бейдж «скоро» у заглушек | `components/school/ModuleBlock.tsx` | store `schoolProgress`, `Lesson.stub` | ✅ |
 | Баннер «Урок уже пройден» + переход к следующему | `app/school/courses/[id]/lessons/[lid]/page.tsx` | store `schoolProgress` | ✅ |
 | Курс-тренажёр по кейсам месяца | `app/school/courses/[id]/lessons/[lid]/page.tsx` | `data/school/courses.json` (`cases-2026-07`) | ✅ деревья решений `c1`/`c2`, терминальный шаг = generic (без `choices`) |
+| Месячные курсы-тренажёры по кейсам (`cases-2026-01…08`): по одному уроку-заглушке на кейс (все `stub`, «Скоро вы сможете потренироваться здесь») | `data/school/courses.json` | `data/cases/yearly.json` (courseId/lessonId у всех 67 кейсов) | ⚠️ заглушки — контент появятся по мере наполнения |
+| Фильтрация заглушек: статы `/school`, sitemap, поисковый индекс — только реальные уроки/курсы/инструкции | `app/school/page.tsx`, `app/sitemap.ts`, `data/search-index.ts` | флаги `stub` в `courses.json`/`instructions.json` | ✅ |
+| Визуальная система карточек: hover-подъём только у ссылок (`a.glass-card:hover`), стрелка `→` на кликабельных карточках, некликабельные поверхности статичны | `globals.css` + карточки-ссылки (`FaqCatalog`, `FaqMonthSearch`, экшены кейса, `docs/page`, `not-found`, `CourseCard`) | — | ✅ |
 
 ---
 
 ## Ключевые сквозные связи
 
-1. ✅ Ядро «Обращение → Инструкция → Школа»: `/faq/[month]/[caseId]` → `/docs/[instructionId]` (Читать инструкцию) и `/school/courses/{courseId}/lessons/{lessonId}` (Потренироваться); `docs/[id]` → «из каких обращений» `/faq/2026-07/[caseId]`
+1. ✅ Ядро «Обращение → Инструкция → Школа» закрыто для **всех 67 кейсов**: `/faq/[month]/[caseId]` → `/docs/[instructionId]` (Читать инструкцию) и `/school/courses/{courseId}/lessons/{lessonId}` (Потренироваться); каждый кейс имеет `instructionId` + `courseId` + `lessonId` (реальные или заглушки «скоро»); `docs/[id]` → «из каких обращений» `/faq/2026-07/[caseId]`
 2. ✅ Урок школы → «Следующий урок» / «К курсу» / «В школу»; прогресс сохраняется локально (localStorage)
 3. ✅ Все маршруты публичные: авторизация и редиректы отсутствуют; backend отдаёт только `/health`
 4. ✅ Контент `/docs/**` и `/school/**` кешируется service worker (NetworkFirst) для офлайн-доступа

@@ -5,20 +5,21 @@ import { GraduationCap, BookOpen } from 'lucide-react';
 import casesYear from '@/data/cases/yearly.json';
 import { HeroStatsCard } from '@/components/hero/HeroStatsCard';
 import type { YearlyCases } from '@/types';
+import { SITE_URL, SITE_DESCRIPTION, buildOpenGraph } from '@/lib/seo';
 
 const casesData = casesYear as YearlyCases;
 
+const HOME_TITLE = 'UCS Service — Обучение и документация по rkeeper';
+
 export const metadata: Metadata = {
-  title: 'UCS Service — Обучение и документация по rkeeper',
-  description:
-    'Открытый портал: инструкции, тренажёры и курсы по rkeeper. Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper.',
-  alternates: { canonical: 'https://ucs-service.vercel.app' },
-  openGraph: {
-    title: 'UCS Service — Обучение и документация по rkeeper',
-    description:
-      'Открытый портал: инструкции, тренажёры и курсы по rkeeper. Обучение и документация без регистрации.',
-    url: 'https://ucs-service.vercel.app',
-  },
+  title: HOME_TITLE,
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: SITE_URL },
+  openGraph: buildOpenGraph({
+    title: HOME_TITLE,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+  }),
 };
 
 export default function HomePage() {
@@ -63,6 +64,9 @@ export default function HomePage() {
           <p className="text-base text-[#94a3b8] mb-4 max-w-md">
             Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper
           </p>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-[#5eead4] mb-2">
+            Чему мы обучаем
+          </h2>
           <div className="flex gap-2 flex-wrap mb-8">
             <span className="text-[11px] px-3 py-1 rounded-full font-semibold bg-[rgba(13,148,136,0.15)] text-[#5eead4]">rkeeper</span>
             <span className="text-[11px] px-3 py-1 rounded-full font-semibold bg-[rgba(13,148,136,0.15)] text-[#5eead4]">storehouse</span>
@@ -101,6 +105,9 @@ export default function HomePage() {
           <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(26,86,219,0.3)] top-[10%] left-[10%]" />
           <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(13,148,136,0.25)] bottom-[10%] right-[10%]" />
           <div className="relative">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-[#5eead4] mb-3">
+              Статистика обращений
+            </h2>
             <HeroStatsCard data={casesData} />
           </div>
         </div>

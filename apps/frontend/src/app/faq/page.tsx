@@ -6,18 +6,19 @@ import casesYear from '@/data/cases/yearly.json';
 import type { YearlyCases } from '@/types';
 import { FaqCatalog } from '@/components/faq/FaqCatalog';
 import { FaqMonthChart } from '@/components/faq/FaqMonthChart';
+import { buildOpenGraph } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Популярные обращения',
   description:
     'Годовой срез обращений пользователей rkeeper по месяцам. Из обращений формируются инструкции-процессы и тренировки в школе.',
   alternates: { canonical: 'https://ucs-service.vercel.app/faq' },
-  openGraph: {
+  openGraph: buildOpenGraph({
     title: 'Популярные обращения — UCS Service',
     description:
       'Годовой срез обращений пользователей rkeeper по месяцам. Разборы типовых ситуаций.',
     url: 'https://ucs-service.vercel.app/faq',
-  },
+  }),
 };
 
 const year = casesYear as YearlyCases;

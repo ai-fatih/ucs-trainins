@@ -1,12 +1,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { buildOpenGraph } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Согласие на обработку персональных данных',
   description:
     'Отдельное согласие субъекта персональных данных в соответствии с частью 4 статьи 9 152-ФЗ. Цели, перечень данных, порядок отзыва.',
   alternates: { canonical: 'https://ucs-service.vercel.app/consent' },
+  openGraph: buildOpenGraph({
+    title: 'Согласие на обработку персональных данных — UCS Service',
+    description:
+      'Отдельное согласие субъекта персональных данных в соответствии с частью 4 статьи 9 152-ФЗ. Цели, перечень данных, порядок отзыва.',
+    url: 'https://ucs-service.vercel.app/consent',
+  }),
 };
 
 export default function ConsentPage() {
