@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Course } from '@/types';
 import coursesData from '@/data/school/courses.json';
 import CourseDetailView from '@/components/school/CourseDetailView';
+import { buildOpenGraph } from '@/lib/seo';
 
 const courses = coursesData as unknown as Course[];
 
@@ -24,7 +25,7 @@ export async function generateMetadata({
     title: course.title,
     description: course.description,
     alternates: { canonical: url },
-    openGraph: { title: course.title, description: course.description, url, type: 'article' },
+    openGraph: buildOpenGraph({ title: course.title, description: course.description, url, type: 'article' }),
   };
 }
 

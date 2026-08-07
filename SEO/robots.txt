@@ -1,5 +1,6 @@
+# Справочная копия — фактически генерируется в src/app/robots.ts
 User-agent: *
+Allow: /
 Disallow: /api/
-Disallow: /admin/
 
-Sitemap: https://ucs-trainings.ru/sitemap.xml
+Sitemap: https://ucs-service.vercel.app/sitemap.xml

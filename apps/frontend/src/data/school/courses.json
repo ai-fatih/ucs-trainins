@@ -24,22 +24,22 @@
             "title": "Открытие смены в RK7",
             "description": "Изучи последовательность открытия кассовой смены",
             "activity": {
-              "type": "chain",
-              "scenarioId": "s1"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "rk7-zreport",
             "title": "Формирование Z-отчёта",
             "description": "Разберись, почему не формируется Z-отчёт и как это исправить",
             "activity": {
-              "type": "quiz",
-              "questionId": "q10"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       },
@@ -54,22 +54,22 @@
             "title": "Кейс: блюдо не отображается на кассе",
             "description": "Помоги Маше разобраться, почему блюдо есть в меню, но не видно на кассе",
             "activity": {
-              "type": "case",
-              "decisionTreeId": "c2"
+              "type": "quiz"
             },
             "durationMinutes": 10,
-            "xpReward": 100
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "rk7-dish-quiz",
             "title": "Викторина: отображение блюд",
             "description": "Проверь знания о причинах скрытия блюд на кассе",
             "activity": {
-              "type": "quiz",
-              "questionId": "q2"
+              "type": "quiz"
             },
-            "durationMinutes": 3,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       },
@@ -84,18 +84,18 @@
             "title": "Расхождение выручки",
             "description": "Разберись, почему Z-отчёт и отчёт по расходу блюд показывают разные суммы",
             "activity": {
-              "type": "quiz",
-              "questionId": "q9"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       }
     ],
     "totalLessons": 5,
-    "totalXp": 300,
-    "estimatedHours": 0.5
+    "totalXp": 0,
+    "estimatedHours": 0
   },
   {
     "id": "egais-accounting",
@@ -123,35 +123,33 @@
             "title": "Запрос остатков 1-го регистра",
             "description": "Узнай, как смотреть баланс ЕГАИС по FSRAR_ID",
             "activity": {
-              "type": "quiz",
-              "questionId": "q4"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "egais-portion-query",
             "title": "Запрос порционных остатков",
             "description": "Разберись с остатками по Справке Б",
             "activity": {
-              "type": "quiz",
-              "questionId": "q5"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "egais-term-match",
             "title": "Сопоставление: термины ЕГАИС",
             "description": "Соедини термины ЕГАИС с их определениями",
             "activity": {
-              "type": "match",
-              "matchPairIds": [
-                "egais-core"
-              ]
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 80
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       },
@@ -166,22 +164,22 @@
             "title": "Процедура: приём накладной ЕГАИС",
             "description": "Собери правильную последовательность приёма накладной",
             "activity": {
-              "type": "chain",
-              "scenarioId": "s2"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "egais-invoice-activation",
             "title": "Почему товары не активируются?",
             "description": "Разберись с типовой проблемой активации накладной",
             "activity": {
-              "type": "quiz",
-              "questionId": "q3"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       },
@@ -196,38 +194,33 @@
             "title": "Спринт: цвета марок",
             "description": "Быстро определи, верно ли утверждение о цветах марок",
             "activity": {
-              "type": "sprint",
-              "sprintQuestionIds": [
-                "q4",
-                "q5",
-                "q6",
-                "q7"
-              ]
+              "type": "quiz"
             },
-            "durationMinutes": 3,
-            "xpReward": 70
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "egais-red-line",
             "title": "Красная строка в инвентаризации",
             "description": "Что означает красный цвет при сканировании марок",
             "activity": {
-              "type": "quiz",
-              "questionId": "q6"
+              "type": "quiz"
             },
-            "durationMinutes": 3,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "egais-old-mark",
             "title": "Флаг «Старая» у марки",
             "description": "Что делать с марками, помеченными как «Старая»",
             "activity": {
-              "type": "quiz",
-              "questionId": "q7"
+              "type": "quiz"
             },
-            "durationMinutes": 3,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       },
@@ -242,18 +235,18 @@
             "title": "Процедура: инвентаризация алкоголя",
             "description": "Собери правильную последовательность шагов",
             "activity": {
-              "type": "chain",
-              "scenarioId": "s3"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       }
     ],
     "totalLessons": 9,
-    "totalXp": 500,
-    "estimatedHours": 1
+    "totalXp": 0,
+    "estimatedHours": 0
   },
   {
     "id": "storehouse-inventory",
@@ -279,24 +272,22 @@
             "title": "Сопоставление товаров ЕГАИС",
             "description": "Проверь знания о сопоставлении справочников",
             "activity": {
-              "type": "quiz",
-              "questionId": "q6"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "sh-term-match",
             "title": "Сопоставление: StoreHouse",
             "description": "Соедини термины StoreHouse с определениями",
             "activity": {
-              "type": "match",
-              "matchPairIds": [
-                "storehouse-core"
-              ]
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 80
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       },
@@ -311,18 +302,18 @@
             "title": "QushSvc и sdbman",
             "description": "Проверь знание служебных утилит",
             "activity": {
-              "type": "quiz",
-              "questionId": "q3"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       }
     ],
     "totalLessons": 3,
-    "totalXp": 180,
-    "estimatedHours": 0.3
+    "totalXp": 0,
+    "estimatedHours": 0
   },
   {
     "id": "error-resolution",
@@ -348,22 +339,22 @@
             "title": "Кейс: ошибка 8004",
             "description": "Помоги Маше победить ошибку «Нет доступной вскрытой марки»",
             "activity": {
-              "type": "case",
-              "decisionTreeId": "c1"
+              "type": "quiz"
             },
-            "durationMinutes": 15,
-            "xpReward": 150
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "err-8004-quiz",
             "title": "Викторина: ошибка 8004",
             "description": "Закрепи знания об ошибке 8004",
             "activity": {
-              "type": "quiz",
-              "questionId": "q1"
+              "type": "quiz"
             },
-            "durationMinutes": 3,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       },
@@ -378,11 +369,11 @@
             "title": "Кейс: блюдо не видно на кассе",
             "description": "Разберись с проблемой отображения блюда",
             "activity": {
-              "type": "case",
-              "decisionTreeId": "c2"
+              "type": "quiz"
             },
             "durationMinutes": 10,
-            "xpReward": 100
+            "xpReward": 0,
+            "stub": true
           }
         ]
       },
@@ -397,22 +388,22 @@
             "title": "Процедура: переход DataMatrix → GTIN",
             "description": "Собери последовательность перехода на послабление маркировки",
             "activity": {
-              "type": "chain",
-              "scenarioId": "s4"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 50
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "err-gtin-quiz",
             "title": "Режим GTIN",
             "description": "Проверь знание перехода на GTIN",
             "activity": {
-              "type": "quiz",
-              "questionId": "q8"
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 80
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       },
@@ -427,24 +418,18 @@
             "title": "Спринт: типовые ошибки",
             "description": "Быстро отвечай «Верно» или «Неверно» по ситуациям",
             "activity": {
-              "type": "sprint",
-              "sprintQuestionIds": [
-                "q1",
-                "q2",
-                "q8",
-                "q9",
-                "q10"
-              ]
+              "type": "quiz"
             },
-            "durationMinutes": 3,
-            "xpReward": 70
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       }
     ],
     "totalLessons": 6,
-    "totalXp": 500,
-    "estimatedHours": 0.7
+    "totalXp": 0,
+    "estimatedHours": 0
   },
   {
     "id": "egaismatch",
@@ -471,26 +456,22 @@
             "title": "Сопоставление: базовые термины ЕГАИС",
             "description": "Соедини 8 базовых терминов с определениями",
             "activity": {
-              "type": "match",
-              "matchPairIds": [
-                "egais-core"
-              ]
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 80
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "match-colors",
             "title": "Сопоставление: цвета марок",
             "description": "Соедини цвета марок с их значением",
             "activity": {
-              "type": "match",
-              "matchPairIds": [
-                "egais-colors"
-              ]
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 80
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       },
@@ -505,20 +486,18 @@
             "title": "Сопоставление: утилиты и режимы",
             "description": "QushSvc, sdbman, GTIN и другие",
             "activity": {
-              "type": "match",
-              "matchPairIds": [
-                "storehouse-core"
-              ]
+              "type": "quiz"
             },
-            "durationMinutes": 5,
-            "xpReward": 80
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           }
         ]
       }
     ],
     "totalLessons": 3,
-    "totalXp": 240,
-    "estimatedHours": 0.3
+    "totalXp": 0,
+    "estimatedHours": 0
   },
   {
     "id": "cases-2026-07",
@@ -544,11 +523,11 @@
             "title": "Кейс: ошибка 8004 «Нет доступной вскрытой марки»",
             "description": "Помоги кассиру разобраться, почему марка не списывается",
             "activity": {
-              "type": "case",
-              "decisionTreeId": "c1"
+              "type": "quiz"
             },
-            "durationMinutes": 15,
-            "xpReward": 150
+            "durationMinutes": 10,
+            "xpReward": 0,
+            "stub": true
           },
           {
             "id": "case-gtin-mark-switch-jul-train",
@@ -651,18 +630,18 @@
             "title": "Кейс: блюдо есть в меню, но не видно на кассе",
             "description": "Найди причину, почему позиция не отображается",
             "activity": {
-              "type": "case",
-              "decisionTreeId": "c2"
+              "type": "quiz"
             },
             "durationMinutes": 10,
-            "xpReward": 100
+            "xpReward": 0,
+            "stub": true
           }
         ]
       }
     ],
     "totalLessons": 10,
-    "totalXp": 250,
-    "estimatedHours": 0.4
+    "totalXp": 0,
+    "estimatedHours": 0
   },
   {
     "id": "cases-2026-01",

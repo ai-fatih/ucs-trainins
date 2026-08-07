@@ -7,6 +7,7 @@ import instructionsData from '@/data/instructions.json';
 import type { YearlyCases, Instruction } from '@/types';
 import { PRODUCT_LABELS } from '@/data/products';
 import { CATEGORY_LABELS, CATEGORY_COLORS } from '@/data/categories';
+import { buildOpenGraph } from '@/lib/seo';
 
 const year = casesYear as YearlyCases;
 const instructions = instructionsData as unknown as Instruction[];
@@ -36,7 +37,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { title, description, url, type: 'article' },
+    openGraph: buildOpenGraph({ title, description, url, type: 'article' }),
   };
 }
 

@@ -1,10 +1,10 @@
-import type { OpenGraphMetadata } from 'next';
+import type { Metadata } from 'next';
 
 export const SITE_URL = 'https://ucs-service.vercel.app';
 export const SITE_NAME = 'UCS Service';
 
 export const SITE_DESCRIPTION =
-  'Открытый портал: инструкции, тренажёры и курсы по rkeeper. Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper.';
+  'Открытый портал отдела поддержки ucs service: разборы реальных обращений rkeeper, инструкции и практика. Обучение кассиров без регистрации.';
 
 export const SITE_KEYWORDS = [
   'rkeeper',
@@ -14,6 +14,19 @@ export const SITE_KEYWORDS = [
   'тренажёры rkeeper',
   'курсы rkeeper',
   'обучение кассиров',
+  'бухгалтер',
+  'калькулятор',
+  'storehouse',
+  'списание',
+  'учет',
+  'выгрузка',
+  '1c',
+  'доставка',
+  'егаис',
+  'честный знак',
+  'маркировка',
+  'тс пиот',
+  'gtin марка',
   'UCS Service',
 ];
 
@@ -34,7 +47,7 @@ export function buildOpenGraph({
   description: string;
   url: string;
   type?: 'website' | 'article';
-}): OpenGraphMetadata {
+}): NonNullable<Metadata['openGraph']> {
   return {
     title,
     description,

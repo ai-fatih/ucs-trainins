@@ -61,6 +61,7 @@ export function Footer() {
         <div className="border-t border-[#e5e7eb] mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#9ca3af]">
           <span>ООО ЦТО «ЮСИЭС сервис» &copy; {new Date().getFullYear()}. Все права защищены.</span>
           <span>ОГРН 1037723040871 / ИНН 7723347991</span>
+          <span>@vladislav_fatikhov</span>
         </div>
       </div>
     </footer>

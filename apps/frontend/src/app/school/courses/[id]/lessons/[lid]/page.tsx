@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import type { Course, Lesson } from '@/types';
 import coursesData from '@/data/school/courses.json';
 import { LessonPlayer } from '@/components/school/LessonPlayer';
+import { buildOpenGraph } from '@/lib/seo';
 
 const courses = coursesData as unknown as Course[];
 
@@ -29,7 +30,7 @@ export async function generateMetadata({
     title: lesson.title,
     description: lesson.description,
     alternates: { canonical: url },
-    openGraph: { title: lesson.title, description: lesson.description, url, type: 'article' },
+    openGraph: buildOpenGraph({ title: lesson.title, description: lesson.description, url, type: 'article' }),
   };
 }
 

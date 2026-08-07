@@ -3,10 +3,13 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { TrendingUp, Swords, ArrowLeft } from 'lucide-react';
 import casesYear from '@/data/cases/yearly.json';
-import type { YearlyCases } from '@/types';
+import instructionsData from '@/data/instructions.json';
+import type { YearlyCases, Instruction } from '@/types';
 import { FaqMonthSearch } from '@/components/faq/FaqMonthSearch';
+import { buildOpenGraph } from '@/lib/seo';
 
 const year = casesYear as YearlyCases;
+const instructions = instructionsData as unknown as Instruction[];
 
 export function generateStaticParams() {
   return year.months.map((m) => ({ month: m.month }));
@@ -29,7 +32,7 @@ export async function generateMetadata({
     title: `Обращения · ${title}`,
     description,
     alternates: { canonical: url },
-    openGraph: { title: `Обращения · ${title}`, description, url },
+    openGraph: buildOpenGraph({ title: `Обращения · ${title}`, description, url }),
   };
 }
 
@@ -63,6 +66,29 @@ export default async function FaqMonthPage({
 
   return (
     <div className="max-w-[1000px] mx-auto px-4 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: (month.cases ?? [])
+              .filter((c) => c.request || c.title)
+              .map((c) => {
+                const ins = instructions.find((i) => i.id === c.instructionId);
+                return {
+                  '@type': 'Question',
+                  name: c.title,
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: c.request || ins?.description || c.title,
+                    url: `https://ucs-service.vercel.app/faq/${monthStr}/${c.id}`,
+                  },
+                };
+              }),
+          }),
+        }}
+      />
       <div className="mb-8">
         <Link
           href="/faq"

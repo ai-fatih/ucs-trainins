@@ -62,11 +62,9 @@ export default function HomePage() {
             Экспертная поддержка <span className="text-[#0d9488]">пользователей rkeeper</span>
           </h1>
           <p className="text-base text-[#94a3b8] mb-4 max-w-md">
-            Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper
+            Открытый портал отдела поддержки ucs service, здесь разборы реальных обращений
+            с инструкциями и практикой.
           </p>
-          <h2 className="text-xs font-bold uppercase tracking-wider text-[#5eead4] mb-2">
-            Чему мы обучаем
-          </h2>
           <div className="flex gap-2 flex-wrap mb-8">
             <span className="text-[11px] px-3 py-1 rounded-full font-semibold bg-[rgba(13,148,136,0.15)] text-[#5eead4]">rkeeper</span>
             <span className="text-[11px] px-3 py-1 rounded-full font-semibold bg-[rgba(13,148,136,0.15)] text-[#5eead4]">storehouse</span>
@@ -105,9 +103,6 @@ export default function HomePage() {
           <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(26,86,219,0.3)] top-[10%] left-[10%]" />
           <div className="absolute w-72 h-72 rounded-full blur-[80px] bg-[rgba(13,148,136,0.25)] bottom-[10%] right-[10%]" />
           <div className="relative">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-[#5eead4] mb-3">
-              Статистика обращений
-            </h2>
             <HeroStatsCard data={casesData} />
           </div>
         </div>

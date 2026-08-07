@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   keywords: SITE_KEYWORDS,
-  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  authors: [{ name: 'Vladislav Fatikhov' }],
   creator: SITE_NAME,
   other: { publisher: SITE_NAME },
   manifest: '/manifest.json',

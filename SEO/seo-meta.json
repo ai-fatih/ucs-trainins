@@ -1,27 +1,101 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "SEO мета-данные для страниц сайта",
+  "description": "SEO мета-данные для страниц сайта ucs-service.vercel.app (справочник; фактическая генерация — src/app + src/lib/seo.ts)",
+  "baseUrl": "https://ucs-service.vercel.app",
+  "siteName": "UCS Service",
+  "defaultTitle": "UCS Service — Обучение и документация по rkeeper",
+  "defaultDescription": "Открытый портал: инструкции, тренажёры и курсы по rkeeper. Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper.",
+  "defaultOgImage": "/images/og-default.png",
   "pages": [
     {
       "route": "/",
-      "title": "UCS Trainings — Курсы и тренинги",
-      "description": "Современные курсы и тренинги для профессионального развития.",
-      "ogImage": "/images/og-home.jpg",
-      "keywords": ["курсы", "тренинги", "обучение", "UCS"]
+      "title": "UCS Service — Обучение и документация по rkeeper",
+      "description": "Открытый портал: инструкции, тренажёры и курсы по rkeeper. Консультируем и обучаем сотрудников по работе с пользовательской частью rkeeper.",
+      "keywords": ["rkeeper", "обучение rkeeper", "инструкции rkeeper", "документация rkeeper", "UCS Service"]
     },
     {
-      "route": "/trainings",
-      "title": "Все тренинги — UCS Trainings",
-      "description": "Каталог доступных тренингов и программ обучения.",
-      "ogImage": "/images/og-trainings.jpg",
-      "keywords": ["тренинги", "каталог", "программы обучения"]
+      "route": "/docs",
+      "title": "Инструкции — UCS Service",
+      "description": "Пошаговые инструкции-процессы по продуктам rkeeper: rKeeper 7, StoreHouse, ЕГАИС, Доставка. Как решить типовую задачу шаг за шагом.",
+      "keywords": ["инструкции rkeeper", "rKeeper 7", "StoreHouse", "ЕГАИС", "Доставка"]
     },
     {
-      "route": "/about",
-      "title": "О нас — UCS Trainings",
-      "description": "Информация о платформе UCS Trainings и команде.",
-      "ogImage": "/images/og-about.jpg",
-      "keywords": ["о нас", "команда", "UCS"]
+      "route": "/docs/[id]",
+      "title": "динамически: название инструкции",
+      "description": "динамически: описание инструкции",
+      "keywords": ["инструкции rkeeper", "решение задачи rkeeper"]
+    },
+    {
+      "route": "/school",
+      "title": "Школа rkeeper — Тренажёры и курсы",
+      "description": "Бесплатные тренажёры по rkeeper: квизы, спринты, сопоставления и деревья решений на реальных кейсах. Учись без регистрации.",
+      "keywords": ["тренажёры rkeeper", "курсы rkeeper", "обучение кассиров", "квизы"]
+    },
+    {
+      "route": "/school/courses",
+      "title": "Курсы школы rkeeper — UCS Service",
+      "description": "Каталог открытых курсов по rkeeper: квизы, спринты, сопоставления и деревья решений на реальных кейсах. Обучение без регистрации.",
+      "keywords": ["курсы rkeeper", "школа rkeeper", "обучение без регистрации"]
+    },
+    {
+      "route": "/school/courses/[id]",
+      "title": "динамически: название курса",
+      "description": "динамически: описание курса",
+      "keywords": ["курсы rkeeper", "тренажёры rkeeper"]
+    },
+    {
+      "route": "/school/courses/[id]/lessons/[lid]",
+      "title": "динамически: название урока",
+      "description": "динамически: описание урока",
+      "keywords": ["урок rkeeper", "тренажёр rkeeper"]
+    },
+    {
+      "route": "/faq",
+      "title": "Популярные обращения — UCS Service",
+      "description": "Годовой срез обращений пользователей rkeeper по месяцам. Из обращений формируются инструкции-процессы и тренировки в школе.",
+      "keywords": ["обращения rkeeper", "часто задаваемые вопросы", "rkeeper"]
+    },
+    {
+      "route": "/faq/[month]",
+      "title": "динамически: Обращения · месяц",
+      "description": "динамически: разбор обращений консультаций rkeeper за месяц",
+      "keywords": ["обращения rkeeper", "кейсы rkeeper"]
+    },
+    {
+      "route": "/faq/[month]/[caseId]",
+      "title": "динамически: название обращения",
+      "description": "динамически: формулировка запроса пользователя",
+      "keywords": ["обращение rkeeper", "кейс rkeeper"]
+    },
+    {
+      "route": "/faq-top",
+      "title": "Топ-5 обращений по месяцам — UCS Service",
+      "description": "Топ-5 популярных обращений пользователей rkeeper по каждому месяцу: кейсы, разборы и связанные инструкции.",
+      "keywords": ["топ обращений rkeeper", "кейсы rkeeper"]
+    },
+    {
+      "route": "/privacy",
+      "title": "Политика конфиденциальности — UCS Service",
+      "description": "Политика обработки персональных данных ООО ЦТО «ЮСИЭС сервис» в соответствии с 152-ФЗ. Категории данных, цели, сроки, права субъекта.",
+      "keywords": ["политика конфиденциальности", "персональные данные", "152-ФЗ"]
+    },
+    {
+      "route": "/terms",
+      "title": "Пользовательское соглашение — UCS Service",
+      "description": "Условия использования сайта ucs-service.ru: права и обязанности сторон, регистрация, ответственность.",
+      "keywords": ["пользовательское соглашение", "условия использования"]
+    },
+    {
+      "route": "/offer",
+      "title": "Публичная оферта на оказание услуг — UCS Service",
+      "description": "Публичная оферта ООО ЦТО «ЮСИЭС сервис» на оказание консультационных и обучающих услуг по работе с rkeeper.",
+      "keywords": ["публичная оферта", "оферта на обучение"]
+    },
+    {
+      "route": "/consent",
+      "title": "Согласие на обработку персональных данных — UCS Service",
+      "description": "Отдельное согласие субъекта персональных данных в соответствии с частью 4 статьи 9 152-ФЗ. Цели, перечень данных, порядок отзыва.",
+      "keywords": ["согласие на обработку", "персональные данные"]
     }
   ]
 }

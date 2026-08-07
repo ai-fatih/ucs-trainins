@@ -1,0 +1,22 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "UCS Service — ЦТО «ЮСИЭС сервис»",
+  "url": "https://ucs-service.vercel.app",
+  "logo": "https://ucs-service.vercel.app/icons/icon-512x512.png",
+  "description": "Обучение и документация по программам rkeeper. Консультации, тренажёры и инструкции.",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+7-495-777-01-20",
+    "contactType": "customer service",
+    "email": "school@ucs-service.ru",
+    "areaServed": "RU"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "RU",
+    "addressLocality": "Москва",
+    "streetAddress": "пер. Большой Полуярославский, д. 10 стр. 1",
+    "postalCode": "105120"
+  }
+}

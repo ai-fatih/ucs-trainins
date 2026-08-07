@@ -64,7 +64,7 @@
 | Фича | Файл | Данные | Статус |
 |------|------|--------|--------|
 | Список инструкций-процессов (карточки: заголовок, описание, теги, число шагов) + карточки «Популярные обращения» (`/faq`) и «Официальная документация» (`docs.rkeeper.ru`, external) | `app/docs/page.tsx` | `data/instructions.json` | ✅ |
-| Страница инструкции: TOC (`DocPageToolbar`, якоря `#steps`/`#step-N`/`#errors`) → шаги → типовые ошибки → «из каких обращений» (`/faq/2026-07/[caseId]`) → prev/next → CTA «Потренироваться в школе»; заглушки (`stub`) — блок «Скоро здесь будет инструкция» | `app/docs/[id]/page.tsx` | `data/instructions.json`, `data/cases/yearly.json` | ✅ |
+| Страница инструкции: TOC (`DocPageToolbar`, якоря `#steps`/`#step-N`/`#errors`) → шаги → типовые ошибки → «из каких обращений» (`/faq/2026-07/[caseId]`) → prev/next → CTA «Потренироваться в школе»; **все 67 инструкций — заглушки** (`stub`, блок «Скоро здесь будет инструкция»; шаги/ошибки очищены) | `app/docs/[id]/page.tsx` | `data/instructions.json`, `data/cases/yearly.json` | ⚠️ только заглушки |
 | Сайдбар-дерево документации (desktop) + шторка (mobile) + поиск по дереву | `app/docs/layout.tsx` | `data/docs/catalog.ts` (из `instructions.json`) | ✅ |
 | Примерные инструкции по продуктам (r_keeper 7 / StoreHouse / Delivery / Event / Waiter) | `app/docs/rkeeper/**` | — | 🗑 удалены (20 страниц) |
 | Prev/next между инструкциями | `components/docs/InstructionPager.tsx` | — | 🗑 удалён (на странице — нативные prev/next) |
@@ -89,27 +89,42 @@
 
 > ✅ Публичный модуль без авторизации и без персонализации. Все курсы открыты, уроки доступны без регистрации, прогресс **хранится локально** (localStorage, ключ `ucs_school_progress`, без backend). Геймификация (XP, уровни, стрейки, рейтинг, бейджи, сертификаты, мини-игры) и профиль школы **удалены**. Школа позиционируется как **тренажёр** («Школа — это тренажёр», кейсы вместо лекций).
 
+> ⚠️ **Состояние контента:** реальный контент тренажёров удалён из репозитория (см. секцию «Контент тренажёров» ниже) — **все 92 урока в 13 курсах — заглушки** («Скоро вы сможете потренироваться здесь»). Статы на `/school` показывают 0/0/0 осознанно. Движок тренажёров (викторины, спринты, сопоставления, процедуры, кейсы) из `LessonView` удалён вместе с контентом; при наполнении — восстановить по описанию архитектуры в секции ниже.
+
 | Фича | Файл | Данные | Статус |
 |------|------|--------|--------|
-| Школа-хаб: hero «тренажёр», статы (курсы/уроки/XP — **только реальные, без заглушек**), блок «Скоро» | `app/school/page.tsx` | `data/school/courses.json` | ✅ |
-| Список курсов | `app/school/courses/page.tsx` | `data/school/courses.json` | ✅ назад «В школу» |
+| Школа-хаб: hero «тренажёр», статы (курсы/уроки/XP — **только реальные, без заглушек**; пока 0/0/0), блок «Скоро» | `app/school/page.tsx` | `data/school/courses.json` | ✅ |
+| Список курсов (все 13 с бейджем «Скоро») | `app/school/courses/page.tsx` | `data/school/courses.json` | ✅ назад «В школу» |
 | Деталь курса (skills «Чему научишься», модули/уроки, все открыты) | `app/school/courses/[id]/page.tsx` | `data/school/courses.json` | ✅ |
-| Карточка курса: бейдж «Тренажёр» / «Скоро» (если все уроки — заглушки) + навыки «Научишься» | `components/school/CourseCard.tsx` | `courses.json` (`skills`, `Lesson.stub`) | ✅ |
-| Урок (завершение сохраняется локально, финальный экран; урок-заглушка `stub` — экран «🔜 Скоро вы сможете потренироваться здесь» вместо тренажёра) | `app/school/courses/[id]/lessons/[lid]/page.tsx`, `components/school/LessonView.tsx` | `data/school/courses.json`, `data/school/lessons/*` | ✅ квизы, спринты, сопоставление, цепочки, кейсы; заглушки |
+| Карточка курса: бейдж «Тренажёр» / «Скоро» (если все уроки — заглушки) + навыки «Научишься» | `components/school/CourseCard.tsx` | `courses.json` (`skills`, `Lesson.stub`) | ✅ сейчас все курсы → «Скоро» |
+| Урок: все уроки `stub` → экран «🔜 Скоро вы сможете потренироваться здесь» (движок тренажёров удалён); защитная ветка для не-stub — «Тренажёр в разработке» | `app/school/courses/[id]/lessons/[lid]/page.tsx`, `components/school/LessonView.tsx` | `data/school/courses.json` | ⚠️ только заглушки |
 | Прогресс обучения (localStorage, без ЛК) | `stores/schoolProgress.ts` + `components/school/SchoolProgressBridge.tsx` | localStorage `ucs_school_progress` | ✅ |
 | Панель прогресса курса (бар %, «Продолжить урок», сброс) | `components/school/CourseProgressPanel.tsx` | store `schoolProgress` | ✅ |
 | Отметка пройденных уроков в модулях курса + бейдж «скоро» у заглушек | `components/school/ModuleBlock.tsx` | store `schoolProgress`, `Lesson.stub` | ✅ |
 | Баннер «Урок уже пройден» + переход к следующему | `app/school/courses/[id]/lessons/[lid]/page.tsx` | store `schoolProgress` | ✅ |
-| Курс-тренажёр по кейсам месяца | `app/school/courses/[id]/lessons/[lid]/page.tsx` | `data/school/courses.json` (`cases-2026-07`) | ✅ деревья решений `c1`/`c2`, терминальный шаг = generic (без `choices`) |
-| Месячные курсы-тренажёры по кейсам (`cases-2026-01…08`): по одному уроку-заглушке на кейс (все `stub`, «Скоро вы сможете потренироваться здесь») | `data/school/courses.json` | `data/cases/yearly.json` (courseId/lessonId у всех 67 кейсов) | ⚠️ заглушки — контент появятся по мере наполнения |
-| Фильтрация заглушек: статы `/school`, sitemap, поисковый индекс — только реальные уроки/курсы/инструкции | `app/school/page.tsx`, `app/sitemap.ts`, `data/search-index.ts` | флаги `stub` в `courses.json`/`instructions.json` | ✅ |
+| Курсы-тренажёры по кейсам месяцев (`cases-2026-01…08`) и тематические курсы (rk7-basics, egais-accounting, storehouse-inventory, error-resolution, egaismatch): по уроку на каждый из 67 кейсов, все `stub` | `data/school/courses.json` | `data/cases/yearly.json` (courseId/lessonId у всех 67 кейсов) | ⚠️ заглушки — контент появится по мере наполнения |
+| Фильтрация заглушек: статы `/school`, sitemap, поисковый индекс — только реальные уроки/курсы/инструкции (сейчас 0) | `app/school/page.tsx`, `app/sitemap.ts`, `data/search-index.ts` | флаги `stub` в `courses.json`/`instructions.json` | ✅ |
 | Визуальная система карточек: hover-подъём только у ссылок (`a.glass-card:hover`), стрелка `→` на кликабельных карточках, некликабельные поверхности статичны | `globals.css` + карточки-ссылки (`FaqCatalog`, `FaqMonthSearch`, экшены кейса, `docs/page`, `not-found`, `CourseCard`) | — | ✅ |
+
+### Контент тренажёров — как было устроено (удалён из репозитория)
+
+> Реальный контент удалён по решению (этап наполнения ещё не начат). Архитектура сохранена для восстановления.
+
+- **`data/school/config.json`** (удалён) — единый реестр контента движка:
+  - `questions` (10) — квиз-вопросы: `{ id, question, options[], correct, commentary }`
+  - `scenarios` (5) — процедуры «собери порядок шагов»: `{ id, title, steps[] }` (сценарии `s1`–`s4`)
+  - `decisionTrees` (2) — кейсы-тренажёры: `{ id, title, startStep, steps[] }`, где шаг = `{ id, question, choices[] }`, choice = `{ text, correct, hint?, next? }`; терминальный шаг — generic (без `choices`) (деревья `c1`/`c2`)
+  - `matchPairs` (14) — пары «термин → определение» для сопоставлений
+  - `arena`, `trainer` — служебные секции
+- **`data/school/match-groups.json`** (удалён) — группы пар для сопоставлений: `egais-core` (8), `egais-colors` (6), `storehouse-core` (6)
+- **Типы уроков** (`LessonActivity` в `src/types/index.ts`, не удалены): `quiz` (→ `questionId`), `sprint` (→ `sprintQuestionIds[]`), `match` (→ `matchPairIds[]`), `chain` (→ `scenarioId`), `case` (→ `decisionTreeId`)
+- **Движок** был в `components/school/LessonView.tsx` (удалён): диспетчер по `activity.type` + 5 подкомпонентов (`QuizLesson`, `SprintLesson`, `MatchLesson`, `ChainLesson`, `CaseLesson`); `shuffle` из `lib/utils`; прогресс завершался через `onComplete` → localStorage. При наполнении контента движок восстанавливается по этой схеме.
 
 ---
 
 ## Ключевые сквозные связи
 
-1. ✅ Ядро «Обращение → Инструкция → Школа» закрыто для **всех 67 кейсов**: `/faq/[month]/[caseId]` → `/docs/[instructionId]` (Читать инструкцию) и `/school/courses/{courseId}/lessons/{lessonId}` (Потренироваться); каждый кейс имеет `instructionId` + `courseId` + `lessonId` (реальные или заглушки «скоро»); `docs/[id]` → «из каких обращений» `/faq/2026-07/[caseId]`
+1. ✅ Ядро «Обращение → Инструкция → Школа» закрыто для **всех 67 кейсов**: `/faq/[month]/[caseId]` → `/docs/[instructionId]` (Читать инструкцию) и `/school/courses/{courseId}/lessons/{lessonId}` (Потренироваться); каждый кейс имеет `instructionId` + `courseId` + `lessonId`; **весь контент — заглушки** (67/67 инструкций и 67/67 тренажёров: «скоро»); `docs/[id]` → «из каких обращений» `/faq/2026-07/[caseId]`
 2. ✅ Урок школы → «Следующий урок» / «К курсу» / «В школу»; прогресс сохраняется локально (localStorage)
 3. ✅ Все маршруты публичные: авторизация и редиректы отсутствуют; backend отдаёт только `/health`
 4. ✅ Контент `/docs/**` и `/school/**` кешируется service worker (NetworkFirst) для офлайн-доступа

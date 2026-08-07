@@ -1,0 +1,14 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Название курса",
+  "description": "Описание курса",
+  "provider": {
+    "@type": "Organization",
+    "name": "UCS Service",
+    "url": "https://ucs-service.vercel.app"
+  },
+  "url": "https://ucs-service.vercel.app/school/courses/{id}",
+  "numberOfHours": 2,
+  "coursePrerequisites": "Без регистрации"
+}
